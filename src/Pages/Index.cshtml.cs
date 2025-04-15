@@ -8,6 +8,7 @@ namespace ContosoCrafts.WebSite.Pages
 {
     /// <summary>
     /// Mariana Marquez Arce
+    /// Luke McClure
     /// </summary>
     public class IndexModel : PageModel
     {
