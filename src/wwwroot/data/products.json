@@ -1,159 +1,491 @@
 [
   {
-    "Id": "jenlooper-cactus",
-    "Maker": "@jenlooper",
-    "img": "https://user-images.githubusercontent.com/41929050/61567048-13938600-aa33-11e9-9cfd-712191013192.jpeg",
-    "Url": "https://www.hackster.io/agent-hawking-1/the-quantified-cactus-an-easy-plant-soil-moisture-sensor-e65393",
-    "Title": "The Quantified Cactus: An Easy Plant Soil Moisture Sensor",
-    "Description": "This project is a good learning project to get comfortable with soldering and programming an Arduino.",
+    "Id": "31",
+    "Title": "ab",
+    "Fullname": "Scott Lang",
+    "Birthplace": "Coral Gables, Florida",
+    "Work": "Electronics Technician,",
+    "FirstAppear": "Avengers Vol 1 #181 (March, 1979)",
+    "ImageUrl": "https://www.superherodb.com/pictures2/portraits/10/100/166.jpg",
+    "Powerstats": {
+      "Intelligence": "75",
+      "Strength": "18",
+      "Speed": "17",
+      "Durability": "40",
+      "Power": "53",
+      "Combat": "30"
+    },
     "Ratings": [
+      3,
+      3,
+      4,
       5,
-      5
+      1,
+      2,
+      4
     ]
   },
   {
-    "Id": "jenlooper-light",
-    "Maker": "jenlooper",
-    "img": "https://user-images.githubusercontent.com/41929050/61567049-13938600-aa33-11e9-9c69-a4184bf8e524.jpeg",
-    "Url": "https://www.hackster.io/agent-hawking-1/book-light-dee7e4",
-    "Title": "A beautiful switch-on book light",
-    "Description": "Use craft items you have around the house, plus two LEDs and a LilyPad battery holder, to create a useful book light for reading in the dark.",
+    "Id": "106",
+    "Title": "cd",
+    "Fullname": "T\u0027Challa",
+    "Birthplace": "Wakanda, Africa",
+    "Work": "King and Chieftain of Wakanda, scientist; former school teacher",
+    "FirstAppear": "Fantastic Four Vol. 1 #52 (1966)",
+    "ImageUrl": "https://www.superherodb.com/pictures2/portraits/10/100/247.jpg",
+    "Powerstats": {
+      "Intelligence": "88",
+      "Strength": "16",
+      "Speed": "30",
+      "Durability": "60",
+      "Power": "41",
+      "Combat": "100"
+    },
     "Ratings": null
   },
   {
-    "Id": "jenlooper-lightshow",
-    "Maker": "@jenlooper",
-    "img": "https://user-images.githubusercontent.com/41929050/61567053-13938600-aa33-11e9-9780-104fe4019659.png",
-    "Url": "https://www.hackster.io/agent-hawking-1/bling-your-laptop-with-an-internet-connected-light-show-30e4db",
-    "Title": "Bling your Laptop with an Internet-Connected Light Show",
-    "Description": "Create a web-connected light-strip API controllable from your website, using the Particle.io.",
-    "Ratings": null
-  },
-  {
-    "Id": "jenlooper-survival",
-    "Maker": "jenlooper",
-    "img": "https://user-images.githubusercontent.com/41929050/61567051-13938600-aa33-11e9-8ae7-0b5c19aafab4.jpeg",
-    "Url": "https://www.hackster.io/agent-hawking-1/create-a-compact-survival-kit-38bfdb",
-    "Title": "Create a Compact Survival Kit with LED Track Lighting",
-    "Description": "Use an Altoids tin with Chibitronics sticker LEDs to create a light-up compact that doubles as a survival kit for the young hipster",
-    "Ratings": null
-  },
-  {
-    "Id": "sailorhg-bubblesortpic",
-    "Maker": "sailorhg",
-    "img": "https://user-images.githubusercontent.com/41929050/61567054-13938600-aa33-11e9-9163-eec98e239b7a.png",
-    "Url": "https://twitter.com/sailorhg/status/1090107740049952770",
-    "Title": "Bubblesort Visualization",
-    "Description": "Visualization of sailor scouts sorted by bubblesort algorithm by their planet\u0027s distance from the sun",
-    "Ratings": null
-  },
-  {
-    "Id": "sailorhg-corsage",
-    "Maker": "sailorhg",
-    "img": "https://user-images.githubusercontent.com/41929050/61567055-142c1c80-aa33-11e9-96ff-9fbac6413625.png",
-    "Url": "https://twitter.com/sailorhg/status/1090113666911891456",
-    "Title": "Light-up Corsage",
-    "Description": "Light-up corsage I made with my summer intern.",
-    "Ratings": null
-  },
-  {
-    "Id": "sailorhg-kit",
-    "Maker": "sailorhg",
-    "img": "https://user-images.githubusercontent.com/41929050/61567056-142c1c80-aa33-11e9-8682-10065d338145.png",
-    "Url": "https://twitter.com/sailorhg/status/1090122822007963648",
-    "Title": "Pastel hardware kit",
-    "Description": "Pastel hardware kits complete with custom manufactured pastel alligator clips.",
-    "Ratings": null
-  },
-  {
-    "Id": "sailorhg-led",
-    "Maker": "sailorhg",
-    "img": "https://user-images.githubusercontent.com/41929050/61567052-13938600-aa33-11e9-9a88-cd842073ba44.jpg",
-    "Url": "https://twitter.com/sailorhg/status/1090117277540745216",
-    "Title": "Heart-shaped LED",
-    "Description": "custom molded heart shaped LED with sprinkles.",
-    "Ratings": null
-  },
-  {
-    "Id": "selinazawacki-soi-shirt",
-    "Maker": "selinazawacki",
-    "img": "https://user-images.githubusercontent.com/41929050/61567060-142c1c80-aa33-11e9-8188-5a4803844a9e.png",
-    "Url": "https://www.instagram.com/p/BNvESj-j8PI/",
-    "Title": "Black Sweatshirt",
-    "Description": "Black sweatshirt hoody with the Sick of the Internet logo.",
-    "Ratings": null
-  },
-  {
-    "Id": "selinazawacki-soi-pins",
-    "Maker": "selinazawacki",
-    "img": "https://user-images.githubusercontent.com/41929050/61567059-142c1c80-aa33-11e9-939b-2ecf4492786d.png",
-    "Url": "https://www.instagram.com/p/BNm6hZzDoEF/",
-    "Title": "Sick of the Internet Pins",
-    "Description": "Still some time to enter the pin/sticker giveaway! ",
-    "Ratings": null
-  },
-  {
-    "Id": "vogueandcode-hipster-dev-bro",
-    "Maker": "vogueandcode",
-    "img": "https://user-images.githubusercontent.com/41929050/61567061-14c4b300-aa33-11e9-9fee-63ff2c0c9823.png",
-    "Url": "https://www.vogueandcode.com/shop/hipster-dev-bro",
-    "Title": "Hipster Dev",
-    "Description": "Hipster Dev is busy coding away while styled in a camo jacket and orange beanie.",
-    "Ratings": null
-  },
-  {
-    "Id": "vogueandcode-pretty-girls-code-tee",
-    "Maker": "vogueandcode",
-    "img": "https://user-images.githubusercontent.com/41929050/61567062-14c4b300-aa33-11e9-9dcd-8bfed4ece810.png",
-    "Url": "https://www.vogueandcode.com/shop/pretty-girls-code-tee",
-    "Title": "Pretty Girls Code Tee",
-    "Description": "Everyone\u2019s favorite design is finally here on a tee! The Pretty Girls Code crew-neck tee is available in a soft pink with red writing.",
-    "Ratings": null
-  },
-  {
-    "Id": "vogueandcode-ruby-sis-2",
-    "Maker": "vogueandcode",
-    "img": "https://user-images.githubusercontent.com/41929050/61567063-14c4b300-aa33-11e9-8515-bcb866da9ea3.png",
-    "Url": "https://www.vogueandcode.com/shop/ruby-sis-2",
-    "Title": "Ruby Sis",
-    "Description": "Styled in a dashiki, Ruby Sis is listening to music while coding in her favorite language, Ruby!",
+    "Id": "107",
+    "Title": "ef",
+    "Fullname": "Natasha Romanoff",
+    "Birthplace": "-",
+    "Work": "Adventurer, Intelligence agent, former ballerina",
+    "FirstAppear": "Tales of Suspense #52",
+    "ImageUrl": "https://www.superherodb.com/pictures2/portraits/10/100/248.jpg",
+    "Powerstats": {
+      "Intelligence": "75",
+      "Strength": "13",
+      "Speed": "33",
+      "Durability": "30",
+      "Power": "36",
+      "Combat": "100"
+    },
     "Ratings": [
-      3,
-      5,
-      5,
-      4,
+      2
+    ]
+  },
+  {
+    "Id": "157",
+    "Title": "gh",
+    "Fullname": "Carol Danvers",
+    "Birthplace": "Boston, Massachusetts",
+    "Work": "Former National Aeronautics and Space Administration security Chief, former magazine editor, former freelance writer, former military intelligence officer.",
+    "FirstAppear": "Ms. Marvel #1",
+    "ImageUrl": "https://www.superherodb.com/pictures2/portraits/10/100/103.jpg",
+    "Powerstats": {
+      "Intelligence": "84",
+      "Strength": "88",
+      "Speed": "71",
+      "Durability": "95",
+      "Power": "100",
+      "Combat": "90"
+    },
+    "Ratings": null
+  },
+  {
+    "Id": "226",
+    "Title": "ij",
+    "Fullname": "Stephen Strange",
+    "Birthplace": "Philadelphia, Pennsylvania",
+    "Work": "Sorcerer Supreme, retired neurosurgeon",
+    "FirstAppear": "Strange Tales #110 (July, 1963)",
+    "ImageUrl": "https://www.superherodb.com/pictures2/portraits/10/100/55.jpg",
+    "Powerstats": {
+      "Intelligence": "100",
+      "Strength": "10",
+      "Speed": "12",
+      "Durability": "84",
+      "Power": "100",
+      "Combat": "60"
+    },
+    "Ratings": null
+  },
+  {
+    "Id": "234",
+    "Title": "kl",
+    "Fullname": "Arthur Sampson Douglas",
+    "Birthplace": "Burbank, California",
+    "Work": "-",
+    "FirstAppear": "Iron Man #55 (February, 1973)",
+    "ImageUrl": "https://www.superherodb.com/pictures2/portraits/10/100/10016.jpg",
+    "Powerstats": {
+      "Intelligence": "56",
+      "Strength": "80",
+      "Speed": "25",
+      "Durability": "85",
+      "Power": "46",
+      "Combat": "65"
+    },
+    "Ratings": null
+  },
+  {
+    "Id": "251",
+    "Title": "mn",
+    "Fullname": "Sam Wilson",
+    "Birthplace": "New York, New York",
+    "Work": "Crimefighter, (former) freelance artist",
+    "FirstAppear": "Captain America #117 (September, 1969)",
+    "ImageUrl": "https://www.superherodb.com/pictures2/portraits/10/100/56.jpg",
+    "Powerstats": {
+      "Intelligence": "38",
+      "Strength": "13",
+      "Speed": "50",
+      "Durability": "28",
+      "Power": "22",
+      "Combat": "64"
+    },
+    "Ratings": null
+  },
+  {
+    "Id": "275",
+    "Title": "op",
+    "Fullname": "Gamora Zen Whoberi Ben Titan",
+    "Birthplace": "Planet Zen Whoberi, Silican System, Milky Way",
+    "Work": "Assassin, mercenary, adventurer",
+    "FirstAppear": "Strange Tales #180 (June, 1975)",
+    "ImageUrl": "https://www.superherodb.com/pictures2/portraits/10/100/65.jpg",
+    "Powerstats": {
+      "Intelligence": "75",
+      "Strength": "85",
+      "Speed": "42",
+      "Durability": "85",
+      "Power": "53",
+      "Combat": "100"
+    },
+    "Ratings": null
+  },
+  {
+    "Id": "303",
+    "Title": "qr",
+    "Fullname": "Groot",
+    "Birthplace": "-",
+    "Work": "-",
+    "FirstAppear": "Tales to Astonish #13 (November, 1960)",
+    "ImageUrl": "https://www.superherodb.com/pictures2/portraits/10/100/10017.jpg",
+    "Powerstats": {
+      "Intelligence": "75",
+      "Strength": "85",
+      "Speed": "33",
+      "Durability": "70",
+      "Power": "100",
+      "Combat": "64"
+    },
+    "Ratings": null
+  },
+  {
+    "Id": "313",
+    "Title": "st",
+    "Fullname": "Clint Barton",
+    "Birthplace": "Waverly, Iowa",
+    "Work": "Adventurer",
+    "FirstAppear": "Tales of Suspense #57 (September, 1964)",
+    "ImageUrl": "https://www.superherodb.com/pictures2/portraits/10/100/73.jpg",
+    "Powerstats": {
+      "Intelligence": "56",
+      "Strength": "12",
+      "Speed": "21",
+      "Durability": "10",
+      "Power": "29",
+      "Combat": "80"
+    },
+    "Ratings": [
       3,
       2,
-      1,
+      5,
+      5,
+      4,
+      4,
+      3,
+      5
+    ]
+  },
+  {
+    "Id": "332",
+    "Title": "uv",
+    "Fullname": "Bruce Banner",
+    "Birthplace": "Dayton, Ohio",
+    "Work": "Nuclear physicist, Agent of S.H.I.E.L.D.",
+    "FirstAppear": "Incredible Hulk #1 (May, 1962)",
+    "ImageUrl": "https://www.superherodb.com/pictures2/portraits/10/100/83.jpg",
+    "Powerstats": {
+      "Intelligence": "88",
+      "Strength": "100",
+      "Speed": "63",
+      "Durability": "100",
+      "Power": "98",
+      "Combat": "85"
+    },
+    "Ratings": [
+      3,
+      2,
+      3,
+      3,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4
+    ]
+  },
+  {
+    "Id": "346",
+    "Title": "wx",
+    "Fullname": "Tony Stark",
+    "Birthplace": "Long Island, New York",
+    "Work": "Inventor, Industrialist; former United States Secretary of Defense",
+    "FirstAppear": "Tales of Suspence #39 (March, 1963)",
+    "ImageUrl": "https://www.superherodb.com/pictures2/portraits/10/100/85.jpg",
+    "Powerstats": {
+      "Intelligence": "100",
+      "Strength": "85",
+      "Speed": "58",
+      "Durability": "85",
+      "Power": "100",
+      "Combat": "64"
+    },
+    "Ratings": null
+  },
+  {
+    "Id": "431",
+    "Title": "yz",
+    "Fullname": "Pom Klementieff",
+    "Birthplace": "Vietnam",
+    "Work": "Celestial Madonna, former adventuress, former bar-maid/prostitute/exotic dancer",
+    "FirstAppear": "Avengers #112",
+    "ImageUrl": "https://www.superherodb.com/pictures2/portraits/10/100/384.jpg",
+    "Powerstats": {
+      "Intelligence": "63",
+      "Strength": "8",
+      "Speed": "33",
+      "Durability": "80",
+      "Power": "100",
+      "Combat": "80"
+    },
+    "Ratings": [
+      3,
+      4
+    ]
+  },
+  {
+    "Id": "487",
+    "Title": "ba",
+    "Fullname": "",
+    "Birthplace": "-",
+    "Work": "-",
+    "FirstAppear": "Avengers #257 (July, 1985)",
+    "ImageUrl": "https://www.superherodb.com/pictures2/portraits/10/100/10632.jpg",
+    "Powerstats": {
+      "Intelligence": "63",
+      "Strength": "52",
+      "Speed": "13",
+      "Durability": "50",
+      "Power": "42",
+      "Combat": "60"
+    },
+    "Ratings": null
+  },
+  {
+    "Id": "566",
+    "Title": "dc",
+    "Fullname": "Rocket Raccoon",
+    "Birthplace": "-",
+    "Work": "Law enforcement officer, security guard, member of the Guardians of the Galaxy",
+    "FirstAppear": "Marvel Preview #7 (June, 1976)",
+    "ImageUrl": "https://www.superherodb.com/pictures2/portraits/10/100/10010.jpg",
+    "Powerstats": {
+      "Intelligence": "50",
+      "Strength": "5",
+      "Speed": "23",
+      "Durability": "28",
+      "Power": "28",
+      "Combat": "64"
+    },
+    "Ratings": [
+      3
+    ]
+  },
+  {
+    "Id": "579",
+    "Title": "fe",
+    "Fullname": "Wanda Maximoff",
+    "Birthplace": "Wundagore Mountain, Transia",
+    "Work": "Adventurer; formerly witchcraft tutor, housewife, terrorist",
+    "FirstAppear": "Uncanny X-Men #4 (March, 1964)",
+    "ImageUrl": "https://www.superherodb.com/pictures2/portraits/10/100/444.jpg",
+    "Powerstats": {
+      "Intelligence": "100",
+      "Strength": "10",
+      "Speed": "29",
+      "Durability": "70",
+      "Power": "100",
+      "Combat": "80"
+    },
+    "Ratings": [
+      3
+    ]
+  },
+  {
+    "Id": "620",
+    "Title": "hg",
+    "Fullname": "Peter Parker",
+    "Birthplace": "New York, New York",
+    "Work": "Freelance photographer, teacher",
+    "FirstAppear": "Amazing Fantasy #15",
+    "ImageUrl": "https://www.superherodb.com/pictures2/portraits/10/100/133.jpg",
+    "Powerstats": {
+      "Intelligence": "90",
+      "Strength": "55",
+      "Speed": "67",
+      "Durability": "75",
+      "Power": "74",
+      "Combat": "85"
+    },
+    "Ratings": null
+  },
+  {
+    "Id": "630",
+    "Title": "ji",
+    "Fullname": "Peter Jason Quill",
+    "Birthplace": "-",
+    "Work": "Adventurer; Royal Prince of Spartax",
+    "FirstAppear": "Marvel Preview #4 (January, 1976)",
+    "ImageUrl": "https://www.superherodb.com/pictures2/portraits/10/100/10015.jpg",
+    "Powerstats": {
+      "Intelligence": "69",
+      "Strength": "20",
+      "Speed": "33",
+      "Durability": "50",
+      "Power": "25",
+      "Combat": "70"
+    },
+    "Ratings": null
+  },
+  {
+    "Id": "659",
+    "Title": "lk",
+    "Fullname": "Thor Odinson",
+    "Birthplace": "Asgard",
+    "Work": "King of Asgard; formerly EMS Technician; Physician",
+    "FirstAppear": "Journey into Mystery #83 (August, 1962)",
+    "ImageUrl": "https://www.superherodb.com/pictures2/portraits/10/100/140.jpg",
+    "Powerstats": {
+      "Intelligence": "69",
+      "Strength": "100",
+      "Speed": "83",
+      "Durability": "100",
+      "Power": "100",
+      "Combat": "100"
+    },
+    "Ratings": [
+      3,
       4,
       5,
-      5,
-      5,
-      5,
-      5,
-      5,
-      5,
-      5,
+      2,
+      4,
       5,
       5
     ]
   },
   {
-    "Id": "selinazawacki-moon",
-    "Maker": "selinazawacki",
-    "img": "https://user-images.githubusercontent.com/41929050/61567057-142c1c80-aa33-11e9-9781-9e442418eaab.png",
-    "Url": "https://www.instagram.com/p/BFktVYPinKQ/",
-    "Title": "Holographic Dark Moon Necklace",
-    "Description": "Not sure if I\u0027ll be making more, get it while I have it in the store.",
+    "Id": "697",
+    "Title": "nm",
+    "Fullname": "Vision",
+    "Birthplace": "-",
+    "Work": "-",
+    "FirstAppear": "Avengers Vol.1 #57, Young Avengers #4",
+    "ImageUrl": "https://www.superherodb.com/pictures2/portraits/10/100/532.jpg",
+    "Powerstats": {
+      "Intelligence": "100",
+      "Strength": "72",
+      "Speed": "54",
+      "Durability": "95",
+      "Power": "100",
+      "Combat": "70"
+    },
+    "Ratings": [
+      3,
+      4,
+      5,
+      4,
+      2,
+      1
+    ]
+  },
+  {
+    "Id": "703",
+    "Title": "po",
+    "Fullname": "James Rupert Rhodes",
+    "Birthplace": "Philadelphia, Pennsylvania",
+    "Work": "Initiative instructor, adventurer, government agent; formerly: Sentinel Squad O*N*E combat instructor, soldier, pilot",
+    "FirstAppear": "Iron Man #118 (1979)",
+    "ImageUrl": "https://www.superherodb.com/pictures2/portraits/10/100/536.jpg",
+    "Powerstats": {
+      "Intelligence": "63",
+      "Strength": "80",
+      "Speed": "63",
+      "Durability": "100",
+      "Power": "100",
+      "Combat": "85"
+    },
     "Ratings": null
   },
   {
-    "Id": "selinazawacki-shirt",
-    "Maker": "selinazawacki",
-    "img": "https://user-images.githubusercontent.com/41929050/61567058-142c1c80-aa33-11e9-89fb-b4f30d84d69d.png",
-    "Url": "https://www.instagram.com/p/BEXlpiZCnJ3",
-    "Title": "Floppy Crop",
-    "Description": "Used up the Diskette fabric today to make 2 of these crops.",
+    "Id": "708",
+    "Title": "rq",
+    "Fullname": "Janet Van Dyne",
+    "Birthplace": "Cresskill, New Jersey",
+    "Work": "Adventurer, fashion designer, independently wealthy socialite",
+    "FirstAppear": "TALES TO ASTONISH #44",
+    "ImageUrl": "https://www.superherodb.com/pictures2/portraits/10/100/155.jpg",
+    "Powerstats": {
+      "Intelligence": "63",
+      "Strength": "17",
+      "Speed": "58",
+      "Durability": "52",
+      "Power": "29",
+      "Combat": "42"
+    },
+    "Ratings": null
+  },
+  {
+    "Id": "714",
+    "Title": "ts",
+    "Fullname": "Bucky Barnes",
+    "Birthplace": "-",
+    "Work": "Adventurer; former SHIELD operative, Assassin (See Note under \u0022Winter Soldier\u0022 article), Army Mascot, Student",
+    "FirstAppear": "Captain America Vol 5 #1 (January, 2005) (as Winter Soldier)",
+    "ImageUrl": "https://www.superherodb.com/pictures2/portraits/10/100/10027.jpg",
+    "Powerstats": {
+      "Intelligence": "56",
+      "Strength": "32",
+      "Speed": "35",
+      "Durability": "65",
+      "Power": "60",
+      "Combat": "84"
+    },
     "Ratings": null
   }
 ]
