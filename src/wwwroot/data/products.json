@@ -1,7 +1,7 @@
 [
   {
     "Id": "31",
-    "Title": "ab",
+    "Title": "Ant-Man II",
     "Fullname": "Scott Lang",
     "Birthplace": "Coral Gables, Florida",
     "Work": "Electronics Technician,",
@@ -27,7 +27,7 @@
   },
   {
     "Id": "106",
-    "Title": "cd",
+    "Title": "Black Panther",
     "Fullname": "T\u0027Challa",
     "Birthplace": "Wakanda, Africa",
     "Work": "King and Chieftain of Wakanda, scientist; former school teacher",
@@ -45,7 +45,7 @@
   },
   {
     "Id": "107",
-    "Title": "ef",
+    "Title": "Black Widow",
     "Fullname": "Natasha Romanoff",
     "Birthplace": "-",
     "Work": "Adventurer, Intelligence agent, former ballerina",
@@ -65,7 +65,7 @@
   },
   {
     "Id": "157",
-    "Title": "gh",
+    "Title": "Captain Marvel",
     "Fullname": "Carol Danvers",
     "Birthplace": "Boston, Massachusetts",
     "Work": "Former National Aeronautics and Space Administration security Chief, former magazine editor, former freelance writer, former military intelligence officer.",
@@ -83,7 +83,7 @@
   },
   {
     "Id": "226",
-    "Title": "ij",
+    "Title": "Doctor Strange",
     "Fullname": "Stephen Strange",
     "Birthplace": "Philadelphia, Pennsylvania",
     "Work": "Sorcerer Supreme, retired neurosurgeon",
@@ -101,7 +101,7 @@
   },
   {
     "Id": "234",
-    "Title": "kl",
+    "Title": "Drax the Destroyer",
     "Fullname": "Arthur Sampson Douglas",
     "Birthplace": "Burbank, California",
     "Work": "-",
@@ -119,7 +119,7 @@
   },
   {
     "Id": "251",
-    "Title": "mn",
+    "Title": "Falcon",
     "Fullname": "Sam Wilson",
     "Birthplace": "New York, New York",
     "Work": "Crimefighter, (former) freelance artist",
@@ -137,7 +137,7 @@
   },
   {
     "Id": "275",
-    "Title": "op",
+    "Title": "Gamora",
     "Fullname": "Gamora Zen Whoberi Ben Titan",
     "Birthplace": "Planet Zen Whoberi, Silican System, Milky Way",
     "Work": "Assassin, mercenary, adventurer",
@@ -155,7 +155,7 @@
   },
   {
     "Id": "303",
-    "Title": "qr",
+    "Title": "Groot",
     "Fullname": "Groot",
     "Birthplace": "-",
     "Work": "-",
@@ -173,7 +173,7 @@
   },
   {
     "Id": "313",
-    "Title": "st",
+    "Title": "Hawkeye",
     "Fullname": "Clint Barton",
     "Birthplace": "Waverly, Iowa",
     "Work": "Adventurer",
@@ -200,7 +200,7 @@
   },
   {
     "Id": "332",
-    "Title": "uv",
+    "Title": "Hulk",
     "Fullname": "Bruce Banner",
     "Birthplace": "Dayton, Ohio",
     "Work": "Nuclear physicist, Agent of S.H.I.E.L.D.",
@@ -252,7 +252,7 @@
   },
   {
     "Id": "346",
-    "Title": "wx",
+    "Title": "Iron Man",
     "Fullname": "Tony Stark",
     "Birthplace": "Long Island, New York",
     "Work": "Inventor, Industrialist; former United States Secretary of Defense",
@@ -270,7 +270,7 @@
   },
   {
     "Id": "431",
-    "Title": "yz",
+    "Title": "Mantis",
     "Fullname": "Pom Klementieff",
     "Birthplace": "Vietnam",
     "Work": "Celestial Madonna, former adventuress, former bar-maid/prostitute/exotic dancer",
@@ -291,7 +291,7 @@
   },
   {
     "Id": "487",
-    "Title": "ba",
+    "Title": "Nebula",
     "Fullname": "",
     "Birthplace": "-",
     "Work": "-",
@@ -309,7 +309,7 @@
   },
   {
     "Id": "566",
-    "Title": "dc",
+    "Title": "Rocket Raccoon",
     "Fullname": "Rocket Raccoon",
     "Birthplace": "-",
     "Work": "Law enforcement officer, security guard, member of the Guardians of the Galaxy",
@@ -329,7 +329,7 @@
   },
   {
     "Id": "579",
-    "Title": "fe",
+    "Title": "Scarlet Witch",
     "Fullname": "Wanda Maximoff",
     "Birthplace": "Wundagore Mountain, Transia",
     "Work": "Adventurer; formerly witchcraft tutor, housewife, terrorist",
@@ -349,7 +349,7 @@
   },
   {
     "Id": "620",
-    "Title": "hg",
+    "Title": "Spider-Man",
     "Fullname": "Peter Parker",
     "Birthplace": "New York, New York",
     "Work": "Freelance photographer, teacher",
@@ -367,7 +367,7 @@
   },
   {
     "Id": "630",
-    "Title": "ji",
+    "Title": "Star-Lord",
     "Fullname": "Peter Jason Quill",
     "Birthplace": "-",
     "Work": "Adventurer; Royal Prince of Spartax",
@@ -385,7 +385,7 @@
   },
   {
     "Id": "659",
-    "Title": "lk",
+    "Title": "Thor",
     "Fullname": "Thor Odinson",
     "Birthplace": "Asgard",
     "Work": "King of Asgard; formerly EMS Technician; Physician",
@@ -411,7 +411,7 @@
   },
   {
     "Id": "697",
-    "Title": "nm",
+    "Title": "Vision",
     "Fullname": "Vision",
     "Birthplace": "-",
     "Work": "-",
@@ -436,7 +436,7 @@
   },
   {
     "Id": "703",
-    "Title": "po",
+    "Title": "War Machine",
     "Fullname": "James Rupert Rhodes",
     "Birthplace": "Philadelphia, Pennsylvania",
     "Work": "Initiative instructor, adventurer, government agent; formerly: Sentinel Squad O*N*E combat instructor, soldier, pilot",
@@ -454,7 +454,7 @@
   },
   {
     "Id": "708",
-    "Title": "rq",
+    "Title": "Wasp",
     "Fullname": "Janet Van Dyne",
     "Birthplace": "Cresskill, New Jersey",
     "Work": "Adventurer, fashion designer, independently wealthy socialite",
@@ -472,7 +472,7 @@
   },
   {
     "Id": "714",
-    "Title": "ts",
+    "Title": "Winter Soldier",
     "Fullname": "Bucky Barnes",
     "Birthplace": "-",
     "Work": "Adventurer; former SHIELD operative, Assassin (See Note under \u0022Winter Soldier\u0022 article), Army Mascot, Student",
