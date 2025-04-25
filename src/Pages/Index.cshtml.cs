@@ -24,8 +24,8 @@ namespace ContosoCrafts.WebSite.Pages
         }
 
         public JsonFileProductService ProductService { get; }
-        public IEnumerable<ContosoCrafts.WebSite.Models.Product>? Products { get; private set; }
+        public IEnumerable<ContosoCrafts.WebSite.Models.ProductModel>? Products { get; private set; }
 
-        public void OnGet() => Products = ProductService.GetProducts();
+        public void OnGet() => Products = ProductService.GetAllData();
     }
 }

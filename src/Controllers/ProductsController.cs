@@ -15,7 +15,7 @@ namespace ContosoCrafts.WebSite.Controllers
         public JsonFileProductService ProductService { get; }
 
         [HttpGet]
-        public IEnumerable<Product> Get() => ProductService.GetProducts();
+        public IEnumerable<ProductModel> Get() => ProductService.GetAllData();
 
         [HttpPatch]
         public ActionResult Patch([FromBody] RatingRequest request)

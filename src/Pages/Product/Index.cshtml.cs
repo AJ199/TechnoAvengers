@@ -9,7 +9,7 @@ namespace ContosoCrafts.WebSite.Pages.Product
 {
     public class IndexModel : PageModel
     {
-        public List<ContosoCrafts.WebSite.Models.Product> Products { get; set; }
+        public List<ContosoCrafts.WebSite.Models.ProductModel> Products { get; set; }
 
         public void OnGet()
         {
@@ -17,7 +17,7 @@ namespace ContosoCrafts.WebSite.Pages.Product
 
             var json = System.IO.File.ReadAllText(filePath);
 
-            Products = JsonConvert.DeserializeObject<List<ContosoCrafts.WebSite.Models.Product>>(json);
+            Products = JsonConvert.DeserializeObject<List<ContosoCrafts.WebSite.Models.ProductModel>>(json);
         }
     }
 }

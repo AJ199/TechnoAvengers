@@ -18,10 +18,10 @@ namespace ContosoCrafts.WebSite.Services
 
         private string JsonFileName => Path.Combine(WebHostEnvironment.WebRootPath, "data", "products.json");
 
-        public IEnumerable<Product> GetProducts()
+        public IEnumerable<ProductModel> GetAllData()
         {
             using var jsonFileReader = File.OpenText(JsonFileName);
-            return JsonSerializer.Deserialize<Product[]>(jsonFileReader.ReadToEnd(),
+            return JsonSerializer.Deserialize<ProductModel[]>(jsonFileReader.ReadToEnd(),
                 new JsonSerializerOptions
                 {
                     PropertyNameCaseInsensitive = true
@@ -30,7 +30,7 @@ namespace ContosoCrafts.WebSite.Services
 
         public void AddRating(string productId, int rating)
         {
-            var products = GetProducts();
+            var products = GetAllData();
 
             if (products.First(x => x.Id == productId).Ratings == null)
             {
@@ -45,7 +45,7 @@ namespace ContosoCrafts.WebSite.Services
 
             using var outputStream = File.OpenWrite(JsonFileName);
 
-            JsonSerializer.Serialize<IEnumerable<Product>>(
+            JsonSerializer.Serialize<IEnumerable<ProductModel>>(
                 new Utf8JsonWriter(outputStream, new JsonWriterOptions
                 {
                     SkipValidation = true,
