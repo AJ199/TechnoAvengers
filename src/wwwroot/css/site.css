@@ -76,11 +76,13 @@ a {
     background-color: #ED1D24;
     border-color: #ED1D24;
 }
-.btn-primary:hover {
-    color: #fff;
-    background-color: #e9a8a6;
-    border-color: #e9a8a6;
-}
+    .btn-primary:hover {
+        color: #fff;
+        background-color: #e9a8a6;
+        border-color: #e9a8a6;
+        transform: scale(1.05);
+        transition: transform 0.2s ease-in-out;
+    }
 
 .nav-pills .nav-link {
     font-family: 'Bangers', cursive;
