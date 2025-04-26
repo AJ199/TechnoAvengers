@@ -70,6 +70,8 @@ a {
 }
 
 .btn-primary {
+    font-family: 'Bangers', cursive;
+    font-size: 1.5rem; /* Slightly bigger text */
     color: #fff;
     background-color: #ED1D24;
     border-color: #ED1D24;
@@ -83,7 +85,6 @@ a {
 .nav-pills .nav-link {
     font-family: 'Bangers', cursive;
     font-size: 1.8rem; /* Slightly bigger text */
-    
     color: #FFFFFF; /* White text */
 }
 
