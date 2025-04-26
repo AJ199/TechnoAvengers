@@ -80,11 +80,18 @@ a {
     border-color: #e9a8a6;
 }
 
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+.nav-pills .nav-link {
+    font-family: 'Bangers', cursive;
+    font-size: 1.8rem; /* Slightly bigger text */
+    
+    color: #FFFFFF; /* White text */
 }
+
+    .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+        color: #FFFFFF;
+        background-color: #ED1D24; /* Marvel Red */
+        border-color: #ED1D24; /* Marvel Red */
+    }
 
 /* Sticky footer styles
 -------------------------------------------------- */
