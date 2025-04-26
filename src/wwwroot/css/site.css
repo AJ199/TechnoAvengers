@@ -165,3 +165,22 @@ ul {
     background: -moz-linear-gradient(110deg, #252152 60%, #ED1D24 60%);
     background: linear-gradient(110deg, #252152 60%, #ED1D24 60%);
 }
+.hero-text {
+    background-color: rgba(0, 0, 0, 0.9); /* semi-transparent black */
+    color: #fff; /* white text */
+    padding: 20px 40px;
+    border-radius: 15px;
+    font-family: 'Bangers', cursive; /* your Marvel comic font */
+    font-size: 4rem;
+    text-align: center;
+    display: inline-block;
+}
+.new-text {
+    background-color: rgba(0, 0, 0, 0.9); /* Semi-transparent black background */
+    color: #fff; /* White text */
+    padding: 10px 20px; /* Padding around the text */
+    border-radius: 8px; /* Optional: rounded corners */
+    font-family: 'Comic Sans MS', cursive, sans-serif; /* Comic Sans font */
+    font-size: 1rem; /* Smaller text size */
+    line-height: 1.4; /* Adjust line height for readability */
+}
