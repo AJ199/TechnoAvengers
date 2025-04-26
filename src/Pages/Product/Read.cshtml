@@ -1,4 +1,29 @@
-﻿@page
+﻿@page "{id}"
+@using ContosoCrafts.WebSite.Services
+@inject JsonFileProductService ProductService
 @model ContosoCrafts.WebSite.Pages.Product.ReadModel
 @{
+    ViewData["Title"] = "Read page";
 }
+<div class="content">
+    <h5 class="title, txt-color" id="productTitle">@Model.Product.Title</h5>
+
+    <img class="card-visible" src='@Model.Product.ImageUrl' alt='Image for @Model.Product.Title'>
+        
+    <p class="card-text">Real name: @Model.Product.Fullname</p>
+        
+    <p class="card-text">Birthplace: @Model.Product.Birthplace</p>
+        
+    <p class="card-text">Work: @Model.Product.Work</p>
+        
+    <p class="card-text">First Appearance: @Model.Product.FirstAppear</p>
+        
+    <p class="card-text">Power statistics:</p>
+        <ul>
+        @foreach (var stat in Model.Product.Powerstats)
+            {
+                <li>@stat.Key: @stat.Value</li>
+            }
+        </ul>
+    
+</div>

@@ -41,12 +41,11 @@
 						<div class="modal-card-img" style="background-image: url('@selectedProduct.ImageUrl');">
 						</div>
 						<div class="card-body">
-							<p class="card-text">Title: @selectedProduct.Title</p>
-							<p class="card-text">Fullname: @selectedProduct.Fullname</p>
+							<p class="card-text">Real name: @selectedProduct.Fullname</p>
 							<p class="card-text">Birthplace: @selectedProduct.Birthplace</p>
 							<p class="card-text">Work: @selectedProduct.Work</p>
-							<p class="card-text">FirstAppear: @selectedProduct.FirstAppear</p>
-							<p class="card-text">Powerstats:</p>
+                            <p class="card-text">First Appearance: @selectedProduct.FirstAppear</p>
+                            <p class="card-text">Power statistics:</p>
 							<ul>
 								@foreach (var stat in selectedProduct.Powerstats)
 								{
