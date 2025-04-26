@@ -129,8 +129,11 @@ html {
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    background: url('https://cdn.archonia.com/images/1-73113803-1-1-original1/marvel-comics-1000-collage-by-garcin-poster.jpg') no-repeat center center fixed;
+    background-size: cover;
+    
 }
 p {
     font-family: 'Nunito', sans-serif;
