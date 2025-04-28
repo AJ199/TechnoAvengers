@@ -186,3 +186,11 @@ ul {
     font-size: 1rem; /* Smaller text size */
     line-height: 1.4; /* Adjust line height for readability */
 }
+.custom-table {
+    width: 50%; /* width of table */
+    margin: auto; /* center the table horizontally */
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+}
