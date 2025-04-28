@@ -194,3 +194,39 @@ ul {
     border-radius: 10px;
     overflow: hidden;
 }
+/* Superhero Index page styles*/
+.prodcut-index-container {
+    margin-top: 50px;
+}
+.hero-table {
+    background-color: rgba(0, 0, 0, 0.7); /* semi-transparent black */
+    color: #fff; /* white text */
+    border-radius: 10px;
+    overflow: hidden;
+}
+.hero-table th,
+.hero-table td {
+    padding: 15px;
+    text-align: center;
+    vertical-align: middle;
+}
+.hero-table th {
+    background-color: rgba(0, 0, 0, 0.7); /* semi-transparent black for header */
+    font-weight: bold;
+}
+.hero-title-header {
+    width: 40%;
+}
+.hero-action-header {
+    width: 20%;
+}
+.hero-row:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* light highlight on hover */
+}
+.hero-link {
+    color: #ffcc00;
+    text-decoration: none;
+}
+.herot-link:hover {
+    text-decoration: underline;
+}
