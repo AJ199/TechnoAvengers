@@ -357,6 +357,22 @@ ul {
     color: #fff;
 }
 
+.hero-read-stats {
+    margin-top: 10px;
+}
 
+.hero-read-list {
+    list-style-type: none;
+    padding-left: 0;
+    display: grid;
+    gap: 10px;
+}
+
+.hero-read-list-item {
+    background-color: rgba(255, 204, 0, 1);
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-family: 'Nunito', sans-serif;
+}
 
 
