@@ -11,44 +11,46 @@
     <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-navbar border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index" style="font-family: 'Bangers', cursive; color: white; font-size: 2.2rem; text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;">
-                 Avengers Encyclopedia
-                 </a>
+    <div class="page-wrapper d-flex flex-column min-vh-100">
 
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="nav nav-pills navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-page="/Product/Index">Superheroes</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-page="/AvengersHistory">Avengers History</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
-                        </li>
-                    </ul>
+        <header>
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-navbar border-bottom box-shadow mb-3">
+                <div class="container">
+                    <a class="navbar-brand" asp-area="" asp-page="/Index" style="font-family: 'Bangers', cursive; color: white; font-size: 2.2rem; text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;">
+                        Avengers Encyclopedia
+                    </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                        <ul class="nav nav-pills navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-page="/Product/Index">Superheroes</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-page="/AvengersHistory">Avengers History</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+            </nav>
+        </header>
+
+        <main role="main" class="flex-grow-1 container pb-3">
             @RenderBody()
         </main>
-    </div<a class="navbar-brand" asp-area="" asp-page="/Index">Avengers Encyclopedia</a>
 
-    <footer class="border-top footer text-muted bg-footer">
-        <div class="container">
-            &copy; 2025 - AvengersEncyclopedia.WebSite - <a asp-area="" asp-page="/Privacy">Privacy</a>
-        </div>
-    </footer>
+        <footer class="footer text-muted bg-footer">
+            <div class="container">
+                &copy; 2025 - Avengers Encyclopedia - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            </div>
+        </footer>
+
+    </div>
 
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
