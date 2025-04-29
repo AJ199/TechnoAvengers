@@ -357,6 +357,21 @@ ul {
     color: #fff;
 }
 
+.hero-read-title {
+    color: #ffcc00;
+    font-family: 'Bangers', cursive;
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.hero-read-text {
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
 .hero-read-stats {
     margin-top: 10px;
 }
