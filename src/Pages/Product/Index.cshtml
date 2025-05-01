@@ -18,7 +18,12 @@
             {
                 <tr class="hero-row">
                     <td>@product.Title</td>
-                    <td><a class = "hero-link" asp-page="Read" asp-route-id="@product.Id">Read</a></td>
+                    <td>
+                        <a class="hero-link" asp-page="Read" asp-route-id="@product.Id">Read</a>
+                        <button type="button" class="btn btn-delete ml-2">
+                            <i class="fas fa-trash-alt"></i> Delete
+                        </button>
+                    </td>
                 </tr>
             }
         </tbody>
