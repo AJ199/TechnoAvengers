@@ -6,17 +6,19 @@ using System.Linq;
 
 namespace ContosoCrafts.WebSite.Pages.Product
 {
-
+    /// <summary>
+    /// Manages update of data for update page
+    /// </summary>
     public class UpdateModel : PageModel
     {
-        // Data middletier
+        // Data middletier service
         public JsonFileProductService ProductService { get; }
 
         /// <summary>
         /// Defualt Construtor
         /// </summary>
         /// <param name="logger"></param>
-        /// <param name="productService"></param>
+        /// <param name="productService">Service used to manage superhero data</param>
         public UpdateModel(JsonFileProductService productService)
         {
             ProductService = productService;
@@ -27,18 +29,22 @@ namespace ContosoCrafts.WebSite.Pages.Product
         public ProductModel Product { get; set; }
 
         /// <summary>
-        /// REST Get request
-        /// Loads the Data
+        ///  Responds to GET requests and loads the appropiate superhero data
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">Superhero ID</param>
         public void OnGet(string id)
         {
-            Product = ProductService.GetAllData().FirstOrDefault(m => m.Id.Equals(id));
+            // Retrieves the superhero associated with the given ID
+            var retrievedProduct = ProductService.GetAllData().FirstOrDefault(m => m.Id.Equals(id));
 
-            if (Product == null)
+            if (retrievedProduct == null)
             {
                 this.ModelState.AddModelError("OnGet", "Update Onget Error");
+                return;
             }
+
+            // Assigns the superhero data only if it's not null
+            Product = retrievedProduct;
         }
 
         /// <summary>
@@ -50,19 +56,24 @@ namespace ContosoCrafts.WebSite.Pages.Product
         /// <returns></returns>
         public IActionResult OnPost()
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid == false)
             {
                 return Page();
             }
 
-            bool isValidUpdate = ProductService.UpdateData(Product);
-            if (isValidUpdate == false)
+            if (Product == null) 
             {
-                this.ModelState.AddModelError("bogus", "bogus error");
-                return Page(); // Probably should be an Error Page
+                return RedirectToPage("/Error");
             }
 
-            return RedirectToPage("./Index");
+            
+            if (ProductService.UpdateData(Product) == false)
+            {
+                this.ModelState.AddModelError("UpdateFailure", "Failed to update product data.");
+                return Page(); 
+            }
+
+            return RedirectToPage("/Error");
         }
     }
 }
