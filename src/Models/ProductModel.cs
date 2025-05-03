@@ -14,30 +14,25 @@ namespace ContosoCrafts.WebSite.Models
         // Unique identifier for superhero
         public string? Id { get; set; }
 
-        // Title is required, must be alphanumeric and 3-40 characters long
+        // Title must be 2-50 characters long
         [Required(ErrorMessage = "Required")]
-        [RegularExpression(@"^[a-zA-Z0-9\s]{3,40}$", 
-            ErrorMessage = "Only letters and numbers, 3-40 chars")]
+        [StringLength(50, MinimumLength = 2, ErrorMessage = "2-50 chars")]
         public string? Title { get; set; }
 
-        // Fullname must contain alphabetic characters and 3-40 characters
-        [RegularExpression(@"^[a-zA-Z\s]{3,40}$", 
-            ErrorMessage = "Only letters, 3-40 chars")]
+        // Fullname must contain max 50 characters
+        [StringLength(50, ErrorMessage ="50 chars max")]
         public string? Fullname { get; set; }
 
-        // Birthplace must contain alphabetic characters and 60 characters max
-        [RegularExpression(@"^[a-zA-Z\s]{,60}$", 
-            ErrorMessage = "Only letters, 60 chars max")]
+        // Birthplace must contain max 100 characters 
+        [StringLength(100, ErrorMessage = "100 chars max")]
         public string? Birthplace { get; set; }
 
-        // Work must contain alphabetic characters and 80 characters max
-        [RegularExpression(@"^[a-zA-Z\s]{,80}$", 
-            ErrorMessage = "Only letters, 80 chars max")]
+        // Work must contain max 150 characters
+        [StringLength(150, ErrorMessage = "150 chars max")]
         public string? Work { get; set; }
 
-        // FirstAppear must be alphanumeric and maximum 40 characters long
-        [RegularExpression(@"^[a-zA-Z0-9\s]{,40}$", 
-            ErrorMessage = "Only letters and numbers, 40 chars max")]
+        // FirstAppear must contain max 100 characters 
+        [StringLength(100, ErrorMessage = "100 chars max")]
         public string? FirstAppear { get; set; }
 
         // ImageUrl must be valid, https, and end with .jpg or .png extension
