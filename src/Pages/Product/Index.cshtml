@@ -9,8 +9,8 @@
     <table class="table hero-table">
         <thead>
             <tr>
-                <th class="hero-title-header">Title</th>
-                <th class="hero-action-header">Action</th>
+                <th class="hero-title-header">Superhero Name</th>
+                <th class="hero-action-header">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -20,6 +20,7 @@
                     <td>@product.Title</td>
                     <td>
                         <a class="hero-link" asp-page="Read" asp-route-id="@product.Id">Read</a>
+                        <a class="hero-link" asp-page="Update" asp-route-id="@product.Id">Edit</a>
                         <button type="button" class="btn" style="color: white;">
                             <i class="fas fa-trash" style="color: white;"></i>
                             <span style="color: white;">Delete</span>
