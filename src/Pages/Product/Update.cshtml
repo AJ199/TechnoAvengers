@@ -1,4 +1,62 @@
 ﻿@page
+@using ContosoCrafts.WebSite.Services
+@using ContosoCrafts.WebSite.Models
+@inject JsonFileProductService ProductService
 @model ContosoCrafts.WebSite.Pages.Product.UpdateModel
+
 @{
+    ViewData["Title"] = "Update page";
 }
+
+<h1>Update</h1>
+
+<form method="post">
+    <input type="hidden" asp-for="Product.Id"/>
+
+    <div>
+        <label asp-for="Product.Title">Title</label>
+        <label asp-for="Product.Title" />
+    </div>
+
+    <div>
+        <label asp-for="Product.Fullname">Full Name</label>
+        <input asp-for="Product.Fullname" />
+    </div>
+
+    <div>
+        <label asp-for="Product.Birthplace">Birthplace</label>
+        <input asp-for="Product.Birthplace" />
+    </div>
+
+    <div>
+        <label asp-for="Product.Work"></label>
+        <input asp-for="Product.Work" />
+    </div>
+
+    <div>
+        <label asp-for="Product.FirstAppear">First Appearance</label>
+        <input asp-for="Product.FirstAppear" />
+    </div>
+
+    <h2>Powerstats</h2>
+    @foreach (var power in Model.Product.Powerstats)
+    {
+        <div>
+            <label>@power.Key</label>
+            <input type="number"
+                   name="Product.Powerstats[@power.Key]"
+                   value="@power.Value" />
+        </div>
+    }
+
+    <div>
+        <label asp-for="Product.ImageUrl">Image URL</label>
+        <input asp-for="Product.ImageUrl" />
+        <span asp-validation-for="Product.ImageUrl"></span>
+    </div>
+
+    <div>
+        <input type="submit" value="Update" />
+        <a asp-page="./Read" asp-route-id="@Model.Product.Id">Cancel</a>
+    </div> 
+</form>
