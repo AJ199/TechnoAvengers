@@ -39,12 +39,25 @@ namespace ContosoCrafts.WebSite.Services
         public IEnumerable<ProductModel> GetAllData()
         {
             // Opens the JSON file
-            using var jsonFileReader = File.OpenText(GetJsonFileName());
-            return JsonSerializer.Deserialize<ProductModel[]>(jsonFileReader.ReadToEnd(),
-                new JsonSerializerOptions
+            using (var jsonFileReader = File.OpenText(GetJsonFileName()))
+            { 
+                // JSON parsing rules
+                JsonSerializerOptions serializerOptions = new JsonSerializerOptions()
                 {
                     PropertyNameCaseInsensitive = true
-                });
+                };
+
+                // Deserialized JSON data
+                ProductModel[]? products = JsonSerializer.Deserialize<ProductModel[]>
+                    (jsonFileReader.ReadToEnd(), serializerOptions);
+
+                if (products == null) 
+                { 
+                    return Enumerable.Empty<ProductModel>();
+                }
+
+                return products;
+            }
         }
 
         /// <summary>
@@ -53,21 +66,29 @@ namespace ContosoCrafts.WebSite.Services
         /// <param name="productId">ID associated with superhero</param>
         /// <param name="rating">Rating to be added</param>
         /// <returns></returns>
-        public void AddRating(string productId, int rating)
+        public bool AddRating(string productId, int rating)
         {
             // Retrieves all data
             var products = GetAllData();
 
-            if (products.First(x => x.Id == productId).Ratings == null)
+            // Finds superhero with given ID
+            var product = products.First(x => x.Id == productId);
+
+            if (product == null)
             {
-                products.First(x => x.Id == productId).Ratings = new int[] { rating };
+                return false;
+            }
+
+            if (product.Ratings == null)
+            {
+                product.Ratings = new int[] { rating };
             }
             else
             {
                 // Converts ratings to list
-                var ratings = products.First(x => x.Id == productId).Ratings.ToList();
+                var ratings = product.Ratings.ToList();
                 ratings.Add(rating);
-                products.First(x => x.Id == productId).Ratings = ratings.ToArray();
+                product.Ratings = ratings.ToArray();
             }
 
             // Creates a file stream to save the serialized data
@@ -81,6 +102,40 @@ namespace ContosoCrafts.WebSite.Services
                 }),
                 products
             );
+
+            return true;
+        }
+
+        /// <summary>
+        /// Updates superhero data, except its ID
+        /// </summary>
+        /// <param name="data">Data to update</param>
+        /// <returns>True if succesfully updated, false otherwise</returns>
+        public bool UpdateData(ProductModel data)
+        {
+            // Gets all data
+            IEnumerable<ProductModel> products = GetAllData();
+
+            // Finds superhero to update
+            ProductModel? productData = products.FirstOrDefault(x => x.Id.Equals(data.Id));
+
+            if (productData == null)
+            {
+                return false;
+            }
+
+            // Update properties except ID
+            productData.Title = data.Title;
+            productData.Fullname = data.Fullname;
+            productData.Birthplace = data.Birthplace;
+            productData.Work = data.Work;
+            productData.FirstAppear = data.FirstAppear;
+            productData.ImageUrl = data.ImageUrl;
+            productData.Powerstats = data.Powerstats;
+            productData.Ratings = data.Ratings;
+
+            SaveData(products);
+            return true;
         }
 
         /// <summary>
