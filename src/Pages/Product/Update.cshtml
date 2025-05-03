@@ -14,28 +14,33 @@
     <input type="hidden" asp-for="Product.Id"/>
 
     <div>
-        <label asp-for="Product.Title">Title</label>
-        <label asp-for="Product.Title" />
+        <label asp-for="Product.Title">Superhero Name</label>
+        <input asp-for="Product.Title" />
+        <span asp-validation-for="Product.Fullname"></span>
     </div>
 
     <div>
         <label asp-for="Product.Fullname">Full Name</label>
         <input asp-for="Product.Fullname" />
+        <span asp-validation-for="Product.Fullname"></span>
     </div>
 
     <div>
         <label asp-for="Product.Birthplace">Birthplace</label>
         <input asp-for="Product.Birthplace" />
+        <span asp-validation-for="Product.Birthplace"></span>
     </div>
 
     <div>
         <label asp-for="Product.Work"></label>
         <input asp-for="Product.Work" />
+        <span asp-validation-for="Product.Work"></span>
     </div>
 
     <div>
         <label asp-for="Product.FirstAppear">First Appearance</label>
         <input asp-for="Product.FirstAppear" />
+        <span asp-validation-for="Product.FirstAppear"></span>
     </div>
 
     <h2>Powerstats</h2>
@@ -43,9 +48,7 @@
     {
         <div>
             <label>@power.Key</label>
-            <input type="number"
-                   name="Product.Powerstats[@power.Key]"
-                   value="@power.Value" />
+            <input type="number" name="Product.Powerstats[@power.Key]" value="@power.Value" />
         </div>
     }
 
@@ -57,6 +60,6 @@
 
     <div>
         <input type="submit" value="Update" />
-        <a asp-page="./Read" asp-route-id="@Model.Product.Id">Cancel</a>
+        <a asp-page="./Index" asp-route-id="@Model.Product.Id">Cancel</a>
     </div> 
 </form>
