@@ -1,0 +1,31 @@
+﻿@page
+@model ContosoCrafts.WebSite.Pages.Product.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete Superhero";
+}
+
+<div class="hero-read-container">
+    <div class="hero-read-card">
+        <div class="hero-read-content">
+            <img src="@Model.Product.ImageUrl" alt="@Model.Product.Title" class="hero-read-image" />
+
+            <div class="hero-read-details">
+                <h2 class="hero-read-title">@Model.Product.Title</h2>
+
+                <p class="hero-read-text"><strong>Real name:</strong> @Model.Product.Fullname</p>
+                <p class="hero-read-text"><strong>Birthplace:</strong> @Model.Product.Birthplace</p>
+                <p class="hero-read-text"><strong>Work:</strong> @Model.Product.Work</p>
+                <p class="hero-read-text"><strong>First Appearance:</strong> @Model.Product.FirstAppear</p>
+
+                <form method="post">
+                    <p class="hero-read-text"><strong>Are you sure you want to delete this superhero?</strong></p>
+                    <div class="d-flex gap-3 mt-3">
+                        <button type="submit" class="btn btn-danger">Yes</button>
+                        <a asp-page="/Product/Index" class="btn btn-secondary">No</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
