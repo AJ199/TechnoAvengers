@@ -121,6 +121,25 @@ namespace UnitTests.Pages.Product.Read
             Assert.IsNull(pageModel.Product, "Product should be null when ID is null.");
         }
 
+        [Test]
+        public void OnGet_ValidId_Should_Populate_Product_For_Display()
+        {
+            // Arrange
+            var validId = "31"; // Ensure this exists in your products.json
+
+            // Act
+            pageModel.OnGet(validId);
+
+            // Assert
+            Assert.IsNotNull(pageModel.Product, "Product should not be null.");
+            Assert.IsFalse(string.IsNullOrEmpty(pageModel.Product.Title), "Product title should not be empty.");
+            Assert.IsFalse(string.IsNullOrEmpty(pageModel.Product.ImageUrl), "Image URL should not be empty.");
+            Assert.IsNotNull(pageModel.Product.Powerstats, "Powerstats should not be null.");
+            Assert.IsNotNull(pageModel.Product.Fullname, "Fullname should be populated.");
+            Assert.IsNotNull(pageModel.Product.Birthplace, "Birthplace should be populated.");
+            Assert.IsNotNull(pageModel.Product.Work, "Work should be populated.");
+            Assert.IsNotNull(pageModel.Product.FirstAppear, "First appearance should be populated.");
+        }
 
         #endregion OnGet
     }
