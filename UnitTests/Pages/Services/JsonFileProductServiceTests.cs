@@ -74,6 +74,32 @@ namespace UnitTests.Services.TestJsonFileProductService
         /// </summary>
         /// 
 
+        [Test]
+        public void UpdateData_ValidProduct_ShouldUpdateAndReturnTrue()
+        {
+            // Arrange
+            var product = TestHelper.ProductService.GetProducts().First();
+
+            var updatedProduct = new ProductModel
+            {
+                Id = product.Id, // Must match to find and update
+                Title = "Updated Title",
+                Fullname = "Updated Name",
+                Birthplace = "Updated Place",
+                Work = "Updated Work",
+                FirstAppear = "Updated Date",
+                ImageUrl = "updated.jpg",
+                Powerstats = product.Powerstats,
+                Ratings = product.Ratings
+            };
+
+            // Act
+            var result = TestHelper.ProductService.UpdateData(updatedProduct);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
 
     }
     #endregion AddRating
