@@ -42,6 +42,25 @@ namespace UnitTests.Services.TestJsonFileProductService
             Assert.AreEqual(4, updated.Ratings[0]);
         }
 
+        [Test]
+        public void AddRating_ValidProductId_WithPriorRatings_ShouldAppendRating()
+        {
+            // Arrange
+            var product = TestHelper.ProductService.GetProducts().FirstOrDefault(p => p.Ratings != null);
+
+            Assert.IsNotNull(product, "No product found with existing Ratings.");
+            int originalCount = product.Ratings.Length;
+
+            // Act
+            TestHelper.ProductService.AddRating(product.Id, 5);
+
+            // Assert
+            var updated = TestHelper.ProductService.GetProducts().FirstOrDefault(p => p.Id == product.Id);
+            Assert.AreEqual(originalCount + 1, updated.Ratings.Length);
+            Assert.AreEqual(5, updated.Ratings.Last());
+        }
+
+
     }
     #endregion AddRating
 }
