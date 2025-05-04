@@ -25,7 +25,7 @@ namespace ContosoCrafts.WebSite.Pages.Product
             var json = System.IO.File.ReadAllText(filePath);
             var products = JsonConvert.DeserializeObject<List<ProductModel>>(json) ?? new List<ProductModel>();
 
-            // Generate a new unique ID
+            // Generate a new unique ID (maybe need to improve this???)
             Product.Id = (products.Count + 1).ToString();
 
             products.Add(Product);
@@ -37,3 +37,4 @@ namespace ContosoCrafts.WebSite.Pages.Product
         }
     }
 }
+

@@ -1,58 +1,142 @@
 ﻿@page
 @model ContosoCrafts.WebSite.Pages.Product.CreateModel
-
 @{
-    ViewData["Title"] = "Create Hero";
+    ViewData["Title"] = "Create";
 }
 
-<h2>Create New Hero</h2>
-
-<form method="post">
-    <div class="form-group">
-        <label>Title</label>
-        <input asp-for="Product.Title" class="form-control" />
-        <span asp-validation-for="Product.Title" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label>Full Name</label>
-        <input asp-for="Product.Fullname" class="form-control" />
-    </div>
-
-    <div class="form-group">
-        <label>Birthplace</label>
-        <input asp-for="Product.Birthplace" class="form-control" />
-    </div>
-
-    <div class="form-group">
-        <label>Work</label>
-        <input asp-for="Product.Work" class="form-control" />
-    </div>
-
-    <div class="form-group">
-        <label>First Appearance</label>
-        <input asp-for="Product.FirstAppear" class="form-control" />
-    </div>
-
-    <div class="form-group">
-        <label>Image URL</label>
-        <input asp-for="Product.ImageUrl" class="form-control" />
-        <span asp-validation-for="Product.ImageUrl" class="text-danger"></span>
-    </div>
-
-    <h4>Powerstats</h4>
-    @foreach (var stat in new[] { "Intelligence", "Strength", "Speed", "Durability", "Power", "Combat" })
-    {
-        <div class="form-group">
-            <label>@stat</label>
-            <input name="Powerstats[@stat]" class="form-control" />
-        </div>
+<style>
+    .form-container {
+        background-color: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 30px;
+        border-radius: 10px;
+        max-width: 600px;
+        margin: 40px auto;
     }
 
-    <button type="submit" class="btn btn-primary mt-3">Create Hero</button>
-</form>
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
 
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+        .form-group label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 8px;
+            border: none;
+            border-radius: 5px;
+            background-color: #222;
+            color: white;
+        }
+
+        .form-group span {
+            color: red;
+            font-size: 0.9em;
+        }
+
+    .btn-submit {
+        background-color: #ffcc00;
+        color: black;
+        border: none;
+        padding: 10px 20px;
+        font-weight: bold;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        .btn-submit:hover {
+            background-color: #e6b800;
+        }
+</style>
+
+<div class="form-container">
+    <h2>Create New Hero</h2>
+
+    <form method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <!-- Title -->
+        <div class="form-group">
+            <label asp-for="Product.Title"></label>
+            <input asp-for="Product.Title" />
+            <span asp-validation-for="Product.Title"></span>
+        </div>
+
+        <!-- Fullname -->
+        <div class="form-group">
+            <label asp-for="Product.Fullname"></label>
+            <input asp-for="Product.Fullname" />
+            <span asp-validation-for="Product.Fullname"></span>
+        </div>
+
+        <!-- Birthplace -->
+        <div class="form-group">
+            <label asp-for="Product.Birthplace"></label>
+            <input asp-for="Product.Birthplace" />
+            <span asp-validation-for="Product.Birthplace"></span>
+        </div>
+
+        <!-- Work -->
+        <div class="form-group">
+            <label asp-for="Product.Work"></label>
+            <input asp-for="Product.Work" />
+            <span asp-validation-for="Product.Work"></span>
+        </div>
+
+        <!-- First Appearance -->
+        <div class="form-group">
+            <label asp-for="Product.FirstAppear"></label>
+            <input asp-for="Product.FirstAppear" />
+            <span asp-validation-for="Product.FirstAppear"></span>
+        </div>
+
+        <!-- Image URL -->
+        <div class="form-group">
+            <label asp-for="Product.ImageUrl"></label>
+            <input asp-for="Product.ImageUrl" />
+            <span asp-validation-for="Product.ImageUrl"></span>
+        </div>
+
+        <!-- Powerstats -->
+        <h3>Powerstats</h3>
+        <div class="form-group">
+            <label>Intelligence</label>
+            <input name="Product.Powerstats[Intelligence]" />
+        </div>
+        <div class="form-group">
+            <label>Strength</label>
+            <input name="Product.Powerstats[Strength]" />
+        </div>
+        <div class="form-group">
+            <label>Speed</label>
+            <input name="Product.Powerstats[Speed]" />
+        </div>
+        <div class="form-group">
+            <label>Durability</label>
+            <input name="Product.Powerstats[Durability]" />
+        </div>
+        <div class="form-group">
+            <label>Power</label>
+            <input name="Product.Powerstats[Power]" />
+        </div>
+        <div class="form-group">
+            <label>Combat</label>
+            <input name="Product.Powerstats[Combat]" />
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn-submit">Create</button>
+    </form>
+</div>
 

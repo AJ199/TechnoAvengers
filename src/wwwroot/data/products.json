@@ -29,7 +29,7 @@
   {
     "Id": "106",
     "Title": "Black Panther",
-    "Fullname": "T\u0027Challa",
+    "Fullname": "T'Challa",
     "Birthplace": "Wakanda, Africa",
     "Work": "King and Chieftain of Wakanda, scientist; former school teacher",
     "FirstAppear": "Fantastic Four Vol. 1 #52 (1966)",
@@ -143,7 +143,7 @@
     "Birthplace": "-",
     "Work": "-",
     "FirstAppear": "Tales to Astonish #13 (November, 1960)",
-    "ImageUrl": "https://th.bing.com/th/id/OIP.7gsx0zAFrowfby98I4PaYAHaLU?rs=1\u0026pid=ImgDetMain",
+    "ImageUrl": "https://th.bing.com/th/id/OIP.7gsx0zAFrowfby98I4PaYAHaLU?rs=1&pid=ImgDetMain",
     "Powerstats": {
       "Intelligence": "75",
       "Strength": "85",
@@ -401,7 +401,7 @@
     "Title": "Winter Soldier",
     "Fullname": "Bucky Barnes",
     "Birthplace": "-",
-    "Work": "Adventurer; former SHIELD operative, Assassin (See Note under \u0022Winter Soldier\u0022 article), Army Mascot, Student",
+    "Work": "Adventurer; former SHIELD operative, Assassin (See Note under \"Winter Soldier\" article), Army Mascot, Student",
     "FirstAppear": "Captain America Vol 5 #1 (January, 2005) (as Winter Soldier)",
     "ImageUrl": "https://www.superherodb.com/pictures2/portraits/10/100/10027.jpg",
     "Powerstats": {
@@ -411,6 +411,24 @@
       "Durability": "65",
       "Power": "60",
       "Combat": "84"
+    },
+    "Ratings": null
+  },
+  {
+    "Id": "20",
+    "Title": "Test",
+    "Fullname": "Test",
+    "Birthplace": "Test",
+    "Work": "Test",
+    "FirstAppear": "Test",
+    "ImageUrl": null,
+    "Powerstats": {
+      "Intelligence": "0",
+      "Strength": "0",
+      "Speed": "0",
+      "Durability": "0",
+      "Power": "0",
+      "Combat": "0"
     },
     "Ratings": null
   }
