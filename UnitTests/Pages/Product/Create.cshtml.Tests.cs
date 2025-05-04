@@ -14,6 +14,7 @@ using ContosoCrafts.WebSite.Models;
 using ContosoCrafts.WebSite.Pages.Product;
 using System.Linq;
 using Microsoft.AspNetCore.Routing;
+using ContosoCrafts.WebSite.Services;
 
 namespace UnitTests.Pages.Product
 {
@@ -33,27 +34,41 @@ namespace UnitTests.Pages.Product
         [SetUp]
         public void TestInitialize()
         {
-            httpContextDefault = new DefaultHttpContext();
+            httpContextDefault = new DefaultHttpContext()
+            {
+                //RequestServices = serviceProviderMock.Object,
+            };
+
             modelState = new ModelStateDictionary();
+
             actionContext = new ActionContext(httpContextDefault, httpContextDefault.GetRouteData(), new PageActionDescriptor(), modelState);
+
             modelMetadataProvider = new EmptyModelMetadataProvider();
             viewData = new ViewDataDictionary(modelMetadataProvider, modelState);
             tempData = new TempDataDictionary(httpContextDefault, Mock.Of<ITempDataProvider>());
-            pageContext = new PageContext(actionContext) { ViewData = viewData };
 
-            // Setup a test file for JSON storage
-            testFilePath = Path.Combine(Path.GetTempPath(), "test-products.json");
-            File.WriteAllText(testFilePath, "[]"); // Start with empty list
-
-            pageModel = new CreateModel
+            pageContext = new PageContext(actionContext)
             {
-                PageContext = pageContext,
-                TempData = tempData
+                ViewData = viewData,
             };
 
-            // Redirect file path inside the OnPost method to our test file using reflection (or abstract to injectable in real app)
+            var mockWebHostEnvironment = new Mock<IWebHostEnvironment>();
+            mockWebHostEnvironment.Setup(m => m.EnvironmentName).Returns("Hosting:UnitTestEnvironment");
+            mockWebHostEnvironment.Setup(m => m.WebRootPath).Returns("../../../../src/bin/Debug/net8.0/wwwroot");
+            mockWebHostEnvironment.Setup(m => m.ContentRootPath).Returns("./data/");
+
+            var MockLoggerDirect = Mock.Of<ILogger<IndexModel>>();
+            JsonFileProductService productService;
+
+            productService = new JsonFileProductService(mockWebHostEnvironment.Object);
+
+            pageModel = new CreateModel();
         }
+
         #endregion TestSetup
+
+        #region OnGet
+
         [Test]
         public void OnGet_Should_Return_Page()
         {
@@ -70,7 +85,7 @@ namespace UnitTests.Pages.Product
             // Arrange
             var newProduct = new ProductModel
             {
-                Title = "Test Product",
+                Title = "Spider-Man",
                 Fullname = "Test",
                 Birthplace = "test2",
                 Work = "movie"
@@ -93,6 +108,8 @@ namespace UnitTests.Pages.Product
             Assert.IsNotNull(redirect.RouteValues);
             Assert.IsTrue(redirect.RouteValues.ContainsKey("id"));
         }
+
+        #endregion OnGet
 
     }
 }
