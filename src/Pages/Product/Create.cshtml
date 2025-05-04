@@ -1,0 +1,58 @@
+﻿@page
+@model ContosoCrafts.WebSite.Pages.Product.CreateModel
+
+@{
+    ViewData["Title"] = "Create Hero";
+}
+
+<h2>Create New Hero</h2>
+
+<form method="post">
+    <div class="form-group">
+        <label>Title</label>
+        <input asp-for="Product.Title" class="form-control" />
+        <span asp-validation-for="Product.Title" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label>Full Name</label>
+        <input asp-for="Product.Fullname" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Birthplace</label>
+        <input asp-for="Product.Birthplace" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Work</label>
+        <input asp-for="Product.Work" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>First Appearance</label>
+        <input asp-for="Product.FirstAppear" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label>Image URL</label>
+        <input asp-for="Product.ImageUrl" class="form-control" />
+        <span asp-validation-for="Product.ImageUrl" class="text-danger"></span>
+    </div>
+
+    <h4>Powerstats</h4>
+    @foreach (var stat in new[] { "Intelligence", "Strength", "Speed", "Durability", "Power", "Combat" })
+    {
+        <div class="form-group">
+            <label>@stat</label>
+            <input name="Powerstats[@stat]" class="form-control" />
+        </div>
+    }
+
+    <button type="submit" class="btn btn-primary mt-3">Create Hero</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
