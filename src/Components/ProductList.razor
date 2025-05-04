@@ -47,10 +47,12 @@
                             <p class="card-text">First Appearance: @selectedProduct.FirstAppear</p>
                             <p class="card-text">Power statistics:</p>
 							<ul>
-								@foreach (var stat in selectedProduct.Powerstats)
-								{
-									<li>@stat.Key: @stat.Value</li>
-								}
+								<li>Intelligence: @selectedProduct.Intelligence</li>
+								<li>Strength: @selectedProduct.Strength</li>
+								<li>Speed: @selectedProduct.Speed</li>
+								<li>Durability: @selectedProduct.Durability</li>
+								<li>Power: @selectedProduct.Power</li>
+								<li>Combat: @selectedProduct.Combat</li>
 							</ul>
 						</div>
 					</div>
