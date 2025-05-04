@@ -54,7 +54,15 @@ namespace UnitTests.Pages.Product
             // Redirect file path inside the OnPost method to our test file using reflection (or abstract to injectable in real app)
         }
         #endregion TestSetup
+        [Test]
+        public void OnGet_Should_Return_Page()
+        {
+            // Act
+            var result = pageModel.OnGet();
 
-        
+            // Assert
+            Assert.IsInstanceOf<PageResult>(result);
+        }
+
     }
 }
