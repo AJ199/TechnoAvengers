@@ -60,6 +60,20 @@ namespace UnitTests.Services.TestJsonFileProductService
             Assert.AreEqual(5, updated.Ratings.Last());
         }
 
+        [Test]
+        public void AddRating_InvalidProductId_ShouldNotThrow()
+        {
+            // Act & Assert
+            Assert.DoesNotThrow(() => TestHelper.ProductService.AddRating("invalid_id_123", 3));
+        }
+
+        /// <summary>
+        /// REST POST data that doesn't fit the constraints defined in function
+        /// Test if it Adds
+        /// Returns False because it wont add
+        /// </summary>
+        /// 
+
 
     }
     #endregion AddRating
