@@ -64,5 +64,35 @@ namespace UnitTests.Pages.Product
             Assert.IsInstanceOf<PageResult>(result);
         }
 
+        [Test]
+        public void OnPost_ValidProduct_Should_Create_And_Redirect()
+        {
+            // Arrange
+            var newProduct = new ProductModel
+            {
+                Title = "Test Product",
+                Fullname = "Test",
+                Birthplace = "test2",
+                Work = "movie"
+            };
+
+            pageModel.Product = newProduct;
+
+            // Redirect file access to test path (simulate production logic)
+            var jsonPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "data", "products.json");
+            Directory.CreateDirectory(Path.GetDirectoryName(jsonPath));
+            File.WriteAllText(jsonPath, "[]");
+
+            // Act
+            var result = pageModel.OnPost();
+
+            // Assert
+            Assert.IsInstanceOf<RedirectToPageResult>(result);
+            var redirect = result as RedirectToPageResult;
+            Assert.AreEqual("Read", redirect.PageName);
+            Assert.IsNotNull(redirect.RouteValues);
+            Assert.IsTrue(redirect.RouteValues.ContainsKey("id"));
+        }
+
     }
 }
