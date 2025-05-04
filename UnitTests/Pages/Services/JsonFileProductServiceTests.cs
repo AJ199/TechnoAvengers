@@ -1,6 +1,7 @@
 
 using System.Linq;
 using ContosoCrafts.WebSite.Models;
+using ContosoCrafts.WebSite.Services;
 using NUnit.Framework;
 
 
@@ -8,11 +9,19 @@ namespace UnitTests.Services.TestJsonFileProductService
 {
     public class JsonFileProductServiceTests
     {
-        #region TestSetup
+        /// <summary>
+        /// Service instance set up at the beggining of each test
+        /// </summary>
+        private JsonFileProductService _productService;
 
+        #region TestSetup
+        /// <summary>
+        /// Initializes the test environment before each test
+        /// </summary>
         [SetUp]
         public void TestInitialize()
         {
+            _productService = TestHelper.ProductService;
         }
 
         #endregion TestSetup
@@ -27,74 +36,89 @@ namespace UnitTests.Services.TestJsonFileProductService
         public void AddRating_ValidProductId_NoPriorRatings_ShouldInitializeRatings()
         {
             // Arrange
-            var product = TestHelper.ProductService.GetProducts().FirstOrDefault(p => p.Ratings == null);
-
-            // If all products already have Ratings, fail test setup
-            Assert.IsNotNull(product, "No product found with null Ratings.");
+            var data = _productService.GetProducts().FirstOrDefault(p => p.Ratings == null);
+            Assert.IsNotNull(data, "No product found with null Ratings.");
 
             // Act
-            TestHelper.ProductService.AddRating(product.Id, 4);
+            _productService.AddRating(data.Id, 4);
+
+            // Reset
 
             // Assert
-            var updated = TestHelper.ProductService.GetProducts().FirstOrDefault(p => p.Id == product.Id);
-            Assert.IsNotNull(updated.Ratings);
-            Assert.AreEqual(1, updated.Ratings.Length);
-            Assert.AreEqual(4, updated.Ratings[0]);
+            var result = _productService.GetProducts().FirstOrDefault(p => p.Id == data.Id);
+            Assert.IsNotNull(result.Ratings);
+            Assert.AreEqual(1, result.Ratings.Length);
+            Assert.AreEqual(4, result.Ratings[0]);
         }
 
         [Test]
         public void AddRating_ValidProductId_WithPriorRatings_ShouldAppendRating()
         {
             // Arrange
-            var product = TestHelper.ProductService.GetProducts().FirstOrDefault(p => p.Ratings != null);
-
-            Assert.IsNotNull(product, "No product found with existing Ratings.");
-            int originalCount = product.Ratings.Length;
+            var data = _productService.GetProducts().FirstOrDefault(p => p.Ratings != null);
+            Assert.IsNotNull(data, "No product found with existing Ratings.");
+            var originalCount = data.Ratings.Length;
 
             // Act
-            TestHelper.ProductService.AddRating(product.Id, 5);
+            _productService.AddRating(data.Id, 5);
+
+            // Reset
 
             // Assert
-            var updated = TestHelper.ProductService.GetProducts().FirstOrDefault(p => p.Id == product.Id);
-            Assert.AreEqual(originalCount + 1, updated.Ratings.Length);
-            Assert.AreEqual(5, updated.Ratings.Last());
+            var result = _productService.GetProducts().FirstOrDefault(p => p.Id == data.Id);
+            Assert.AreEqual(originalCount + 1, result.Ratings.Length);
+            Assert.AreEqual(5, result.Ratings.Last());
         }
 
         [Test]
         public void AddRating_InvalidProductId_ShouldNotThrow()
         {
-            // Act & Assert
-            Assert.DoesNotThrow(() => TestHelper.ProductService.AddRating("invalid_id_123", 3));
-        }
+            // Arrange
 
+            // Act
+            _productService.AddRating("invalid_id_123", 3);
+
+            // Reset
+
+            // Assert
+            Assert.Pass("No exception thrown");
+        }
+        #endregion AddRating
+
+        #region UpdateData
         /// <summary>
         /// REST POST data that doesn't fit the constraints defined in function
         /// Test if it Adds
         /// Returns False because it wont add
         /// </summary>
-        /// 
-
         [Test]
         public void UpdateData_ValidProduct_ShouldUpdateAndReturnTrue()
         {
             // Arrange
-            var product = TestHelper.ProductService.GetProducts().First();
+            var data = _productService.GetProducts().First();
 
             var updatedProduct = new ProductModel
             {
-                Id = product.Id, // Must match to find and update
+                Id = data.Id, // Must match to find and update
                 Title = "Updated Title",
                 Fullname = "Updated Name",
                 Birthplace = "Updated Place",
                 Work = "Updated Work",
                 FirstAppear = "Updated Date",
                 ImageUrl = "updated.jpg",
-                Powerstats = product.Powerstats,
-                Ratings = product.Ratings
+                Intelligence = 10,
+                Strength = 10,
+                Speed = 10,
+                Durability = 10,
+                Power = 10,
+                Combat = 10,
+                Ratings = data.Ratings
             };
 
             // Act
-            var result = TestHelper.ProductService.UpdateData(updatedProduct);
+            var result = _productService.UpdateData(updatedProduct);
+
+            // Reset
 
             // Assert
             Assert.IsTrue(result);
@@ -104,20 +128,58 @@ namespace UnitTests.Services.TestJsonFileProductService
         public void UpdateData_InvalidProduct_ShouldReturnFalse()
         {
             // Arrange
-            var fakeProduct = new ProductModel
+            var data = new ProductModel
             {
                 Id = "nonexistent-id-123",
                 Title = "Does not matter"
             };
 
             // Act
-            var result = TestHelper.ProductService.UpdateData(fakeProduct);
+            var result = _productService.UpdateData(data);
+
+            // Reset
 
             // Assert
-            Assert.IsFalse(result);
+            Assert.AreEqual(false,result);
         }
 
+        [Test]
+        public void UpdateData_EmptyOptionalFields_UsesDashAsDefault()
+        {
+            // Arrange
+            var data = _productService.GetProducts().First();
+
+            var dataToUpdate = new ProductModel 
+            {
+                Id = data.Id,
+                Title = "Update Test",
+                ImageUrl = "updated.png",
+                Intelligence = 10,
+                Strength = 10,
+                Speed = 10,
+                Durability = 10,
+                Power = 10,
+                Combat = 10,
+                Fullname = "",
+                Birthplace = null,
+                Work = "",
+                FirstAppear = "  ",  // whitespace
+                Ratings = new int[] { 5 }
+            };
+
+            // Act
+            var result = _productService.UpdateData(dataToUpdate);
+
+            // Assert
+            Assert.AreEqual(true,result);
+
+            var updated = TestHelper.ProductService.GetProducts().First(p => p.Id == data.Id);
+            Assert.AreEqual("-", updated.Fullname);
+            Assert.AreEqual("-", updated.Birthplace);
+            Assert.AreEqual("-", updated.Work);
+            Assert.AreEqual("-", updated.FirstAppear);
+        }
+        #endregion UpdateData
 
     }
-    #endregion AddRating
 }
