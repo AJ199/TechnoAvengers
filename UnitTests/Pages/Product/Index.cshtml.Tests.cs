@@ -49,8 +49,8 @@ namespace UnitTests.Pages.Product
             Assert.IsNotEmpty(pageModel.Products, "Products list should not be empty");
 
             // Optionally check a known product
-            var knownProduct = pageModel.Products.FirstOrDefault(p => p.Id == "620");
-            Assert.IsNotNull(knownProduct, "Known product with ID 31 should exist");
+            var knownProduct = pageModel.Products.FirstOrDefault(p => p.Id == "1");
+            Assert.IsNotNull(knownProduct, "Known product with ID 1 should exist");
             Assert.AreEqual("Spider-Man", knownProduct.Title);
         }
         #endregion OnGet
