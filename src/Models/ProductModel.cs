@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Serialization;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -14,24 +15,24 @@ namespace ContosoCrafts.WebSite.Models
         // Unique identifier for superhero
         public string? Id { get; set; }
 
-        // Title must be 2-50 characters long
+        // Title represents superhero name, is required and must be 2-50 characters long
         [Required(ErrorMessage = "Required")]
         [StringLength(50, MinimumLength = 2, ErrorMessage = "2-50 chars")]
         public string? Title { get; set; }
 
-        // Fullname must contain max 50 characters
+        // Fullname represents superhero real name and must contain max 50 characters
         [StringLength(50, ErrorMessage ="50 chars max")]
         public string? Fullname { get; set; }
 
-        // Birthplace must contain max 100 characters 
+        // Birthplace of superhero must contain max 100 characters 
         [StringLength(100, ErrorMessage = "100 chars max")]
         public string? Birthplace { get; set; }
 
-        // Work must contain max 150 characters
+        // Work of superhero must contain max 150 characters
         [StringLength(150, ErrorMessage = "150 chars max")]
         public string? Work { get; set; }
 
-        // FirstAppear must contain max 100 characters 
+        // FirstAppear is the first comic the superhero was included and must contain max 100 characters
         [StringLength(100, ErrorMessage = "100 chars max")]
         public string? FirstAppear { get; set; }
 
@@ -43,9 +44,35 @@ namespace ContosoCrafts.WebSite.Models
             ErrorMessage = "Must start with 'https://', end with .jpg or .png")]
         public string? ImageUrl { get; set; }
 
-        // Dictionary of power statistics (intelligence, strength, speed, durability, power, combat)
-        [JsonPropertyName("Powerstats")]
-        public Dictionary<string, string>? Powerstats { get; set; }
+        // Intelligence is a required power statistic and must be bewteen 0 and 100
+        [Required(ErrorMessage = "Required")]
+        [Range(0, 100, ErrorMessage = "Must be 0-100")]
+        public int Intelligence { get; set; }
+
+        // Strength is a required power statistic and must be bewteen 0 and 100
+        [Required(ErrorMessage = "Required")]
+        [Range(0, 100, ErrorMessage = "Must be 0-100")]
+        public int Strength { get; set; }
+
+        // Speed is a required power statistic and must be bewteen 0 and 100
+        [Required(ErrorMessage = "Required")]
+        [Range(0, 100, ErrorMessage = "Must be 0-100")]
+        public int Speed { get; set; }
+
+        // Durability is a required power statistic and must be bewteen 0 and 100
+        [Required(ErrorMessage = "Required")]
+        [Range(0, 100, ErrorMessage = "Must be 0-100")]
+        public int Durability { get; set; }
+
+        // Power is a required power statistic and must be bewteen 0 and 100
+        [Required(ErrorMessage = "Required")]
+        [Range(0, 100, ErrorMessage = "Must be 0-100")]
+        public int Power { get; set; }
+
+        // Combat is a required power statistic and must be bewteen 0 and 100
+        [Required(ErrorMessage = "Required")]
+        [Range(0, 100, ErrorMessage = "Must be 0-100")]
+        public int Combat { get; set; }
 
         // Array of ratings
         public int[]? Ratings { get; set; }
