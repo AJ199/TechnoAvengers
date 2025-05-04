@@ -100,6 +100,23 @@ namespace UnitTests.Services.TestJsonFileProductService
             Assert.IsTrue(result);
         }
 
+        [Test]
+        public void UpdateData_InvalidProduct_ShouldReturnFalse()
+        {
+            // Arrange
+            var fakeProduct = new ProductModel
+            {
+                Id = "nonexistent-id-123",
+                Title = "Does not matter"
+            };
+
+            // Act
+            var result = TestHelper.ProductService.UpdateData(fakeProduct);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
 
     }
     #endregion AddRating
