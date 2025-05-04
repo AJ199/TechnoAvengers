@@ -35,7 +35,7 @@ namespace ContosoCrafts.WebSite.Pages.Product
         public void OnGet(string id)
         {
             // Retrieves the superhero associated with the given ID
-            var retrievedProduct = ProductService.GetAllData().FirstOrDefault(m => m.Id.Equals(id));
+            var retrievedProduct = ProductService.GetProducts().FirstOrDefault(m => m.Id.Equals(id));
 
             if (retrievedProduct == null)
             {

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
@@ -7,30 +8,69 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace ContosoCrafts.WebSite.Services
 {
+    /// <summary>
+    /// Provides access to data stored in JSON format
+    /// </summary>
     public class JsonFileProductService
     {
+        /// <summary>
+        /// Web root path is retrieved through the hosting environment
+        /// </summary>
+        public IWebHostEnvironment WebHostEnvironment { get; }
+
+        /// <summary>
+        /// Initializes a new JSON product service instance 
+        /// </summary>
+        /// <param name="webHostEnvironment">Hosting environment</param>
         public JsonFileProductService(IWebHostEnvironment webHostEnvironment)
         {
             WebHostEnvironment = webHostEnvironment;
         }
 
-        public IWebHostEnvironment WebHostEnvironment { get; }
+        /// <summary>
+        /// Retrieves the path to the JSON file
+        /// </summary>
+        private string JsonFileName
+        {
+            get
+            {
+                return Path.Combine(WebHostEnvironment.WebRootPath, "data", "products.json");
+            }
+        }
 
-        private string JsonFileName => Path.Combine(WebHostEnvironment.WebRootPath, "data", "products.json");
-
+        /// <summary>
+        /// Retrieves all superhero data from the JSON file
+        /// </summary>
+        /// <returns>A collection of ProductModel objects</returns>
         public IEnumerable<ProductModel> GetProducts()
         {
             using var jsonFileReader = File.OpenText(JsonFileName);
-            return JsonSerializer.Deserialize<ProductModel[]>(jsonFileReader.ReadToEnd(),
-                new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true
-                });
+
+            // JSON parsing rules 
+            JsonSerializerOptions serializerOptions = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+
+            // Deserialized JSON data
+            ProductModel[]? products = JsonSerializer.Deserialize<ProductModel[]>(
+                jsonFileReader.ReadToEnd(),
+                serializerOptions);
+
+            if (products == null)
+            {
+                return Array.Empty<ProductModel>();
+            }
+
+            return products;
         }
 
-        // Alias method for backward compatibility
-        public IEnumerable<ProductModel> GetAllData() => GetProducts();
-
+        /// <summary>
+        /// Adds a rating to the superhero with the given ID
+        /// </summary>
+        /// <param name="productId">ID associated with superhero</param>
+        /// <param name="rating">Rating to be added</param>
+        /// <returns></returns>
         public void AddRating(string productId, int rating)
         {
             var products = GetProducts().ToList();
@@ -62,7 +102,7 @@ namespace ContosoCrafts.WebSite.Services
         /// <returns>True if successfully updated, false otherwise</returns>
         public bool UpdateData(ProductModel data)
         {
-            var products = GetAllData().ToList();
+            var products = GetProducts().ToList();
             var productData = products.FirstOrDefault(x => x.Id == data.Id);
 
             if (productData == null)
@@ -70,14 +110,24 @@ namespace ContosoCrafts.WebSite.Services
                 return false;
             }
 
-            // Update all properties except ID
+            // Required properties
             productData.Title = data.Title;
-            productData.Fullname = data.Fullname;
-            productData.Birthplace = data.Birthplace;
-            productData.Work = data.Work;
-            productData.FirstAppear = data.FirstAppear;
             productData.ImageUrl = data.ImageUrl;
-            productData.Powerstats = data.Powerstats;
+
+            // Required Power statistics 
+            productData.Intelligence = data.Intelligence;
+            productData.Strength = data.Strength;
+            productData.Speed = data.Speed;
+            productData.Durability = data.Durability;
+            productData.Power = data.Power;
+            productData.Combat = data.Combat;
+
+            // Apply "-" for optional properties if empty
+            productData.Fullname = string.IsNullOrWhiteSpace(data.Fullname) ? "-" : data.Fullname;
+            productData.Birthplace = string.IsNullOrWhiteSpace(data.Birthplace) ? "-" : data.Birthplace;
+            productData.Work = string.IsNullOrWhiteSpace(data.Work) ? "-" : data.Work;
+            productData.FirstAppear = string.IsNullOrWhiteSpace(data.FirstAppear) ? "-" : data.FirstAppear;
+            
             productData.Ratings = data.Ratings;
 
             SaveData(products);

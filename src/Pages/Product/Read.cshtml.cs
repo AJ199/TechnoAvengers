@@ -17,7 +17,7 @@ namespace ContosoCrafts.WebSite.Pages.Product
         public ProductModel Product;
         public void OnGet(string id)
         {
-            Product = ProductService.GetAllData().FirstOrDefault(m => m.Id.Equals(id));
+            Product = ProductService.GetProducts().FirstOrDefault(m => m.Id.Equals(id));
         }
     }
 }
