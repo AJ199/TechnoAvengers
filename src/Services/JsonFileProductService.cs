@@ -28,7 +28,7 @@ namespace ContosoCrafts.WebSite.Services
                 });
         }
 
-        // Alias method for backward compatibility with other parts of the codebase
+        // Alias method for backward compatibility
         public IEnumerable<ProductModel> GetAllData() => GetProducts();
 
         public void AddRating(string productId, int rating)
@@ -55,6 +55,39 @@ namespace ContosoCrafts.WebSite.Services
             SaveData(products);
         }
 
+        /// <summary>
+        /// Updates superhero data, except its ID
+        /// </summary>
+        /// <param name="data">Data to update</param>
+        /// <returns>True if successfully updated, false otherwise</returns>
+        public bool UpdateData(ProductModel data)
+        {
+            var products = GetAllData().ToList();
+            var productData = products.FirstOrDefault(x => x.Id == data.Id);
+
+            if (productData == null)
+            {
+                return false;
+            }
+
+            // Update all properties except ID
+            productData.Title = data.Title;
+            productData.Fullname = data.Fullname;
+            productData.Birthplace = data.Birthplace;
+            productData.Work = data.Work;
+            productData.FirstAppear = data.FirstAppear;
+            productData.ImageUrl = data.ImageUrl;
+            productData.Powerstats = data.Powerstats;
+            productData.Ratings = data.Ratings;
+
+            SaveData(products);
+            return true;
+        }
+
+        /// <summary>
+        /// Saves the given list to a JSON file
+        /// </summary>
+        /// <param name="products">List of superheroes</param>
         public void SaveData(IEnumerable<ProductModel> products)
         {
             using var outputStream = File.Create(JsonFileName);
