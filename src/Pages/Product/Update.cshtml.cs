@@ -39,11 +39,12 @@ namespace ContosoCrafts.WebSite.Pages.Product
 
             if (retrievedProduct == null)
             {
-                this.ModelState.AddModelError("OnGet", "Update Onget Error");
+                this.ModelState.AddModelError("OnGet", "Update OnGet Error");
+                
                 return;
             }
 
-            // Assigns the superhero data only if it's not null
+            // Assigns the superhero data 
             Product = retrievedProduct;
         }
 
@@ -53,7 +54,7 @@ namespace ContosoCrafts.WebSite.Pages.Product
         /// Call the data layer to Update that data
         /// Then return to the index page
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Redirects to Index page if successful, else reloads current page</returns>
         public IActionResult OnPost()
         {
             if (ModelState.IsValid == false)
@@ -66,14 +67,15 @@ namespace ContosoCrafts.WebSite.Pages.Product
                 return RedirectToPage("/Error");
             }
 
-            
+            // Attempt to update data, return error if update fails
             if (ProductService.UpdateData(Product) == false)
             {
                 this.ModelState.AddModelError("UpdateFailure", "Failed to update product data.");
+                
                 return Page(); 
             }
 
-            return RedirectToPage("/Error");
+            return RedirectToPage("/Product/Index");
         }
     }
 }
