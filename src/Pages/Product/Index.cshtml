@@ -2,16 +2,15 @@
 @model ContosoCrafts.WebSite.Pages.Product.IndexModel
 
 @{
-	ViewData["Title"] = "Index page";
+    ViewData["Title"] = "Index page";
 }
 
 <div class="container hero-index-container">
     <table class="table hero-table">
         <thead>
             <tr>
-                <th class="hero-title-header">Superhero Name</th>
-
-                <th class="hero-action-header">Actions</th>
+                <th class="hero-title-header">Title</th>
+                <th class="hero-action-header">Action</th>
             </tr>
         </thead>
         <tbody>
@@ -19,14 +18,11 @@
             {
                 <tr class="hero-row">
                     <td>@product.Title</td>
-
                     <td>
-                        <a class="btn btn-primary" asp-page="Read" asp-route-id="@product.Id">Read</a>
-
-                        <a class="btn btn-primary" asp-page="Update" asp-route-id="@product.Id">Edit</a>
-
-                        <a class="btn btn-primary" asp-page="Delete" asp-route-id="@product.Id">
-                            <i class="fas fa-trash"></i> Delete
+                        <a class="hero-link" asp-page="Read" asp-route-id="@product.Id">Read</a>
+                        <a asp-page="Delete" asp-route-id="@product.Id" class="btn" style="color: white; margin-left: 10px;">
+                            <i class="fas fa-trash" style="color: white;"></i>
+                            <span style="color: white;">Delete</span>
                         </a>
                     </td>
                 </tr>
