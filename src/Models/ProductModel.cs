@@ -46,32 +46,32 @@ namespace ContosoCrafts.WebSite.Models
 
         // Intelligence is a required power statistic and must be bewteen 0 and 100
         [Required(ErrorMessage = "Required")]
-        [Range(0, 100, ErrorMessage = "Must be 0-100")]
+        [Range(1, 100, ErrorMessage = "Must be 1-100")]
         public int Intelligence { get; set; }
 
         // Strength is a required power statistic and must be bewteen 0 and 100
         [Required(ErrorMessage = "Required")]
-        [Range(0, 100, ErrorMessage = "Must be 0-100")]
+        [Range(1, 100, ErrorMessage = "Must be 1-100")]
         public int Strength { get; set; }
 
         // Speed is a required power statistic and must be bewteen 0 and 100
         [Required(ErrorMessage = "Required")]
-        [Range(0, 100, ErrorMessage = "Must be 0-100")]
+        [Range(1, 100, ErrorMessage = "Must be 1-100")]
         public int Speed { get; set; }
 
         // Durability is a required power statistic and must be bewteen 0 and 100
         [Required(ErrorMessage = "Required")]
-        [Range(0, 100, ErrorMessage = "Must be 0-100")]
+        [Range(1, 100, ErrorMessage = "Must be 1-100")]
         public int Durability { get; set; }
 
         // Power is a required power statistic and must be bewteen 0 and 100
         [Required(ErrorMessage = "Required")]
-        [Range(0, 100, ErrorMessage = "Must be 0-100")]
+        [Range(1, 100, ErrorMessage = "Must be 1-100")]
         public int Power { get; set; }
 
         // Combat is a required power statistic and must be bewteen 0 and 100
         [Required(ErrorMessage = "Required")]
-        [Range(0, 100, ErrorMessage = "Must be 0-100")]
+        [Range(1, 100, ErrorMessage = "Must be 1-100")]
         public int Combat { get; set; }
 
         // Array of ratings

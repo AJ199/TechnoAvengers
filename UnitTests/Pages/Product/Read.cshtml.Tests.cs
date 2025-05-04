@@ -134,11 +134,16 @@ namespace UnitTests.Pages.Product.Read
             Assert.IsNotNull(pageModel.Product, "Product should not be null.");
             Assert.IsFalse(string.IsNullOrEmpty(pageModel.Product.Title), "Product title should not be empty.");
             Assert.IsFalse(string.IsNullOrEmpty(pageModel.Product.ImageUrl), "Image URL should not be empty.");
-            Assert.IsNotNull(pageModel.Product.Powerstats, "Powerstats should not be null.");
             Assert.IsNotNull(pageModel.Product.Fullname, "Fullname should be populated.");
             Assert.IsNotNull(pageModel.Product.Birthplace, "Birthplace should be populated.");
             Assert.IsNotNull(pageModel.Product.Work, "Work should be populated.");
             Assert.IsNotNull(pageModel.Product.FirstAppear, "First appearance should be populated.");
+            Assert.Greater(pageModel.Product.Intelligence, 0, "Intelligence should be greater than 0.");
+            Assert.Greater(pageModel.Product.Strength, 0, "Strength should be greater than 0.");
+            Assert.Greater(pageModel.Product.Speed, 0, "Speed should be greater than 0.");
+            Assert.Greater(pageModel.Product.Durability, 0, "Durability should be greater than 0.");
+            Assert.Greater(pageModel.Product.Power, 0, "Power should be greater than 0.");
+            Assert.Greater(pageModel.Product.Combat, 0, "Combat should be greater than 0.");
         }
 
         #endregion OnGet
