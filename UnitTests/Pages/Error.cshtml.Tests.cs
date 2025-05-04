@@ -1,13 +1,5 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Routing;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Routing;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
 
 using NUnit.Framework;
@@ -15,63 +7,33 @@ using NUnit.Framework;
 using Moq;
 
 using ContosoCrafts.WebSite.Pages;
-using ContosoCrafts.WebSite.Services;
 
 namespace UnitTests.Pages.Error
 {
+    /// <summary>
+    /// Provides unit testing for the Error page
+    /// </summary>
     public class ErrorTests
     {
         #region TestSetup
-        public static IUrlHelperFactory urlHelperFactory;
-        public static DefaultHttpContext httpContextDefault;
-        public static IWebHostEnvironment webHostEnvironment;
-        public static ModelStateDictionary modelState;
-        public static ActionContext actionContext;
-        public static EmptyModelMetadataProvider modelMetadataProvider;
-        public static ViewDataDictionary viewData;
-        public static TempDataDictionary tempData;
-        public static PageContext pageContext;
-
+        // Declare the model of the Error page to be used in unit tests
         public static ErrorModel pageModel;
 
         [SetUp]
+        /// <summary>
+        /// Initializes mock error page model for testing.
+        /// </summary>
         public void TestInitialize()
         {
-            httpContextDefault = new DefaultHttpContext()
-            {
-                TraceIdentifier = "trace",
-                //RequestServices = serviceProviderMock.Object,
-            };
-            httpContextDefault.HttpContext.TraceIdentifier = "trace";
-
-            modelState = new ModelStateDictionary();
-
-            actionContext = new ActionContext(httpContextDefault, httpContextDefault.GetRouteData(), new PageActionDescriptor(), modelState);
-
-            modelMetadataProvider = new EmptyModelMetadataProvider();
-            viewData = new ViewDataDictionary(modelMetadataProvider, modelState);
-            tempData = new TempDataDictionary(httpContextDefault, Mock.Of<ITempDataProvider>());
-
-            pageContext = new PageContext(actionContext)
-            {
-                ViewData = viewData,
-                HttpContext = httpContextDefault
-            };
-
-            var mockWebHostEnvironment = new Mock<IWebHostEnvironment>();
-            mockWebHostEnvironment.Setup(m => m.EnvironmentName).Returns("Hosting:UnitTestEnvironment");
-            mockWebHostEnvironment.Setup(m => m.WebRootPath).Returns("../../../../src/bin/Debug/netcoreapp3.0/wwwroot");
-            mockWebHostEnvironment.Setup(m => m.ContentRootPath).Returns("./data/");
-
+            // Logs where the category name is derived from for the mocked ErrorMoel
             var MockLoggerDirect = Mock.Of<ILogger<ErrorModel>>();
-            JsonFileProductService productService;
-
-            productService = new JsonFileProductService(mockWebHostEnvironment.Object);
 
             pageModel = new ErrorModel(MockLoggerDirect)
             {
-                PageContext = pageContext,
-                TempData = tempData,
+                // Holds the dummy PageContext from testHelper
+                PageContext = TestHelper.PageContext,
+                // Holds the dummy tempData from testHelper
+                TempData = TestHelper.TempData,
             };
         }
 
@@ -79,10 +41,15 @@ namespace UnitTests.Pages.Error
 
         #region OnGet
         [Test]
+        /// <summary>
+        /// Tests that starting a valid activity then going to the Error page correctly sets the RequestId for the Error page as the
+        /// activity Id
+        /// </summary>
         public void OnGet_Valid_Activity_Set_Should_Return_RequestId()
         {
             // Arrange
 
+            // Creates a valid activity to test the pageModel with
             Activity activity = new Activity("activity");
             activity.Start();
 
@@ -98,6 +65,10 @@ namespace UnitTests.Pages.Error
         }
 
         [Test]
+        /// <summary>
+        /// Tests that having an invalid activity then going to the Error page correctly sets the RequestId for the Error page as "trace"
+        /// while maintaining a valid state
+        /// </summary>
         public void OnGet_InValid_Activity_Null_Should_Return_TraceIdentifier()
         {
             // Arrange
