@@ -88,14 +88,14 @@ namespace UnitTests.Pages.Product.Read
         public void OnGet_Valid_Should_Return_Product()
         {
             // Arrange
-            var validId = "31";
+            var validId = "620";
 
             // Act
             pageModel.OnGet(validId);
 
             // Assert
             Assert.IsNotNull(pageModel.Product);
-            Assert.AreEqual("Ant-Man II", pageModel.Product.Title);
+            Assert.AreEqual("Spider-Man", pageModel.Product.Title);
         }
 
         [Test]
@@ -125,7 +125,7 @@ namespace UnitTests.Pages.Product.Read
         public void OnGet_ValidId_Should_Populate_Product_For_Display()
         {
             // Arrange
-            var validId = "31"; // Ensure this exists in your products.json
+            var validId = "620"; // Ensure this exists in your products.json
 
             // Act
             pageModel.OnGet(validId);
