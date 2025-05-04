@@ -110,6 +110,18 @@ namespace UnitTests.Pages.Product.Read
             // Assert
             Assert.IsNull(pageModel.Product, "Product should be null for an invalid ID.");
         }
+
+        [Test]
+        public void OnGet_NullId_Should_Return_Null()
+        {
+            // Act
+            pageModel.OnGet(null);
+
+            // Assert
+            Assert.IsNull(pageModel.Product, "Product should be null when ID is null.");
+        }
+
+
         #endregion OnGet
     }
 }
