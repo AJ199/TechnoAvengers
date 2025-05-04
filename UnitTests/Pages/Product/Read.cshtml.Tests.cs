@@ -98,25 +98,18 @@ namespace UnitTests.Pages.Product.Read
             Assert.AreEqual("Ant-Man II", pageModel.Product.Title);
         }
 
-        //[Test]
-        //public void OnGet_InValid_Should_Return_InvalidState()
-        //{
-        //    // Arrange
+        [Test]
+        public void OnGet_InvalidId_Should_Return_Null()
+        {
+            // Arrange
+            var invalidId = "avengers";
 
-        //    // Act
-        //    pageModel.OnGet("mike-cloud2"); // Does not exist
+            // Act
+            pageModel.OnGet(invalidId);
 
-        //    // Assert
-        //    // Store whether the ModelState is valid for later assert
-        //    var stateIsValid = pageModel.ModelState.IsValid;
-        //    Assert.AreEqual(false, stateIsValid);
-
-        //    // Reset
-        //    // This should remove the error we added
-        //    pageModel.ModelState.Clear();
-
-        //    return;
-        //}
+            // Assert
+            Assert.IsNull(pageModel.Product, "Product should be null for an invalid ID.");
+        }
         #endregion OnGet
     }
 }
