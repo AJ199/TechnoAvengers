@@ -15,10 +15,12 @@
             <div class="hero-read-details">
                 <div class="hero-read-stats">
                     <ul class="hero-read-list">
-                    @foreach (var stat in Model.Product.Powerstats)
-                    {
-                        <li class="hero-read-list-item">@stat.Key: @stat.Value</li>
-                    }
+                        <li class="hero-read-list-item">Intelligence: @Model.Product.Intelligence</li>
+                        <li class="hero-read-list-item">Strength: @Model.Product.Strength</li>
+                        <li class="hero-read-list-item">Speed: @Model.Product.Speed</li>
+                        <li class="hero-read-list-item">Durability: @Model.Product.Durability</li>
+                        <li class="hero-read-list-item">Power: @Model.Product.Power</li>
+                        <li class="hero-read-list-item">Combat: @Model.Product.Combat</li>
                     </ul>
                 </div>
 
