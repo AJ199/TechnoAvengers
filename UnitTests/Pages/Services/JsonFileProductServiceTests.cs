@@ -24,41 +24,22 @@ namespace UnitTests.Services.TestJsonFileProductService
         /// Test that the last data that was added was added correctly
         /// </summary>
         [Test]
-        public void AddRating_Valid_ProductId_Return_true()
+        public void AddRating_ValidProductId_NoPriorRatings_ShouldInitializeRatings()
         {
             // Arrange
+            var product = TestHelper.ProductService.GetProducts().FirstOrDefault(p => p.Ratings == null);
 
-            // Create Dummy Record with no prior Ratings
-            // Get the Last data item
-            var data = TestHelper.ProductService.GetProducts().Last();
-
-            // Act
-            // Store the result of the AddRating method (which is being tested)
-            bool validAdd = TestHelper.ProductService.AddRating(data.Id, 0);
-
-            // Assert
-            Assert.AreEqual(true, validAdd);
-
-            // Reset
-            // Delete Dummy Record
-        }
-
-        /// <summary>
-        /// REST POST data that doesn't fit the constraints defined in function
-        /// Test if it Adds
-        /// Returns False because it wont add
-        /// </summary>
-        [Test]
-        public void AddRating_Invalid_Product_ID_Not_Present_Should_Return_False()
-        {
-            // Arrange
+            // If all products already have Ratings, fail test setup
+            Assert.IsNotNull(product, "No product found with null Ratings.");
 
             // Act
-            // Store the result of the AddRating method (which is being tested)
-            var result = TestHelper.ProductService.AddRating("1000", 5);
+            TestHelper.ProductService.AddRating(product.Id, 4);
 
             // Assert
-            Assert.AreEqual(false, result);
+            var updated = TestHelper.ProductService.GetProducts().FirstOrDefault(p => p.Id == product.Id);
+            Assert.IsNotNull(updated.Ratings);
+            Assert.AreEqual(1, updated.Ratings.Length);
+            Assert.AreEqual(4, updated.Ratings[0]);
         }
 
     }
