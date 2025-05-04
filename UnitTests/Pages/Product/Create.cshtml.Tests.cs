@@ -15,6 +15,7 @@ using ContosoCrafts.WebSite.Pages.Product;
 using System.Linq;
 using Microsoft.AspNetCore.Routing;
 using ContosoCrafts.WebSite.Services;
+using Newtonsoft.Json;
 
 namespace UnitTests.Pages.Product
 {
@@ -86,8 +87,8 @@ namespace UnitTests.Pages.Product
             var newProduct = new ProductModel
             {
                 Title = "Spider-Man",
-                Fullname = "Test",
-                Birthplace = "test2",
+                Fullname = "Peter Parker",
+                Birthplace = "Queens",
                 Work = "movie"
             };
 
@@ -107,6 +108,57 @@ namespace UnitTests.Pages.Product
             Assert.AreEqual("Read", redirect.PageName);
             Assert.IsNotNull(redirect.RouteValues);
             Assert.IsTrue(redirect.RouteValues.ContainsKey("id"));
+        }
+
+        [Test]
+        public void OnPost_ValidProduct_WithExistingProducts_ShouldAppendAndRedirect()
+        {
+            // Arrange
+            var existingProducts = new List<ProductModel>
+    {
+        new ProductModel
+        {
+            Id = "1",
+            Title = "Spider-Man",
+            Fullname = "Peter Parker",
+            Birthplace = "Queens"
+
+        }
+    };
+
+            var jsonPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "data", "products.json");
+            Directory.CreateDirectory(Path.GetDirectoryName(jsonPath));
+
+            // Write an existing product into the file
+            File.WriteAllText(jsonPath, JsonConvert.SerializeObject(existingProducts, Formatting.Indented));
+
+            var newProduct = new ProductModel
+            {
+                Title = "Iron Man",
+                Fullname = "Tony Stark",
+                Birthplace = "New York",
+                Work = "Avenger"
+            };
+
+            pageModel.Product = newProduct;
+
+            // Act
+            var result = pageModel.OnPost();
+
+            // Assert
+            Assert.IsInstanceOf<RedirectToPageResult>(result);
+
+            var redirect = result as RedirectToPageResult;
+            Assert.AreEqual("Read", redirect.PageName);
+            Assert.IsNotNull(redirect.RouteValues);
+            Assert.IsTrue(redirect.RouteValues.ContainsKey("id"));
+
+            // Validate new product added correctly
+            var finalJson = File.ReadAllText(jsonPath);
+            var updatedProducts = JsonConvert.DeserializeObject<List<ProductModel>>(finalJson);
+
+            Assert.AreEqual(2, updatedProducts.Count);
+            Assert.AreEqual("Iron Man", updatedProducts.Last().Title);
         }
 
         #endregion OnGet
