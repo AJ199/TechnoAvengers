@@ -37,7 +37,7 @@ namespace UnitTests.Services.TestJsonFileProductService
         {
             // Arrange
             var data = _productService.GetProducts().FirstOrDefault(p => p.Ratings == null);
-            Assert.IsNotNull(data, "No product found with null Ratings.");
+            Assert.IsNotNull(data, "Product found with null Ratings.");
 
             // Act
             _productService.AddRating(data.Id, 4);
@@ -56,7 +56,7 @@ namespace UnitTests.Services.TestJsonFileProductService
         {
             // Arrange
             var data = _productService.GetProducts().FirstOrDefault(p => p.Ratings != null);
-            Assert.IsNotNull(data, "No product found with existing Ratings.");
+            Assert.IsNotNull(data, "Product found with existing Ratings.");
             var originalCount = data.Ratings.Length;
 
             // Act
