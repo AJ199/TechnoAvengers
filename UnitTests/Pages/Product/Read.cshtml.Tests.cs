@@ -16,7 +16,7 @@ using NUnit.Framework;
 using ContosoCrafts.WebSite.Pages.Product;
 using ContosoCrafts.WebSite.Services;
 
-namespace UnitTests.Pages.Product.Read
+namespace UnitTests.Pages.Product
 {
     public class ReadTests
     {
