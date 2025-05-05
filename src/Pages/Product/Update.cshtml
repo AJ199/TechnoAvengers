@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{id}"
 @using ContosoCrafts.WebSite.Services
 @using ContosoCrafts.WebSite.Models
 @inject JsonFileProductService ProductService
@@ -8,86 +8,136 @@
     ViewData["Title"] = "Update page";
 }
 
-<h1>Update</h1>
+<div class="hero-read-container">
+    <div class="hero-read-card">
+        <h1 class="hero-read-title">Update @Model.Product.Title</h1>
 
-<form method="post">
-    <input type="hidden" asp-for="Product.Id"/>
+        <div class="hero-read-content">
+            <!-- Image -->
+            <img class="hero-update-image" src='@Model.Product.ImageUrl' alt='Image for @Model.Product.Title'>
 
-    <div>
-        <label asp-for="Product.Title">Superhero Name</label>
-        <input asp-for="Product.Title" />
-        <span asp-validation-for="Product.Fullname"></span>
+            <!-- Fields to fill -->
+            <div class="hero-read-details">
+                <form method="post" class="update-form">
+                    <input type="hidden" asp-for="Product.Id" />
+
+                    <!-- Superhero Name -->
+                    <div class="form-group">
+                        <div class="label-row">
+                            <label asp-for="Product.Title"><strong>Superhero Name</strong></label>
+                            <span asp-validation-for="Product.Title" class="text-danger"></span>
+                        </div>
+                        <input asp-for="Product.Title" class="form-control" />
+                    </div>
+
+                    <!-- Full Name -->
+                    <div class="form-group">
+                        <div class="label-row">
+                            <label asp-for="Product.Fullname"><strong>Full Name</strong></label>
+                            <span asp-validation-for="Product.Fullname" class="text-danger"></span>
+                        </div>
+                        <input asp-for="Product.Fullname" class="form-control" />
+                    </div>
+
+                    <!-- Birthplace -->
+                    <div class="form-group">
+                        <div class="label-row">
+                            <label asp-for="Product.Birthplace"><strong>Birthplace</strong></label>
+                            <span asp-validation-for="Product.Birthplace" class="text-danger"></span>
+                        </div>
+                        <input asp-for="Product.Birthplace" class="form-control" />
+                    </div>
+
+                    <!-- Work -->
+                    <div class="form-group">
+                        <div class="label-row">
+                            <label asp-for="Product.Work"><strong>Work</strong></label>
+                            <span asp-validation-for="Product.Work" class="text-danger"></span>
+                        </div>
+                        <input asp-for="Product.Work" class="form-control" />
+                    </div>
+
+                    <!-- First Appearance -->
+                    <div class="form-group">
+                        <div class="label-row">
+                            <label asp-for="Product.FirstAppear"><strong>First Appearance</strong></label>
+                            <span asp-validation-for="Product.FirstAppear" class="text-danger"></span>
+                        </div>
+                        <input asp-for="Product.FirstAppear" class="form-control" />
+                    </div>
+
+                    <!-- Image URL -->
+                    <div class="form-group">
+                        <div class="label-row">
+                            <label asp-for="Product.ImageUrl"><strong>Image URL</strong></label>
+                            <span asp-validation-for="Product.ImageUrl" class="text-danger"></span>
+                        </div>
+                        <input asp-for="Product.ImageUrl" class="form-control" />
+                    </div>
+
+                    <!-- Power statistics title -->
+                    <h2 class="hero-read-title" style="font-size: 1.5rem;">Power Statistics</h2>
+
+                    <!-- Intelligence -->
+                    <div class="form-group">
+                        <div class="label-row">
+                            <label asp-for="Product.Intelligence"><strong>Intelligence</strong></label>
+                            <span asp-validation-for="Product.Intelligence" class="text-danger"></span>
+                        </div>
+                        <input asp-for="Product.Intelligence" class="form-control" />
+                    </div>
+
+                    <!-- Strength -->
+                    <div class="form-group">
+                        <div class="label-row">
+                            <label asp-for="Product.Strength"><strong>Strength</strong></label>
+                            <span asp-validation-for="Product.Strength" class="text-danger"></span>
+                        </div>
+                        <input asp-for="Product.Strength" class="form-control" />
+                    </div>
+
+                    <!-- Speed -->
+                    <div class="form-group">
+                        <div class="label-row">
+                            <label asp-for="Product.Speed"><strong>Speed</strong></label>
+                            <span asp-validation-for="Product.Speed" class="text-danger"></span>
+                        </div>
+                        <input asp-for="Product.Speed" class="form-control" />
+                    </div>
+
+                    <!-- Durability -->
+                    <div class="form-group">
+                        <div class="label-row">
+                            <label asp-for="Product.Durability"><strong>Durability</strong></label>
+                            <span asp-validation-for="Product.Durability" class="text-danger"></span>
+                        </div>
+                        <input asp-for="Product.Durability" class="form-control" />
+                    </div>
+
+                    <!-- Power -->
+                    <div class="form-group">
+                        <div class="label-row">
+                            <label asp-for="Product.Power"><strong>Power</strong></label>
+                            <span asp-validation-for="Product.Power" class="text-danger"></span>
+                        </div>
+                        <input asp-for="Product.Power" class="form-control" />
+                    </div>
+
+                    <!-- Combat -->
+                    <div class="form-group">
+                        <div class="label-row">
+                            <label asp-for="Product.Combat"><strong>Combat</strong></label>
+                            <span asp-validation-for="Product.Combat" class="text-danger"></span>
+                        </div>
+                        <input asp-for="Product.Combat" class="form-control" />
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Update</button>
+                        <a asp-page="./Index" asp-route-id="@Model.Product.Id" class="btn btn-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-
-    <div>
-        <label asp-for="Product.Fullname">Full Name</label>
-        <input asp-for="Product.Fullname" />
-        <span asp-validation-for="Product.Fullname"></span>
-    </div>
-
-    <div>
-        <label asp-for="Product.Birthplace">Birthplace</label>
-        <input asp-for="Product.Birthplace" />
-        <span asp-validation-for="Product.Birthplace"></span>
-    </div>
-
-    <div>
-        <label asp-for="Product.Work"></label>
-        <input asp-for="Product.Work" />
-        <span asp-validation-for="Product.Work"></span>
-    </div>
-
-    <div>
-        <label asp-for="Product.FirstAppear">First Appearance</label>
-        <input asp-for="Product.FirstAppear" />
-        <span asp-validation-for="Product.FirstAppear"></span>
-    </div>
-
-    <h2>Powerstats:</h2>
-    <div>
-        <label asp-for="Product.Intelligence">Intelligence</label>
-        <input asp-for="Product.Intelligence" />
-        <span asp-validation-for="Product.Intelligence"></span>
-    </div>
-
-    <div>
-        <label asp-for="Product.Strength">Strength</label>
-        <input asp-for="Product.Strength" />
-        <span asp-validation-for="Product.Strength"></span>
-    </div>
-
-    <div>
-        <label asp-for="Product.Speed">Speed</label>
-        <input asp-for="Product.Speed" />
-        <span asp-validation-for="Product.Speed"></span>
-    </div>
-
-    <div>
-        <label asp-for="Product.Durability">Durability</label>
-        <input asp-for="Product.Durability" />
-        <span asp-validation-for="Product.Durability"></span>
-    </div>
-
-    <div>
-        <label asp-for="Product.Power">Power</label>
-        <input asp-for="Product.Power" />
-        <span asp-validation-for="Product.Power"></span>
-    </div>
-
-    <div>
-        <label asp-for="Product.Combat">Combat</label>
-        <input asp-for="Product.Combat" />
-        <span asp-validation-for="Product.Combat"></span>
-    </div>
-
-    <div>
-        <label asp-for="Product.ImageUrl">Image URL</label>
-        <input asp-for="Product.ImageUrl" />
-        <span asp-validation-for="Product.ImageUrl"></span>
-    </div>
-
-    <div>
-        <input type="submit" value="Update" />
-        <a asp-page="./Index" asp-route-id="@Model.Product.Id">Cancel</a>
-    </div> 
-</form>
+</div>
