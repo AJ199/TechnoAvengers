@@ -32,6 +32,7 @@
                 <p class="hero-read-text">First Appearance: @Model.Product.FirstAppear</p>
 
                 <a class="btn btn-primary" asp-page="Update" asp-route-id="@Model.Product.Id">Edit</a>
+                <a asp-page="./Index" asp-route-id="@Model.Product.Id" class="btn btn-secondary">Go back</a>
             </div>
         </div>
     </div>
