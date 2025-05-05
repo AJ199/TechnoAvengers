@@ -75,5 +75,38 @@ namespace UnitTests.Pages.Product
 
         #endregion OnGet
 
+        #region OnPost
+        [Test]
+        /// <summary>
+        /// Verifies that when the product is valid, OnPost updates the product and 
+        /// redirects to the Index page.
+        /// </summary>
+        public void OnPost_ValidProduct_Should_UpdateAndRedirectToIndex()
+        {
+            // Arrange
+            var id = "1"; // ID for Spider-Man
+            pageModel.OnGet(id);
+            var originalName = pageModel.Product.Fullname;
+            pageModel.Product.Fullname = "Tom Holland";
+
+            // Act
+            var result = pageModel.OnPost();
+            Assert.IsInstanceOf<RedirectToPageResult>(result);
+            var redirectResult = (RedirectToPageResult)result;
+
+            // Assert
+            Assert.AreEqual(true, pageModel.ModelState.IsValid);
+            Assert.AreEqual("/Product/Index", redirectResult.PageName);
+            Assert.AreEqual("Tom Holland", pageModel.Product.Fullname);
+
+            // Reset 
+            pageModel.Product.Fullname = originalName;
+            pageModel.OnPost();
+            pageModel.ModelState.Clear();
+
+        }
+
+        #endregion
+
     }
 }
