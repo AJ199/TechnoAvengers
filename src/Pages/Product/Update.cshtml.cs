@@ -15,7 +15,7 @@ namespace ContosoCrafts.WebSite.Pages.Product
         public JsonFileProductService ProductService { get; }
 
         /// <summary>
-        /// Defualt Construtor
+        /// Initializes a new UpdateModel instance
         /// </summary>
         /// <param name="logger"></param>
         /// <param name="productService">Service used to manage superhero data</param>
@@ -24,18 +24,19 @@ namespace ContosoCrafts.WebSite.Pages.Product
             ProductService = productService;
         }
 
-        // The data to show, bind to it for the post
+        // Stores the product information to be displayed and updated
         [BindProperty]
-        public ProductModel Product { get; set; }
+        public ProductModel? Product { get; set; }
 
         /// <summary>
         ///  Responds to GET requests and loads the appropiate superhero data
+        ///  If no match is found, an error is added to the model state.
         /// </summary>
         /// <param name="id">Superhero ID</param>
         public void OnGet(string id)
         {
             // Retrieves the superhero associated with the given ID
-            var retrievedProduct = ProductService.GetProducts().FirstOrDefault(m => m.Id.Equals(id));
+            var retrievedProduct = ProductService.GetProducts().FirstOrDefault(m => m.Id == id);
 
             if (retrievedProduct == null)
             {
@@ -49,12 +50,13 @@ namespace ContosoCrafts.WebSite.Pages.Product
         }
 
         /// <summary>
-        /// Post the model back to the page
-        /// The model is in the class variable Product
-        /// Call the data layer to Update that data
-        /// Then return to the index page
+        /// Validates the model, updates the data and navigates to appropriate page based outcome
         /// </summary>
-        /// <returns>Redirects to Index page if successful, else reloads current page</returns>
+        /// <returns>
+        /// Index page on successful update, 
+        /// current page if validation fails, 
+        /// Error page if product is null
+        /// <returns>
         public IActionResult OnPost()
         {
             if (ModelState.IsValid == false)
