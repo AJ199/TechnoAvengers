@@ -157,7 +157,7 @@ namespace UnitTests.Pages.Product
         public void OnPost_InvalidId_Should_Set_ModelError()
         {
             // Arrange
-            var id = "332";
+            var id = "1";
             pageModel.OnGet(id);
             var originalName = pageModel.Product.Fullname;
             pageModel.Product.Id = "invalid-id";
