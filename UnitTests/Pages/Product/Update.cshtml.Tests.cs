@@ -52,6 +52,26 @@ namespace UnitTests.Pages.Product
 
         }
 
+        [Test]
+        /// <summary>
+        /// Verifies OnGet adds a model error and 
+        /// sets ModelState to invalid when invalid ID is provided
+        /// </summary>
+        public void OnGet_InvalidId_Should_Set_InvalidState()
+        {
+            // Arrange
+            var id = "invalid-id";
+
+            // Act
+            pageModel.OnGet(id);  // Should not find
+
+            // Assert
+            Assert.AreEqual(false, pageModel.ModelState.IsValid);
+
+            // Reset
+            pageModel.ModelState.Clear();
+        }
+
 
         #endregion OnGet
 
