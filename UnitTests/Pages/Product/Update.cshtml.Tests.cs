@@ -129,6 +129,56 @@ namespace UnitTests.Pages.Product
             pageModel.ModelState.Clear();
         }
 
+        [Test]
+        /// <summary>
+        /// Verifies that OnPost redirects to the error page when the Product is null.
+        /// </summary>
+        public void OnPost_NullProduct_Should_RedirectToErrorPage()
+        {
+            // Arrange
+            pageModel.Product = null;
+
+            // Act
+            var result = pageModel.OnPost();
+            Assert.IsInstanceOf<RedirectToPageResult>(result);
+            var redirectResult = (RedirectToPageResult)result;
+
+            // Assert
+            Assert.AreEqual("/Error", redirectResult.PageName);
+
+            // Reset
+        }
+
+
+        [Test]
+        /// <summary>
+        /// Verifies that OnPost fails to update when the product ID is invalid and sets a model error.
+        /// </summary>
+        public void OnPost_InvalidId_Should_Set_ModelError()
+        {
+            // Arrange
+            var id = "332";
+            pageModel.OnGet(id);
+            var originalName = pageModel.Product.Fullname;
+            pageModel.Product.Id = "invalid-id";
+            pageModel.Product.Fullname = "InvalidAttempt";
+
+            // Act
+            var result = pageModel.OnPost() as PageResult;
+
+            // Assert
+            Assert.AreEqual(false, pageModel.ModelState.IsValid);
+            Assert.IsTrue(pageModel.ModelState.ContainsKey("UpdateFailure"));
+            Assert.IsInstanceOf<PageResult>(result);
+
+            // Reset
+            pageModel.OnGet(id);
+            pageModel.Product.Fullname = originalName;
+            pageModel.OnPost();
+            pageModel.ModelState.Clear();
+
+        }
+
         #endregion
 
     }
