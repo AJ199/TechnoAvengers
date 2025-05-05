@@ -106,6 +106,29 @@ namespace UnitTests.Pages.Product
 
         }
 
+        [Test]
+        /// <summary>
+        /// Verifies that OnPost returns the Page when ModelState is invalid.
+        /// </summary>
+        public void OnPost_Invalid_ModelState_Should_Return_PageResult()
+        {
+            // Arrange
+
+            // Force an invalid error state
+            pageModel.ModelState.AddModelError("bogus", "bogus error");
+
+            // Act
+            var result = pageModel.OnPost() as ActionResult;
+            var stateIsValid = pageModel.ModelState.IsValid;
+
+            // Assert
+            Assert.AreEqual(false, stateIsValid);
+            Assert.IsInstanceOf<PageResult>(result);
+
+            // Reset
+            pageModel.ModelState.Clear();
+        }
+
         #endregion
 
     }
