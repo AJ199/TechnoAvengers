@@ -37,7 +37,6 @@ namespace ContosoCrafts.WebSite.Models
         public string? FirstAppear { get; set; }
 
         // ImageUrl must be valid, https, and end with .jpg or .png extension
-        [JsonPropertyName("ImageUrl")]
         [Required(ErrorMessage = "Required")]
         [Url(ErrorMessage = "Enter a valid URL")]
         [RegularExpression(@"^https:\/\/.*\.(jpg|png)$",

@@ -14,6 +14,8 @@
 
             <div class="hero-read-details">
                 <div class="hero-read-stats">
+                    <p class="hero-read-text">Power statistics:</p>
+
                     <ul class="hero-read-list">
                         <li class="hero-read-list-item">Intelligence: @Model.Product.Intelligence</li>
                         <li class="hero-read-list-item">Strength: @Model.Product.Strength</li>
@@ -28,8 +30,8 @@
                 <p class="hero-read-text">Birthplace: @Model.Product.Birthplace</p>
                 <p class="hero-read-text">Work: @Model.Product.Work</p>
                 <p class="hero-read-text">First Appearance: @Model.Product.FirstAppear</p>
-                <p class="hero-read-text">Power statistics:</p>
 
+                <a class="btn btn-primary" asp-page="Update" asp-route-id="@Model.Product.Id">Edit</a>
             </div>
         </div>
     </div>
