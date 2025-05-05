@@ -1,75 +1,46 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.IO;
-using System.Text.Json;
+using System.Linq;
 using ContosoCrafts.WebSite.Models;
 using ContosoCrafts.WebSite.Pages.Product;
-using System.Linq;
-using Microsoft.AspNetCore.Routing;
-using ContosoCrafts.WebSite.Services;
 using Newtonsoft.Json;
 
 namespace UnitTests.Pages.Product
 {
+    /// <summary>
+    /// Unit tests for CreateModel Razor Page
+    /// </summary>
     public class CreateTests
     {
-        #region TestSetup
-        public static DefaultHttpContext httpContextDefault;
-        public static ModelStateDictionary modelState;
-        public static ActionContext actionContext;
-        public static EmptyModelMetadataProvider modelMetadataProvider;
-        public static ViewDataDictionary viewData;
-        public static TempDataDictionary tempData;
-        public static PageContext pageContext;
-        public static CreateModel pageModel;
-        public static string testFilePath;
+        // Page model under test
+        private CreateModel pageModel;
 
+        /// <summary>
+        /// Setup for each test: Initializes a CreateModel with mocked dependencies
+        /// </summary>
         [SetUp]
         public void TestInitialize()
         {
-            httpContextDefault = new DefaultHttpContext()
-            {
-                //RequestServices = serviceProviderMock.Object,
-            };
-
-            modelState = new ModelStateDictionary();
-
-            actionContext = new ActionContext(httpContextDefault, httpContextDefault.GetRouteData(), new PageActionDescriptor(), modelState);
-
-            modelMetadataProvider = new EmptyModelMetadataProvider();
-            viewData = new ViewDataDictionary(modelMetadataProvider, modelState);
-            tempData = new TempDataDictionary(httpContextDefault, Mock.Of<ITempDataProvider>());
-
-            pageContext = new PageContext(actionContext)
-            {
-                ViewData = viewData,
-            };
-
             var mockWebHostEnvironment = new Mock<IWebHostEnvironment>();
             mockWebHostEnvironment.Setup(m => m.EnvironmentName).Returns("Hosting:UnitTestEnvironment");
-            mockWebHostEnvironment.Setup(m => m.WebRootPath).Returns("../../../../src/bin/Debug/net8.0/wwwroot");
-            mockWebHostEnvironment.Setup(m => m.ContentRootPath).Returns("./data/");
-
-            var MockLoggerDirect = Mock.Of<ILogger<IndexModel>>();
-            JsonFileProductService productService;
-
-            productService = new JsonFileProductService(mockWebHostEnvironment.Object);
+            mockWebHostEnvironment.Setup(m => m.WebRootPath).Returns(Directory.GetCurrentDirectory());
+            mockWebHostEnvironment.Setup(m => m.ContentRootPath).Returns(Directory.GetCurrentDirectory());
 
             pageModel = new CreateModel();
         }
 
-        #endregion TestSetup
-
         #region OnGet
 
+        /// <summary>
+        /// Test that OnGet returns a PageResult
+        /// </summary>
         [Test]
         public void OnGet_Should_Return_Page()
         {
@@ -80,6 +51,10 @@ namespace UnitTests.Pages.Product
             Assert.IsInstanceOf<PageResult>(result);
         }
 
+        /// <summary>
+        /// Test that OnPost creates a new product and redirects to Read page
+        /// when no products exist yet
+        /// </summary>
         [Test]
         public void OnPost_ValidProduct_Should_Create_And_Redirect()
         {
@@ -94,7 +69,7 @@ namespace UnitTests.Pages.Product
 
             pageModel.Product = newProduct;
 
-            // Redirect file access to test path (simulate production logic)
+            // Simulate empty JSON file
             var jsonPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "data", "products.json");
             Directory.CreateDirectory(Path.GetDirectoryName(jsonPath));
             File.WriteAllText(jsonPath, "[]");
@@ -110,26 +85,27 @@ namespace UnitTests.Pages.Product
             Assert.IsTrue(redirect.RouteValues.ContainsKey("id"));
         }
 
+        /// <summary>
+        /// Test that OnPost appends a new product and redirects to Read page
+        /// when existing products are already present
+        /// </summary>
         [Test]
         public void OnPost_ValidProduct_WithExistingProducts_ShouldAppendAndRedirect()
         {
             // Arrange
             var existingProducts = new List<ProductModel>
-    {
-        new ProductModel
-        {
-            Id = "1",
-            Title = "Spider-Man",
-            Fullname = "Peter Parker",
-            Birthplace = "Queens"
-
-        }
-    };
+            {
+                new ProductModel
+                {
+                    Id = "1",
+                    Title = "Spider-Man",
+                    Fullname = "Peter Parker",
+                    Birthplace = "Queens"
+                }
+            };
 
             var jsonPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "data", "products.json");
             Directory.CreateDirectory(Path.GetDirectoryName(jsonPath));
-
-            // Write an existing product into the file
             File.WriteAllText(jsonPath, JsonConvert.SerializeObject(existingProducts, Formatting.Indented));
 
             var newProduct = new ProductModel
@@ -147,13 +123,12 @@ namespace UnitTests.Pages.Product
 
             // Assert
             Assert.IsInstanceOf<RedirectToPageResult>(result);
-
             var redirect = result as RedirectToPageResult;
             Assert.AreEqual("Read", redirect.PageName);
             Assert.IsNotNull(redirect.RouteValues);
             Assert.IsTrue(redirect.RouteValues.ContainsKey("id"));
 
-            // Validate new product added correctly
+            // Validate the product was appended
             var finalJson = File.ReadAllText(jsonPath);
             var updatedProducts = JsonConvert.DeserializeObject<List<ProductModel>>(finalJson);
 
@@ -162,6 +137,5 @@ namespace UnitTests.Pages.Product
         }
 
         #endregion OnGet
-
     }
 }
