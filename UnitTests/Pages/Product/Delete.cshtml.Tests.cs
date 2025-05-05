@@ -74,6 +74,26 @@ namespace UnitTests.Pages.Product
         #region OnGet Tests
 
         [Test]
+        public void OnGet_InvalidId_Should_Redirect_To_Index()
+        {
+            // Arrange
+            pageModel.Id = "invalid-id-xyz";
+
+            // Act
+            var result = pageModel.OnGet();
+
+            // Assert
+            Assert.IsInstanceOf<RedirectToPageResult>(result);
+            var redirect = result as RedirectToPageResult;
+            Assert.AreEqual("/Product/Index", redirect.PageName);
+        }
+
+
+        #endregion OnGet Tests
+
+        #region OnPost Tests
+
+        [Test]
         public void OnPost_ValidId_Should_Delete_And_Redirect()
         {
             // Arrange
@@ -88,8 +108,6 @@ namespace UnitTests.Pages.Product
             var redirect = result as RedirectToPageResult;
             Assert.AreEqual("/Product/Index", redirect.PageName);
         }
-
-
 
         #endregion OnPost Tests
     }
