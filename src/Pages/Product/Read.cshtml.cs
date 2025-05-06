@@ -17,6 +17,9 @@ namespace ContosoCrafts.WebSite.Pages.Product
         // Stores superhero associated with provided ID
         public ProductModel? Product { get; set; }
 
+        // Holds the response to be sent back to the client.
+        public IActionResult? ClientResponse { get; set; }
+
         /// <summary>
         /// Initializes new instance of ReadModel with the given service
         /// </summary>
@@ -31,14 +34,13 @@ namespace ContosoCrafts.WebSite.Pages.Product
         /// </summary>
         /// <param name="id">Superhero ID</param>
         public void OnGet(string id)
-        // x.Id == productId
         {
             // Get the product using the id
             var retrievedProduct = ProductService.GetProducts().FirstOrDefault(m => m.Id == id);
 
             if (retrievedProduct == null)
             {
-                RedirectToPage("/Error");
+                ClientResponse = RedirectToPage("/Error");
                 return;
             }
 
