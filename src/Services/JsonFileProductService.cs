@@ -127,12 +127,87 @@ namespace ContosoCrafts.WebSite.Services
             productData.Birthplace = string.IsNullOrWhiteSpace(data.Birthplace) ? "-" : data.Birthplace;
             productData.Work = string.IsNullOrWhiteSpace(data.Work) ? "-" : data.Work;
             productData.FirstAppear = string.IsNullOrWhiteSpace(data.FirstAppear) ? "-" : data.FirstAppear;
-            
+
             productData.Ratings = data.Ratings;
 
             SaveData(products);
             return true;
         }
+
+        /// <summary>
+        /// Create a new superhero entry, applying default values for optional properties
+        /// </summary>
+        /// <param name="data">The new product to add</param>
+        /// <returns>True if successfully added, false otherwise</returns>
+        public bool CreateData(ProductModel data)
+        {
+            if (data == null)
+            {
+                return false;
+            }
+
+            // Retrieve existing products from storage
+            var products = GetProducts().ToList();
+
+            // Stores product with the same ID if it exists, otherwise null
+            var existing = products.FirstOrDefault(p => p.Id == data.Id);
+
+            if (existing == null)
+            {
+                // Required properties
+                string title = data.Title;
+                string imageUrl = data.ImageUrl;
+
+                // Required power stats
+                int intelligence = data.Intelligence;
+                int strength = data.Strength;
+                int speed = data.Speed;
+                int durability = data.Durability;
+                int power = data.Power;
+                int combat = data.Combat;
+
+                // Optional properties — set "-" if empty
+                string fullname = string.IsNullOrWhiteSpace(data.Fullname) ? "-" : data.Fullname;
+                string birthplace = string.IsNullOrWhiteSpace(data.Birthplace) ? "-" : data.Birthplace;
+                string work = string.IsNullOrWhiteSpace(data.Work) ? "-" : data.Work;
+                string firstAppear = string.IsNullOrWhiteSpace(data.FirstAppear) ? "-" : data.FirstAppear;
+
+                // Ratings can be null
+                int[]? ratings = data.Ratings;
+
+                // Construct the final product with cleaned fields
+                ProductModel newProduct = new ProductModel
+                {
+                    Id = data.Id,
+                    Title = title,
+                    ImageUrl = imageUrl,
+                    Intelligence = intelligence,
+                    Strength = strength,
+                    Speed = speed,
+                    Durability = durability,
+                    Power = power,
+                    Combat = combat,
+                    Fullname = fullname,
+                    Birthplace = birthplace,
+                    Work = work,
+                    FirstAppear = firstAppear,
+                    Ratings = ratings
+                };
+
+                // Add the new data to the list
+                products.Add(newProduct);
+
+                SaveData(products);
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
 
         /// <summary>
         /// Saves the given list to a JSON file
