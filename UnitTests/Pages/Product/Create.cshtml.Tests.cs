@@ -21,7 +21,7 @@ namespace UnitTests.Pages.Product
         [SetUp]
         public void TestInitialize()
         {
-            pageModel = new CreateModel();
+            pageModel = new CreateModel(TestHelper.ProductService);
         }
         #endregion TestSetup
 
@@ -81,4 +81,3 @@ namespace UnitTests.Pages.Product
         #endregion OnGet
     }
 }
-
