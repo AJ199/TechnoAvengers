@@ -474,3 +474,39 @@ main {
 }
 /*End of Update form styles*/
 
+/* Delete Page Buttons */
+.btn-confirm {
+    background-color: #ED1D24; /* Red */
+    color: white;
+    font-family: 'Bangers', cursive;
+    font-size: 1.3rem;
+    padding: 10px 24px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+    .btn-confirm:hover {
+        background-color: #c4141b;
+        transform: scale(1.05);
+        transition: 0.2s ease-in-out;
+    }
+
+.btn-cancel {
+    background-color: #000; /* Black */
+    color: white;
+    font-family: 'Bangers', cursive;
+    font-size: 1.3rem;
+    padding: 10px 24px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+    .btn-cancel:hover {
+        background-color: #222;
+        transform: scale(1.05);
+        transition: 0.2s ease-in-out;
+    }
