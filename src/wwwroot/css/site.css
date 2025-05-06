@@ -480,33 +480,37 @@ main {
     color: white;
     font-family: 'Bangers', cursive;
     font-size: 1.3rem;
-    padding: 10px 24px;
+    padding: 12px 30px;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
     text-transform: uppercase;
+    width: 160px;
+    text-align: center;
+    transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
 }
 
     .btn-confirm:hover {
         background-color: #c4141b;
         transform: scale(1.05);
-        transition: 0.2s ease-in-out;
     }
 
 .btn-cancel {
-    background-color: #000; /* Black */
+    background-color: #000000; /* Black */
     color: white;
     font-family: 'Bangers', cursive;
     font-size: 1.3rem;
-    padding: 10px 24px;
+    padding: 12px 30px;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
     text-transform: uppercase;
+    width: 160px;
+    text-align: center;
+    transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
 }
 
     .btn-cancel:hover {
         background-color: #222;
         transform: scale(1.05);
-        transition: 0.2s ease-in-out;
     }
