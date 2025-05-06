@@ -1,78 +1,42 @@
-﻿using NUnit.Framework;
+﻿using ContosoCrafts.WebSite.Pages.Product;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Logging;
-using Moq;
-
-using ContosoCrafts.WebSite.Pages.Product;
-using ContosoCrafts.WebSite.Services;
-using ContosoCrafts.WebSite.Models;
-
+using NUnit.Framework;
 using System.Linq;
-using Microsoft.AspNetCore.Routing;
-using Microsoft.AspNetCore.Mvc.Routing;
 
 namespace UnitTests.Pages.Product
 {
+    /// <summary>
+    /// Provides unit testing for the Delete page
+    /// </summary>
     public class DeleteTests
     {
         #region TestSetup
-        public static IUrlHelperFactory urlHelperFactory;
-        public static DefaultHttpContext httpContextDefault;
-        public static IWebHostEnvironment webHostEnvironment;
-        public static ModelStateDictionary modelState;
-        public static ActionContext actionContext;
-        public static EmptyModelMetadataProvider modelMetadataProvider;
-        public static ViewDataDictionary viewData;
-        public static TempDataDictionary tempData;
-        public static PageContext pageContext;
 
+        // Delete page model for testing
         public static DeleteModel pageModel;
 
+        /// <summary>
+        /// Initializes the test environment
+        /// </summary>
         [SetUp]
         public void TestInitialize()
         {
-            httpContextDefault = new DefaultHttpContext()
+            pageModel = new DeleteModel(TestHelper.ProductService)
             {
-                //RequestServices = serviceProviderMock.Object,
-            };
+                // Set explicitly because of use of TempData in OnPost
+                PageContext = TestHelper.PageContext,
+                TempData = TestHelper.TempData
 
-            modelState = new ModelStateDictionary();
-
-            actionContext = new ActionContext(httpContextDefault, httpContextDefault.GetRouteData(), new PageActionDescriptor(), modelState);
-
-            modelMetadataProvider = new EmptyModelMetadataProvider();
-            viewData = new ViewDataDictionary(modelMetadataProvider, modelState);
-            tempData = new TempDataDictionary(httpContextDefault, Mock.Of<ITempDataProvider>());
-
-            pageContext = new PageContext(actionContext)
-            {
-                ViewData = viewData,
-            };
-
-            var mockWebHostEnvironment = new Mock<IWebHostEnvironment>();
-            mockWebHostEnvironment.Setup(m => m.EnvironmentName).Returns("Hosting:UnitTestEnvironment");
-            mockWebHostEnvironment.Setup(m => m.WebRootPath).Returns("../../../../src/bin/Debug/net8.0/wwwroot");
-            mockWebHostEnvironment.Setup(m => m.ContentRootPath).Returns("./data/");
-
-            var MockLoggerDirect = Mock.Of<ILogger<IndexModel>>();
-            JsonFileProductService productService;
-
-            productService = new JsonFileProductService(mockWebHostEnvironment.Object);
-
-            pageModel = new DeleteModel(productService)
-            {
             };
         }
 
         #endregion TestSetup
 
         #region OnGet Tests
-
+        /// <summary>
+        /// Verifies that OnGet redirects to Index page when
+        /// provided an invalid ID
+        /// </summary>
         [Test]
         public void OnGet_InvalidId_Should_Redirect_To_Index()
         {
@@ -83,8 +47,8 @@ namespace UnitTests.Pages.Product
             var result = pageModel.OnGet();
 
             // Assert
-            Assert.IsInstanceOf<RedirectToPageResult>(result);
-            var redirect = result as RedirectToPageResult;
+            Assert.AreEqual(typeof(RedirectToPageResult), result.GetType());
+            var redirect = (RedirectToPageResult)result;
             Assert.AreEqual("/Product/Index", redirect.PageName);
         }
 
@@ -92,20 +56,23 @@ namespace UnitTests.Pages.Product
         #endregion OnGet Tests
 
         #region OnPost Tests
-
+        /// <summary>
+        /// Verifies that OnPost redirects to Index page when
+        /// provided a valid ID
+        /// </summary>
         [Test]
         public void OnPost_ValidId_Should_Delete_And_Redirect()
         {
             // Arrange
-            var product = TestHelper.ProductService.GetProducts().First();
-            pageModel.Id = product.Id;
+            var data = TestHelper.ProductService.GetProducts().First();
+            pageModel.Id = data.Id;
 
             // Act
             var result = pageModel.OnPost();
 
             // Assert
-            Assert.IsInstanceOf<RedirectToPageResult>(result);
-            var redirect = result as RedirectToPageResult;
+            Assert.AreEqual(typeof(RedirectToPageResult), result.GetType());
+            var redirect = (RedirectToPageResult)result;
             Assert.AreEqual("/Product/Index", redirect.PageName);
         }
 
