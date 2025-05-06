@@ -1,149 +1,132 @@
-
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Routing;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Routing;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Logging;
-
-using Moq;
-
-using NUnit.Framework;
-
 using ContosoCrafts.WebSite.Pages.Product;
-using ContosoCrafts.WebSite.Services;
+using Microsoft.AspNetCore.Mvc;
+using NUnit.Framework;
+using System.Linq;
 
 namespace UnitTests.Pages.Product
 {
+    /// <summary>
+    /// Unit tests for the Read page
+    /// </summary>
     public class ReadTests
     {
-        #region TestSetup
-        public static IUrlHelperFactory urlHelperFactory;
-        public static DefaultHttpContext httpContextDefault;
-        public static IWebHostEnvironment webHostEnvironment;
-        public static ModelStateDictionary modelState;
-        public static ActionContext actionContext;
-        public static EmptyModelMetadataProvider modelMetadataProvider;
-        public static ViewDataDictionary viewData;
-        public static TempDataDictionary tempData;
-        public static PageContext pageContext;
 
+        #region TestSetup
+
+        // The Read page model for testing
         public static ReadModel pageModel;
 
+        /// <summary>
+        /// Initializes the test environment
+        /// </summary>
         [SetUp]
         public void TestInitialize()
         {
-            httpContextDefault = new DefaultHttpContext()
-            {
-                //RequestServices = serviceProviderMock.Object,
-            };
-
-            modelState = new ModelStateDictionary();
-
-            actionContext = new ActionContext(httpContextDefault, httpContextDefault.GetRouteData(), new PageActionDescriptor(), modelState);
-
-            modelMetadataProvider = new EmptyModelMetadataProvider();
-            viewData = new ViewDataDictionary(modelMetadataProvider, modelState);
-            tempData = new TempDataDictionary(httpContextDefault, Mock.Of<ITempDataProvider>());
-
-            pageContext = new PageContext(actionContext)
-            {
-                ViewData = viewData,
-            };
-
-            var mockWebHostEnvironment = new Mock<IWebHostEnvironment>();
-            mockWebHostEnvironment.Setup(m => m.EnvironmentName).Returns("Hosting:UnitTestEnvironment");
-            mockWebHostEnvironment.Setup(m => m.WebRootPath).Returns("../../../../src/bin/Debug/net8.0/wwwroot");
-            mockWebHostEnvironment.Setup(m => m.ContentRootPath).Returns("./data/");
-
-            var MockLoggerDirect = Mock.Of<ILogger<IndexModel>>();
-            JsonFileProductService productService;
-
-            productService = new JsonFileProductService(mockWebHostEnvironment.Object);
-
-            pageModel = new ReadModel(productService)
-            {
-            };
+            pageModel = new ReadModel(TestHelper.ProductService);
         }
-
         #endregion TestSetup
 
         #region OnGet
-
-        // OnGet on Read should test functionality of a Read of a specific product
-        // Tests should include making sure that Read returns the Product in its payload with a valid ID
-        // Tests should include InvalidID's
-
-        // OnPost is not handled.
-
         /// <summary>
-        /// Return a Product with a given Id.
-        /// We will create a Record, and then search for it
-        /// 
+        /// Validates that OnGet with valid ID returns product and no client response
         /// </summary>
         [Test]
-        public void OnGet_Valid_Should_Return_Product()
+        public void OnGet_ValidId_Should_Return_Product()
         {
             // Arrange
-            var validId = "620";
+            var data = TestHelper.ProductService.GetProducts().First();
 
             // Act
-            pageModel.OnGet(validId);
+            pageModel.OnGet(data.Id);
+            var result = pageModel.Product;
 
             // Assert
-            Assert.IsNotNull(pageModel.Product);
-            Assert.AreEqual("Spider-Man", pageModel.Product.Title);
+            Assert.AreEqual(data.Title, pageModel.Product.Title);
+            Assert.AreEqual(null, pageModel.ClientResponse);
         }
 
+        /// <summary>
+        /// Validates OnGet populates all product fields 
+        /// </summary>
+        [Test]
+        public void OnGet_ValidId_Should_Populate_AllProductFields()
+        {
+            // Arrange
+            // Find a fully populated entry
+            var data = TestHelper.ProductService.GetProducts().First();
+
+            // Act
+            pageModel.OnGet(data.Id);
+            var result = pageModel.Product;
+
+            // Assert
+            Assert.AreEqual(data.Title, result.Title);
+            Assert.AreEqual(false, string.IsNullOrEmpty(result.ImageUrl));
+            Assert.AreEqual(false, string.IsNullOrEmpty(result.Fullname));
+            Assert.AreEqual(false, string.IsNullOrEmpty(result.Birthplace));
+            Assert.AreEqual(false, string.IsNullOrEmpty(result.Work));
+            Assert.AreEqual(false, string.IsNullOrEmpty(result.FirstAppear));
+            Assert.AreEqual(true, result.Intelligence > 0);
+            Assert.AreEqual(true, result.Strength > 0);
+            Assert.AreEqual(true, result.Speed > 0);
+            Assert.AreEqual(true, result.Durability > 0);
+            Assert.AreEqual(true, result.Power > 0);
+            Assert.AreEqual(true, result.Combat > 0);
+
+        }
+
+        /// <summary>
+        /// Validates that OnGet with invalid ID should return null product
+        /// </summary>
         [Test]
         public void OnGet_InvalidId_Should_Return_Null()
         {
             // Arrange
-            var invalidId = "avengers";
 
             // Act
-            pageModel.OnGet(invalidId);
+            pageModel.OnGet("invalid-id");
+            var result = pageModel.Product;
 
             // Assert
-            Assert.IsNull(pageModel.Product, "Product should be null for an invalid ID.");
+            Assert.AreEqual(null, result);
         }
 
+        /// <summary>
+        /// Validates that OnGet with invalid ID returns null product and redirects to error
+        /// </summary>
+        [Test]
+        public void OnGet_InvalidId_Should_Redirect_To_ErrorPage()
+        {
+            // Arrange
+
+            // Act
+            pageModel.OnGet("invalid-id");
+            var result = (RedirectToPageResult)pageModel.ClientResponse;
+
+            // Assert
+            Assert.AreEqual(true, pageModel.ModelState.IsValid);
+            Assert.AreEqual(null, pageModel.Product);
+            Assert.AreEqual(false, result == null);
+            Assert.AreEqual("/Error", result.PageName);
+        }
+
+
+        /// <summary>
+        /// Validates that OnGet with null ID returns null product
+        /// </summary>
         [Test]
         public void OnGet_NullId_Should_Return_Null()
         {
+            // Arrange
+
             // Act
             pageModel.OnGet(null);
 
             // Assert
-            Assert.IsNull(pageModel.Product, "Product should be null when ID is null.");
-        }
+            Assert.AreEqual(null, pageModel.Product);
 
-        [Test]
-        public void OnGet_ValidId_Should_Populate_Product_For_Display()
-        {
-            // Arrange
-            var validId = "620"; // Ensure this exists in your products.json
-
-            // Act
-            pageModel.OnGet(validId);
-
-            // Assert
-            Assert.IsNotNull(pageModel.Product, "Product should not be null.");
-            Assert.IsFalse(string.IsNullOrEmpty(pageModel.Product.Title), "Product title should not be empty.");
-            Assert.IsFalse(string.IsNullOrEmpty(pageModel.Product.ImageUrl), "Image URL should not be empty.");
-            Assert.IsNotNull(pageModel.Product.Fullname, "Fullname should be populated.");
-            Assert.IsNotNull(pageModel.Product.Birthplace, "Birthplace should be populated.");
-            Assert.IsNotNull(pageModel.Product.Work, "Work should be populated.");
-            Assert.IsNotNull(pageModel.Product.FirstAppear, "First appearance should be populated.");
-            Assert.Greater(pageModel.Product.Intelligence, 0, "Intelligence should be greater than 0.");
-            Assert.Greater(pageModel.Product.Strength, 0, "Strength should be greater than 0.");
-            Assert.Greater(pageModel.Product.Speed, 0, "Speed should be greater than 0.");
-            Assert.Greater(pageModel.Product.Durability, 0, "Durability should be greater than 0.");
-            Assert.Greater(pageModel.Product.Power, 0, "Power should be greater than 0.");
-            Assert.Greater(pageModel.Product.Combat, 0, "Combat should be greater than 0.");
+            // Reset
+            pageModel.ModelState.Clear();
         }
 
         #endregion OnGet
