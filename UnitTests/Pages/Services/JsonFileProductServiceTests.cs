@@ -76,7 +76,7 @@ namespace UnitTests.Services.TestJsonFileProductService
         /// Invalid product ID should not throw an exception when rating is added
         /// </summary>
         [Test]
-        public void AddRating_InvalidProductId_ShouldNotThrow()
+        public void AddRating_InvalidProductId_ShouldNotThrowException()
         {
             // Act & Assert
             _productService.AddRating("invalid_id_123", 3);
@@ -146,7 +146,7 @@ namespace UnitTests.Services.TestJsonFileProductService
             var result = _productService.UpdateData(updatedProduct);
 
             // Assert
-            Assert.IsTrue(result);
+            Assert.AreEqual(true, result);
         }
 
         /// <summary>
@@ -210,5 +210,132 @@ namespace UnitTests.Services.TestJsonFileProductService
         }
 
         #endregion UpdateData
+
+        #region CreateData
+
+        /// <summary>
+        /// Valid product should be created successfully and return true
+        /// </summary>
+        public void CreateData_ValidProduct_ShouldUpdateAndReturnTrue()
+        {
+            // Arrange
+            var newId = "1000";
+
+            var data = new ProductModel
+            {
+                Id = newId,
+                Title = "Create Title",
+                Fullname = "Create Name",
+                Birthplace = "Create Place",
+                Work = "Create Work",
+                FirstAppear = "Create Date",
+                ImageUrl = "https://updated.jpg",
+                Intelligence = 10,
+                Strength = 10,
+                Speed = 10,
+                Durability = 10,
+                Power = 10,
+                Combat = 10,
+                Ratings = new[] { 1 }
+            };
+
+            // Act
+            var result = _productService.CreateData(data);
+
+            // Assert
+            Assert.AreEqual(true, result);
+            var dataSaved = _productService.GetProducts().FirstOrDefault(x => x.Id == newId);
+            Assert.AreEqual(false, dataSaved == null);
+            Assert.AreEqual("Create Title", dataSaved.Title);
+        }
+
+        /// <summary>
+        /// Duplicate product ID should not be added and return false
+        /// </summary>
+        [Test]
+        public void CreateData_DuplicateProductId_ShouldReturnFalse()
+        {
+            // Arrange
+            // Create data with duplicated id
+            var data = _productService.GetProducts().First();
+
+            var duplicate = new ProductModel
+            {
+                Id = data.Id,
+                Title = "Duplicate Test",
+                ImageUrl = "https://duplicate.png",
+                Intelligence = 10,
+                Strength = 10,
+                Speed = 10,
+                Durability = 10,
+                Power = 10,
+                Combat = 10
+            };
+
+            // Act
+            var result = _productService.CreateData(duplicate);
+
+            // Assert
+            Assert.AreEqual(false, result);
+        }
+
+        /// <summary>
+        /// Null input should return false 
+        /// </summary>
+        [Test]
+        public void CreateData_NullProduct_ShouldReturnFalse()
+        {
+            // Act
+            var result = _productService.CreateData(null);
+
+            // Assert
+            Assert.AreEqual(false, result);
+        }
+
+        /// <summary>
+        /// Product with blank optional fields should store "-" as default
+        /// </summary>
+        [Test]
+        public void CreateData_EmptyOptionalFields_UseDashDefault()
+        {
+            // Arrange
+            var testId = "1000";
+
+            // Remove if already exists
+            var cleanupList = _productService.GetProducts().Where(p => p.Id != testId).ToList();
+            _productService.SaveData(cleanupList);
+
+            var data = new ProductModel
+            {
+                Id = testId,
+                Title = "Empty Optional",
+                ImageUrl = "https://blank.jpg",
+                Intelligence = 5,
+                Strength = 5,
+                Speed = 5,
+                Durability = 5,
+                Power = 5,
+                Combat = 5,
+                Fullname = "",
+                Birthplace = null,
+                Work = "   ",
+                FirstAppear = ""
+            };
+
+            // Act
+            var result = _productService.CreateData(data);
+
+            // Assert
+            Assert.AreEqual(true, result);
+
+            var saved = _productService.GetProducts().FirstOrDefault(p => p.Id == testId);
+            Assert.AreEqual(false, saved == null);
+            Assert.AreEqual("-", saved.Fullname);
+            Assert.AreEqual("-", saved.Birthplace);
+            Assert.AreEqual("-", saved.Work);
+            Assert.AreEqual("-", saved.FirstAppear);
+        }
+
+        #endregion CreateData
     }
 }
