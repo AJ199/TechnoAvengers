@@ -118,32 +118,37 @@
         <!-- Powerstats -->
         <h3>Powerstats</h3>
         <div class="form-group">
-            <label>Intelligence</label>
-            <input name="Product.Powerstats[Intelligence]" />
+            <label asp-for="Product.Intelligence"></label>
+            <input asp-for="Product.Intelligence" />
+            <span asp-validation-for="Product.Intelligence"></span>
         </div>
         <div class="form-group">
-            <label>Strength</label>
-            <input name="Product.Powerstats[Strength]" />
+            <label asp-for="Product.Strength"></label>
+            <input asp-for="Product.Strength" />
+            <span asp-validation-for="Product.Strength"></span>
         </div>
         <div class="form-group">
-            <label>Speed</label>
-            <input name="Product.Powerstats[Speed]" />
+            <label asp-for="Product.Speed"></label>
+            <input asp-for="Product.Speed" />
+            <span asp-validation-for="Product.Speed"></span>
         </div>
         <div class="form-group">
-            <label>Durability</label>
-            <input name="Product.Powerstats[Durability]" />
+            <label asp-for="Product.Durability"></label>
+            <input asp-for="Product.Durability" />
+            <span asp-validation-for="Product.Durability"></span>
         </div>
         <div class="form-group">
-            <label>Power</label>
-            <input name="Product.Powerstats[Power]" />
+            <label asp-for="Product.Power"></label>
+            <input asp-for="Product.Power" />
+            <span asp-validation-for="Product.Power"></span>
         </div>
         <div class="form-group">
-            <label>Combat</label>
-            <input name="Product.Powerstats[Combat]" />
+            <label asp-for="Product.Combat"></label>
+            <input asp-for="Product.Combat" />
+            <span asp-validation-for="Product.Combat"></span>
         </div>
 
         <!-- Submit Button -->
         <button type="submit" class="btn btn-primary">Create</button>
     </form>
 </div>
-
