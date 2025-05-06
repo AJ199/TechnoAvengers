@@ -606,3 +606,38 @@ main {
     }
 }
 
+.card {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    animation: fadeInCard 0.8s ease forwards;
+    opacity: 0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .card:hover {
+        transform: scale(1.03);
+        box-shadow: 0 10px 30px rgba(237, 29, 36, 0.4), 0 0 20px rgba(255, 255, 255, 0.2);
+    }
+
+/* Image styling for uniform appearance */
+.card-img-top {
+    height: 350px;
+    object-fit: cover;
+    width: 100%;
+    display: block;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Animation keyframe */
+@keyframes fadeInCard {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
