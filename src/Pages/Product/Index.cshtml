@@ -26,9 +26,7 @@
                     <td>@product.Title</td>
                     <td>
                         <a class="btn btn-primary" asp-page="Read" asp-route-id="@product.Id">Read</a>
-
                         <a class="btn btn-primary" asp-page="Update" asp-route-id="@product.Id">Edit</a>
-
                         <a class="btn btn-primary" asp-page="Delete" asp-route-id="@product.Id">
                             <i class="fas fa-trash"></i> Delete
                         </a>
@@ -38,3 +36,19 @@
         </tbody>
     </table>
 </div>
+
+@if (TempData["ShowPopup"] != null)
+{
+    <div id="popup-overlay" class="popup-overlay">
+        <div class="popup-modal">
+            <p class="popup-message">Superhero deleted successfully!</p>
+            <button onclick="closePopup()" class="popup-close">OK</button>
+        </div>
+    </div>
+
+    <script>
+        function closePopup() {
+            document.getElementById('popup-overlay').style.display = 'none';
+        }
+    </script>
+}
