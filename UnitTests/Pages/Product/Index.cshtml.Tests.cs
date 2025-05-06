@@ -1,25 +1,23 @@
 using ContosoCrafts.WebSite.Pages.Product;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UnitTests.Pages.Product
 {
     /// <summary>
-    /// Unit testing for Index Tests
+    /// Unit testing for Index page
     /// </summary>
     public class IndexTests
     {
-        // Database MiddleTier
         #region TestSetup
+
+        // Index page model for testing
         public static IndexModel pageModel;
+
         /// <summary>
-        /// Initialize of Test
+        /// Initializes the test environment
         /// </summary>
         [SetUp]
         public void TestInitialize()
@@ -29,29 +27,39 @@ namespace UnitTests.Pages.Product
 
         #endregion TestSetup
         /// <summary>
-        /// Checking whether product user want is there in result or not.
+        /// Validates OnGet method loads superhero data
         /// </summary>
         #region OnGet
         [Test]
         public void OnGet_Valid_Should_Return_Products()
         {
             // Arrange
-            var expectedFilePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "data", "products.json");
 
-            // Confirm the file exists
-            Assert.IsTrue(File.Exists(expectedFilePath), $"JSON file not found at {expectedFilePath}");
+            // Start at current test output directory
+            var currentDir = Directory.GetCurrentDirectory();
+
+            // Go up to the solution root and build relative path to products.json
+            var projectRoot = Directory.GetParent(currentDir).Parent.Parent.Parent.FullName;
+            var sourceFilePath = Path.Combine(projectRoot, "src", "wwwroot", "data", "products.json");
+            var targetDirectory = Path.Combine(currentDir, "wwwroot", "data");
+            var targetFilePath = Path.Combine(targetDirectory, "products.json");
+            Directory.CreateDirectory(targetDirectory);
+
+            var data = TestHelper.ProductService.GetProducts();
+            var expectedProduct = data.First();
 
             // Act
             pageModel.OnGet();
+            var result = pageModel.Products;
 
             // Assert
-            Assert.IsNotNull(pageModel.Products, "Products list should not be null");
-            Assert.IsNotEmpty(pageModel.Products, "Products list should not be empty");
+            Assert.AreEqual(false, result == null, "Products list should not be null");
+            Assert.AreEqual(false, result.Count == 0, "Products list should not be empty");
 
-            // Optionally check a known product
-            var knownProduct = pageModel.Products.FirstOrDefault(p => p.Id == "1");
-            Assert.IsNotNull(knownProduct, "Known product with ID 1 should exist");
-            Assert.AreEqual("Spider-Man", knownProduct.Title);
+            var resultProduct = pageModel.Products.First(p => p.Id == expectedProduct.Id);
+
+            Assert.AreEqual(false, resultProduct == null, "Product should exist in the result list");
+            Assert.AreEqual(expectedProduct.Title, resultProduct.Title, "Product titles should match");
         }
         #endregion OnGet
     }
