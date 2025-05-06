@@ -19,10 +19,12 @@
                 <p class="hero-read-text"><strong>First Appearance:</strong> @Model.Product.FirstAppear</p>
 
                 <form method="post">
-                    <p class="hero-read-text"><strong>Are you sure you want to delete this superhero?</strong></p>
-                    <div class="d-flex gap-3 mt-3">
-                        <button type="submit" class="btn btn-danger">Yes</button>
-                        <a asp-page="/Product/Index" class="btn btn-secondary">No</a>
+                    <div class="delete-confirm-block">
+                        <p class="hero-read-text delete-confirmation"><strong>Are you sure you want to delete this superhero?</strong></p>
+                        <div class="d-flex gap-3 mt-3 delete-buttons">
+                            <button type="submit" class="btn btn-yes">Confirm</button>
+                            <a asp-page="/Product/Index" class="btn btn-no">Cancel</a>
+                        </div>
                     </div>
                 </form>
             </div>
