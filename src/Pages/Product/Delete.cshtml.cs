@@ -39,7 +39,8 @@ namespace ContosoCrafts.WebSite.Pages.Product
             if (product != null)
             {
                 products.Remove(product);
-                _productService.SaveData(products); // Ensure SaveData is made public in JsonFileProductService
+                _productService.SaveData(products);
+                TempData["ShowPopup"] = true;
             }
 
             return RedirectToPage("/Product/Index");
