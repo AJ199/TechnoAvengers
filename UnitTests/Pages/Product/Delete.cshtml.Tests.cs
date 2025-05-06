@@ -1,6 +1,11 @@
 ﻿using ContosoCrafts.WebSite.Pages.Product;
+using ContosoCrafts.WebSite.Services;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Moq;
 using NUnit.Framework;
+using System.IO;
 using System.Linq;
 
 namespace UnitTests.Pages.Product
@@ -52,6 +57,24 @@ namespace UnitTests.Pages.Product
             Assert.AreEqual("/Product/Index", redirect.PageName);
         }
 
+        /// <summary>
+        /// Verifies that the product is not null before proceeding with operations
+        /// related to the product, ensuring valid product data is available.
+        /// </summary>
+        [Test]
+        public void OnGet_ValidId_Should_Return_Page()
+        {
+            // Arrange
+            var validProduct = TestHelper.ProductService.GetProducts().First();
+            pageModel.Id = validProduct.Id;
+
+            // Act
+            var result = pageModel.OnGet();
+
+            // Assert
+            Assert.IsInstanceOf<PageResult>(result);
+            Assert.AreEqual(validProduct.Id, pageModel.Product.Id); // Optional: validate the loaded product
+        }
 
         #endregion OnGet Tests
 
