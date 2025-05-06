@@ -1,6 +1,10 @@
+using System.Collections.Generic;
 using System.Linq;
 using ContosoCrafts.WebSite.Models;
 using ContosoCrafts.WebSite.Services;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
+using Moq;
 using NUnit.Framework;
 
 namespace UnitTests.Services.TestJsonFileProductService
@@ -77,6 +81,34 @@ namespace UnitTests.Services.TestJsonFileProductService
             // Act & Assert
             _productService.AddRating("invalid_id_123", 3);
             Assert.Pass("No exception thrown");
+        }
+
+        /// <summary>
+        /// GetProducts returns null, AddRating should not throw and should do nothing
+        /// </summary>
+        [Test]
+        public void AddRating_NullProductList_ShouldNotThrow()
+        {
+            // Arrange: Set up a temp directory and corrupted JSON file ("null")
+            string tempRoot = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+            string dataFolder = Path.Combine(tempRoot, "data");
+            Directory.CreateDirectory(dataFolder);
+
+            string tempJsonPath = Path.Combine(dataFolder, "products.json");
+            File.WriteAllText(tempJsonPath, "null");
+
+            // Mock IWebHostEnvironment to point to our temp folder
+            var mockEnv = new Mock<IWebHostEnvironment>();
+            mockEnv.Setup(m => m.WebRootPath).Returns(tempRoot);
+            mockEnv.Setup(m => m.ContentRootPath).Returns(tempRoot);
+
+            var service = new JsonFileProductService(mockEnv.Object);
+
+            // Act & Assert: Should not throw even though the JSON is 'null'
+            Assert.DoesNotThrow(() => service.AddRating("some-id", 4));
+
+            // Cleanup
+            Directory.Delete(tempRoot, true);
         }
 
         #endregion AddRating
