@@ -672,3 +672,22 @@ main {
     margin-top: 15px;
     font-family: 'Bangers', cursive;
 }
+
+/* Button fix for uniform appearance */
+.btn-primary {
+    font-family: 'Bangers', cursive;
+    font-size: 1.5rem;
+    color: #fff;
+    background-color: #ED1D24;
+    border: none !important;
+    outline: none !important;
+    padding: 10px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+    .btn-primary:hover {
+        background-color: #c4141b;
+        transform: scale(1.05);
+        transition: all 0.2s ease-in-out;
+    }
