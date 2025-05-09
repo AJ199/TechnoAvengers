@@ -1,9 +1,8 @@
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ContosoCrafts.WebSite.Pages
 {
-    public class Index1Model : PageModel
+    public class AboutModel : PageModel
     {
         public void OnGet()
         {
