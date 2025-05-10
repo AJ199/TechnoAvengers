@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using ContosoCrafts.WebSite.Models;
 using ContosoCrafts.WebSite.Services;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
@@ -26,6 +28,25 @@ namespace ContosoCrafts.WebSite.Pages
         public JsonFileProductService ProductService { get; }
         public IEnumerable<ContosoCrafts.WebSite.Models.ProductModel>? Products { get; private set; }
 
-        public void OnGet() => Products = ProductService.GetProducts();
+        //public void OnGet() => Products = ProductService.GetProducts();
+
+        [BindProperty(SupportsGet = true)]
+        public string FilterCategory { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public string FilterValue { get; set; }
+
+        public List<ProductModel> FilteredHeroes { get; set; }
+
+        public void OnGet()
+        {
+            var allHeroes = ProductService.GetProducts();
+
+            FilteredHeroes = allHeroes
+                .Where(hero =>
+                    string.IsNullOrEmpty(FilterCategory) || string.IsNullOrEmpty(FilterValue) ||
+                    (FilterCategory == "Alignment" && hero.Alignment == FilterValue)
+                ).ToList();
+        }
     }
 }
