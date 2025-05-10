@@ -73,6 +73,18 @@ namespace ContosoCrafts.WebSite.Models
         [Range(1, 100, ErrorMessage = "Must be 1-100")]
         public int Combat { get; set; }
 
+        // Alignment represents the moral stance of the superhero (e.g., good, bad, neutral); max 100 characters
+        [StringLength(100, ErrorMessage = "100 chars max")]
+        public string? Alignment { get; set; }
+
+        // Role indicates the superhero's primary function in a team (e.g., Core, Support, Ally); max 100 characters
+        [StringLength(100, ErrorMessage = "100 chars max")]
+        public string? Role { get; set; }
+
+        // Gender specifies the biological or identified gender of the superhero (e.g., Male, Female, Other); max 100 characters
+        [StringLength(100, ErrorMessage = "100 chars max")]
+        public string? Gender { get; set; }
+
         // Array of ratings
         public int[]? Ratings { get; set; }
 
