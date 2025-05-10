@@ -45,7 +45,8 @@ namespace ContosoCrafts.WebSite.Pages
             FilteredHeroes = allHeroes
                 .Where(hero =>
                     string.IsNullOrEmpty(FilterCategory) || string.IsNullOrEmpty(FilterValue) ||
-                    (FilterCategory == "Alignment" && hero.Alignment == FilterValue)
+                    (FilterCategory == "Alignment" && hero.Alignment == FilterValue) ||
+                    (FilterCategory == "Role" && hero.Role == FilterValue)
                 ).ToList();
         }
     }
