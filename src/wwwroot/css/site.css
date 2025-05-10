@@ -721,70 +721,19 @@ main {
         transition: all 0.2s ease-in-out;
     }
 
-/* Filter Sidebar Styling */
-/*.sidebar {
-    height: 100%;
-    width: 300px;
-    position: fixed;
-    top: 0;
-    right: -320px;
-    background-color: #ED1D24;
-    border-left: 1px solid #ddd;
-    padding: 1rem;
-    transition: right 0.3s ease-in-out;
-    z-index: 999;
-}
-
-    .sidebar.show {
-        right: 0;
-    }
-
-.close-btn {
-    font-size: 24px;
-    font-weight: bold;
-    cursor: pointer;
-}*/
-
-/* Sidebar Header */
-/*.sidebar-header h4 {
-    margin: 0 0 1rem 0;
-    font-size: 1.25rem;
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 0.5rem;
-}*/
-
-/* Select Dropdowns */
-/*.filter-select {
-    width: 100%;
-    padding: 0.5rem;
-    margin-bottom: 1rem;
-    font-size: 1rem;
-}*/
-
-/* Buttons */
-
-/*.clear-button {
-    width: 100%;
-    padding: 0.5rem;
-    margin-top: 0.5rem;
-    font-weight: bold;
-    font-size: 1rem;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
-}
-
-.clear-button {
-    background-color: #ccc;
+.close-modal {
+    float: right;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
     color: #000;
+    background-color: transparent;
+    opacity: .5;
+    border: none;
+/*    text-shadow: 0 1px 0 #fff;*/
+    appearance: none;
+    overflow: visible;
 }
-
-.result-text {
-    margin-top: 1rem;
-    font-style: italic;
-    color: #333;
-}*/
-
 
 /* Filter Sidebar Styling */
 .sidebar {
@@ -851,29 +800,6 @@ label, .filterCategory, .filterValue, button {
     width: 100%;
     padding: 0.5rem;
     font-size: 1rem;
-}
-
-/* Buttons */
-button[type="submit"],
-button[type="button"] {
-    width: 100%;
-    padding: 0.5rem;
-    font-weight: bold;
-    font-size: 1rem;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
-    letter-spacing: 0.1rem;
-}
-
-button[type="submit"] {
-    background-color: #000000;
-    color: white;
-}
-
-button[type="button"] {
-    background-color: #ccc;
-    color: black;
 }
 
 /* Clear Filter Button */
