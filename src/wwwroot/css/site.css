@@ -759,7 +759,7 @@ main {
     }
 
 .close-btn {
-    font-size: 24px;
+    font-size: 35px;
     font-weight: bold;
     cursor: pointer;
     align-self: flex-end;
@@ -776,9 +776,8 @@ main {
 
     .sidebar-header h4 {
         margin: 0;
-        font-size: 1.25rem;
+        font-size: 1.5rem;
         padding-bottom: 0.5rem;
-        border-bottom: 1px solid #ccc;
     }
 
 /* Filter Form */
