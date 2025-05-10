@@ -96,26 +96,10 @@
 	[Parameter]
 	public IEnumerable<ProductModel> Products { get; set; }
 
-	// New filter property
-	string selectedFilter = "All"; // Could be based on alignment, role, etc.
-
-	// Get filtered products based on the selectedFilter
-	IEnumerable<ProductModel> GetFilteredProducts()
-	{
-		if (selectedFilter == "All")
-		{
-			return ProductService.GetProducts();
-		}
-		else
-		{
-			return ProductService.GetProducts().Where(p => p.Alignment == selectedFilter); // Modify this condition based on the filter logic
-		}
-	}
-
 	void SelectProduct(string productId)
 	{
 		selectedProductId = productId;
-        selectedProduct = ProductService.GetProducts().First(x => x.Id == productId);
+        selectedProduct = Products.First(x => x.Id == productId);
         GetCurrentRating();
     }
 
