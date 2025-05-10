@@ -6,17 +6,18 @@
 @{
     ViewData["Title"] = "Read page";
 }
+
 <div class="hero-read-container">
     <div class="hero-read-card">
         <h1 class="hero-read-title">@Model.Product.Title</h1>
 
         <div class="hero-read-content">
-            <img class="hero-read-image" src='@Model.Product.ImageUrl' alt='Image for @Model.Product.Title'>
+            <img class="hero-read-image" src='@Model.Product.ImageUrl' alt='Image for @Model.Product.Title' />
 
             <div class="hero-read-details">
-                <div class="hero-read-stats">
-                    <p class="hero-read-text">Power statistics:</p>
 
+                <div class="hero-read-stats">
+                    <p class="hero-read-text stats-title">Power Statistics</p>
                     <ul class="hero-read-list">
                         <li class="hero-read-list-item">Intelligence: @Model.Product.Intelligence</li>
                         <li class="hero-read-list-item">Strength: @Model.Product.Strength</li>
@@ -32,12 +33,17 @@
                 <p class="hero-read-text">Work: @Model.Product.Work</p>
                 <p class="hero-read-text">First Appearance: @Model.Product.FirstAppear</p>
 
-                <!-- Button row with consistent sizing and alignment -->
+                <!-- Action buttons with uniform size and alignment -->
                 <div class="form-actions button-row">
-                    <a class="btn btn-primary uniform-button" asp-page="Update" asp-route-id="@Model.Product.Id">Edit</a>
-                    <a class="btn btn-secondary uniform-button" asp-page="/Product/Index">Go Back</a>
-                    <!-- Added Delete button that navigates to the confirmation page -->
-                    <a class="btn btn-confirm uniform-button" asp-page="Delete" asp-route-id="@Model.Product.Id">Delete</a>
+                    <a class="btn btn-primary uniform-button" asp-page="Update" asp-route-id="@Model.Product.Id">
+                        <span class="btn-text">Edit</span>
+                    </a>
+                    <a class="btn btn-secondary uniform-button" asp-page="/Product/Index">
+                        <span class="btn-text">Go Back</span>
+                    </a>
+                    <a class="btn btn-confirm uniform-button" asp-page="Delete" asp-route-id="@Model.Product.Id">
+                        <span class="btn-text">Delete</span>
+                    </a>
                 </div>
             </div>
         </div>
