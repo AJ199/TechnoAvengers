@@ -3,10 +3,10 @@
 @using Microsoft.AspNetCore.Components.Web
 @inject JsonFileProductService ProductService
 
-@if(Products != null)
+@if(Products != null && Products.Any())
 {
 	<div class="card-columns">
-		@foreach (var product in ProductService.GetProducts())
+		@foreach (var product in Products)
 		{
 			<div class="card">
 				<div class="card-img" style="background-image: url('@product.ImageUrl');">
@@ -95,6 +95,22 @@
 
 	[Parameter]
 	public IEnumerable<ProductModel> Products { get; set; }
+
+	// New filter property
+	string selectedFilter = "All"; // Could be based on alignment, role, etc.
+
+	// Get filtered products based on the selectedFilter
+	IEnumerable<ProductModel> GetFilteredProducts()
+	{
+		if (selectedFilter == "All")
+		{
+			return ProductService.GetProducts();
+		}
+		else
+		{
+			return ProductService.GetProducts().Where(p => p.Alignment == selectedFilter); // Modify this condition based on the filter logic
+		}
+	}
 
 	void SelectProduct(string productId)
 	{
