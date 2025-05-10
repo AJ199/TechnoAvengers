@@ -22,10 +22,11 @@ for details on configuring this project to bundle and minify static web assets. 
 .card-columns .card-img {
     height: 330px;
     vertical-align: bottom;
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Do not repeat the image */
-    background-size: cover; /* Resize the background image to cover the entire container */
-    opacity: .8;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 1 !important; /* Force full color image */
+    transition: transform 0.3s ease-in-out;
 }
 
 .modal .card-img {
@@ -663,15 +664,15 @@ main {
     position: relative;
     border-radius: 12px;
     overflow: hidden;
-    animation: fadeInCard 0.8s ease forwards;
-    opacity: 0;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
-    .card:hover {
-        transform: scale(1.03);
-        box-shadow: 0 10px 30px rgba(237, 29, 36, 0.4), 0 0 20px rgba(255, 255, 255, 0.2);
-    }
+/* Enlarge full card on hover */
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+}
 
 /* Image styling for uniform appearance */
 .card-img-top {
@@ -695,19 +696,22 @@ main {
     }
 }
 
+/* Make image show in full color (remove white overlay) */
+.card-img-top,
+.card-img {
+    opacity: 1 !important;
+    transition: transform 0.3s ease-in-out;
+}
+
 /* Overlay effect */
 .card-img-top::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to bottom, rgba(255,255,255,0.05), rgba(0,0,0,0.6));
-    border-radius: 12px 12px 0 0;
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-    z-index: 1;
+    content: none;
+}
+
+.card:hover .card-img,
+.card:hover .card-img-top {
+    transform: scale(1.05); /* Slight zoom on hover */
+    z-index: 2;
 }
 
 .card:hover .card-img-top::after {
