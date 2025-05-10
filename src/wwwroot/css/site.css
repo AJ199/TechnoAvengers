@@ -1,9 +1,9 @@
 ﻿.checked {
-  color: orange;
+    color: orange;
 }
 
 .fa-star {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 /* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
@@ -40,6 +40,7 @@ for details on configuring this project to bundle and minify static web assets. 
     transform: scale(1.05);
     box-shadow: 0 10px 20px rgba(37,33,82,.12), 0 4px 8px rgba(37,33,82,.06);
 }
+
 .card-footer {
     background: #fbfafd;
 }
@@ -65,7 +66,7 @@ a.navbar-brand {
 
 /* Provide sufficient contrast against white background */
 a {
-   color: #0366d6;
+    color: #0366d6;
 }
 
 .btn-primary {
@@ -76,13 +77,13 @@ a {
     border-color: #ED1D24;
 }
 
-.btn-primary:hover {
-    color: #fff;
-    background-color: #e9a8a6;
-    border-color: #e9a8a6;
-    transform: scale(1.05);
-    transition: transform 0.2s ease-in-out;
-}
+    .btn-primary:hover {
+        color: #fff;
+        background-color: #e9a8a6;
+        border-color: #e9a8a6;
+        transform: scale(1.05);
+        transition: transform 0.2s ease-in-out;
+    }
 
 .nav-pills .nav-link {
     font-family: 'Bangers', cursive;
@@ -90,26 +91,28 @@ a {
     color: #FFFFFF; /* White text */
 }
 
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-    color: #FFFFFF;
-    background-color: #ED1D24; /* Marvel Red */
-    border-color: #ED1D24; /* Marvel Red */
-}
+    .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+        color: #FFFFFF;
+        background-color: #ED1D24; /* Marvel Red */
+        border-color: #ED1D24; /* Marvel Red */
+    }
 
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
     font-size: 14px;
 }
+
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .border-top {
     border-top: 1px solid #e5e5e5;
 }
+
 .border-bottom {
     border-bottom: 1px solid #e5e5e5;
 }
@@ -137,15 +140,19 @@ body {
     background-size: cover;
     opacity: 0.90;
 }
+
 p {
     font-family: 'Nunito', sans-serif;
 }
-h1 { 
+
+h1 {
     font-family: 'Nunito', sans-serif;
 }
+
 ul {
     font-family: 'Nunito', sans-serif;
 }
+
 .footer {
     background: rgba(0, 0, 0, 1);
     color: white;
@@ -229,17 +236,17 @@ ul {
     font-size: 1.6rem;
 }
 
-.hero-table th,
-.hero-table td {
-    padding: 15px;
-    text-align: center;
-    vertical-align: middle;
-}
+    .hero-table th,
+    .hero-table td {
+        padding: 15px;
+        text-align: center;
+        vertical-align: middle;
+    }
 
-.hero-table th {
-    background-color: rgba(0, 0, 0, 0.7); /* semi-transparent black for header */
-    font-weight: bold;
-}
+    .hero-table th {
+        background-color: rgba(0, 0, 0, 0.7); /* semi-transparent black for header */
+        font-weight: bold;
+    }
 
 .hero-title-header {
     width: 40%;
@@ -248,6 +255,7 @@ ul {
 .hero-action-header {
     width: 20%;
 }
+
 .hero-row:hover {
     background-color: rgba(255, 255, 255, 0.1); /* light highlight on hover */
 }
@@ -268,16 +276,16 @@ ul {
     margin: 50px auto;
 }
 
-.timeline::after {
-    content: '';
-    position: absolute;
-    width: 6px;
-    background-color: red; /* Timeline line color */
-    top: 0;
-    bottom: 0;
-    left: 50%;
-    margin-left: -3px;
-}
+    .timeline::after {
+        content: '';
+        position: absolute;
+        width: 6px;
+        background-color: red; /* Timeline line color */
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        margin-left: -3px;
+    }
 
 .timeline-container {
     padding: 10px 40px;
@@ -286,13 +294,13 @@ ul {
     width: 50%;
 }
 
-.timeline-container.left {
-    left: 0;
-}
+    .timeline-container.left {
+        left: 0;
+    }
 
-.timeline-container.right {
-    left: 50%;
-}
+    .timeline-container.right {
+        left: 50%;
+    }
 
 .content {
     padding: 20px 30px;
@@ -460,10 +468,10 @@ main {
 
 .btn-secondary {
     font-family: 'Bangers', cursive;
-    font-size: 1.5rem; 
+    font-size: 1.5rem;
     color: #fff;
     background-color: #666; /* Gray background color */
-    border-color: #666;     
+    border-color: #666;
     padding: 8px 16px;
     margin-left: 10px;
     text-decoration: none;
@@ -471,12 +479,12 @@ main {
     transition: transform 0.2s ease-in-out; /* Same as .btn-primary */
 }
 
-.btn-secondary:hover {
-    color: #fff;
-    background-color: #999; /* Lighter gray on hover */
-    border-color: #999;
-    transform: scale(1.05); 
-}
+    .btn-secondary:hover {
+        color: #fff;
+        background-color: #999; /* Lighter gray on hover */
+        border-color: #999;
+        transform: scale(1.05);
+    }
 
 .label-row {
     display: flex;
@@ -484,15 +492,15 @@ main {
     gap: 10px; /* space between label and error */
 }
 
-.label-row label {
-    margin-bottom: 0; /* prevents line break */
-}
+    .label-row label {
+        margin-bottom: 0; /* prevents line break */
+    }
 
-.label-row .text-danger {
-    margin-bottom: 0;
-    font-size: 0.85rem;
-    font-weight: bold;
-}
+    .label-row .text-danger {
+        margin-bottom: 0;
+        font-size: 0.85rem;
+        font-weight: bold;
+    }
 /*End of Update form styles*/
 
 /* Delete confirmation wrapper styling */
@@ -714,7 +722,7 @@ main {
     }
 
 /* Filter Sidebar Styling */
-.sidebar {
+/*.sidebar {
     height: 100%;
     width: 300px;
     position: fixed;
@@ -735,27 +743,27 @@ main {
     font-size: 24px;
     font-weight: bold;
     cursor: pointer;
-}
+}*/
 
 /* Sidebar Header */
-.sidebar-header h4 {
+/*.sidebar-header h4 {
     margin: 0 0 1rem 0;
     font-size: 1.25rem;
     border-bottom: 1px solid #ccc;
     padding-bottom: 0.5rem;
-}
+}*/
 
 /* Select Dropdowns */
-.filter-select {
+/*.filter-select {
     width: 100%;
     padding: 0.5rem;
     margin-bottom: 1rem;
     font-size: 1rem;
-}
+}*/
 
 /* Buttons */
 
-.clear-button {
+/*.clear-button {
     width: 100%;
     padding: 0.5rem;
     margin-top: 0.5rem;
@@ -775,4 +783,123 @@ main {
     margin-top: 1rem;
     font-style: italic;
     color: #333;
+}*/
+
+
+/* Filter Sidebar Styling */
+.sidebar {
+    height: 100%;
+    width: 300px;
+    position: fixed;
+    top: 0;
+    right: -320px;
+    background-color: #ED1D24;
+    border-left: 1px solid #ddd;
+    padding: 1rem;
+    transition: right 0.3s ease-in-out;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Bangers', cursive;
+    letter-spacing: 0.15rem;
+}
+
+    /* Show Sidebar */
+    .sidebar.show {
+        right: 0;
+    }
+
+.close-btn {
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    align-self: flex-end;
+    margin-top: -10px;
+}
+
+/* Sidebar Header */
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+    .sidebar-header h4 {
+        margin: 0;
+        font-size: 1.25rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid #ccc;
+    }
+
+/* Filter Form */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Label and Select Dropdowns */
+label, .filterCategory, .filterValue, button {
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    letter-spacing: 0.1rem;
+}
+
+/* Select Dropdowns */
+.filterCategory,
+.filterValue {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+}
+
+/* Buttons */
+button[type="submit"],
+button[type="button"] {
+    width: 100%;
+    padding: 0.5rem;
+    font-weight: bold;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    letter-spacing: 0.1rem;
+}
+
+button[type="submit"] {
+    background-color: #000000;
+    color: white;
+}
+
+button[type="button"] {
+    background-color: #ccc;
+    color: black;
+}
+
+/* Clear Filter Button */
+.clear-button {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    font-weight: bold;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    background-color: #ccc;
+    color: #000;
+}
+
+/* Result Text */
+.result-text {
+    margin-top: 1rem;
+    font-style: italic;
+    color: #333;
+}
+
+/* Super heroes count in filter*/
+.superhero-count {
+    color: white;
+    font-weight: bold;
+    font-family: 'Bangers', cursive;
 }
