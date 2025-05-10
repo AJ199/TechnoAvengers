@@ -20,20 +20,20 @@
 
     <form method="get" onsubmit="return handleFilterSubmit();">
         <label for="filterCategory"><strong>Filter by:</strong></label>
-        <select id="filterCategory" onchange="updateFilterOptions()" style="width: 100%; margin-bottom: 1rem;">
+        <select id="filterCategory" onchange="updateFilterOptions()" class="filterCategory">
             <option value="">Select Category</option>
             <option value="Alignment">Alignment</option>
             <option value="Role">Role</option>
         </select>
 
-        <select id="filterValue" name="FilterValue" style="width: 100%; margin-bottom: 1rem;">
+        <select id="filterValue" name="FilterValue" class="filterValue">
             <option value="">Select a value</option>
         </select>
 
         <input type="hidden" name="FilterCategory" id="filterCategoryHidden" />
         <input type="hidden" name="sidebar" value="open" />
-        <button type="submit" style="width: 100%;">Filter</button>
-        <button type="button" onclick="clearFilter()" style="width: 100%; margin-top: 0.5rem;">Clear Filter</button>
+        <button type="submit">Filter</button>
+        <button type="button" onclick="clearFilter()">Clear Filter</button>
         <p>@Model.FilteredHeroes.Count superhero(s) found</p>
     </form>
 </div>
