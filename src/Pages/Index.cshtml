@@ -32,9 +32,9 @@
 
         <input type="hidden" name="FilterCategory" id="filterCategoryHidden" />
         <input type="hidden" name="sidebar" value="open" />
-        <button type="submit">Filter</button>
+        <button type="submit">Apply Filter</button>
         <button type="button" onclick="clearFilter()">Clear Filter</button>
-        <p>@Model.FilteredHeroes.Count superhero(s) found</p>
+        <p class="superhero-count">@Model.FilteredHeroes.Count superhero(s) found</p>
     </form>
 </div>
 
@@ -47,9 +47,13 @@
     function closeSidebar() {
         document.getElementById("filterSidebar").classList.remove("show");
     }
+    
+    function clearFilter() {
+         window.location.href = window.location.pathname;
+    }
 
     const filterOptions = {
-        Alignment: ["good", "bad"],
+        Alignment: ["good", "bad", "neutral"],
         Role: ["Core Avenger","Founding Avenger","Mystic Defender","Guardian"]
     };
 
