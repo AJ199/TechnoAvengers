@@ -9,6 +9,7 @@
     <button class="filter-button" onclick="openFilterSidebar()">Filter</button>
 </div>
 
+<!-- Render the ProductList component, passing in filtered superheroes -->
 @(await Html.RenderComponentAsync<ProductList>(RenderMode.ServerPrerendered, new { Products = Model.FilteredHeroes }))
 
 <!-- Sidebar (Initially Hidden) -->
@@ -18,6 +19,7 @@
         <span class="close-btn" onclick="closeSidebar()">×</span>
     </div>
 
+    <!-- Filter Form -->
     <form method="get" onsubmit="return handleFilterSubmit();">
         <label for="filterCategory"><strong>Filter by:</strong></label>
         <select id="filterCategory" onchange="updateFilterOptions()" class="filterCategory">
@@ -27,38 +29,52 @@
             <option value="Gender">Gender</option>
         </select>
 
+        <!-- Dynamic value options based on category -->
         <select id="filterValue" name="FilterValue" class="filterValue">
             <option value="">Select a value</option>
         </select>
 
+        <!-- Hidden input for selected category to persist on submission -->
         <input type="hidden" name="FilterCategory" id="filterCategoryHidden" />
         <input type="hidden" name="sidebar" value="open" />
+
         <button type="submit">Apply Filter</button>
         <button type="button" onclick="clearFilter()">Clear Filter</button>
+
+        <!-- Display count of filtered results -->
         <p class="superhero-count">@Model.FilteredHeroes.Count superhero(s) found</p>
     </form>
 </div>
 
+<!-- Blazor Server script -->
 <script src="_framework/blazor.server.js"></script>
 <script>
+    /// <summary>
+    /// Opens the filter sidebar by adding the 'show' class
+    /// </summary>
     function openFilterSidebar() {
         document.getElementById("filterSidebar").classList.add("show");
     }
 
+    /// <summary>
+    /// Closes the filter sidebar by removing the 'show' class
+    /// </summary>
     function closeSidebar() {
         document.getElementById("filterSidebar").classList.remove("show");
     }
-    
-    function clearFilter() {
-         window.location.href = window.location.pathname;
-    }
 
+    /// <summary>
+    /// Predefined values for each filter category
+    /// </summary>
     const filterOptions = {
         Alignment: ["good", "bad", "neutral"],
-        Role: ["Core Avenger","Founding Avenger","Mystic Defender","Guardian"],
+        Role: ["Core Avenger","Founding Avenger","Mystic Defender","Guardian","Unknown"],
         Gender: ["Male","Female"]
     };
 
+    /// <summary>
+    /// Populates the value dropdown based on the selected category
+    /// </summary>
     function updateFilterOptions() {
         const category = document.getElementById("filterCategory").value;
         const valueSelect = document.getElementById("filterValue");
@@ -77,6 +93,9 @@
         }
     }
 
+    /// <summary>
+    /// Validates the form before submission
+    /// </summary>
     function handleFilterSubmit() {
         const category = document.getElementById("filterCategory").value;
         const value = document.getElementById("filterValue").value;
@@ -89,7 +108,10 @@
         return true;
     }
 
-        function clearFilter() {
+    /// <summary>
+    /// Resets the filter form and reloads the page without query parameters
+    /// </summary>
+    function clearFilter() {
         // Reset dropdowns
         document.getElementById("filterCategory").value = "";
         document.getElementById("filterValue").innerHTML = '<option value="">Select a value</option>';
@@ -99,6 +121,9 @@
         window.location.href = window.location.pathname;
     }
 
+    /// <summary>
+    /// Preserves filter state and shows sidebar if form was previously used
+    /// </summary>
     window.addEventListener('DOMContentLoaded', () => {
         const params = new URLSearchParams(window.location.search);
 
