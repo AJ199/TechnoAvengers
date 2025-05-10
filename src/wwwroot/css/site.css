@@ -789,10 +789,10 @@ main {
 /* Filter Sidebar Styling */
 .sidebar {
     height: 100%;
-    width: 300px;
+    width: 400px;
     position: fixed;
     top: 0;
-    right: -320px;
+    right: -400px;
     background-color: #ED1D24;
     border-left: 1px solid #ddd;
     padding: 1rem;
