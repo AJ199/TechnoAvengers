@@ -8,7 +8,7 @@
     <h1 class="hero-text">Team 3 Techno Avengers</h1>
     <button class="filter-button" onclick="openFilterSidebar()">Filter</button>
 </div>
-<p>@Model.FilteredHeroes.Count superhero(s) found</p>
+
 @(await Html.RenderComponentAsync<ProductList>(RenderMode.ServerPrerendered, new { Products = Model.FilteredHeroes }))
 
 <!-- Sidebar (Initially Hidden) -->
@@ -30,7 +30,10 @@
         </select>
 
         <input type="hidden" name="FilterCategory" id="filterCategoryHidden" />
+        <input type="hidden" name="sidebar" value="open" />
         <button type="submit" style="width: 100%;">Filter</button>
+        <button type="button" onclick="clearFilter()" style="width: 100%; margin-top: 0.5rem;">Clear Filter</button>
+        <p>@Model.FilteredHeroes.Count superhero(s) found</p>
     </form>
 </div>
 
@@ -77,4 +80,44 @@
 
         return true;
     }
+
+        function clearFilter() {
+        // Reset dropdowns
+        document.getElementById("filterCategory").value = "";
+        document.getElementById("filterValue").innerHTML = '<option value="">Select a value</option>';
+        document.getElementById("filterCategoryHidden").value = "";
+
+        // Reload the page without filter query params
+        window.location.href = window.location.pathname;
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        const params = new URLSearchParams(window.location.search);
+
+        // Open the sidebar if needed
+        if (params.get('sidebar') === 'open') {
+            openFilterSidebar();
+        }
+
+        const selectedCategory = params.get('FilterCategory');
+        const selectedValue = params.get('FilterValue');
+
+        if (selectedCategory) {
+            document.getElementById('filterCategory').value = selectedCategory;
+            updateFilterOptions(); // Populate filterValue options
+
+            if (selectedValue) {
+                // Delay setting value until options are populated
+                setTimeout(() => {
+                    document.getElementById('filterValue').value = selectedValue;
+                }, 50);
+            }
+
+            // Set the hidden input so it persists on form submit
+            document.getElementById('filterCategoryHidden').value = selectedCategory;
+        }
+    });
+
+
+
 </script>
