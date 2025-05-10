@@ -32,12 +32,12 @@
                 <p class="hero-read-text">Work: @Model.Product.Work</p>
                 <p class="hero-read-text">First Appearance: @Model.Product.FirstAppear</p>
 
-                <div class="form-actions">
-                    <a class="btn btn-primary" asp-page="Update" asp-route-id="@Model.Product.Id">Edit</a>
-                    <a class="btn btn-secondary" asp-page="/Product/Index">Go back</a>
-
+                <!-- Button row with consistent sizing and alignment -->
+                <div class="form-actions button-row">
+                    <a class="btn btn-primary uniform-button" asp-page="Update" asp-route-id="@Model.Product.Id">Edit</a>
+                    <a class="btn btn-secondary uniform-button" asp-page="/Product/Index">Go Back</a>
                     <!-- Added Delete button that navigates to the confirmation page -->
-                    <a class="btn btn-confirm" asp-page="Delete" asp-route-id="@Model.Product.Id">Delete</a>
+                    <a class="btn btn-confirm uniform-button" asp-page="Delete" asp-route-id="@Model.Product.Id">Delete</a>
                 </div>
             </div>
         </div>
