@@ -165,6 +165,13 @@ ul {
     border-top: none !important;
 }
 
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1rem 0;
+}
+
 .hero-text {
     background-color: rgba(0, 0, 0, 0.9); /* semi-transparent black */
     color: #fff; /* white text */
@@ -174,6 +181,20 @@ ul {
     font-size: 1.5rem;
     text-align: center;
     display: inline-block;
+    letter-spacing: 0.1rem;
+}
+
+.filter-button {
+    padding: 15px 30px;
+    background-color: rgba(0, 0, 0, 0.9); /* semi-transparent black */
+    color: #fff; /* white text */
+    border: none;
+    font-family: 'Bangers', cursive; /* your Marvel comic font */
+    border-radius: 15px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    letter-spacing: 0.15rem;
 }
 
 .new-text {
