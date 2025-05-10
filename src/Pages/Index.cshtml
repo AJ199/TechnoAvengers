@@ -24,6 +24,7 @@
             <option value="">Select Category</option>
             <option value="Alignment">Alignment</option>
             <option value="Role">Role</option>
+            <option value="Gender">Gender</option>
         </select>
 
         <select id="filterValue" name="FilterValue" class="filterValue">
@@ -54,7 +55,8 @@
 
     const filterOptions = {
         Alignment: ["good", "bad", "neutral"],
-        Role: ["Core Avenger","Founding Avenger","Mystic Defender","Guardian"]
+        Role: ["Core Avenger","Founding Avenger","Mystic Defender","Guardian"],
+        Gender: ["Male","Female"]
     };
 
     function updateFilterOptions() {
