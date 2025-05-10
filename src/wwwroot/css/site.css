@@ -348,7 +348,7 @@ ul {
     }
 }
 
-/* Read page styles*/
+/* Read page styles */
 .hero-read-container {
     max-width: 1200px;
     margin: 50px auto;
@@ -397,23 +397,47 @@ ul {
     line-height: 1.6;
 }
 
+/* Updated Power Statistics styling */
 .hero-read-stats {
-    margin-top: 10px;
+    margin-top: 20px;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.hero-read-text.stats-title {
+    font-size: 1.6rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #ffcc00;
+    text-shadow: 1px 1px 2px #000;
+    font-family: 'Bangers', cursive;
 }
 
 .hero-read-list {
     list-style-type: none;
     padding-left: 0;
-    display: grid;
-    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 .hero-read-list-item {
-    background-color: rgba(255, 204, 0, 1);
-    padding: 8px 15px;
-    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffc107;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
     font-family: 'Nunito', sans-serif;
+    color: #000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
 }
+
 /* End of Read page styles*/
 
 html, body {
