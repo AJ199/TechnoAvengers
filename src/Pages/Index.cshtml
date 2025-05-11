@@ -20,29 +20,26 @@
     </div>
 
     <!-- Filter Form -->
-    <form method="get" onsubmit="return handleFilterSubmit();">
-        <label for="filterCategory"><strong>Filter by:</strong></label>
-        <select id="filterCategory" onchange="updateFilterOptions()" class="filterCategory">
-            <option value="">Select Category</option>
-            <option value="Alignment">Alignment</option>
-            <option value="Role">Role</option>
-            <option value="Gender">Gender</option>
-        </select>
-
-        <!-- Dynamic value options based on category -->
-        <select id="filterValue" name="FilterValue" class="filterValue">
-            <option value="">Select a value</option>
-        </select>
-
-        <!-- Hidden input for selected category to persist on submission -->
-        <input type="hidden" name="FilterCategory" id="filterCategoryHidden" />
-        <input type="hidden" name="sidebar" value="open" />
+    <form method="get">
+        @foreach (var category in new[] { "Alignment", "Role", "Gender" })
+        {
+            <div class="filter-group">
+                <strong>@category</strong>
+                <div class="filter-options">
+                    @foreach (var value in Model.GetValuesForCategory(category))
+                    {
+                        <label>
+                            <input type="checkbox" name="@category" value="@value"
+                            @(Request.Query[category].Contains(value) ? "checked" : "") />
+                            @value
+                        </label>
+                    }
+                </div>
+            </div>
+        }
 
         <button type="submit">Apply Filter</button>
         <button type="button" onclick="clearFilter()">Clear Filter</button>
-
-        <!-- Display count of filtered results -->
-        <p class="superhero-count">@Model.FilteredHeroes.Count superhero(s) found</p>
     </form>
 </div>
 
