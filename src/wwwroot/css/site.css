@@ -780,69 +780,27 @@ main {
     margin-top: -10px;
 }
 
-/* Sidebar Header */
-.sidebar-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
+.sidebar-header h4 {
+    margin: 0;
+    font-size: 1.5rem;
+    padding-bottom: 0.5rem;
 }
 
-    .sidebar-header h4 {
-        margin: 0;
-        font-size: 1.5rem;
-        padding-bottom: 0.5rem;
-    }
-
-/* Filter Form */
-form {
+form { /* Filter Form */
     display: flex;
     flex-direction: column;
 }
 
-/* Label and Select Dropdowns */
-label, .filterCategory, .filterValue, button {
-    margin-bottom: 1rem;
-    font-size: 1rem;
-    letter-spacing: 0.1rem;
-}
-
-/* Select Dropdowns */
-.filterCategory,
-.filterValue {
-    width: 100%;
-    padding: 0.5rem;
-    font-size: 1rem;
-}
-
-/* Clear Filter Button */
-.clear-button {
-    width: 100%;
-    padding: 0.5rem;
-    margin-top: 0.5rem;
-    font-weight: bold;
-    font-size: 1rem;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
-    background-color: #ccc;
-    color: #000;
-}
-
-/* Result Text */
-.result-text {
-    margin-top: 1rem;
-    font-style: italic;
-    color: #333;
-}
-
-/* Super heroes count in filter*/
-.superhero-count {
+.filter-group strong {
     color: white;
-    font-weight: bold;
-    font-family: 'Bangers', cursive;
-    font-size: 20px;
-    padding-top: 10px;
+    font-size: 1.1rem;
+    font-weight: 100;
+}
+
+.filter-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem 0.75rem;
 }
 
 /* 
