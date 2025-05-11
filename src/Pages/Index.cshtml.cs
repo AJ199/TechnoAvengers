@@ -61,19 +61,30 @@ namespace ContosoCrafts.WebSite.Pages
         public List<ProductModel> FilteredHeroes { get; set; }
 
         /// <summary>
-        /// Handles GET requests to the index page.
-        /// Applies filtering logic based on FilterCategory and FilterValue query parameters.
+        /// Handles the GET request
+        /// Retrieves and filters the superheroes in FilteredHeroes property
         /// </summary>
         public void OnGet()
         {
+            // All data from JSON file
             var allHeroes = ProductService.GetProducts();
 
+            // Retrieves the user's filter choices for Alignment category
+            var selectedAlignments = Request.Query["Alignment"].ToList();
+
+            // Retrieves the user's filter choices for Role category
+            var selectedRoles = Request.Query["Role"].ToList();
+
+            // Retrieves the user's filter choices for Gender category
+            var selectedGenders = Request.Query["Gender"].ToList();
+
+            // Filters the superheroes based on the selected parameters, 
+            // if no filters are selected, all superheroes are included
             FilteredHeroes = allHeroes
                 .Where(hero =>
-                    string.IsNullOrEmpty(FilterCategory) || string.IsNullOrEmpty(FilterValue) ||
-                    (FilterCategory == "Alignment" && hero.Alignment == FilterValue) ||
-                    (FilterCategory == "Role" && hero.Role == FilterValue) ||
-                    (FilterCategory == "Gender" && hero.Gender == FilterValue)
+                    (selectedAlignments.Count == 0 || selectedAlignments.Contains(hero.Alignment)) &&
+                    (selectedRoles.Count == 0 || selectedRoles.Contains(hero.Role)) &&
+                    (selectedGenders.Count == 0 || selectedGenders.Contains(hero.Gender))
                 ).ToList();
         }
 
