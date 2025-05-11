@@ -89,13 +89,13 @@ a {
     border-color: #ED1D24;
 }
 
-.btn-primary:hover {
-    color: #fff;
-    background-color: #e9a8a6;
-    border-color: #e9a8a6;
-    transform: scale(1.05);
-    transition: transform 0.2s ease-in-out;
-}
+    .btn-primary:hover {
+        color: #fff;
+        background-color: #e9a8a6;
+        border-color: #e9a8a6;
+        transform: scale(1.05);
+        transition: transform 0.2s ease-in-out;
+    }
 
 /* Gray background, white letters, white hover*/
 .btn-secondary {
@@ -103,13 +103,13 @@ a {
     border-color: #666;
 }
 
-.btn-secondary:hover {
-    color: #fff;
-    background-color: #999; /* Lighter gray on hover */
-    border-color: #999;
-    transform: scale(1.05);
-    transition: transform 0.2s ease-in-out;
-}
+    .btn-secondary:hover {
+        color: #fff;
+        background-color: #999; /* Lighter gray on hover */
+        border-color: #999;
+        transform: scale(1.05);
+        transition: transform 0.2s ease-in-out;
+    }
 
 /* Black backdround, white letter, red hover*/
 .btn-terciary {
@@ -117,13 +117,13 @@ a {
     border-color: #000;
 }
 
-.btn-terciary:hover {
-    color: #fff;
-    background-color: #ED1D24; /* Red hover */
-    border-color: #ED1D24;
-    transform: scale(1.05);
-    transition: transform 0.2s ease-in-out;
-}
+    .btn-terciary:hover {
+        color: #fff;
+        background-color: #ED1D24; /* Red hover */
+        border-color: #ED1D24;
+        transform: scale(1.05);
+        transition: transform 0.2s ease-in-out;
+    }
 /* End of general buttons styles*/
 
 .nav-pills .nav-link {
@@ -132,11 +132,11 @@ a {
     color: #FFFFFF; /* White text */
 }
 
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-    color: #FFFFFF;
-    background-color: #ED1D24; /* Marvel Red */
-    border-color: #ED1D24; /* Marvel Red */
-}
+    .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+        color: #FFFFFF;
+        background-color: #ED1D24; /* Marvel Red */
+        border-color: #ED1D24; /* Marvel Red */
+    }
 
 /* Sticky footer styles
 -------------------------------------------------- */
@@ -273,17 +273,17 @@ ul {
     font-size: 1.6rem;
 }
 
-.hero-table th,
-.hero-table td {
-    padding: 15px;
-    text-align: center;
-    vertical-align: middle;
-}
+    .hero-table th,
+    .hero-table td {
+        padding: 15px;
+        text-align: center;
+        vertical-align: middle;
+    }
 
-.hero-table th {
-    background-color: rgba(0, 0, 0, 0.7); /* semi-transparent black for header */
-    font-weight: bold;
-}
+    .hero-table th {
+        background-color: rgba(0, 0, 0, 0.7); /* semi-transparent black for header */
+        font-weight: bold;
+    }
 
 .hero-title-header {
     width: 40%;
@@ -314,16 +314,16 @@ ul {
     margin: 50px auto;
 }
 
-.timeline::after {
-    content: '';
-    position: absolute;
-    width: 6px;
-    background-color: red; /* Timeline line color */
-    top: 0;
-    bottom: 0;
-    left: 50%;
-    margin-left: -3px;
-}
+    .timeline::after {
+        content: '';
+        position: absolute;
+        width: 6px;
+        background-color: red; /* Timeline line color */
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        margin-left: -3px;
+    }
 
 .timeline-container {
     padding: 10px 40px;
@@ -332,13 +332,13 @@ ul {
     width: 50%;
 }
 
-.timeline-container.left {
-    left: 0;
-}
+    .timeline-container.left {
+        left: 0;
+    }
 
-.timeline-container.right {
-    left: 50%;
-}
+    .timeline-container.right {
+        left: 50%;
+    }
 
 .content {
     padding: 20px 30px;
@@ -389,8 +389,9 @@ ul {
 
 /* Read page styles */
 .hero-read-container {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 50px auto;
+    padding: 0 20px;
 }
 
 .hero-read-card {
@@ -401,23 +402,27 @@ ul {
 
 .hero-read-content {
     display: flex;
-    flex-wrap: wrap;
-    gap: 30px;
-    align-items: center;
-    margin-top: -10px;
+    flex-wrap: nowrap;
+    gap: 40px;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 30px;
 }
 
 .hero-read-image {
-    flex: 1;
-    min-width: 300px;
-    max-height: 500px;
-    object-fit: cover;
-    border-radius: 10px;
+    width: 100%;
+    max-width: 420px;
+    height: auto;
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    margin-bottom: 20px;
 }
 
+/* Adjust right stats column */
 .hero-read-details {
-    flex: 1;
-    min-width: 300px;
+    flex: 1.2;
+    min-width: 400px;
     color: #fff;
 }
 
@@ -427,6 +432,15 @@ ul {
     font-size: 3rem;
     text-align: center;
     margin-bottom: 10px;
+}
+
+/* Adjust left image column */
+.hero-read-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .hero-read-text {
@@ -534,15 +548,15 @@ main {
     gap: 10px; /* space between label and error */
 }
 
-.label-row label {
-    margin-bottom: 0; /* prevents line break */
-}
+    .label-row label {
+        margin-bottom: 0; /* prevents line break */
+    }
 
-.label-row .text-danger {
-    margin-bottom: 0;
-    font-size: 0.85rem;
-    font-weight: bold;
-}
+    .label-row .text-danger {
+        margin-bottom: 0;
+        font-size: 0.85rem;
+        font-weight: bold;
+    }
 /*End of Update form styles*/
 
 /* Delete confirmation wrapper styling */
@@ -604,20 +618,20 @@ main {
     color: white;
 }
 
-.btn-confirm:hover {
-    background-color: #c4141b;
-    transform: scale(1.05);
-}
+    .btn-confirm:hover {
+        background-color: #c4141b;
+        transform: scale(1.05);
+    }
 
 .btn-cancel {
     background-color: #444;
     color: white;
 }
 
-.btn-cancel:hover {
-    background-color: #666;
-    transform: scale(1.05);
-}
+    .btn-cancel:hover {
+        background-color: #666;
+        transform: scale(1.05);
+    }
 
 .popup-overlay {
     position: fixed;
@@ -659,11 +673,11 @@ main {
     font-family: 'Bangers', cursive;
 }
 
-.popup-close:hover {
-    background-color: #c4141b;
-    transform: scale(1.05);
-    transition: all 0.2s ease-in-out;
-}
+    .popup-close:hover {
+        background-color: #c4141b;
+        transform: scale(1.05);
+        transition: all 0.2s ease-in-out;
+    }
 
 @keyframes popFade {
     from {
@@ -684,11 +698,11 @@ main {
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
-.card:hover {
-    transform: scale(1.05); /* Enlarge full card on hover */
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-    z-index: 10;
-}
+    .card:hover {
+        transform: scale(1.05); /* Enlarge full card on hover */
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        z-index: 10;
+    }
 
 .card-img-top {
     height: 350px; /* Image styling for uniform appearance */
@@ -717,10 +731,10 @@ main {
     transition: transform 0.3s ease-in-out;
 }
 
-/* Overlay effect */
-.card-img-top::after {
-    content: none;
-}
+    /* Overlay effect */
+    .card-img-top::after {
+        content: none;
+    }
 
 .card:hover .card-img,
 .card:hover .card-img-top {
@@ -728,9 +742,9 @@ main {
     z-index: 2;
 }
 
-.card:hover .card-img-top::after {
-    opacity: 1;
-}
+    .card:hover .card-img-top::after {
+        opacity: 1;
+    }
 
 /* Hero name styling */
 .card-title {
@@ -753,7 +767,7 @@ main {
     background-color: transparent;
     opacity: .5;
     border: none;
-/*    text-shadow: 0 1px 0 #fff;*/
+    /*    text-shadow: 0 1px 0 #fff;*/
     appearance: none;
     overflow: visible;
 }
@@ -777,9 +791,9 @@ main {
 }
 
 
-.sidebar.show {
-    right: 0; /* Show Sidebar */
-}
+    .sidebar.show {
+        right: 0; /* Show Sidebar */
+    }
 
 .sidebar-header {
     display: flex;
@@ -787,11 +801,11 @@ main {
     align-items: center;
 }
 
-.sidebar-header h4 {
-    margin: 0;
-    font-size: 1.5rem;
-    padding-bottom: 0.5rem;
-}
+    .sidebar-header h4 {
+        margin: 0;
+        font-size: 1.5rem;
+        padding-bottom: 0.5rem;
+    }
 
 form { /* Filter Form */
     display: flex;
@@ -826,13 +840,13 @@ form { /* Filter Form */
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
-.btn-filter-clear:hover {
-    color: #000000;
-    background-color: #f0f0f0;
-    border-color: #f0f0f0;
-    transform: scale(1.05);
-    transition: transform 0.2s ease-in-out;
-}
+    .btn-filter-clear:hover {
+        color: #000000;
+        background-color: #f0f0f0;
+        border-color: #f0f0f0;
+        transform: scale(1.05);
+        transition: transform 0.2s ease-in-out;
+    }
 
 .btn-filter-confirm {
     background-color: #000000; /* Black bg */
@@ -842,13 +856,13 @@ form { /* Filter Form */
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
-.btn-filter-confirm:hover {
-    color: #ffffff;
-    background-color: #333333;
-    border-color: #333333;
-    transform: scale(1.05);
-    transition: transform 0.2s ease-in-out;
-}
+    .btn-filter-confirm:hover {
+        color: #ffffff;
+        background-color: #333333;
+        border-color: #333333;
+        transform: scale(1.05);
+        transition: transform 0.2s ease-in-out;
+    }
 
 /* 
 ====================================
