@@ -12,10 +12,16 @@
         <h1 class="hero-read-title">@Model.Product.Title</h1>
 
         <div class="hero-read-content">
-            <img class="hero-read-image" src='@Model.Product.ImageUrl' alt='Image for @Model.Product.Title' />
+            <!-- Left: Superhero image and View More Info -->
+            <div class="hero-read-left">
+                <img class="hero-read-image" src="@Model.Product.ImageUrl" alt="Image for @Model.Product.Title" />
+                <a class="btn btn-secondary uniform-button mt-3" href="https://en.wikipedia.org/wiki/@Model.Product.Title.Replace(" ", "_")" target="_blank">
+                    View More Info
+                </a>
+            </div>
 
+            <!-- Right: Superhero stats and details -->
             <div class="hero-read-details">
-
                 <div class="hero-read-stats">
                     <p class="hero-read-text stats-title">Power Statistics</p>
                     <ul class="hero-read-list">
@@ -28,22 +34,16 @@
                     </ul>
                 </div>
 
-                <p class="hero-read-text">Real name: @Model.Product.Fullname</p>
+                <p class="hero-read-text">Real name: <strong>@Model.Product.Fullname</strong></p>
                 <p class="hero-read-text">Birthplace: @Model.Product.Birthplace</p>
                 <p class="hero-read-text">Work: @Model.Product.Work</p>
-                <p class="hero-read-text">First Appearance: @Model.Product.FirstAppear</p>
+                <p class="hero-read-text">First Appearance: <em>@Model.Product.FirstAppear</em></p>
 
-                <!-- Action buttons with uniform size and alignment -->
+                <!-- Action buttons -->
                 <div class="form-actions button-row">
-                    <a class="btn btn-primary uniform-button" asp-page="Update" asp-route-id="@Model.Product.Id">
-                        <span class="btn-text">Edit</span>
-                    </a>
-                    <a class="btn btn-secondary uniform-button" asp-page="/Product/Index">
-                        <span class="btn-text">Go Back</span>
-                    </a>
-                    <a class="btn btn-confirm uniform-button" asp-page="Delete" asp-route-id="@Model.Product.Id">
-                        <span class="btn-text">Delete</span>
-                    </a>
+                    <a class="btn btn-primary uniform-button" asp-page="Update" asp-route-id="@Model.Product.Id">Edit</a>
+                    <a class="btn btn-secondary uniform-button" asp-page="/Product/Index">Go Back</a>
+                    <a class="btn btn-confirm uniform-button" asp-page="Delete" asp-route-id="@Model.Product.Id">Delete</a>
                 </div>
             </div>
         </div>
