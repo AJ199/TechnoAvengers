@@ -5,9 +5,30 @@
     ViewData["Title"] = "Home page";
 }
 <div class="header-container">
+    <!-- Team name -->
     <h1 class="hero-text">Team 3 Techno Avengers</h1>
-    <button class="filter-button" onclick="openFilterSidebar()">Filter</button>
+
+    <!-- Button to open the filter sidebar -->
+    <button class="btn btn-terciary" onclick="openFilterSidebar()">Filter</button>
 </div>
+
+<!-- Display the count of superheroes in display -->
+@if (Model.FilteredHeroes.Count == 1)
+{
+    <p class="hero-text hero-subtext">
+        <span class="numbers">@Model.FilteredHeroes.Count</span> superhero found
+    </p>
+}
+else if (Model.FilteredHeroes.Count > 1)
+{
+    <p class="hero-text hero-subtext">
+        <span class="numbers">@Model.FilteredHeroes.Count superheroes found</span>
+    </p>
+}
+else
+{
+    <p class="hero-text hero-subtext">No superheroes match the selected filters</p>
+}
 
 <!-- Render the ProductList component, passing in filtered superheroes -->
 @(await Html.RenderComponentAsync<ProductList>(RenderMode.ServerPrerendered, new { Products = Model.FilteredHeroes }))
@@ -38,8 +59,8 @@
             </div>
         }
 
-        <button type="submit">Apply Filter</button>
-        <button type="button" onclick="clearFilter()">Clear Filter</button>
+        <button class="btn btn-filter-confirm">Apply Filter</button>
+        <button class="btn btn-filter-clear" onclick="clearFilter()">Clear Filters</button>
     </form>
 </div>
 

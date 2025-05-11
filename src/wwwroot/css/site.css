@@ -232,6 +232,15 @@ ul {
     letter-spacing: 0.1rem;
 }
 
+.hero-subtext {
+    font-size: 0.8rem;
+    padding: 5px 10px !important;
+    border-radius: 8px;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
 .new-text {
     background-color: rgba(0, 0, 0, 0.9); /* Semi-transparent black background */
     color: #fff; /* White text */
@@ -772,12 +781,10 @@ main {
     right: 0; /* Show Sidebar */
 }
 
-.close-btn {
-    font-size: 35px;
-    font-weight: bold;
-    cursor: pointer;
-    align-self: flex-end;
-    margin-top: -10px;
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .sidebar-header h4 {
@@ -789,6 +796,14 @@ main {
 form { /* Filter Form */
     display: flex;
     flex-direction: column;
+}
+
+.close-btn {
+    font-size: 35px;
+    font-weight: bold;
+    cursor: pointer;
+    align-self: flex-end;
+    margin-top: -10px;
 }
 
 .filter-group strong {
