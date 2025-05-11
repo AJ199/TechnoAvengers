@@ -803,6 +803,38 @@ form { /* Filter Form */
     gap: 0.3rem 0.75rem;
 }
 
+.btn-filter-clear {
+    background-color: #ffffff; /* White bg */
+    color: #000000; /* Black text */
+    border-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.btn-filter-clear:hover {
+    color: #000000;
+    background-color: #f0f0f0;
+    border-color: #f0f0f0;
+    transform: scale(1.05);
+    transition: transform 0.2s ease-in-out;
+}
+
+.btn-filter-confirm {
+    background-color: #000000; /* Black bg */
+    color: #ffffff; /* White text */
+    border-color: #000000;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.btn-filter-confirm:hover {
+    color: #ffffff;
+    background-color: #333333;
+    border-color: #333333;
+    transform: scale(1.05);
+    transition: transform 0.2s ease-in-out;
+}
+
 /* 
 ====================================
  Uniform Action Buttons on Read Page
