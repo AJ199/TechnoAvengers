@@ -76,5 +76,39 @@ namespace ContosoCrafts.WebSite.Pages
                     (FilterCategory == "Gender" && hero.Gender == FilterValue)
                 ).ToList();
         }
+
+        /// <summary>
+        /// Retrieves the list of possible values for a given category
+        /// </summary>
+        /// <param name="category">Name of category</param>
+        /// <returns>List of strings representing values for the given category</returns>
+        public List<string> GetValuesForCategory(string category)
+        {
+            List<string> values = new List<string>();
+
+            // Use a switch statement to populate the list based on category
+            switch (category)
+            {
+                case "Alignment":
+                {
+                    values = new List<string> { "good", "bad", "neutral" };
+                    break;
+                }
+
+                case "Gender":
+                {
+                    values = new List<string> { "Male", "Female", "Other" };
+                    break;
+                }
+
+                case "Role":
+                {
+                    values = new List<string> { "Core Avenger", "Founding Avenger", "Mystic Defender", "Guardian", "Support", "Unknown" };
+                    break;
+                }
+            }
+
+            return values;
+        }
     }
 }
