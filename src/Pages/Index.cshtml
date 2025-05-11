@@ -61,61 +61,11 @@
     }
 
     /// <summary>
-    /// Predefined values for each filter category
-    /// </summary>
-    const filterOptions = {
-        Alignment: ["good", "bad", "neutral"],
-        Role: ["Core Avenger","Founding Avenger","Mystic Defender","Guardian","Unknown"],
-        Gender: ["Male","Female"]
-    };
-
-    /// <summary>
-    /// Populates the value dropdown based on the selected category
-    /// </summary>
-    function updateFilterOptions() {
-        const category = document.getElementById("filterCategory").value;
-        const valueSelect = document.getElementById("filterValue");
-        const hiddenCategory = document.getElementById("filterCategoryHidden");
-
-        hiddenCategory.value = category;
-        valueSelect.innerHTML = '<option value="">Select a value</option>';
-
-        if (category && filterOptions[category]) {
-            filterOptions[category].forEach(value => {
-                const option = document.createElement("option");
-                option.value = value;
-                option.textContent = value.charAt(0).toUpperCase() + value.slice(1);
-                valueSelect.appendChild(option);
-            });
-        }
-    }
-
-    /// <summary>
-    /// Validates the form before submission
-    /// </summary>
-    function handleFilterSubmit() {
-        const category = document.getElementById("filterCategory").value;
-        const value = document.getElementById("filterValue").value;
-
-        if (!category || !value) {
-            alert("Please select both a category and a value.");
-            return false;
-        }
-
-        return true;
-    }
-
-    /// <summary>
-    /// Resets the filter form and reloads the page without query parameters
+    /// Unchecks all the checkboxes and reloads the page without query parameters
     /// </summary>
     function clearFilter() {
-        // Reset dropdowns
-        document.getElementById("filterCategory").value = "";
-        document.getElementById("filterValue").innerHTML = '<option value="">Select a value</option>';
-        document.getElementById("filterCategoryHidden").value = "";
-
-        // Reload the page without filter query params
         window.location.href = window.location.pathname;
+         document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
     }
 
     /// <summary>
@@ -128,26 +78,6 @@
         if (params.get('sidebar') === 'open') {
             openFilterSidebar();
         }
-
-        const selectedCategory = params.get('FilterCategory');
-        const selectedValue = params.get('FilterValue');
-
-        if (selectedCategory) {
-            document.getElementById('filterCategory').value = selectedCategory;
-            updateFilterOptions(); // Populate filterValue options
-
-            if (selectedValue) {
-                // Delay setting value until options are populated
-                setTimeout(() => {
-                    document.getElementById('filterValue').value = selectedValue;
-                }, 50);
-            }
-
-            // Set the hidden input so it persists on form submit
-            document.getElementById('filterCategoryHidden').value = selectedCategory;
-        }
     });
-
-
 
 </script>
