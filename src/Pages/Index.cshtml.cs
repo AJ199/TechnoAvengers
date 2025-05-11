@@ -9,18 +9,21 @@ using Microsoft.Extensions.Logging;
 namespace ContosoCrafts.WebSite.Pages
 {
     /// <summary>
-    /// Mariana Marquez Arce
-    /// Luke McClure!
-    /// Anurag Jindal
-    /// Suvathi Kannan
+    /// Retrieves superhero data and filters it based in query parameters
     /// </summary>
     public class IndexModel : PageModel
     {
-        // Logger for debugging and diagnostics
+        // Keeps track of application behavior and errors
         private readonly ILogger<IndexModel> _logger;
 
+        // Retrieves superhero data from the JSON file
+        public JsonFileProductService ProductService { get; }
+
+        // Filtered list of superheroes based on selected values
+        public List<ProductModel> FilteredHeroes { get; set; }
+
         /// <summary>
-        /// Initializes a new instance of the IndexModel class.
+        /// Initializes a new instance of the IndexModel class
         /// </summary>
         /// <param name="logger">Logger instance</param>
         /// <param name="productService">Service for accessing superhero data</param>
@@ -32,37 +35,8 @@ namespace ContosoCrafts.WebSite.Pages
         }
 
         /// <summary>
-        /// Data service for accessing and filtering superhero records.
-        /// </summary>
-        public JsonFileProductService ProductService { get; }
-
-        /// <summary>
-        /// All superheroes retrieved from the service.
-        /// </summary>
-        public IEnumerable<ContosoCrafts.WebSite.Models.ProductModel>? Products { get; private set; }
-
-        /// <summary>
-        /// Category used for filtering (e.g., Alignment, Role, Gender).
-        /// Bound from the query string.
-        /// </summary>
-        [BindProperty(SupportsGet = true)]
-        public string FilterCategory { get; set; }
-
-        /// <summary>
-        /// Value within the selected category used for filtering.
-        /// Bound from the query string.
-        /// </summary>
-        [BindProperty(SupportsGet = true)]
-        public string FilterValue { get; set; }
-
-        /// <summary>
-        /// Filtered list of superheroes based on the selected category and value.
-        /// </summary>
-        public List<ProductModel> FilteredHeroes { get; set; }
-
-        /// <summary>
         /// Handles the GET request
-        /// Retrieves and filters the superheroes in FilteredHeroes property
+        /// Retrieves, filters and saves the superheroes in FilteredHeroes property
         /// </summary>
         public void OnGet()
         {
