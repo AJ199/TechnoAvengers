@@ -52,13 +52,57 @@ namespace ContosoCrafts.WebSite.Pages
             // Retrieves the user's filter choices for Gender category
             var selectedGenders = Request.Query["Gender"].ToList();
 
+            // Minimun value chosen by user for Intelligence
+            int minIntelligence = GetMin("Intelligence");
+
+            // Maximum value chosen by user for Intelligence
+            int maxIntelligence = GetMax("Intelligence");
+
+            // Minimun value chosen by user for Strength
+            int minStrength = GetMin("Strength");
+
+            // Maximum value chosen by user for Strength
+            int maxStrength = GetMax("Strength");
+
+            // Minimun value chosen by user for Speed
+            int minSpeed = GetMin("Speed");
+
+            // Maximum value chosen by user for Speed
+            int maxSpeed = GetMax("Speed");
+
+            // Minimun value chosen by user for Durability
+            int minDurability = GetMin("Durability");
+
+            // Maximum value chosen by user for Durability
+            int maxDurability = GetMax("Durability");
+
+            // Minimun value chosen by user for Power
+            int minPower = GetMin("Power");
+
+            // Maximum value chosen by user for Durability
+            int maxPower = GetMax("Power");
+
+            // Minimun value chosen by user for Combat
+            int minCombat = GetMin("Combat");
+
+            // Maximum value chosen by user for Durability
+            int maxCombat = GetMax("Combat");
+
+
             // Filters the superheroes based on the selected parameters, 
             // if no filters are selected, all superheroes are included
             FilteredHeroes = allHeroes
                 .Where(hero =>
                     (selectedAlignments.Count == 0 || selectedAlignments.Contains(hero.Alignment)) &&
                     (selectedRoles.Count == 0 || selectedRoles.Contains(hero.Role)) &&
-                    (selectedGenders.Count == 0 || selectedGenders.Contains(hero.Gender))
+                    (selectedGenders.Count == 0 || selectedGenders.Contains(hero.Gender)) &&
+
+                    hero.Intelligence >= minIntelligence && hero.Intelligence <= maxIntelligence &&
+                    hero.Strength >= minStrength && hero.Strength <= maxStrength &&
+                    hero.Speed >= minSpeed && hero.Speed <= maxSpeed &&
+                    hero.Durability >= minDurability && hero.Durability <= maxDurability &&
+                    hero.Power >= minPower && hero.Power <= maxPower &&
+                    hero.Combat >= minCombat && hero.Combat <= maxCombat
                 ).ToList();
         }
 
@@ -95,5 +139,45 @@ namespace ContosoCrafts.WebSite.Pages
 
             return values;
         }
+
+        /// <summary>
+        /// Retrieves the minimum value for a given power stat from the query
+        /// Returns 1 if the parameter is missing or invalid
+        /// </summary>
+        /// <param name="key">The stat name</param>
+        /// <returns>The minimum value as an integer</returns>
+        private int GetMin(string key)
+        {
+            // Holds the parsed query value
+            int val;
+
+            if (int.TryParse(Request.Query[$"{key}Min"], out val))
+            {
+                return val;
+            }
+
+            return 1;
+        }
+
+        /// <summary>
+        /// Retrieves the maximum value for a given power stat from the query
+        /// Returns 100 if the parameter is missing or invalid
+        /// </summary>
+        /// <param name="key">The stat name</param>
+        /// <returns>The maximum value as an integer</returns>
+        private int GetMax(string key)
+        {
+            // Holds the parsed query value
+            int val;
+
+            if (int.TryParse(Request.Query[$"{key}Max"], out val))
+            {
+                return val;
+            }
+
+            return 100;
+        }
+
+
     }
 }
