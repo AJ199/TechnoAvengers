@@ -58,6 +58,31 @@ else
                 </div>
             </div>
         }
+        <!-- Powerstats Range Sliders -->
+        <div class="filter-group">
+            <strong>Powerstats</strong>
+            @foreach (var stat in new[] { "Intelligence", "Strength", "Speed", "Durability", "Power", "Combat" })
+            {
+                <div class="stat-slider">
+                    <label>@stat: </label>
+                    <span class="slider-values min-value">@(Request.Query[$"{stat}Min"].FirstOrDefault() ?? "1")</span>
+                    <span> - </span>
+                    <span class="slider-values max-value">@(Request.Query[$"{stat}Max"].FirstOrDefault() ?? "100")</span>
+                    <div class="slider-container">
+                        <md-slider min="1"
+                                   max="100"
+                                   value-start="@Request.Query[$"{stat}Min"].FirstOrDefault() ?? " 1""
+                                   value-end="@Request.Query[$"{stat}Max"].FirstOrDefault() ?? " 100""
+                                   data-stat="@stat"
+                                   labeled
+                                   range>
+                        </md-slider>
+                        <input type="hidden" name="@(stat)Min" id="@(stat)Min" value="@(Request.Query[$"{stat}Min"].FirstOrDefault() ?? "1")" />
+                        <input type="hidden" name="@(stat)Max" id="@(stat)Max" value="@(Request.Query[$"{stat}Max"].FirstOrDefault() ?? "100")" />
+                    </div>
+                </div>
+            }
+        </div>
 
         <button class="btn btn-filter-confirm">Apply Filter</button>
         <button class="btn btn-filter-clear" onclick="clearFilter()">Clear Filters</button>
