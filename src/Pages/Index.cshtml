@@ -97,6 +97,7 @@ else
     /// </summary>
     function openFilterSidebar() {
         document.getElementById("filterSidebar").classList.add("show");
+         setupSliders();
     }
 
     /// <summary>
@@ -112,6 +113,60 @@ else
     function clearFilter() {
         window.location.href = window.location.pathname;
          document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+    }
+
+    /// <summary>
+    /// Initializes slider values and sets up change listeners
+    /// </summary>
+    function setupSliders()
+    {
+        // All sliders
+        var sliders = document.querySelectorAll('md-slider');
+
+        sliders.forEach(function(slider)
+        {
+            // Get elements of each slider
+            const statName = slider.getAttribute('data-stat');
+            const container = slider.closest('.stat-slider');
+            const minValue = container.querySelector('.min-value');
+            const maxValue = container.querySelector('.max-value');
+
+            // Get input elements
+            const minInput = document.getElementById(`${statName}Min`);
+            const maxInput = document.getElementById(`${statName}Max`);
+
+            // If there are inputs, update values
+            if (minInput && maxInput)
+            {
+                slider.valueStart = parseInt(minInput.value) || 1;
+                slider.valueEnd = parseInt(maxInput.value) || 100;
+                minValue.textContent = slider.valueStart;
+                maxValue.textContent = slider.valueEnd;
+            }
+
+            // Add event listener for value changes
+            slider.addEventListener('change', function()
+            {
+                // Get updated values
+                const startValue = slider.valueStart;
+                const endValue = slider.valueEnd;
+
+                // Update display values
+                minValue.textContent = startValue;
+                maxValue.textContent = endValue;
+
+                // Update input values
+                if (minInput)
+                {
+                    minInput.value = startValue;
+                }
+
+                if (maxInput)
+                {
+                    maxInput.value = endValue;
+                }
+            });
+        });
     }
 
     /// <summary>
