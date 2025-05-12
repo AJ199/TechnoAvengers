@@ -1,13 +1,16 @@
 @using ContosoCrafts.WebSite.Models
 @using ContosoCrafts.WebSite.Services
 @using Microsoft.AspNetCore.Components.Web
+
 @inject JsonFileProductService ProductService
 
-@if(Products != null && Products.Any())
+// Show cards only if there are products to display
+@if (Products != null && Products.Any())
 {
 	<div class="card-columns">
 		@foreach (var product in Products)
 		{
+			// Individual product card
 			<div class="card">
 				<div class="card-img" style="background-image: url('@product.ImageUrl');">
 				</div>
@@ -16,6 +19,7 @@
 				</div>
 				<div class="card-footer">
 					<small class="text-muted">
+						// View button opens modal with details
 						<button @onclick="(e => SelectProduct(product.Id))"
 								data-toggle="modal" data-target="#productModal" class="btn btn-primary">
 							View Superhero
@@ -27,6 +31,7 @@
 	</div>
 }
 
+// Modal to show selected product's details
 <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="productTitle" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		@if (selectedProduct != null)
@@ -46,8 +51,8 @@
 							<p class="card-text">Real name: @selectedProduct.Fullname</p>
 							<p class="card-text">Birthplace: @selectedProduct.Birthplace</p>
 							<p class="card-text">Work: @selectedProduct.Work</p>
-                            <p class="card-text">First Appearance: @selectedProduct.FirstAppear</p>
-                            <p class="card-text">Power statistics:</p>
+							<p class="card-text">First Appearance: @selectedProduct.FirstAppear</p>
+							<p class="card-text">Power statistics:</p>
 							<ul>
 								<li>Intelligence: @selectedProduct.Intelligence</li>
 								<li>Strength: @selectedProduct.Strength</li>
@@ -68,9 +73,13 @@
 					{
 						<span>@voteCount @voteLabel</span>
 					}
+
+					// Render stars for rating (1 to 5)
 					@for (int i = 1; i < 6; i++)
 					{
 						var currentStar = i;
+
+						// Highlight star if it is within the current average rating
 						if (i <= currentRating)
 						{
 							<span class="fa fa-star checked" @onclick="(e => SubmitRating(currentStar))"></span>
@@ -86,50 +95,66 @@
 	</div>
 </div>
 
+// Font Awesome for star rating display
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-@code
-{
+@code {
 	ProductModel? selectedProduct;
 	string? selectedProductId;
 
+	// List of products passed from parent component
 	[Parameter]
 	public IEnumerable<ProductModel> Products { get; set; }
 
+	/// <summary>
+	/// Selects the product and updates rating information
+	/// </summary>
+	/// <param name="productId">ID of product to select</param>
 	void SelectProduct(string productId)
 	{
 		selectedProductId = productId;
-        selectedProduct = Products.First(x => x.Id == productId);
-        GetCurrentRating();
-    }
+		selectedProduct = Products.First(x => x.Id == productId);
+		GetCurrentRating();
+	}
 
-    int currentRating = 0;
-    int voteCount = 0;
-    string? voteLabel;
+	int currentRating = 0;
+	int voteCount = 0;
+	string? voteLabel;
 
-    void GetCurrentRating()
-    {
-        if (selectedProduct?.Ratings == null)
-        {
-            currentRating = 0;
-            voteCount = 0;
-        }
-        else
-        {
-            voteCount = selectedProduct.Ratings.Count();
-            voteLabel = voteCount > 1 ? "Votes" : "Vote";
-            currentRating = selectedProduct.Ratings.Sum() / voteCount;
-        }
+	/// <summary>
+	/// Computes the average rating and vote count for the selected product
+	/// </summary>
+	void GetCurrentRating()
+	{
+		if (selectedProduct?.Ratings == null)
+		{
+			currentRating = 0;
+			voteCount = 0;
+		}
+		else
+		{
+			voteCount = selectedProduct.Ratings.Count();
+			voteLabel = voteCount > 1 ? "Votes" : "Vote";
+			currentRating = selectedProduct.Ratings.Sum() / voteCount;
+		}
 
-        System.Console.WriteLine($"Current rating for {selectedProduct?.Id}: {currentRating}");
-    }
+		System.Console.WriteLine($"Current rating for {selectedProduct?.Id}: {currentRating}");
+	}
 
-    void SubmitRating(int rating)
-    {
-        System.Console.WriteLine($"Rating received for {selectedProduct?.Id}: {rating}");
-        if (selectedProductId == null)
-            return;
-        ProductService.AddRating(selectedProductId, rating);
-        SelectProduct(selectedProductId);
-    }
+	/// <summary>
+	/// Submits a new rating for the currently selected product
+	/// </summary>
+	/// <param name="rating">Rating value (1–5)</param>
+	void SubmitRating(int rating)
+	{
+		System.Console.WriteLine($"Rating received for {selectedProduct?.Id}: {rating}");
+
+		if (selectedProductId == null)
+			return;
+
+		ProductService.AddRating(selectedProductId, rating);
+
+		// Refresh selected product and its rating info
+		SelectProduct(selectedProductId);
+	}
 }
