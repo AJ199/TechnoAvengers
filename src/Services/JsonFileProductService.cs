@@ -9,26 +9,26 @@ using Microsoft.AspNetCore.Hosting;
 namespace ContosoCrafts.WebSite.Services
 {
     /// <summary>
-    /// Provides access to data stored in JSON format
+    /// Provides access to product data stored in JSON format and supports basic CRUD operations.
     /// </summary>
     public class JsonFileProductService
     {
         /// <summary>
-        /// Web root path is retrieved through the hosting environment
+        /// Provides access to the web root path through the hosting environment.
         /// </summary>
         public IWebHostEnvironment WebHostEnvironment { get; }
 
         /// <summary>
-        /// Initializes a new JSON product service instance 
+        /// Initializes a new instance of the JsonFileProductService class using dependency injection.
         /// </summary>
-        /// <param name="webHostEnvironment">Hosting environment</param>
+        /// <param name="webHostEnvironment">The current hosting environment.</param>
         public JsonFileProductService(IWebHostEnvironment webHostEnvironment)
         {
             WebHostEnvironment = webHostEnvironment;
         }
 
         /// <summary>
-        /// Retrieves the path to the JSON file
+        /// Constructs the full path to the JSON file where products are stored.
         /// </summary>
         private string JsonFileName
         {
@@ -39,48 +39,43 @@ namespace ContosoCrafts.WebSite.Services
         }
 
         /// <summary>
-        /// Retrieves all superhero data from the JSON file
+        /// Retrieves and deserializes all product data from the JSON file.
         /// </summary>
-        /// <returns>A collection of ProductModel objects</returns>
+        /// <returns>A collection of ProductModel objects; returns an empty array if the file is empty or invalid.</returns>
         public IEnumerable<ProductModel> GetProducts()
         {
             using var jsonFileReader = File.OpenText(JsonFileName);
 
-            // JSON parsing rules 
             JsonSerializerOptions serializerOptions = new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true
             };
 
-            // Deserialized JSON data
             ProductModel[]? products = JsonSerializer.Deserialize<ProductModel[]>(
                 jsonFileReader.ReadToEnd(),
                 serializerOptions);
 
-            if (products == null)
-            {
-                return Array.Empty<ProductModel>();
-            }
-
-            return products;
+            // Return an empty list if deserialization failed or file is empty
+            return products ?? Array.Empty<ProductModel>();
         }
 
         /// <summary>
-        /// Adds a rating to the superhero with the given ID
+        /// Adds a new rating to the product with the specified ID.
         /// </summary>
-        /// <param name="productId">ID associated with superhero</param>
-        /// <param name="rating">Rating to be added</param>
-        /// <returns></returns>
+        /// <param name="productId">The ID of the product to be rated.</param>
+        /// <param name="rating">The rating to add (e.g., from 1 to 5).</param>
         public void AddRating(string productId, int rating)
         {
             var products = GetProducts().ToList();
 
+            // Find the product by ID
             var product = products.FirstOrDefault(x => x.Id == productId);
             if (product == null)
             {
-                return;
+                return; // Do nothing if product is not found
             }
 
+            // Initialize ratings if null, otherwise append the new rating
             if (product.Ratings == null)
             {
                 product.Ratings = new int[] { rating };
@@ -92,14 +87,15 @@ namespace ContosoCrafts.WebSite.Services
                 product.Ratings = ratings.ToArray();
             }
 
+            // Persist the updated product list
             SaveData(products);
         }
 
         /// <summary>
-        /// Updates superhero data, except its ID
+        /// Updates an existing product's information, keeping the ID unchanged.
         /// </summary>
-        /// <param name="data">Data to update</param>
-        /// <returns>True if successfully updated, false otherwise</returns>
+        /// <param name="data">The updated product data.</param>
+        /// <returns>True if update was successful; false if the product was not found.</returns>
         public bool UpdateData(ProductModel data)
         {
             var products = GetProducts().ToList();
@@ -107,14 +103,14 @@ namespace ContosoCrafts.WebSite.Services
 
             if (productData == null)
             {
-                return false;
+                return false; // Product with matching ID not found
             }
 
-            // Required properties
+            // Update required fields
             productData.Title = data.Title;
             productData.ImageUrl = data.ImageUrl;
 
-            // Required Power statistics 
+            // Update core power attributes
             productData.Intelligence = data.Intelligence;
             productData.Strength = data.Strength;
             productData.Speed = data.Speed;
@@ -122,23 +118,25 @@ namespace ContosoCrafts.WebSite.Services
             productData.Power = data.Power;
             productData.Combat = data.Combat;
 
-            // Apply "-" for optional properties if empty
+            // Use placeholder "-" for optional fields if they are blank
             productData.Fullname = string.IsNullOrWhiteSpace(data.Fullname) ? "-" : data.Fullname;
             productData.Birthplace = string.IsNullOrWhiteSpace(data.Birthplace) ? "-" : data.Birthplace;
             productData.Work = string.IsNullOrWhiteSpace(data.Work) ? "-" : data.Work;
             productData.FirstAppear = string.IsNullOrWhiteSpace(data.FirstAppear) ? "-" : data.FirstAppear;
 
+            // Replace ratings
             productData.Ratings = data.Ratings;
 
+            // Save updated product list
             SaveData(products);
             return true;
         }
 
         /// <summary>
-        /// Create a new superhero entry, applying default values for optional properties
+        /// Adds a new product to the JSON file. Optional fields are defaulted if left blank.
         /// </summary>
-        /// <param name="data">The new product to add</param>
-        /// <returns>True if successfully added, false otherwise</returns>
+        /// <param name="data">The new product to add.</param>
+        /// <returns>True if the product was successfully created; false if a product with the same ID already exists.</returns>
         public bool CreateData(ProductModel data)
         {
             if (data == null)
@@ -146,73 +144,49 @@ namespace ContosoCrafts.WebSite.Services
                 return false;
             }
 
-            // Retrieve existing products from storage
             var products = GetProducts().ToList();
-
-            // Stores product with the same ID if it exists, otherwise null
             var existing = products.FirstOrDefault(p => p.Id == data.Id);
 
+            // Only add if the product ID is unique
             if (existing == null)
             {
-                // Required properties
-                string title = data.Title;
-                string imageUrl = data.ImageUrl;
-
-                // Required power stats
-                int intelligence = data.Intelligence;
-                int strength = data.Strength;
-                int speed = data.Speed;
-                int durability = data.Durability;
-                int power = data.Power;
-                int combat = data.Combat;
-
-                // Optional properties — set "-" if empty
+                // Set defaults for optional properties if missing
                 string fullname = string.IsNullOrWhiteSpace(data.Fullname) ? "-" : data.Fullname;
                 string birthplace = string.IsNullOrWhiteSpace(data.Birthplace) ? "-" : data.Birthplace;
                 string work = string.IsNullOrWhiteSpace(data.Work) ? "-" : data.Work;
                 string firstAppear = string.IsNullOrWhiteSpace(data.FirstAppear) ? "-" : data.FirstAppear;
 
-                // Ratings can be null
-                int[]? ratings = data.Ratings;
-
-                // Construct the final product with cleaned fields
+                // Create a new product with all values set
                 ProductModel newProduct = new ProductModel
                 {
                     Id = data.Id,
-                    Title = title,
-                    ImageUrl = imageUrl,
-                    Intelligence = intelligence,
-                    Strength = strength,
-                    Speed = speed,
-                    Durability = durability,
-                    Power = power,
-                    Combat = combat,
+                    Title = data.Title,
+                    ImageUrl = data.ImageUrl,
+                    Intelligence = data.Intelligence,
+                    Strength = data.Strength,
+                    Speed = data.Speed,
+                    Durability = data.Durability,
+                    Power = data.Power,
+                    Combat = data.Combat,
                     Fullname = fullname,
                     Birthplace = birthplace,
                     Work = work,
                     FirstAppear = firstAppear,
-                    Ratings = ratings
+                    Ratings = data.Ratings
                 };
 
-                // Add the new data to the list
                 products.Add(newProduct);
-
                 SaveData(products);
-
                 return true;
             }
-            else
-            {
-                return false;
-            }
 
+            return false; // Product already exists
         }
 
-
         /// <summary>
-        /// Saves the given list to a JSON file
+        /// Saves the current list of products to the JSON file, overwriting existing content.
         /// </summary>
-        /// <param name="products">List of superheroes</param>
+        /// <param name="products">The updated product list to save.</param>
         public void SaveData(IEnumerable<ProductModel> products)
         {
             using var outputStream = File.Create(JsonFileName);
@@ -220,7 +194,7 @@ namespace ContosoCrafts.WebSite.Services
                 new Utf8JsonWriter(outputStream, new JsonWriterOptions
                 {
                     SkipValidation = true,
-                    Indented = true
+                    Indented = true // Format the JSON for readability
                 }),
                 products
             );
