@@ -70,14 +70,14 @@ a {
     color: #0366d6;
 }
 
-/* General button styles*/
+/* General button styles */
 .btn-primary,
 .btn-secondary,
 .btn-terciary {
     font-family: 'Bangers', cursive;
-    font-size: 1.5rem; /* Slightly bigger text */
+    font-size: 1.2rem; /* Slightly smaller text */
     color: #fff;
-    padding: 8px 16px;
+    padding: 6px 12px; /* Reduced padding for smaller buttons */
     text-decoration: none;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
@@ -749,8 +749,8 @@ main {
 /* Hero name styling */
 .card-title {
     font-size: 1.5rem;
-    background-color: rgba(255, 204, 0, 0.9);
-    color: #000;
+    background-color: transparent; /* Remove the yellow background */
+    color: #000; /* Keep the text color black or change as needed */
     padding: 5px 10px;
     border-radius: 5px;
     display: inline-block;
@@ -1079,3 +1079,81 @@ form { /* Filter Form */
     text-align: center;
     padding: 10px;
 }
+
+/* Apply the same styles from the Update form */
+.form-container {
+    background-color: rgba(0, 0, 0, 0.7); /* Dark transparent background */
+    color: white; /* White text */
+    padding: 30px; /* Padding around the form */
+    border-radius: 10px; /* Rounded corners */
+    max-width: 600px; /* Form width */
+    margin: 40px auto; /* Center the form */
+}
+
+    .form-container h2 {
+        text-align: center; /* Center the title */
+        margin-bottom: 20px;
+        font-family: 'Nunito', sans-serif; /* Update font */
+    }
+
+.form-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+    .form-group label {
+        font-weight: bold; /* Bold labels */
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        width: 100%; /* Full width of form fields */
+        padding: 8px; /* Padding for fields */
+        border: none; /* No borders */
+        border-radius: 5px; /* Rounded corners */
+        background-color: #222; /* Dark background for fields */
+        color: white; /* White text */
+    }
+
+    .form-group span {
+        color: red; /* Red error text */
+        font-size: 0.9em; /* Smaller error text */
+    }
+
+.btn-submit {
+    background-color: #ffcc00; /* Yellow background for submit button */
+    color: black; /* Black text */
+    border: none;
+    padding: 10px 20px; /* Button padding */
+    font-weight: bold; /* Bold text */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer;
+}
+
+    .btn-submit:hover {
+        background-color: #e6b800; /* Darker yellow on hover */
+    }
+
+.form-actions {
+    margin-top: 20px;
+}
+
+.label-row {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between label and error */
+}
+
+    .label-row label {
+        margin-bottom: 0; /* Prevent line break */
+    }
+
+    .label-row .text-danger {
+        margin-bottom: 0;
+        font-size: 0.85rem;
+        font-weight: bold;
+    }
