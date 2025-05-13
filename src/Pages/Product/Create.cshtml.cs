@@ -49,9 +49,6 @@ namespace ContosoCrafts.WebSite.Pages.Product
         /// </returns>
         public IActionResult OnPost()
         {
-            // Generate unique product ID
-            Product.Id = GenerateUniqueProductId();
-
             // Return to the page if model validation fails
             if (ModelState.IsValid == false)
             {

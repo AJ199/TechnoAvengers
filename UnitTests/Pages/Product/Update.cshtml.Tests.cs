@@ -128,7 +128,7 @@ namespace UnitTests.Pages.Product
         /// Verifies that OnPost redirects to the error page when the Product is null.
         /// </summary>
         [Test]
-        public void OnPost_Null_Product_Should_Redirect_To_ErrorPage()
+        public void OnPost_Invalid_Null_Product_Should_Redirect_To_ErrorPage()
         {
             // Arrange
             pageModel.Product = null;

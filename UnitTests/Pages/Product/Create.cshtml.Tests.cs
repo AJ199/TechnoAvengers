@@ -100,10 +100,65 @@ namespace UnitTests.Pages.Product
             var result = pageModel.OnPost();
 
             // Assert
-            Assert.IsInstanceOf<PageResult>(result);
+            Assert.AreEqual(typeof(PageResult), result.GetType());
+
+            // Reset
+            pageModel.ModelState.Clear();
         }
 
+        /// <summary>
+        /// Verifies that a null product results in redirection to the error page
+        /// </summary>
+        [Test]
+        public void OnPost_InValid_Product_Is_Null_Should_Return_Error_Page()
+        {
+            // Arrange
+            pageModel.Product = null;
 
+            // Act
+            var result = pageModel.OnPost();
+            var redirectResult = (RedirectToPageResult)result;
+
+            // Assert
+            Assert.AreEqual("/Error", redirectResult.PageName);
+
+            // Reset
+        }
+
+        /// <summary>
+        /// Validates that product creation failure adds an error and returns to the Create page
+        /// </summary>
+        [Test]
+        public void OnPost_InValid_CreateData_Returns_False_Should_Return_Page_With_Model_Error()
+        {
+            // Arrange
+            var data = new ProductModel
+            {
+                Title = "Failure",
+                Fullname = "Fail Test",
+                Birthplace = "-",
+                Work = "None",
+                FirstAppear = "",
+                ImageUrl = "https://www.test.com/.jpg",
+                Intelligence = 1,
+                Strength = 1,
+                Speed = 1,
+                Durability = 1,
+                Power = 1,
+                Combat = 1,
+                Ratings = null
+            };
+
+            pageModel.Product = data;
+
+
+            // Act
+            var result = pageModel.OnPost();
+
+            // Assert
+            Assert.AreEqual(typeof(RedirectToPageResult), result.GetType());
+
+        }
         #endregion OnPost
     }
 }
