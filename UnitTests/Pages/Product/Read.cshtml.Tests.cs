@@ -31,7 +31,7 @@ namespace UnitTests.Pages.Product
         /// Validates that OnGet with valid ID returns product and no client response
         /// </summary>
         [Test]
-        public void OnGet_ValidId_Should_Return_Product()
+        public void OnGet_Valid_Id_Should_Return_Product()
         {
             // Arrange
             var data = TestHelper.ProductService.GetProducts().First();
@@ -49,7 +49,7 @@ namespace UnitTests.Pages.Product
         /// Validates OnGet populates all product fields 
         /// </summary>
         [Test]
-        public void OnGet_ValidId_Should_Populate_AllProductFields()
+        public void OnGet_Valid_Id_Should_Populate_All_Product_Fields()
         {
             // Arrange
             // Find a fully populated entry
@@ -79,7 +79,7 @@ namespace UnitTests.Pages.Product
         /// Validates that OnGet with invalid ID should return null product
         /// </summary>
         [Test]
-        public void OnGet_InvalidId_Should_Return_Null()
+        public void OnGet_Invalid_Id_Should_Return_Null()
         {
             // Arrange
 
@@ -95,7 +95,7 @@ namespace UnitTests.Pages.Product
         /// Validates that OnGet with invalid ID returns null product and redirects to error
         /// </summary>
         [Test]
-        public void OnGet_InvalidId_Should_Redirect_To_ErrorPage()
+        public void OnGet_Invalid_Id_Should_Redirect_To_Error_Page()
         {
             // Arrange
 
@@ -115,7 +115,7 @@ namespace UnitTests.Pages.Product
         /// Validates that OnGet with null ID returns null product
         /// </summary>
         [Test]
-        public void OnGet_NullId_Should_Return_Null()
+        public void OnGet_Null_Id_Should_Return_Null()
         {
             // Arrange
 
