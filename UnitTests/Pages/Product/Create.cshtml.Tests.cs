@@ -54,7 +54,7 @@ namespace UnitTests.Pages.Product
                 Fullname = "Tester name",
                 Birthplace = "-",
                 Work = "Tester",
-                FirstAppear = "",
+                FirstAppear = "Movie",
                 ImageUrl = "https://www.test.com/test/test.jpg",
                 Intelligence = 56,
                 Strength = 32,
