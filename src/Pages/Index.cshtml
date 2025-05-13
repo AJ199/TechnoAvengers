@@ -14,21 +14,24 @@
 </div>
 
 <!-- Display number of superheroes found -->
-@if (Model.FilteredHeroes.Count == 1)
+@if (Request.Query.Count > 0)
 {
-    <p class="hero-text hero-subtext">
-        <span class="numbers">@Model.FilteredHeroes.Count</span> superhero found
-    </p>
-}
-else if (Model.FilteredHeroes.Count > 1)
-{
-    <p class="hero-text hero-subtext">
-        <span class="numbers">@Model.FilteredHeroes.Count superheroes found</span>
-    </p>
-}
-else
-{
-    <p class="hero-text hero-subtext">No superheroes match the selected filters</p>
+    if (Model.FilteredHeroes.Count == 1)
+    {
+        <p class="hero-text hero-subtext">
+            <span class="numbers">@Model.FilteredHeroes.Count</span> superhero found
+        </p>
+    }
+    else if (Model.FilteredHeroes.Count > 1)
+    {
+        <p class="hero-text hero-subtext">
+            <span class="numbers">@Model.FilteredHeroes.Count superheroes found</span>
+        </p>
+    }
+    else
+    {
+        <p class="hero-text hero-subtext">No superheroes match the selected filters</p>
+    }
 }
 
 <!-- Display filtered superheroes using Blazor component -->
