@@ -36,57 +36,59 @@ else
 <!-- Sidebar (Initially Hidden) -->
 <div id="filterSidebar" class="sidebar">
     <div class="sidebar-header">
-        <h4>Filter</h4>
+        <h4>Filter by:</h4>
         <span class="close-btn" onclick="closeSidebar()">×</span>
     </div>
 
     <!-- Filter Form -->
-    <form method="get">
-        @foreach (var category in new[] { "Alignment", "Role", "Gender" })
-        {
-            <div class="filter-group">
-                <strong>@category</strong>
-                <div class="filter-options">
-                    @foreach (var value in Model.GetValuesForCategory(category))
-                    {
-                        <label>
-                            <input type="checkbox" name="@category" value="@value"
-                            @(Request.Query[category].Contains(value) ? "checked" : "") />
-                            @value
-                        </label>
-                    }
-                </div>
-            </div>
-        }
-        <!-- Powerstats Range Sliders -->
-        <div class="filter-group">
-            <strong>Powerstats</strong>
-            @foreach (var stat in new[] { "Intelligence", "Strength", "Speed", "Durability", "Power", "Combat" })
+    <div class="sidebar-content">
+        <form method="get" id="filterForm">
+            @foreach (var category in new[] { "Alignment", "Role", "Gender" })
             {
-                <div class="stat-slider">
-                    <label>@stat: </label>
-                    <span class="slider-values min-value">@(Request.Query[$"{stat}Min"].FirstOrDefault() ?? "1")</span>
-                    <span> - </span>
-                    <span class="slider-values max-value">@(Request.Query[$"{stat}Max"].FirstOrDefault() ?? "100")</span>
-                    <div class="slider-container">
-                        <md-slider min="1"
-                                   max="100"
-                                   value-start="@Request.Query[$"{stat}Min"].FirstOrDefault() ?? " 1""
-                                   value-end="@Request.Query[$"{stat}Max"].FirstOrDefault() ?? " 100""
-                                   data-stat="@stat"
-                                   labeled
-                                   range>
-                        </md-slider>
-                        <input type="hidden" name="@(stat)Min" id="@(stat)Min" value="@(Request.Query[$"{stat}Min"].FirstOrDefault() ?? "1")" />
-                        <input type="hidden" name="@(stat)Max" id="@(stat)Max" value="@(Request.Query[$"{stat}Max"].FirstOrDefault() ?? "100")" />
+                <div class="filter-group">
+                    <strong>@category</strong>
+                    <div class="filter-options">
+                        @foreach (var value in Model.GetValuesForCategory(category))
+                        {
+                            <label>
+                                <input type="checkbox" name="@category" value="@value"
+                                @(Request.Query[category].Contains(value) ? "checked" : "") />
+                                @value
+                            </label>
+                        }
                     </div>
                 </div>
             }
-        </div>
+            <!-- Powerstats Range Sliders -->
+            <div class="filter-group">
+                <strong>Powerstats</strong>
+                @foreach (var stat in new[] { "Intelligence", "Strength", "Speed", "Durability", "Power", "Combat" })
+                {
+                    <div class="stat-slider">
+                        <label>@stat: </label>
+                        <span class="slider-values min-value">@(Request.Query[$"{stat}Min"].FirstOrDefault() ?? "1")</span>
+                        <span> - </span>
+                        <span class="slider-values max-value">@(Request.Query[$"{stat}Max"].FirstOrDefault() ?? "100")</span>
+                        <div class="slider-container">
+                            <md-slider min="1"
+                                       max="100"
+                                       value-start="@Request.Query[$"{stat}Min"].FirstOrDefault() ?? " 1""
+                                       value-end="@Request.Query[$"{stat}Max"].FirstOrDefault() ?? " 100""
+                                       data-stat="@stat"
+                                       labeled
+                                       range>
+                            </md-slider>
+                            <input type="hidden" name="@(stat)Min" id="@(stat)Min" value="@(Request.Query[$"{stat}Min"].FirstOrDefault() ?? "1")" />
+                            <input type="hidden" name="@(stat)Max" id="@(stat)Max" value="@(Request.Query[$"{stat}Max"].FirstOrDefault() ?? "100")" />
+                        </div>
+                    </div>
+                }
+            </div>
 
-        <button class="btn btn-filter-confirm">Apply Filter</button>
-        <button class="btn btn-filter-clear" onclick="clearFilter()">Clear Filters</button>
-    </form>
+            <button type="submit" class="btn btn-filter-confirm">Apply Filter</button>
+            <button type="button" class="btn btn-filter-clear" onclick="clearFilter()">Clear Filters</button>
+        </form>
+    </div>
 </div>
 
 <!-- Blazor Server script -->
@@ -97,7 +99,7 @@ else
     /// </summary>
     function openFilterSidebar() {
         document.getElementById("filterSidebar").classList.add("show");
-         setupSliders();
+        setupSliders();
     }
 
     /// <summary>
@@ -111,9 +113,37 @@ else
     /// Unchecks all the checkboxes and reloads the page without query parameters
     /// </summary>
     function clearFilter() {
-        window.location.href = window.location.pathname;
-         document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+        // window.location.href = window.location.pathname;
+        document.querySelectorAll('input[type="checkbox"]').forEach(function(cb)
+        {
+            cb.checked = false;
+        });
+
+        // All sliders
+        var sliders = document.querySelectorAll('md-slider');
+        sliders.forEach(function(slider)
+        {
+            slider.valueStart = 1;
+            slider.valueEnd = 100;
+
+            const statName = slider.getAttribute('data-stat');
+            const container = slider.closest('.stat-slider');
+            const minValue = container.querySelector('.min-value');
+            const maxValue = container.querySelector('.max-value');
+            const minInput = document.getElementById(`${statName}Min`);
+            const maxInput = document.getElementById(`${statName}Max`);
+
+            minValue.textContent = '1';
+            maxValue.textContent = '100';
+
+            if (minInput) minInput.value = '1';
+            if (maxInput) maxInput.value = '100';
+        });
+
+        // Submit the form to apply changes
+        document.getElementById('filterForm').submit();
     }
+
 
     /// <summary>
     /// Initializes slider values and sets up change listeners
@@ -169,7 +199,26 @@ else
         });
     }
 
-    // Handles form submission to ensure proper query parameters
+    /// <summary>
+    /// Preserves filter state and initializes sliders on page load
+    /// </summary>
+    document.addEventListener('DOMContentLoaded', function()
+    {
+        // Query parameters
+        const params = new URLSearchParams(window.location.search);
+
+        // Open sidebar if sidebar param is 'open'
+        if (params.get('sidebar') === 'open')
+        {
+            openFilterSidebar();
+        }
+
+        setupSliders();
+    });
+
+    /// <summary>
+    /// Handles form submission to ensure proper query parameters
+    /// </summary>
     document.getElementById('filterForm')?.addEventListener('submit', function(e) {
 
         // Update all hidden inputs before submission
