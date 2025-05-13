@@ -30,7 +30,7 @@ namespace UnitTests.Pages.Product
         /// Validates that OnGet returns a PageResult
         /// </summary>
         [Test]
-        public void OnGet_When_Called_Should_Return_Page()
+        public void OnGet_Valid_Products_When_Called_Should_Return_Page()
         {
             // Arrange
 
