@@ -124,6 +124,20 @@
             <span asp-validation-for="Product.ImageUrl"></span>
         </div>
 
+        <!-- Role Dropdown -->
+        <div class="form-group">
+            <label asp-for="Product.Role">Role</label>
+            <select asp-for="Product.Role" class="form-control">
+                <option value="Unknown">Unknown</option>
+                <option value="Core Avenger">Core Avenger</option>
+                <option value="Founding Avenger">Founding Avenger</option>
+                <option value="Guardian">Guardian</option>
+                <option value="Support">Support</option>
+                <option value="Mystic Defender">Mystic Defender</option>
+            </select>
+            <span asp-validation-for="Product.Role"></span>
+        </div>
+
         <!-- Powerstats Sliders -->
         <h3>Powerstats</h3>
         @foreach (var stat in new[] { "Intelligence", "Strength", "Speed", "Durability", "Power", "Combat" })
