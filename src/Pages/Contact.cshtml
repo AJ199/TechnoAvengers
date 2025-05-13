@@ -1,0 +1,52 @@
+﻿@page
+@model ContosoCrafts.WebSite.Pages.ContactModel
+@{
+    ViewData["Title"] = "Contact Us";
+}
+
+<div class="container text-center mt-5">
+    <h1 class="display-3 text-white fw-bold" style="font-family: 'Bangers', cursive; text-shadow: 2px 2px 6px black;">
+        CONTACT US
+    </h1>
+    <p class="lead text-white mt-3">We'd love to hear from you! Reach out to us via email, GitHub, or connect on social media.</p>
+
+    <!-- Contact Buttons -->
+    <div class="d-flex justify-content-center gap-4 mt-4 flex-wrap">
+        <a href="mailto:team@avengersencyclopedia.com" class="btn btn-danger btn-lg px-5 py-3 rounded-pill shadow">
+            <i class="fas fa-envelope me-2"></i>EMAIL US
+        </a>
+        <a href="https://github.com/AJ199" target="_blank" class="btn btn-secondary btn-lg px-5 py-3 rounded-pill shadow">
+            <i class="fab fa-github me-2"></i>GitHub
+        </a>
+    </div>
+
+    <!-- Additional Information -->
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-8 p-4 bg-dark bg-opacity-75 rounded-4 text-white shadow-lg">
+            <h4 class="text-warning mb-3" style="font-family: 'Bangers', cursive;">Need Help or Have Feedback?</h4>
+            <p>
+                Whether you're a Marvel fan with suggestions, a developer reporting a bug, or just want to say hi —
+                we’re happy to connect. You can also visit our GitHub page to raise issues or check project updates.
+            </p>
+        </div>
+    </div>
+
+    <!-- Social Media -->
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-8 p-4 bg-dark bg-opacity-75 rounded-4 text-white shadow-lg">
+            <h4 class="text-warning mb-3" style="font-family: 'Bangers', cursive;">Follow Us</h4>
+            <p>Stay connected and get the latest updates:</p>
+            <div class="d-flex justify-content-center gap-4 flex-wrap mt-3">
+                <a href="https://x.com/anuragjindal200?s=11" target="_blank" class="btn btn-outline-light btn-lg rounded-pill">
+                    <i class="fab fa-twitter me-2"></i>X.com
+                </a>
+                <a href="https://www.instagram.com/anuragj96?igsh=MXFlZXd1YzF2ZmxzbQ%3D%3D&utm_source=qr" target="_blank" class="btn btn-outline-light btn-lg rounded-pill">
+                    <i class="fab fa-instagram me-2"></i>Instagram
+                </a>
+                <a href="https://www.linkedin.com/in/anurag--jindal/" target="_blank" class="btn btn-outline-light btn-lg rounded-pill">
+                    <i class="fab fa-linkedin me-2"></i>LinkedIn
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
