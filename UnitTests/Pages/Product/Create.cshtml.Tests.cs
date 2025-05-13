@@ -41,6 +41,10 @@ namespace UnitTests.Pages.Product
             Assert.AreEqual(typeof(PageResult), result.GetType());
         }
 
+        #endregion OnGet
+
+        #region OnPost
+
         /// <summary>
         /// Validates that OnPost creates a new product and redirects to Read page
         /// </summary>
@@ -78,6 +82,25 @@ namespace UnitTests.Pages.Product
             Assert.AreEqual(true, redirectResult.RouteValues.ContainsKey("id"));
         }
 
-        #endregion OnGet
+        [Test]
+        public void OnPost_Invalid_ModelState_Should_Return_Page()
+        {
+            // Arrange
+            pageModel.Product = new ProductModel
+            {
+                Title = "", // Assuming this is a required field
+            };
+
+            pageModel.ModelState.AddModelError("Title", "Title is required");
+
+            // Act
+            var result = pageModel.OnPost();
+
+            // Assert
+            Assert.IsInstanceOf<PageResult>(result);
+        }
+
+
+        #endregion OnPost
     }
 }
