@@ -47,6 +47,13 @@
     <!-- Filter form -->
     <div class="sidebar-content">
         <form method="get" id="filterForm">
+
+            <input type="text" name="SearchTerm" placeholder="Search by name..."
+                   value="@Request.Query["SearchTerm"]"
+                   class="search-input" />
+
+            <button type="submit" class="btn btn-terciary">Search</button>
+
             @foreach (var category in new[] { "Alignment", "Role", "Gender" })
             {
                 <div class="filter-group">
