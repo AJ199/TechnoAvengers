@@ -70,6 +70,20 @@
                         </select>
                     </div>
 
+                    <!-- Alignment Dropdown -->
+                    <div class="form-group">
+                        <div class="label-row">
+                            <label asp-for="Product.Alignment"><strong>Alignment</strong></label>
+                            <span asp-validation-for="Product.Alignment" class="text-danger"></span>
+                        </div>
+                        <select asp-for="Product.Alignment" class="form-control">
+                            <option value="">-- Select Alignment --</option>
+                            <option value="Good" selected="@("Good" == Model.Product.Alignment)">Good</option>
+                            <option value="Evil" selected="@("Evil" == Model.Product.Alignment)">Evil</option>
+                            <option value="Neutral" selected="@("Neutral" == Model.Product.Alignment)">Neutral</option>
+                        </select>
+                    </div>
+
                     <!-- Birthplace -->
                     <div class="form-group">
                         <div class="label-row">
