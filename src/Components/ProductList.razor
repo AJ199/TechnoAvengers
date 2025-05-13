@@ -4,13 +4,13 @@
 
 @inject JsonFileProductService ProductService
 
-// Show cards only if there are products to display
+<!-- Show cards only if there are products to display -->
 @if (Products != null && Products.Any())
 {
 	<div class="card-columns">
 		@foreach (var product in Products)
 		{
-			// Individual product card
+			<!-- Individual product card -->
 			<div class="card">
 				<div class="card-img" style="background-image: url('@product.ImageUrl');">
 				</div>
@@ -19,7 +19,7 @@
 				</div>
 				<div class="card-footer">
 					<small class="text-muted">
-						// View button opens modal with details
+						<!-- View button opens modal with details -->
 						<button @onclick="(e => SelectProduct(product.Id))"
 								data-toggle="modal" data-target="#productModal" class="btn btn-primary">
 							View Superhero
@@ -31,7 +31,7 @@
 	</div>
 }
 
-// Modal to show selected product's details
+<!-- Modal to show selected product's details -->
 <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="productTitle" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		@if (selectedProduct != null)
@@ -74,12 +74,12 @@
 						<span>@voteCount @voteLabel</span>
 					}
 
-					// Render stars for rating (1 to 5)
+					<!-- Render stars for rating (1 to 5) -->
 					@for (int i = 1; i < 6; i++)
 					{
 						var currentStar = i;
 
-						// Highlight star if it is within the current average rating
+						<!-- Highlight star if it is within the current average rating -->
 						if (i <= currentRating)
 						{
 							<span class="fa fa-star checked" @onclick="(e => SubmitRating(currentStar))"></span>
@@ -95,7 +95,7 @@
 	</div>
 </div>
 
-// Font Awesome for star rating display
+<!-- Font Awesome for star rating display -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 @code {
