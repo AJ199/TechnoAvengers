@@ -39,6 +39,36 @@
                         <input asp-for="Product.Fullname" class="form-control" />
                     </div>
 
+                    <!-- Gender Dropdown -->
+                    <div class="form-group">
+                        <div class="label-row">
+                            <label asp-for="Product.Gender"><strong>Gender</strong></label>
+                            <span asp-validation-for="Product.Gender" class="text-danger"></span>
+                        </div>
+                        <select asp-for="Product.Gender" class="form-control">
+                            <option value="">-- Select Gender --</option>
+                            <option value="Male" selected="@("Male" == Model.Product.Gender)">Male</option>
+                            <option value="Female" selected="@("Female" == Model.Product.Gender)">Female</option>
+                            <option value="Other" selected="@("Other" == Model.Product.Gender)">Other</option>
+                        </select>
+                    </div>
+
+                    <!-- Role Dropdown -->
+                    <div class="form-group">
+                        <div class="label-row">
+                            <label asp-for="Product.Role"><strong>Role</strong></label>
+                            <span asp-validation-for="Product.Role" class="text-danger"></span>
+                        </div>
+                        <select asp-for="Product.Role" class="form-control">
+                            <option value="">-- Select Role --</option>
+                            <option value="Hero" selected="@("Hero" == Model.Product.Role)">Hero</option>
+                            <option value="Villain" selected="@("Villain" == Model.Product.Role)">Villain</option>
+                            <option value="Anti-Hero" selected="@("Anti-Hero" == Model.Product.Role)">Anti-Hero</option>
+                            <option value="Support" selected="@("Support" == Model.Product.Role)">Support</option>
+                            <option value="Civilian" selected="@("Civilian" == Model.Product.Role)">Civilian</option>
+                        </select>
+                    </div>
+
                     <!-- Birthplace -->
                     <div class="form-group">
                         <div class="label-row">
