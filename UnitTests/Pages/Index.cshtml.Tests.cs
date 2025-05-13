@@ -1,15 +1,334 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using ContosoCrafts.WebSite.Models;
 using ContosoCrafts.WebSite.Pages;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
 
 namespace UnitTests.Pages
 {
+    /// <summary>
+    /// Tests related to homepage behavior
+    /// </summary>
+    public class IndexModelTests
+    {
+        #region Setup
+        private Mock<ILogger<IndexModel>> _loggerMock;
+        private IndexModel _pageModel;
 
+        [SetUp]
+        public void Setup()
+        {
+            _loggerMock = new Mock<ILogger<IndexModel>>();
+            _pageModel = new IndexModel(_loggerMock.Object, TestHelper.ProductService)
+            {
+                PageContext = TestHelper.PageContext
+            };
+        }
+
+        #endregion Setup
+
+        #region OnGet
+        /// <summary>
+        /// Verifies that calling OnGet with no query parameters returns all products.
+        /// </summary>
+        [Test]
+        public void OnGet_Valid_Empty_Query_Returns_All_Heroes()
+        {
+            // Arrange
+            _pageModel.PageContext.HttpContext = new DefaultHttpContext();
+
+            // Act
+            _pageModel.OnGet();
+
+            // Assert
+            var data = TestHelper.ProductService.GetProducts();
+            Assert.AreEqual(data.Count(), _pageModel.FilteredHeroes.Count);
+
+            // Reset
+        }
+
+        /// <summary>
+        /// Ensures OnGet correctly filters products by search term.
+        /// </summary>
+        [Test]
+        public void OnGet_Valid_SearchTerm_Returns_Filtered_By_Title()
+        {
+            // Arrange
+            var context = new DefaultHttpContext();
+            context.Request.QueryString = new QueryString("?SearchTerm=iron");
+            _pageModel.PageContext.HttpContext = context;
+
+            // Act
+            _pageModel.OnGet();
+
+            // Assert
+            var result = _pageModel.FilteredHeroes.All(h => h.Title.ToLower().Contains("iron"));
+            Assert.AreEqual(true, result);
+
+            // Reset
+        }
+
+        /// <summary>
+        /// Ensures filtering by alignment returns the correct subset of heroes.
+        /// </summary>
+        [Test]
+        public void OnGet_Valid_Alignment_Good_Returns_Good_Heroes()
+        {
+            // Arrange
+            var context = new DefaultHttpContext();
+            context.Request.QueryString = new QueryString("?Alignment=good");
+            _pageModel.PageContext.HttpContext = context;
+
+            // Act
+            _pageModel.OnGet();
+
+            // Assert
+            var result = _pageModel.FilteredHeroes.All(h => h.Alignment == "good");
+            Assert.AreEqual(true, result);
+
+            // Reset
+        }
+
+        /// <summary>
+        /// Ensures filtering by role returns correct heroes.
+        /// </summary>
+        [Test]
+        public void OnGet_Valid_Role_Core_Avenger_Returns_Core_Avengers()
+        {
+            // Arrange
+            var context = new DefaultHttpContext();
+            context.Request.QueryString = new QueryString("?Role=Core Avenger");
+            _pageModel.PageContext.HttpContext = context;
+
+            // Act
+            _pageModel.OnGet();
+
+            // Assert
+            var result = _pageModel.FilteredHeroes.All(h => h.Role == "Core Avenger");
+            Assert.AreEqual(true, result);
+
+            // Reset
+        }
+
+        /// <summary>
+        /// Ensures filtering by gender returns correct heroes.
+        /// </summary>
+        [Test]
+        public void OnGet_Valid_Gender_Male_Returns_Male_Heroes()
+        {
+            // Arrange
+            var context = new DefaultHttpContext();
+            context.Request.QueryString = new QueryString("?Gender=Male");
+            _pageModel.PageContext.HttpContext = context;
+
+            // Act
+            _pageModel.OnGet();
+
+            // Assert
+            var result = _pageModel.FilteredHeroes.All(h => h.Gender == "Male");
+            Assert.AreEqual(true, result);
+
+            // Reset
+        }
+
+        /// <summary>
+        /// Ensures that all filters are applied simultaneously.
+        /// </summary>
+        [Test]
+        public void OnGet_Valid_Multiple_Filters_Returns_Correct_Subset()
+        {
+            // Arrange
+            var context = new DefaultHttpContext();
+            context.Request.QueryString = new QueryString("?Alignment=good&Gender=Male&Role=Core Avenger");
+            _pageModel.PageContext.HttpContext = context;
+
+            // Act
+            _pageModel.OnGet();
+
+            // Assert
+            var result = _pageModel.FilteredHeroes.All(h =>
+                h.Alignment == "good" &&
+                h.Gender == "Male" &&
+                h.Role == "Core Avenger");
+            Assert.AreEqual(true, result);
+
+            // Reset
+        }
+
+        /// <summary>
+        /// Ensures stat filters work within a valid range.
+        /// </summary>
+        [Test]
+        public void OnGet_Valid_Stat_Range_Filter_Returns_Matching_Stats()
+        {
+            // Arrange
+            var context = new DefaultHttpContext();
+            context.Request.QueryString = new QueryString("?IntelligenceMin=80&IntelligenceMax=100");
+            _pageModel.PageContext.HttpContext = context;
+
+            // Act
+            _pageModel.OnGet();
+
+            // Assert
+            var result = _pageModel.FilteredHeroes.All(h =>
+                h.Intelligence >= 80 && h.Intelligence <= 100);
+            Assert.AreEqual(true, result);
+
+            // Reset
+        }
+
+        #endregion OnGet
+
+        #region GetValuesForCategory
+        /// <summary>
+        /// Validates correct values returned for Alignment category.
+        /// </summary>
+        [Test]
+        public void GetValuesForCategory_Valid_Alignment_Returns_Expected_Values()
+        {
+            // Act
+            var result = _pageModel.GetValuesForCategory("Alignment");
+
+            // Assert
+            Assert.AreEqual(new List<string> { "good", "bad", "neutral" }, result);
+
+            // Reset
+        }
+
+        /// <summary>
+        /// Validates correct values returned for Gender category.
+        /// </summary>
+        [Test]
+        public void GetValuesForCategory_Valid_Gender_Returns_Expected_Values()
+        {
+            // Act
+            var result = _pageModel.GetValuesForCategory("Gender");
+
+            // Assert
+            Assert.AreEqual(new List<string> { "Male", "Female", "Other" }, result);
+
+            // Reset
+        }
+
+        /// <summary>
+        /// Validates correct values returned for Role category.
+        /// </summary>
+        [Test]
+        public void GetValuesForCategory_Valid_Role_Returns_Expected_Values()
+        {
+            // Act
+            var result = _pageModel.GetValuesForCategory("Role");
+
+            // Assert
+            Assert.AreEqual(new List<string> { "Core Avenger", "Founding Avenger", "Mystic Defender", "Guardian", "Support", "Unknown" }, result);
+
+            // Reset
+        }
+
+        /// <summary>
+        /// Ensures unknown category returns an empty list.
+        /// </summary>
+        [Test]
+        public void GetValuesForCategory_InValid_Unknown_Category_Returns_EmptyList()
+        {
+            // Act
+            var result = _pageModel.GetValuesForCategory("Unknown");
+
+            // Assert
+            Assert.AreEqual(0, result.Count);
+
+            // Reset
+        }
+
+        #endregion GetValuesForCategory
+
+        #region GetMin
+        /// <summary>
+        /// Ensures GetMin returns a valid integer from query.
+        /// </summary>
+        [Test]
+        public void GetMin_Valid_Parsed_Value_From_Query_Returns_Correct_Min()
+        {
+            // Arrange
+            var context = new DefaultHttpContext();
+            context.Request.QueryString = new QueryString("?StrengthMin=50");
+            _pageModel.PageContext.HttpContext = context;
+
+            // Act
+            var result = _pageModel.GetMin("Strength");
+
+            // Assert
+            Assert.AreEqual(50, result);
+
+            // Reset
+        }
+
+        /// <summary>
+        /// Ensures GetMin defaults when input is invalid.
+        /// </summary>
+        [Test]
+        public void GetMin_InValid_Query_Returns_Default_Min()
+        {
+            // Arrange
+            var context = new DefaultHttpContext();
+            context.Request.QueryString = new QueryString("?StrengthMin=invalid");
+            _pageModel.PageContext.HttpContext = context;
+
+            // Act
+            var result = _pageModel.GetMin("Strength");
+
+            // Assert
+            Assert.AreEqual(1, result);
+
+            // Reset
+        }
+
+        #endregion GetMin
+
+        #region GetMax
+        /// <summary>
+        /// Ensures GetMax returns a valid integer from query.
+        /// </summary>
+        [Test]
+        public void GetMax_Valid_Parsed_Value_From_Query_Returns_Correct_Max()
+        {
+            // Arrange
+            var context = new DefaultHttpContext();
+            context.Request.QueryString = new QueryString("?StrengthMax=75");
+            _pageModel.PageContext.HttpContext = context;
+
+            // Act
+            var result = _pageModel.GetMax("Strength");
+
+            // Assert
+            Assert.AreEqual(75, result);
+
+            // Reset
+        }
+
+        /// <summary>
+        /// Ensures GetMax defaults when input is invalid.
+        /// </summary>
+        [Test]
+        public void GetMax_Invalid_Query_Returns_Default_Max()
+        {
+            // Arrange
+            var context = new DefaultHttpContext();
+            context.Request.QueryString = new QueryString("?StrengthMax=invalid");
+            _pageModel.PageContext.HttpContext = context;
+
+            // Act
+            var result = _pageModel.GetMax("Strength");
+
+            // Assert
+            Assert.AreEqual(100, result);
+
+            // Reset
+        }
+
+        #endregion GetValuesForCategory
+
+    }
 }
