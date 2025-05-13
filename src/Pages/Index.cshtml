@@ -4,15 +4,16 @@
 @{
     ViewData["Title"] = "Home page";
 }
+
 <div class="header-container">
-    <!-- Team name -->
+    <!-- Team name heading -->
     <h1 class="hero-text">Team 3 Techno Avengers</h1>
 
-    <!-- Button to open the filter sidebar -->
+    <!-- Button that opens the filter sidebar -->
     <button class="btn btn-terciary" onclick="openFilterSidebar()">Filter</button>
 </div>
 
-<!-- Display the count of superheroes in display -->
+<!-- Display number of superheroes found -->
 @if (Model.FilteredHeroes.Count == 1)
 {
     <p class="hero-text hero-subtext">
@@ -30,17 +31,17 @@ else
     <p class="hero-text hero-subtext">No superheroes match the selected filters</p>
 }
 
-<!-- Render the ProductList component, passing in filtered superheroes -->
+<!-- Display filtered superheroes using Blazor component -->
 @(await Html.RenderComponentAsync<ProductList>(RenderMode.ServerPrerendered, new { Products = Model.FilteredHeroes }))
 
-<!-- Sidebar (Initially Hidden) -->
+<!-- Sidebar filter menu (hidden by default) -->
 <div id="filterSidebar" class="sidebar">
     <div class="sidebar-header">
         <h4>Filter by:</h4>
         <span class="close-btn" onclick="closeSidebar()">×</span>
     </div>
 
-    <!-- Filter Form -->
+    <!-- Filter form -->
     <div class="sidebar-content">
         <form method="get" id="filterForm">
             @foreach (var category in new[] { "Alignment", "Role", "Gender" })
@@ -59,7 +60,8 @@ else
                     </div>
                 </div>
             }
-            <!-- Powerstats Range Sliders -->
+
+            <!-- Powerstats sliders -->
             <div class="filter-group">
                 <strong>Powerstats</strong>
                 @foreach (var stat in new[] { "Intelligence", "Strength", "Speed", "Durability", "Power", "Combat" })
@@ -91,38 +93,28 @@ else
     </div>
 </div>
 
-<!-- Blazor Server script -->
+<!-- Load Blazor server-side support -->
 <script src="_framework/blazor.server.js"></script>
 <script>
-    /// <summary>
-    /// Opens the filter sidebar by adding the 'show' class
-    /// </summary>
+    // Open the filter sidebar panel
     function openFilterSidebar() {
         document.getElementById("filterSidebar").classList.add("show");
         setupSliders();
     }
 
-    /// <summary>
-    /// Closes the filter sidebar by removing the 'show' class
-    /// </summary>
+    // Close the filter sidebar panel
     function closeSidebar() {
         document.getElementById("filterSidebar").classList.remove("show");
     }
 
-    /// <summary>
-    /// Unchecks all the checkboxes and reloads the page without query parameters
-    /// </summary>
+    // Reset all filters and reload the form
     function clearFilter() {
-        // window.location.href = window.location.pathname;
-        document.querySelectorAll('input[type="checkbox"]').forEach(function(cb)
-        {
+        document.querySelectorAll('input[type="checkbox"]').forEach(function(cb) {
             cb.checked = false;
         });
 
-        // All sliders
         var sliders = document.querySelectorAll('md-slider');
-        sliders.forEach(function(slider)
-        {
+        sliders.forEach(function(slider) {
             slider.valueStart = 1;
             slider.valueEnd = 100;
 
@@ -140,101 +132,69 @@ else
             if (maxInput) maxInput.value = '100';
         });
 
-        // Submit the form to apply changes
         document.getElementById('filterForm').submit();
     }
 
-
-    /// <summary>
-    /// Initializes slider values and sets up change listeners
-    /// </summary>
-    function setupSliders()
-    {
-        // All sliders
+    // Configure slider positions and listeners
+    function setupSliders() {
         var sliders = document.querySelectorAll('md-slider');
 
-        sliders.forEach(function(slider)
-        {
-            // Get elements of each slider
+        sliders.forEach(function(slider) {
             const statName = slider.getAttribute('data-stat');
             const container = slider.closest('.stat-slider');
             const minValue = container.querySelector('.min-value');
             const maxValue = container.querySelector('.max-value');
 
-            // Get input elements
             const minInput = document.getElementById(`${statName}Min`);
             const maxInput = document.getElementById(`${statName}Max`);
 
-            // If there are inputs, update values
-            if (minInput && maxInput)
-            {
+            if (minInput && maxInput) {
                 slider.valueStart = parseInt(minInput.value) || 1;
                 slider.valueEnd = parseInt(maxInput.value) || 100;
                 minValue.textContent = slider.valueStart;
                 maxValue.textContent = slider.valueEnd;
             }
 
-            // Add event listener for value changes
-            slider.addEventListener('change', function()
-            {
-                // Get updated values
+            slider.addEventListener('change', function() {
                 const startValue = slider.valueStart;
                 const endValue = slider.valueEnd;
 
-                // Update display values
                 minValue.textContent = startValue;
                 maxValue.textContent = endValue;
 
-                // Update input values
-                if (minInput)
-                {
+                if (minInput) {
                     minInput.value = startValue;
                 }
 
-                if (maxInput)
-                {
+                if (maxInput) {
                     maxInput.value = endValue;
                 }
             });
         });
     }
 
-    /// <summary>
-    /// Preserves filter state and initializes sliders on page load
-    /// </summary>
-    document.addEventListener('DOMContentLoaded', function()
-    {
-        // Query parameters
+    // Run on page load: initialize sliders and check sidebar param
+    document.addEventListener('DOMContentLoaded', function() {
         const params = new URLSearchParams(window.location.search);
 
-        // Open sidebar if sidebar param is 'open'
-        if (params.get('sidebar') === 'open')
-        {
+        if (params.get('sidebar') === 'open') {
             openFilterSidebar();
         }
 
         setupSliders();
     });
 
-    /// <summary>
-    /// Handles form submission to ensure proper query parameters
-    /// </summary>
+    // On form submit, update hidden slider input fields
     document.getElementById('filterForm')?.addEventListener('submit', function(e) {
+        document.querySelectorAll('md-slider').forEach(slider => {
+            const statName = slider.getAttribute('data-stat');
+            const minInput = document.getElementById(`${statName}Min`);
+            const maxInput = document.getElementById(`${statName}Max`);
 
-        // Update all hidden inputs before submission
-        document.querySelectorAll('md-slider').forEach(slider =>
-            {
-                const statName = slider.getAttribute('data-stat');
-                const minInput = document.getElementById(`${statName}Min`);
-                const maxInput = document.getElementById(`${statName}Max`);
-
-                if (minInput && maxInput)
-                {
-                    minInput.value = slider.valueStart;
-                    maxInput.value = slider.valueEnd;
-                }
+            if (minInput && maxInput) {
+                minInput.value = slider.valueStart;
+                maxInput.value = slider.valueEnd;
             }
-        );
+        });
     });
-
 </script>

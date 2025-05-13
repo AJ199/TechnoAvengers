@@ -5,13 +5,17 @@
     ViewData["Title"] = "Index page";
 }
 
+<!-- Container for the entire index page content -->
 <div class="container hero-index-container">
+
+    <!-- Button to navigate to the Create page to add a new superhero -->
     <div class="hero-create-button-container mb-4">
         <a class="btn btn-primary" asp-page="Create">
             Create New Hero
         </a>
     </div>
 
+    <!-- Table displaying all superheroes -->
     <table class="table hero-table">
         <thead>
             <tr>
@@ -20,10 +24,14 @@
             </tr>
         </thead>
         <tbody>
+            <!-- Loop through each product and create a table row -->
             @foreach (var product in Model.Products)
             {
                 <tr class="hero-row">
+                    <!-- Display the superhero title -->
                     <td>@product.Title</td>
+
+                    <!-- Action buttons for Read, Edit, and Delete -->
                     <td>
                         <a class="btn btn-primary" asp-page="Read" asp-route-id="@product.Id">Read</a>
                         <a class="btn btn-primary" asp-page="Update" asp-route-id="@product.Id">Edit</a>
@@ -37,6 +45,7 @@
     </table>
 </div>
 
+<!-- Show a success popup if a superhero was deleted -->
 @if (TempData["ShowPopup"] != null)
 {
     <div id="popup-overlay" class="popup-overlay">
@@ -47,6 +56,7 @@
     </div>
 
     <script>
+        // Function to close the deletion success popup
         function closePopup() {
             document.getElementById('popup-overlay').style.display = 'none';
         }
