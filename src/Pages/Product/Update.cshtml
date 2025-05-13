@@ -84,52 +84,80 @@
                             <label asp-for="Product.Intelligence"><strong>Intelligence</strong></label>
                             <span asp-validation-for="Product.Intelligence" class="text-danger"></span>
                         </div>
-                        <input asp-for="Product.Intelligence" class="form-control" />
+                        <input asp-for="Product.Intelligence"
+                               type="range"
+                               min="0"
+                               max="100"
+                               class="form-range"
+                               id="intelligenceSlider"
+                               oninput="document.getElementById('intelligenceValue').innerText = this.value" />
+                        <span id="intelligenceValue">@Model.Product.Intelligence</span>
+
                     </div>
 
                     <!-- Strength -->
                     <div class="form-group">
-                        <div class="label-row">
-                            <label asp-for="Product.Strength"><strong>Strength</strong></label>
-                            <span asp-validation-for="Product.Strength" class="text-danger"></span>
-                        </div>
-                        <input asp-for="Product.Strength" class="form-control" />
+                        <label for="strengthSlider"><strong>Strength</strong></label>
+                        <input asp-for="Product.Strength"
+                               type="range"
+                               min="0"
+                               max="100"
+                               id="strengthSlider"
+                               class="form-range"
+                               oninput="document.getElementById('strengthValue').innerText = this.value" />
+                        <span id="strengthValue">@Model.Product.Strength</span>
                     </div>
 
                     <!-- Speed -->
                     <div class="form-group">
-                        <div class="label-row">
-                            <label asp-for="Product.Speed"><strong>Speed</strong></label>
-                            <span asp-validation-for="Product.Speed" class="text-danger"></span>
-                        </div>
-                        <input asp-for="Product.Speed" class="form-control" />
+                        <label for="speedSlider"><strong>Speed</strong></label>
+                        <input asp-for="Product.Speed"
+                               type="range"
+                               min="0"
+                               max="100"
+                               id="speedSlider"
+                               class="form-range"
+                               oninput="document.getElementById('speedValue').innerText = this.value" />
+                        <span id="speedValue">@Model.Product.Speed</span>
                     </div>
 
                     <!-- Durability -->
                     <div class="form-group">
-                        <div class="label-row">
-                            <label asp-for="Product.Durability"><strong>Durability</strong></label>
-                            <span asp-validation-for="Product.Durability" class="text-danger"></span>
-                        </div>
-                        <input asp-for="Product.Durability" class="form-control" />
+                        <label for="durabilitySlider"><strong>Durability</strong></label>
+                        <input asp-for="Product.Durability"
+                               type="range"
+                               min="0"
+                               max="100"
+                               id="durabilitySlider"
+                               class="form-range"
+                               oninput="document.getElementById('durabilityValue').innerText = this.value" />
+                        <span id="durabilityValue">@Model.Product.Durability</span>
                     </div>
 
                     <!-- Power -->
                     <div class="form-group">
-                        <div class="label-row">
-                            <label asp-for="Product.Power"><strong>Power</strong></label>
-                            <span asp-validation-for="Product.Power" class="text-danger"></span>
-                        </div>
-                        <input asp-for="Product.Power" class="form-control" />
+                        <label for="powerSlider"><strong>Power</strong></label>
+                        <input asp-for="Product.Power"
+                               type="range"
+                               min="0"
+                               max="100"
+                               id="powerSlider"
+                               class="form-range"
+                               oninput="document.getElementById('powerValue').innerText = this.value" />
+                        <span id="powerValue">@Model.Product.Power</span>
                     </div>
 
                     <!-- Combat -->
                     <div class="form-group">
-                        <div class="label-row">
-                            <label asp-for="Product.Combat"><strong>Combat</strong></label>
-                            <span asp-validation-for="Product.Combat" class="text-danger"></span>
-                        </div>
-                        <input asp-for="Product.Combat" class="form-control" />
+                        <label for="combatSlider"><strong>Combat</strong></label>
+                        <input asp-for="Product.Combat"
+                               type="range"
+                               min="0"
+                               max="100"
+                               id="combatSlider"
+                               class="form-range"
+                               oninput="document.getElementById('combatValue').innerText = this.value" />
+                        <span id="combatValue">@Model.Product.Combat</span>
                     </div>
 
                     <div class="form-actions">
