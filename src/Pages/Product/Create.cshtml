@@ -108,6 +108,20 @@
             <span asp-validation-for="Product.Gender"></span>
         </div>
 
+        <!-- Role Dropdown -->
+        <div class="form-group">
+            <label asp-for="Product.Role">Role</label>
+            <select asp-for="Product.Role" class="form-control">
+                <option value="Unknown">Unknown</option>
+                <option value="Core Avenger">Core Avenger</option>
+                <option value="Founding Avenger">Founding Avenger</option>
+                <option value="Guardian">Guardian</option>
+                <option value="Support">Support</option>
+                <option value="Mystic Defender">Mystic Defender</option>
+            </select>
+            <span asp-validation-for="Product.Role"></span>
+        </div>
+
         <!-- Alignment Dropdown -->
         <div class="form-group">
             <label asp-for="Product.Alignment">Alignment</label>
@@ -146,20 +160,6 @@
             <label asp-for="Product.ImageUrl"></label>
             <input asp-for="Product.ImageUrl" />
             <span asp-validation-for="Product.ImageUrl"></span>
-        </div>
-
-        <!-- Role Dropdown -->
-        <div class="form-group">
-            <label asp-for="Product.Role">Role</label>
-            <select asp-for="Product.Role" class="form-control">
-                <option value="Unknown">Unknown</option>
-                <option value="Core Avenger">Core Avenger</option>
-                <option value="Founding Avenger">Founding Avenger</option>
-                <option value="Guardian">Guardian</option>
-                <option value="Support">Support</option>
-                <option value="Mystic Defender">Mystic Defender</option>
-            </select>
-            <span asp-validation-for="Product.Role"></span>
         </div>
 
         <!-- Powerstats Sliders -->
