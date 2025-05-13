@@ -62,3 +62,29 @@
         }
     </script>
 }
+
+<!-- Slider JavaScript -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const sliders = document.querySelectorAll('.slider');  // Select all sliders
+        sliders.forEach(function(slider) {
+            const valueDisplay = slider.nextElementSibling; // Select the next element (value display)
+
+            // Set the initial value of the slider to 0
+            slider.value = 0; // Change this value if you want the initial value to be different
+
+            // Function to update the value display based on the slider's value
+            function updateSliderValue() {
+                valueDisplay.textContent = slider.value;
+            }
+
+            // Listen for changes to the slider and update the value
+            slider.addEventListener('input', function () {
+                updateSliderValue(); // Update value when slider is moved
+            });
+
+            // Initial display of value when page loads
+            updateSliderValue();
+        });
+    });
+</script>
