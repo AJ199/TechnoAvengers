@@ -33,7 +33,7 @@ namespace UnitTests.Pages.Product
         /// sets ModelState to valid when a valid ID is provided
         /// </summary>
         [Test]
-        public void OnGet_ValidId_Should_Return_Product()
+        public void OnGet_Valid_Id_Should_Return_Product()
         {
             // Arrange
             var data = TestHelper.ProductService.GetProducts().First();
@@ -55,7 +55,7 @@ namespace UnitTests.Pages.Product
         /// sets ModelState to invalid when invalid ID is provided
         /// </summary>
         [Test]
-        public void OnGet_InvalidId_Should_Set_InvalidState()
+        public void OnGet_Invalid_Id_Should_Set_Invalid_State()
         {
             // Arrange
 
@@ -78,7 +78,7 @@ namespace UnitTests.Pages.Product
         /// redirects to the Index page.
         /// </summary>
         [Test]
-        public void OnPost_ValidProduct_Should_UpdateAndRedirectToIndex()
+        public void OnPost_Valid_Product_Should_Update_And_Redirect_To_Index()
         {
             // Arrange
             var data = TestHelper.ProductService.GetProducts().First();
@@ -106,7 +106,7 @@ namespace UnitTests.Pages.Product
         /// Verifies that OnPost returns the Page when ModelState is invalid.
         /// </summary>
         [Test]
-        public void OnPost_Invalid_ModelState_Should_Return_PageResult()
+        public void OnPost_Invalid_Model_State_Should_Return_Page_Result()
         {
             // Arrange
 
@@ -128,7 +128,7 @@ namespace UnitTests.Pages.Product
         /// Verifies that OnPost redirects to the error page when the Product is null.
         /// </summary>
         [Test]
-        public void OnPost_NullProduct_Should_RedirectToErrorPage()
+        public void OnPost_Null_Product_Should_Redirect_To_ErrorPage()
         {
             // Arrange
             pageModel.Product = null;
@@ -146,7 +146,7 @@ namespace UnitTests.Pages.Product
         /// Verifies that OnPost fails to update when the product ID is invalid and sets a model error.
         /// </summary>
         [Test]
-        public void OnPost_InvalidId_Should_Set_ModelError()
+        public void OnPost_Invalid_Id_Should_Set_Model_Error()
         {
             // Arrange
             var data = TestHelper.ProductService.GetProducts().First();
