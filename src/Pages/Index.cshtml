@@ -6,29 +6,30 @@
 }
 
 <div class="header-container">
-    <!-- Team name heading -->
-    <h1 class="hero-text">Team 3 Techno Avengers</h1>
 
-    <input type="text" name="SearchTerm" placeholder="Search by name..."
-           value="@Request.Query["SearchTerm"]"
-           class="search-input" />
+    <form method="get" id="searchForm" class="search-bar-container">
+        <input type="text" name="SearchTerm" placeholder="Search by name..."
+               value="@Request.Query["SearchTerm"]"
+               class="search-input" />
 
-    <button type="submit" class="btn btn-terciary">Search</button>
-    <button class="btn btn-terciary" onclick="openFilterSidebar()">Filter</button>
+        <button type="submit" class="btn btn-terciary">Search</button>
+        <button type="button" class="btn btn-terciary" onclick="openFilterSidebar()">Filter</button>
+        <button type="button" class="btn btn-secondary" onclick="clearAll()">Clear All</button>
 
-    @foreach (var category in new[] { "Alignment", "Role", "Gender" })
-    {
-        foreach (var value in Request.Query[category])
+        @foreach (var category in new[] { "Alignment", "Role", "Gender" })
         {
-            <input type="hidden" name="@category" value="@value" />
+            foreach (var value in Request.Query[category])
+            {
+                <input type="hidden" name="@category" value="@value" />
+            }
         }
-    }
 
-    @foreach (var stat in new[] { "Intelligence", "Strength", "Speed", "Durability", "Power", "Combat" })
-    {
-        <input type="hidden" name="@($"{stat}Min")" value="@Request.Query[$"{stat}Min"].FirstOrDefault() ?? " 1"" />
-        <input type="hidden" name="@($"{stat}Max")" value="@Request.Query[$"{stat}Max"].FirstOrDefault() ?? " 100"" />
-    }
+        @foreach (var stat in new[] { "Intelligence", "Strength", "Speed", "Durability", "Power", "Combat" })
+        {
+            <input type="hidden" name="@($"{stat}Min")" value="@Request.Query[$"{stat}Min"].FirstOrDefault() ?? " 1"" />
+            <input type="hidden" name="@($"{stat}Max")" value="@Request.Query[$"{stat}Max"].FirstOrDefault() ?? " 100"" />
+        }
+    </form>
 </div>
 
 <!-- Display number of superheroes found -->
@@ -40,6 +41,7 @@
             <span class="numbers">@Model.FilteredHeroes.Count</span> superhero found
         </p>
     }
+
     else if (Model.FilteredHeroes.Count > 1)
     {
         <p class="hero-text hero-subtext">
@@ -64,7 +66,6 @@
 
     <!-- Filter form -->
     <div class="sidebar-content">
-
         <form method="get" id="filterForm">
             @foreach (var category in new[] { "Alignment", "Role", "Gender" })
             {
@@ -108,6 +109,7 @@
                     </div>
                 }
             </div>
+
             <input type="hidden" name="SearchTerm" value="@Request.Query["SearchTerm"]" />
             <button type="submit" class="btn btn-filter-confirm">Apply Filter</button>
             <button type="button" class="btn btn-filter-clear" onclick="clearFilter()">Clear Filters</button>
@@ -115,28 +117,35 @@
     </div>
 </div>
 
-<!-- Load Blazor server-side support -->
+
 <script src="_framework/blazor.server.js"></script>
 <script>
     // Open the filter sidebar panel
-    function openFilterSidebar() {
+    function openFilterSidebar()
+    {
         document.getElementById("filterSidebar").classList.add("show");
         setupSliders();
     }
 
     // Close the filter sidebar panel
-    function closeSidebar() {
+    function closeSidebar()
+    {
         document.getElementById("filterSidebar").classList.remove("show");
     }
 
     // Reset all filters and reload the form
-    function clearFilter() {
-        document.querySelectorAll('input[type="checkbox"]').forEach(function(cb) {
+    function clearFilter()
+    {   
+        // Unchecks the filers
+        document.querySelectorAll('input[type="checkbox"]').forEach(function(cb)
+        {
             cb.checked = false;
         });
 
+        // Slider components in Filter sidebar
         var sliders = document.querySelectorAll('md-slider');
-        sliders.forEach(function(slider) {
+        sliders.forEach(function(slider) 
+        {
             slider.valueStart = 1;
             slider.valueEnd = 100;
 
@@ -157,11 +166,50 @@
         document.getElementById('filterForm').submit();
     }
 
+     // Clears search input and resets all filters
+    function clearAll()
+    {
+        document.querySelector('input[name="SearchTerm"]').value = '';
+
+        // Unchecks the filters
+        document.querySelectorAll('input[type="checkbox"]').forEach(function(cb)
+        {
+            cb.checked = false;
+        });
+
+        // Slider components in Filter sidebar
+        var sliders = document.querySelectorAll('md-slider');
+        sliders.forEach(function(slider)
+        {
+            slider.valueStart = 1;
+            slider.valueEnd = 100;
+
+            const statName = slider.getAttribute('data-stat');
+            const container = slider.closest('.stat-slider');
+            const minValue = container.querySelector('.min-value');
+            const maxValue = container.querySelector('.max-value');
+            const minInput = document.getElementById(`${statName}Min`);
+            const maxInput = document.getElementById(`${statName}Max`);
+
+            minValue.textContent = '1';
+            maxValue.textContent = '100';
+
+            if (minInput) minInput.value = '1';
+            if (maxInput) maxInput.value = '100';
+        });
+
+        window.location.href = window.location.pathname;
+    }
+
+
     // Configure slider positions and listeners
-    function setupSliders() {
+    function setupSliders()
+    {
+        // Slider components in Filter sidebar
         var sliders = document.querySelectorAll('md-slider');
 
-        sliders.forEach(function(slider) {
+        sliders.forEach(function(slider)
+        {
             const statName = slider.getAttribute('data-stat');
             const container = slider.closest('.stat-slider');
             const minValue = container.querySelector('.min-value');
@@ -170,25 +218,29 @@
             const minInput = document.getElementById(`${statName}Min`);
             const maxInput = document.getElementById(`${statName}Max`);
 
-            if (minInput && maxInput) {
+            if (minInput && maxInput)
+            {
                 slider.valueStart = parseInt(minInput.value) || 1;
                 slider.valueEnd = parseInt(maxInput.value) || 100;
                 minValue.textContent = slider.valueStart;
                 maxValue.textContent = slider.valueEnd;
             }
 
-            slider.addEventListener('change', function() {
+            slider.addEventListener('change', function() 
+            {
                 const startValue = slider.valueStart;
                 const endValue = slider.valueEnd;
 
                 minValue.textContent = startValue;
                 maxValue.textContent = endValue;
 
-                if (minInput) {
+                if (minInput) 
+                {
                     minInput.value = startValue;
                 }
 
-                if (maxInput) {
+                if (maxInput) 
+                {
                     maxInput.value = endValue;
                 }
             });
@@ -196,10 +248,13 @@
     }
 
     // Run on page load: initialize sliders and check sidebar param
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function() 
+    {
+        // URL parameters
         const params = new URLSearchParams(window.location.search);
 
-        if (params.get('sidebar') === 'open') {
+        if (params.get('sidebar') === 'open')
+        {
             openFilterSidebar();
         }
 
@@ -208,12 +263,18 @@
 
     // On form submit, update hidden slider input fields
     document.getElementById('filterForm')?.addEventListener('submit', function(e) {
-        document.querySelectorAll('md-slider').forEach(slider => {
+        
+        // Slider components in Filter sidebar
+        var sliders = document.querySelectorAll('md-slider');
+
+        sliders.forEach(function(slider)
+        {
             const statName = slider.getAttribute('data-stat');
             const minInput = document.getElementById(`${statName}Min`);
             const maxInput = document.getElementById(`${statName}Max`);
 
-            if (minInput && maxInput) {
+            if (minInput && maxInput)
+            {
                 minInput.value = slider.valueStart;
                 maxInput.value = slider.valueEnd;
             }
