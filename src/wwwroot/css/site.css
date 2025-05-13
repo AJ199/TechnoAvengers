@@ -893,6 +893,31 @@ form { /* Filter Form */
         transition: transform 0.2s ease-in-out;
     }
 
+/*End of filter styles*/
+
+/*Search Bar styles*/
+.search-bar-container {
+    display: flex;
+    flex-direction: row; /* Ensures horizontal alignment */
+    align-items: center; /* Vertical alignment of items */
+    gap: 10px; /* Space between input and buttons */
+    flex-wrap: nowrap;
+}
+
+    .search-bar-container input,
+    .search-bar-container button {
+        width: auto; /* Prevent 100% width from stacking */
+    }
+
+.search-input {
+    padding: 8px 12px;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: none;
+    flex: 1;
+    max-width: 400px;
+}
+
 /* 
 ====================================
  Uniform Action Buttons on Read Page
