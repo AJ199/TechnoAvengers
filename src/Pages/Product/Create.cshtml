@@ -108,6 +108,18 @@
             <span asp-validation-for="Product.Gender"></span>
         </div>
 
+        <!-- Alignment Dropdown -->
+        <div class="form-group">
+            <label asp-for="Product.Alignment">Alignment</label>
+            <select asp-for="Product.Alignment" class="form-control">
+                <option value="Unknown">Unknown</option>
+                <option value="Good">Good</option>
+                <option value="Evil">Evil</option>
+                <option value="Neutral">Neutral</option>
+            </select>
+            <span asp-validation-for="Product.Alignment"></span>
+        </div>
+
         <!-- Birthplace -->
         <div class="form-group">
             <label asp-for="Product.Birthplace"></label>
