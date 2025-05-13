@@ -149,7 +149,7 @@ namespace ContosoCrafts.WebSite.Pages
         /// </summary>
         /// <param name="key">The stat name</param>
         /// <returns>The minimum value as an integer</returns>
-        private int GetMin(string key)
+        public int GetMin(string key)
         {
             // Holds the parsed query value
             int val;
@@ -168,7 +168,7 @@ namespace ContosoCrafts.WebSite.Pages
         /// </summary>
         /// <param name="key">The stat name</param>
         /// <returns>The maximum value as an integer</returns>
-        private int GetMax(string key)
+        public int GetMax(string key)
         {
             // Holds the parsed query value
             int val;
