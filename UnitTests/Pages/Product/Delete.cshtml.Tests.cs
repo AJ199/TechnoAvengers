@@ -43,7 +43,7 @@ namespace UnitTests.Pages.Product
         /// provided an invalid ID
         /// </summary>
         [Test]
-        public void OnGet_InvalidId_Should_Redirect_To_Index()
+        public void OnGet_Invalid_Id_Should_Redirect_To_Index()
         {
             // Arrange
             pageModel.Id = "invalid-id-xyz";
@@ -62,7 +62,7 @@ namespace UnitTests.Pages.Product
         /// related to the product, ensuring valid product data is available.
         /// </summary>
         [Test]
-        public void OnGet_ValidId_Should_Return_Page()
+        public void OnGet_Valid_Id_Should_Return_Page()
         {
             // Arrange
             var validProduct = TestHelper.ProductService.GetProducts().First();
@@ -84,7 +84,7 @@ namespace UnitTests.Pages.Product
         /// provided a valid ID
         /// </summary>
         [Test]
-        public void OnPost_ValidId_Should_Delete_And_Redirect()
+        public void OnPost_Valid_Id_Should_Delete_And_Redirect()
         {
             // Arrange
             var data = TestHelper.ProductService.GetProducts().First();
