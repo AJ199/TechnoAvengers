@@ -30,7 +30,7 @@ namespace UnitTests.Pages.Product
         /// Validates that OnGet returns a PageResult
         /// </summary>
         [Test]
-        public void OnGet_WhenCalled_Should_Return_Page()
+        public void OnGet_When_Called_Should_Return_Page()
         {
             // Arrange
 
@@ -45,7 +45,7 @@ namespace UnitTests.Pages.Product
         /// Validates that OnPost creates a new product and redirects to Read page
         /// </summary>
         [Test]
-        public void OnPost_ValidProduct_Should_Create_And_Redirect()
+        public void OnPost_Valid_Product_Should_Create_And_Redirect()
         {
             // Arrange
             var data = new ProductModel
