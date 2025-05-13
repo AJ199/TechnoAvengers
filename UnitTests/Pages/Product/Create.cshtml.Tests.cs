@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using ContosoCrafts.WebSite.Pages.Product;
 using ContosoCrafts.WebSite.Models;
 using NUnit.Framework;
+using ContosoCrafts.WebSite.Services;
+using Moq;
+using System.Collections.Generic;
 
 namespace UnitTests.Pages.Product
 {
@@ -83,7 +86,7 @@ namespace UnitTests.Pages.Product
         }
 
         [Test]
-        public void OnPost_Invalid_ModelState_Should_Return_Page()
+        public void OnPost_Invalid_Model_State_Should_Return_Page()
         {
             // Arrange
             pageModel.Product = new ProductModel
