@@ -43,6 +43,9 @@ namespace ContosoCrafts.WebSite.Pages
             // All data from JSON file
             var allHeroes = ProductService.GetProducts();
 
+            // Retrieves the search term from the query
+            var searchTerm = Request.Query["SearchTerm"].ToString()?.ToLower() ?? string.Empty;
+
             // Retrieves the user's filter choices for Alignment category
             var selectedAlignments = Request.Query["Alignment"].ToList();
 
@@ -88,11 +91,11 @@ namespace ContosoCrafts.WebSite.Pages
             // Maximum value chosen by user for Durability
             int maxCombat = GetMax("Combat");
 
-
             // Filters the superheroes based on the selected parameters, 
             // if no filters are selected, all superheroes are included
             FilteredHeroes = allHeroes
                 .Where(hero =>
+                    (string.IsNullOrEmpty(searchTerm) || hero.Title.ToLower().Contains(searchTerm)) &&
                     (selectedAlignments.Count == 0 || selectedAlignments.Contains(hero.Alignment)) &&
                     (selectedRoles.Count == 0 || selectedRoles.Contains(hero.Role)) &&
                     (selectedGenders.Count == 0 || selectedGenders.Contains(hero.Gender)) &&
@@ -119,22 +122,22 @@ namespace ContosoCrafts.WebSite.Pages
             switch (category)
             {
                 case "Alignment":
-                {
-                    values = new List<string> { "good", "bad", "neutral" };
-                    break;
-                }
+                    {
+                        values = new List<string> { "good", "bad", "neutral" };
+                        break;
+                    }
 
                 case "Gender":
-                {
-                    values = new List<string> { "Male", "Female", "Other" };
-                    break;
-                }
+                    {
+                        values = new List<string> { "Male", "Female", "Other" };
+                        break;
+                    }
 
                 case "Role":
-                {
-                    values = new List<string> { "Core Avenger", "Founding Avenger", "Mystic Defender", "Guardian", "Support", "Unknown" };
-                    break;
-                }
+                    {
+                        values = new List<string> { "Core Avenger", "Founding Avenger", "Mystic Defender", "Guardian", "Support", "Unknown" };
+                        break;
+                    }
             }
 
             return values;
@@ -177,7 +180,5 @@ namespace ContosoCrafts.WebSite.Pages
 
             return 100;
         }
-
-
     }
 }
