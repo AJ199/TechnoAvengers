@@ -169,16 +169,23 @@ else
         });
     }
 
-    /// <summary>
-    /// Preserves filter state and shows sidebar if form was previously used
-    /// </summary>
-    window.addEventListener('DOMContentLoaded', () => {
-        const params = new URLSearchParams(window.location.search);
+    // Handles form submission to ensure proper query parameters
+    document.getElementById('filterForm')?.addEventListener('submit', function(e) {
 
-        // Open the sidebar if needed
-        if (params.get('sidebar') === 'open') {
-            openFilterSidebar();
-        }
+        // Update all hidden inputs before submission
+        document.querySelectorAll('md-slider').forEach(slider =>
+            {
+                const statName = slider.getAttribute('data-stat');
+                const minInput = document.getElementById(`${statName}Min`);
+                const maxInput = document.getElementById(`${statName}Max`);
+
+                if (minInput && maxInput)
+                {
+                    minInput.value = slider.valueStart;
+                    maxInput.value = slider.valueEnd;
+                }
+            }
+        );
     });
 
 </script>
