@@ -9,8 +9,26 @@
     <!-- Team name heading -->
     <h1 class="hero-text">Team 3 Techno Avengers</h1>
 
-    <!-- Button that opens the filter sidebar -->
+    <input type="text" name="SearchTerm" placeholder="Search by name..."
+           value="@Request.Query["SearchTerm"]"
+           class="search-input" />
+
+    <button type="submit" class="btn btn-terciary">Search</button>
     <button class="btn btn-terciary" onclick="openFilterSidebar()">Filter</button>
+
+    @foreach (var category in new[] { "Alignment", "Role", "Gender" })
+    {
+        foreach (var value in Request.Query[category])
+        {
+            <input type="hidden" name="@category" value="@value" />
+        }
+    }
+
+    @foreach (var stat in new[] { "Intelligence", "Strength", "Speed", "Durability", "Power", "Combat" })
+    {
+        <input type="hidden" name="@($"{stat}Min")" value="@Request.Query[$"{stat}Min"].FirstOrDefault() ?? " 1"" />
+        <input type="hidden" name="@($"{stat}Max")" value="@Request.Query[$"{stat}Max"].FirstOrDefault() ?? " 100"" />
+    }
 </div>
 
 <!-- Display number of superheroes found -->
@@ -46,14 +64,8 @@
 
     <!-- Filter form -->
     <div class="sidebar-content">
+
         <form method="get" id="filterForm">
-
-            <input type="text" name="SearchTerm" placeholder="Search by name..."
-                   value="@Request.Query["SearchTerm"]"
-                   class="search-input" />
-
-            <button type="submit" class="btn btn-terciary">Search</button>
-
             @foreach (var category in new[] { "Alignment", "Role", "Gender" })
             {
                 <div class="filter-group">
