@@ -72,17 +72,21 @@ namespace ContosoCrafts.WebSite.Pages.Product
             // Find the product to delete
             var product = products.FirstOrDefault(p => p.Id == Id);
 
-            // If found, remove it and save the updated list
-            if (product != null)
+            // If product is not found, skip deletion
+            if (product == null)
             {
-                products.Remove(product);
-                _productService.SaveData(products);
-
-                // Set flag to show popup confirmation on the index page
-                TempData["ShowPopup"] = true;
+                return RedirectToPage("/Product/Index");
             }
 
-            // Redirect to the product index page
+            // Remove the product from the list
+            products.Remove(product);
+
+            // Save the updated product list
+            _productService.SaveData(products);
+
+            // Set flag to show popup confirmation on the index page
+            TempData["ShowPopup"] = true;
+
             return RedirectToPage("/Product/Index");
         }
     }
