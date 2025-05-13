@@ -99,6 +99,25 @@ namespace UnitTests.Pages.Product
             Assert.AreEqual("/Product/Index", redirect.PageName);
         }
 
+        /// <summary>
+        /// Verifies that OnPost redirects to Index page when
+        /// the provided ID does not exist (i.e., product is null)
+        /// </summary>
+        [Test]
+        public void OnPost_Invalid_Id_Should_Redirect_To_Index()
+        {
+            // Arrange
+            pageModel.Id = "non-existent-id";
+
+            // Act
+            var result = pageModel.OnPost();
+
+            // Assert
+            Assert.AreEqual(typeof(RedirectToPageResult), result.GetType());
+            var redirect = (RedirectToPageResult)result;
+            Assert.AreEqual("/Product/Index", redirect.PageName);
+        }
+
         #endregion OnPost Tests
     }
 }
