@@ -96,6 +96,18 @@
             <span asp-validation-for="Product.Fullname"></span>
         </div>
 
+        <!-- Gender Dropdown -->
+        <div class="form-group">
+            <label asp-for="Product.Gender">Gender</label>
+            <select asp-for="Product.Gender" class="form-control">
+                <option value="Unknown">Unknown</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
+            <span asp-validation-for="Product.Gender"></span>
+        </div>
+
         <!-- Birthplace -->
         <div class="form-group">
             <label asp-for="Product.Birthplace"></label>
