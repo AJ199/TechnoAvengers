@@ -1022,4 +1022,35 @@ form { /* Filter Form */
     margin-left: 15px;
 }
 
-</style >
+.card-deck-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.card-deck .card {
+    width: 250px;
+    flex: 0 0 auto;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.card-img {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+}
+
+.card-body {
+    padding: 10px;
+    background-color: #f8f9fa;
+}
+
+.card-footer {
+    background-color: #e9ecef;
+    text-align: center;
+    padding: 10px;
+}
