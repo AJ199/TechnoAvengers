@@ -3,9 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using ContosoCrafts.WebSite.Pages.Product;
 using ContosoCrafts.WebSite.Models;
 using NUnit.Framework;
-using ContosoCrafts.WebSite.Services;
-using Moq;
-using System.Collections.Generic;
 
 namespace UnitTests.Pages.Product
 {
@@ -110,7 +107,7 @@ namespace UnitTests.Pages.Product
         /// Verifies that a null product results in redirection to the error page
         /// </summary>
         [Test]
-        public void OnPost_InValid_Product_Is_Null_Should_Return_Error_Page()
+        public void OnPost_Invalid_Product_Is_Null_Should_Return_Error_Page()
         {
             // Arrange
             pageModel.Product = null;
@@ -125,40 +122,6 @@ namespace UnitTests.Pages.Product
             // Reset
         }
 
-        /// <summary>
-        /// Validates that product creation failure adds an error and returns to the Create page
-        /// </summary>
-        [Test]
-        public void OnPost_InValid_CreateData_Returns_False_Should_Return_Page_With_Model_Error()
-        {
-            // Arrange
-            var data = new ProductModel
-            {
-                Title = "Failure",
-                Fullname = "Fail Test",
-                Birthplace = "-",
-                Work = "None",
-                FirstAppear = "",
-                ImageUrl = "https://www.test.com/.jpg",
-                Intelligence = 1,
-                Strength = 1,
-                Speed = 1,
-                Durability = 1,
-                Power = 1,
-                Combat = 1,
-                Ratings = null
-            };
-
-            pageModel.Product = data;
-
-
-            // Act
-            var result = pageModel.OnPost();
-
-            // Assert
-            Assert.AreEqual(typeof(RedirectToPageResult), result.GetType());
-
-        }
         #endregion OnPost
     }
 }

@@ -122,22 +122,22 @@ namespace ContosoCrafts.WebSite.Pages
             switch (category)
             {
                 case "Alignment":
-                    {
-                        values = new List<string> { "good", "bad", "neutral" };
-                        break;
-                    }
+                {
+                    values = new List<string> { "good", "bad", "neutral" };
+                    break;
+                }
 
                 case "Gender":
-                    {
-                        values = new List<string> { "Male", "Female", "Other" };
-                        break;
-                    }
+                {
+                    values = new List<string> { "Male", "Female", "Other" };
+                    break;
+                }
 
                 case "Role":
-                    {
-                        values = new List<string> { "Core Avenger", "Founding Avenger", "Mystic Defender", "Guardian", "Support", "Unknown" };
-                        break;
-                    }
+                {
+                    values = new List<string> { "Core Avenger", "Founding Avenger", "Mystic Defender", "Guardian", "Support", "Unknown" };
+                    break;
+                }
             }
 
             return values;

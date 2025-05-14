@@ -64,15 +64,8 @@ namespace ContosoCrafts.WebSite.Pages.Product
             // Generate ID again (possibly redundant)
             Product.Id = GenerateUniqueProductId();
 
-            // Attempt to create and save the product
-            bool result = ProductService.CreateData(Product);
-
-            // Handle creation failure
-            if (result == false)
-            {
-                ModelState.AddModelError("CreateFailure", "Failed to create product.");
-                return Page();
-            }
+            // Create and save the product
+            ProductService.CreateData(Product);
 
             // Redirect to the Read page for the newly created product
             return RedirectToPage("Read", new { id = Product.Id });
