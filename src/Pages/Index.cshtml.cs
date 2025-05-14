@@ -43,8 +43,16 @@ namespace ContosoCrafts.WebSite.Pages
             // All data from JSON file
             var allHeroes = ProductService.GetProducts();
 
-            // Retrieves the search term from the query
-            var searchTerm = Request.Query["SearchTerm"].ToString()?.ToLower() ?? string.Empty;
+            // Retrieves the search term from the query string
+            var rawSearchTerm = Request.Query["SearchTerm"].ToString();
+
+            // Filtered search term after null/empty check
+            var searchTerm = string.Empty;
+
+            if (string.IsNullOrEmpty(rawSearchTerm) == false)
+            {
+                searchTerm = rawSearchTerm.ToLower();
+            }
 
             // Retrieves the user's filter choices for Alignment category
             var selectedAlignments = Request.Query["Alignment"].ToList();
