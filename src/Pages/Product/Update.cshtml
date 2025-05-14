@@ -67,11 +67,11 @@
                         </div>
                         <select asp-for="Product.Role" class="form-control">
                             <option value="">-- Select Role --</option>
-                            <option value="Core Avenger" selected="@("Core Avenger" == Model.Product.Role)">Hero</option>
-                            <option value="Founding Avenger" selected="@("Founding Avenger" == Model.Product.Role)">Villain</option>
-                            <option value="Mystic Defender" selected="@("Mystic Defender" == Model.Product.Role)">Anti-Hero</option>
-                            <option value="Guardian" selected="@("Guardian" == Model.Product.Role)">Support</option>
-                            <option value="Support" selected="@("Support" == Model.Product.Role)">Civilian</option>
+                            <option value="Core Avenger" selected="@("Core Avenger" == Model.Product.Role)">Core Avenger</option>
+                            <option value="Founding Avenger" selected="@("Founding Avenger" == Model.Product.Role)">Founding Avenger</option>
+                            <option value="Mystic Defender" selected="@("Mystic Defender" == Model.Product.Role)">Mystic Defender</option>
+                            <option value="Guardian" selected="@("Guardian" == Model.Product.Role)">Guardian</option>
+                            <option value="Support" selected="@("Support" == Model.Product.Role)">Support</option>
                         </select>
                     </div>
 
@@ -83,9 +83,9 @@
                         </div>
                         <select asp-for="Product.Alignment" class="form-control">
                             <option value="">-- Select Alignment --</option>
-                            <option value="Good" selected="@("good" == Model.Product.Alignment)">Good</option>
-                            <option value="Evil" selected="@("evil" == Model.Product.Alignment)">Evil</option>
-                            <option value="Neutral" selected="@("neutral" == Model.Product.Alignment)">Neutral</option>
+                            <option value="good" selected="@("good" == Model.Product.Alignment)">Good</option>
+                            <option value="bad" selected="@("bad" == Model.Product.Alignment)">Bad</option>
+                            <option value="neutral" selected="@("neutral" == Model.Product.Alignment)">Neutral</option>
                         </select>
                     </div>
 
