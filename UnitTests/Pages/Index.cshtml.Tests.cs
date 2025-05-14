@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using ContosoCrafts.WebSite.Pages;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
@@ -178,6 +179,50 @@ namespace UnitTests.Pages
 
             // Reset
         }
+
+        /// <summary>
+        /// Verifies that OnGet() filters the hero list when a valid search term is passed through the query
+        /// </summary>
+        [Test]
+        public void OnGet_Valid_Search_Term_Provided_In_Query_String_Should_Return_Filtered_Heroes_Containing_Search_Term()
+        {
+            // Arrange
+            // Use fresh context
+            var context = new DefaultHttpContext();
+            var request = context.Request;
+
+            // Simulate query string ?SearchTerm=thor
+            request.QueryString = new QueryString("?SearchTerm=thor");
+            var queryCollection = new QueryCollection(
+                new Dictionary<string, Microsoft.Extensions.Primitives.StringValues>
+                {
+                    { "SearchTerm", "thor" }
+                }
+            );
+            context.Request.Query = queryCollection;
+
+            var data = new IndexModel(
+                new Mock<ILogger<IndexModel>>().Object,
+                TestHelper.ProductService)
+            {
+                PageContext = new PageContext
+                {
+                    HttpContext = context
+                }
+            };
+
+            // Act
+            data.OnGet();
+
+            // Assert
+            var result = data.FilteredHeroes;
+            Assert.AreEqual(true, result.Count > 0);
+            Assert.AreEqual(true, result.Any(hero => hero.Title.ToLower().Contains("thor")));
+
+            // Reset
+            context.Request.QueryString = QueryString.Empty;
+        }
+
 
         #endregion OnGet
 
