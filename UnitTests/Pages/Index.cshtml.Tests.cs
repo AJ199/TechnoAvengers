@@ -267,7 +267,7 @@ namespace UnitTests.Pages
             var result = _pageModel.GetValuesForCategory("Role");
 
             // Assert
-            Assert.AreEqual(new List<string> { "Core Avenger", "Founding Avenger", "Mystic Defender", "Guardian", "Support", "Unknown" }, result);
+            Assert.AreEqual(new List<string> { "Core Avenger", "Founding Avenger", "Mystic Defender", "Guardian", "Support" }, result);
 
             // Reset
         }
