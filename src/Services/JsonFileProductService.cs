@@ -109,6 +109,9 @@ namespace ContosoCrafts.WebSite.Services
             // Update required fields
             productData.Title = data.Title;
             productData.ImageUrl = data.ImageUrl;
+            productData.Alignment = data.Alignment;
+            productData.Gender = data.Gender;
+            productData.Role = data.Role;
 
             // Update core power attributes
             productData.Intelligence = data.Intelligence;
@@ -172,7 +175,10 @@ namespace ContosoCrafts.WebSite.Services
                     Birthplace = birthplace,
                     Work = work,
                     FirstAppear = firstAppear,
-                    Ratings = data.Ratings
+                    Ratings = data.Ratings,
+                    Role = data.Role,
+                    Gender = data.Gender,
+                    Alignment = data.Alignment
                 };
 
                 products.Add(newProduct);
