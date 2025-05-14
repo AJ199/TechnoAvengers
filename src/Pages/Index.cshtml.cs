@@ -143,7 +143,7 @@ namespace ContosoCrafts.WebSite.Pages
 
                 case "Role":
                 {
-                    values = new List<string> { "Core Avenger", "Founding Avenger", "Mystic Defender", "Guardian", "Support", "Unknown" };
+                    values = new List<string> { "Core Avenger", "Founding Avenger", "Mystic Defender", "Guardian", "Support" };
                     break;
                 }
             }
