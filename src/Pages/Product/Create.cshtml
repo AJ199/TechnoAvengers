@@ -230,7 +230,9 @@
     document.addEventListener('DOMContentLoaded', function () {
         const sliders = document.querySelectorAll('.slider'); // Select all sliders
         sliders.forEach(function(slider) {
-            const valueDisplay = slider.nextElementSibling; // Get the span next to the slider for value display
+            // Find the correct span inside the same .slider-container
+            const container = slider.closest('.slider-container');
+            const valueDisplay = container.querySelector('.slider-values');
 
             // Set the initial slider value to 0
             slider.value = 0;
