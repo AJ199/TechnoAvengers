@@ -12,10 +12,32 @@
                value="@Request.Query["SearchTerm"]"
                class="search-input" />
 
-        <select name="SortOrder" class="sort-dropdown">
-            <option value="asc" selected="@("asc" == Request.Query["SortOrder"])">Sort by Name (A–Z)</option>
-            <option value="desc" selected="@("desc" == Request.Query["SortOrder"])">Sort by Name (Z–A)</option>
+        <!-- Sort field selection -->
+        <select name="SortField" class="sort-dropdown">
+            <option value="Title" selected="@("Title" == Request.Query["SortField"])">Sort by Name</option>
+            <option value="Intelligence" selected="@("Intelligence" == Request.Query["SortField"])">Sort by Intelligence</option>
+            <option value="Strength" selected="@("Strength" == Request.Query["SortField"])">Sort by Strength</option>
+            <option value="Speed" selected="@("Speed" == Request.Query["SortField"])">Sort by Speed</option>
+            <option value="Durability" selected="@("Durability" == Request.Query["SortField"])">Sort by Durability</option>
+            <option value="Power" selected="@("Power" == Request.Query["SortField"])">Sort by Power</option>
+            <option value="Combat" selected="@("Combat" == Request.Query["SortField"])">Sort by Combat</option>
         </select>
+
+        <!-- Hidden input used by toggle button -->
+        <input type="hidden" name="SortOrder" id="SortOrderInput" value="@(Request.Query["SortOrder"].ToString() ?? "asc")" />
+
+        <!-- Toggle button for sort order -->
+        <button type="button" class="btn-sort-toggle" onclick="toggleSortOrder()">
+            @(Request.Query["SortOrder"] == "desc" ? "▼ Descending" : "▲ Ascending")
+        </button>
+
+        <script>
+            function toggleSortOrder() {
+                const input = document.getElementById('SortOrderInput');
+                input.value = input.value === 'asc' ? 'desc' : 'asc';
+                document.getElementById('searchForm').submit();
+            }
+        </script>
 
         <button type="submit" class="btn btn-terciary">Search</button>
         <button type="button" class="btn btn-terciary" onclick="openFilterSidebar()">Filter</button>

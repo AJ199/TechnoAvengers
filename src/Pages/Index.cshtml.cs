@@ -13,10 +13,9 @@ namespace ContosoCrafts.WebSite.Pages
     /// </summary>
     public class IndexModel : PageModel
     {
-
+        // Sorts to ascending initially
         [BindProperty(SupportsGet = true)]
         public string SortOrder { get; set; } = "asc";
-
 
         // Keeps track of application behavior and errors
         private readonly ILogger<IndexModel> _logger;
@@ -123,6 +122,22 @@ namespace ContosoCrafts.WebSite.Pages
                 .OrderBy(hero => SortOrder == "desc" ? null : hero.Title)  // ascending if "asc"
                 .ThenByDescending(hero => SortOrder == "desc" ? hero.Title : null) // descending if "desc"
                 .ToList();
+
+            // Retrieve sort parameters
+            var sortField = Request.Query["SortField"].ToString();
+            var sortOrder = Request.Query["SortOrder"].ToString();
+
+            // Apply sorting
+            if (!string.IsNullOrEmpty(sortField))
+            {
+                var property = typeof(ProductModel).GetProperty(sortField);
+                if (property != null)
+                {
+                    FilteredHeroes = (sortOrder == "desc")
+                        ? FilteredHeroes.OrderByDescending(hero => property.GetValue(hero)).ToList()
+                        : FilteredHeroes.OrderBy(hero => property.GetValue(hero)).ToList();
+                }
+            }
         }
 
         /// <summary>
