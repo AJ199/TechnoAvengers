@@ -13,6 +13,11 @@ namespace ContosoCrafts.WebSite.Pages
     /// </summary>
     public class IndexModel : PageModel
     {
+
+        [BindProperty(SupportsGet = true)]
+        public string SortOrder { get; set; } = "asc";
+
+
         // Keeps track of application behavior and errors
         private readonly ILogger<IndexModel> _logger;
 
@@ -114,7 +119,10 @@ namespace ContosoCrafts.WebSite.Pages
                     hero.Durability >= minDurability && hero.Durability <= maxDurability &&
                     hero.Power >= minPower && hero.Power <= maxPower &&
                     hero.Combat >= minCombat && hero.Combat <= maxCombat
-                ).ToList();
+                )
+                .OrderBy(hero => SortOrder == "desc" ? null : hero.Title)  // ascending if "asc"
+                .ThenByDescending(hero => SortOrder == "desc" ? hero.Title : null) // descending if "desc"
+                .ToList();
         }
 
         /// <summary>

@@ -12,6 +12,11 @@
                value="@Request.Query["SearchTerm"]"
                class="search-input" />
 
+        <select name="SortOrder" class="sort-dropdown">
+            <option value="asc" selected="@("asc" == Request.Query["SortOrder"])">Sort by Name (A–Z)</option>
+            <option value="desc" selected="@("desc" == Request.Query["SortOrder"])">Sort by Name (Z–A)</option>
+        </select>
+
         <button type="submit" class="btn btn-terciary">Search</button>
         <button type="button" class="btn btn-terciary" onclick="openFilterSidebar()">Filter</button>
         <button type="button" class="btn btn-secondary" onclick="clearAll()">Clear All</button>
