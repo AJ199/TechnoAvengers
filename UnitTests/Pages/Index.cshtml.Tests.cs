@@ -264,6 +264,26 @@ namespace UnitTests.Pages
             Assert.IsTrue(result.SequenceEqual(sorted));
         }
 
+        /// <summary>
+        /// Sorts heroes by Strength in descending order.
+        /// </summary>
+        [Test]
+        public void OnGet_Sort_By_Strength_Descending_Returns_Sorted_List()
+        {
+            // Arrange
+            var context = new DefaultHttpContext();
+            context.Request.QueryString = new QueryString("?SortField=Strength&SortOrder=desc");
+            _pageModel.PageContext.HttpContext = context;
+
+            // Act
+            _pageModel.OnGet();
+
+            // Assert
+            var result = _pageModel.FilteredHeroes;
+            var sorted = result.OrderByDescending(h => h.Strength).ToList();
+            Assert.IsTrue(result.SequenceEqual(sorted));
+        }
+
 
 
         #endregion OnGet
