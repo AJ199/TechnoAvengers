@@ -244,6 +244,26 @@ namespace UnitTests.Pages
             Assert.IsTrue(result.SequenceEqual(sorted));
         }
 
+        /// <summary>
+        /// Sorts heroes by Intelligence in descending order.
+        /// </summary>
+        [Test]
+        public void OnGet_Sort_By_Intelligence_Descending_Returns_Sorted_List()
+        {
+            // Arrange
+            var context = new DefaultHttpContext();
+            context.Request.QueryString = new QueryString("?SortField=Intelligence&SortOrder=desc");
+            _pageModel.PageContext.HttpContext = context;
+
+            // Act
+            _pageModel.OnGet();
+
+            // Assert
+            var result = _pageModel.FilteredHeroes;
+            var sorted = result.OrderByDescending(h => h.Intelligence).ToList();
+            Assert.IsTrue(result.SequenceEqual(sorted));
+        }
+
 
 
         #endregion OnGet
