@@ -33,18 +33,6 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-page="/AvengersHistory">Avengers History</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-page="/Privacy">Privacy</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-page="/About">About Us</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-page="/Contact">Contact</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-page="/News">News</a>
-                            </li>
                         </ul>
                     </div>
                 </div>
@@ -55,13 +43,22 @@
             @RenderBody()
         </main>
 
-        <footer class="footer text-muted bg-footer">
-            <div class="container">
-                &copy; 2025 - Avengers Encyclopedia -
-                <a asp-page="/Privacy">Privacy</a> |
-                <a asp-page="/About">About Us</a> |
-                <a asp-page="/Contact">Contact</a> |
-                <a asp-page="/News">News</a>
+        <!-- Refined and themed footer -->
+        <footer style="background-color: #0b0c2a; color: white; padding: 50px 20px; text-align: center; margin-top: 40px; background-image: url('/images/marvel-bg.png'); background-size: cover; background-repeat: no-repeat; background-position: center;">
+            <div style="max-width: 900px; margin: auto;">
+                <h3 style="font-family: 'Bangers', cursive; font-size: 32px; color: #ff1c1c; text-shadow: 0 0 8px #ff1c1c;">
+                    AVENGERS ENCYCLOPEDIA
+                </h3>
+                <p style="font-size: 15px; color: #e0e0e0; margin-top: 10px;">
+                    Your ultimate guide to Earth's mightiest heroes.
+                </p>
+                <div style="margin: 25px 0;">
+                    <a asp-page="/Privacy" style="margin: 0 15px; color: #ff1c1c; font-weight: 500; text-decoration: none;">Privacy</a> |
+                    <a asp-page="/About" style="margin: 0 15px; color: #ff1c1c; font-weight: 500; text-decoration: none;">About Us</a> |
+                    <a asp-page="/Contact" style="margin: 0 15px; color: #ff1c1c; font-weight: 500; text-decoration: none;">Contact</a> |
+                    <a asp-page="/News" style="margin: 0 15px; color: #ff1c1c; font-weight: 500; text-decoration: none;">News</a>
+                </div>
+                <p style="font-size: 13px; color: #888;">&copy; 2025 Avengers Encyclopedia. All rights reserved.</p>
             </div>
         </footer>
 
