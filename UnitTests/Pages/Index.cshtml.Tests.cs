@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
+using System.Reflection;
 
 namespace UnitTests.Pages
 {
@@ -222,6 +223,27 @@ namespace UnitTests.Pages
             // Reset
             context.Request.QueryString = QueryString.Empty;
         }
+
+        /// <summary>
+        /// Sorts heroes by Title in ascending order.
+        /// </summary>
+        [Test]
+        public void OnGet_Sort_By_Title_Ascending_Returns_Sorted_List()
+        {
+            // Arrange
+            var context = new DefaultHttpContext();
+            context.Request.QueryString = new QueryString("?SortField=Title&SortOrder=asc");
+            _pageModel.PageContext.HttpContext = context;
+
+            // Act
+            _pageModel.OnGet();
+
+            // Assert
+            var result = _pageModel.FilteredHeroes;
+            var sorted = result.OrderBy(h => h.Title).ToList();
+            Assert.IsTrue(result.SequenceEqual(sorted));
+        }
+
 
 
         #endregion OnGet

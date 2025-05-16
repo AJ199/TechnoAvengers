@@ -229,6 +229,7 @@
     document.addEventListener('DOMContentLoaded', function () {
         const sliders = document.querySelectorAll('.slider'); // Select all sliders
         sliders.forEach(function(slider) {
+
             // Find the correct span inside the same .slider-container
             const container = slider.closest('.slider-container');
             const valueDisplay = container.querySelector('.slider-values');
