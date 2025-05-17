@@ -1387,3 +1387,21 @@ form { /* Filter Form */
         transform: scale(1.05);
     }
 
+.back-btn {
+    display: inline-block;
+    background-color: #ED1D24;
+    color: #fff;
+    font-family: 'Bangers', cursive;
+    font-size: 1.1rem;
+    padding: 10px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+    .back-btn:hover {
+        background-color: #c4141b;
+        transform: scale(1.05);
+    }
+
+
