@@ -1356,4 +1356,34 @@ form { /* Filter Form */
     /* Label styling inside the form */
     .compare-form .form-label {
         font-weight: bold;
-        font-size: 1.1
+        font-size: 1.1rem;
+        color: #fff;
+        display: block;
+        margin-bottom: 8px;
+    }
+
+    .compare-form .form-select {
+        width: 100%;
+        padding: 10px;
+        border-radius: 8px;
+        border: none;
+        font-size: 1rem;
+        background-color: #333;
+        color: white;
+    }
+
+.compare-btn {
+    font-family: 'Bangers', cursive;
+    font-size: 1.3rem;
+    padding: 12px 30px;
+    background-color: #ED1D24;
+    border: none;
+    border-radius: 10px;
+    transition: 0.3s ease-in-out;
+}
+
+    .compare-btn:hover {
+        background-color: #c4141b;
+        transform: scale(1.05);
+    }
+
