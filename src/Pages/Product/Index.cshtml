@@ -8,10 +8,16 @@
 <!-- Container for the entire index page content -->
 <div class="container hero-index-container">
 
-    <!-- Button to navigate to the Create page to add a new superhero -->
-    <div class="hero-create-button-container mb-4">
+    <!-- Top Action Buttons -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <!-- Create New Hero -->
         <a class="btn btn-primary" asp-page="Create">
             Create New Hero
+        </a>
+
+        <!-- Compare Superheroes -->
+        <a class="btn btn-terciary" asp-page="Compare">
+            Compare Superheroes
         </a>
     </div>
 
@@ -24,14 +30,10 @@
             </tr>
         </thead>
         <tbody>
-            <!-- Loop through each product and create a table row -->
             @foreach (var product in Model.Products)
             {
                 <tr class="hero-row">
-                    <!-- Display the superhero title -->
                     <td>@product.Title</td>
-
-                    <!-- Action buttons for Read, Edit, and Delete -->
                     <td>
                         <a class="btn btn-primary" asp-page="Read" asp-route-id="@product.Id">Read</a>
                         <a class="btn btn-primary" asp-page="Update" asp-route-id="@product.Id">Edit</a>
@@ -56,7 +58,6 @@
     </div>
 
     <script>
-        // Function to close the deletion success popup
         function closePopup() {
             document.getElementById('popup-overlay').style.display = 'none';
         }
@@ -66,24 +67,19 @@
 <!-- Slider JavaScript -->
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const sliders = document.querySelectorAll('.slider');  // Select all sliders
-        sliders.forEach(function(slider) {
-            const valueDisplay = slider.nextElementSibling; // Select the next element (value display)
+        const sliders = document.querySelectorAll('.slider');
+        sliders.forEach(function (slider) {
+            const valueDisplay = slider.nextElementSibling;
+            slider.value = 0;
 
-            // Set the initial value of the slider to 0
-            slider.value = 0; // Change this value if you want the initial value to be different
-
-            // Function to update the value display based on the slider's value
             function updateSliderValue() {
                 valueDisplay.textContent = slider.value;
             }
 
-            // Listen for changes to the slider and update the value
             slider.addEventListener('input', function () {
-                updateSliderValue(); // Update value when slider is moved
+                updateSliderValue();
             });
 
-            // Initial display of value when page loads
             updateSliderValue();
         });
     });
