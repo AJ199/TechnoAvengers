@@ -1217,3 +1217,99 @@ form { /* Filter Form */
         float: right;
         color: #ffffff;
     }
+
+/* === Superhero Showdown Page Styles === */
+
+/* Full-page background and layout styling for the comparison section */
+.showdown-wrapper {
+    background: url('/images/marvel-showdown.jpg') no-repeat center center fixed;
+    background-size: cover;
+    padding: 80px 20px;
+    min-height: 100vh;
+    color: white;
+}
+
+/* Title styling for the comparison page */
+.showdown-title {
+    font-family: 'Bangers', cursive;
+    font-size: 3.2rem;
+    color: #ff1c1c;
+    text-shadow: 2px 2px 8px black;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+/* Card container for each superhero */
+.hero-card {
+    background-color: rgba(0, 0, 0, 0.8); /* Dark card background */
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7); /* Soft glow */
+    transition: transform 0.3s ease-in-out;
+}
+
+    .hero-card:hover {
+        transform: scale(1.03); /* Slight zoom on hover */
+    }
+
+/* Superhero image */
+.hero-img {
+    height: 350px;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+
+/* Superhero name below image */
+.hero-name {
+    font-family: 'Bangers', cursive;
+    color: #ffcc00;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 4px black;
+}
+
+/* Stats container box */
+.stats-box {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 20px;
+    font-family: 'Nunito', sans-serif;
+}
+
+/* Individual stat row */
+.stat-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    font-size: 1.1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+    .stat-row:last-child {
+        border-bottom: none;
+    }
+
+    .stat-row span {
+        color: #fff;
+    }
+
+/* Soft highlight for equal stats */
+.highlight {
+    background-color: rgba(255, 215, 0, 0.25);
+    font-weight: bold;
+    border-radius: 6px;
+    padding: 5px 10px;
+    transition: background 0.3s ease;
+}
+
+/* Glowing highlight for higher stat */
+.highlight-glow {
+    background: rgba(255, 215, 0, 0.15);
+    color: #FFD700;
+    font-weight: bold;
+    border-radius: 8px;
+    box-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
+}
