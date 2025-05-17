@@ -1,33 +1,59 @@
 ﻿@page "{hero1Id}/{hero2Id}"
 @model ContosoCrafts.WebSite.Pages.Product.CompareResultModel
+@using Microsoft.AspNetCore.Html
+
 @{
     ViewData["Title"] = "Superhero Showdown";
+    bool IsHigher(int a, int b) => a > b;
+    bool IsEqual(int a, int b) => a == b;
 }
 
-<div class="compare-wrapper">
-    <h2 class="text-center compare-heading">SUPERHERO SHOWDOWN</h2>
+<div class="showdown-wrapper">
+    <h1 class="showdown-title">SUPERHERO SHOWDOWN</h1>
 
-    <div class="row justify-content-center text-center compare-grid">
-        <div class="col-md-5">
-            <img src="@Model.Hero1.ImageUrl" alt="@Model.Hero1.Title" class="img-fluid rounded shadow hero-img" />
-            <h3 class="hero-name">@Model.Hero1.Title</h3>
-            <div class="stat-box">Power: <span>@Model.Hero1.Power</span></div>
-            <div class="stat-box">Speed: <span>@Model.Hero1.Speed</span></div>
-            <div class="stat-box">Strength: <span>@Model.Hero1.Strength</span></div>
-            <div class="stat-box">Intelligence: <span>@Model.Hero1.Intelligence</span></div>
-            <div class="stat-box">Durability: <span>@Model.Hero1.Durability</span></div>
-            <div class="stat-box">Combat: <span>@Model.Hero1.Combat</span></div>
-        </div>
+    <div class="container text-center">
+        <div class="row justify-content-center align-items-start gap-4">
 
-        <div class="col-md-5">
-            <img src="@Model.Hero2.ImageUrl" alt="@Model.Hero2.Title" class="img-fluid rounded shadow hero-img" />
-            <h3 class="hero-name">@Model.Hero2.Title</h3>
-            <div class="stat-box">Power: <span>@Model.Hero2.Power</span></div>
-            <div class="stat-box">Speed: <span>@Model.Hero2.Speed</span></div>
-            <div class="stat-box">Strength: <span>@Model.Hero2.Strength</span></div>
-            <div class="stat-box">Intelligence: <span>@Model.Hero2.Intelligence</span></div>
-            <div class="stat-box">Durability: <span>@Model.Hero2.Durability</span></div>
-            <div class="stat-box">Combat: <span>@Model.Hero2.Combat</span></div>
+            <!-- Hero 1 -->
+            <div class="col-md-5 hero-card">
+                <img src="@Model.Hero1.ImageUrl" alt="@Model.Hero1.Title" class="hero-img" />
+                <h2 class="hero-name">@Model.Hero1.Title</h2>
+                <div class="stats-box">
+                    @DisplayStat("Power", Model.Hero1.Power, Model.Hero2.Power)
+                    @DisplayStat("Speed", Model.Hero1.Speed, Model.Hero2.Speed)
+                    @DisplayStat("Strength", Model.Hero1.Strength, Model.Hero2.Strength)
+                    @DisplayStat("Intelligence", Model.Hero1.Intelligence, Model.Hero2.Intelligence)
+                    @DisplayStat("Durability", Model.Hero1.Durability, Model.Hero2.Durability)
+                    @DisplayStat("Combat", Model.Hero1.Combat, Model.Hero2.Combat)
+                </div>
+            </div>
+
+            <!-- Hero 2 -->
+            <div class="col-md-5 hero-card">
+                <img src="@Model.Hero2.ImageUrl" alt="@Model.Hero2.Title" class="hero-img" />
+                <h2 class="hero-name">@Model.Hero2.Title</h2>
+                <div class="stats-box">
+                    @DisplayStat("Power", Model.Hero2.Power, Model.Hero1.Power)
+                    @DisplayStat("Speed", Model.Hero2.Speed, Model.Hero1.Speed)
+                    @DisplayStat("Strength", Model.Hero2.Strength, Model.Hero1.Strength)
+                    @DisplayStat("Intelligence", Model.Hero2.Intelligence, Model.Hero1.Intelligence)
+                    @DisplayStat("Durability", Model.Hero2.Durability, Model.Hero1.Durability)
+                    @DisplayStat("Combat", Model.Hero2.Combat, Model.Hero1.Combat)
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
+
+@functions {
+    public IHtmlContent DisplayStat(string label, int value, int opponent)
+    {
+        var isHigher = value > opponent;
+        var isEqual = value == opponent;
+        var css = isHigher ? "stat-row highlight-glow" : "stat-row";
+        var icon = isHigher ? " 🏆" : (isEqual ? " ⚔️" : "");
+
+        return new HtmlString($"<div class='{css}'><span>{label}</span><span>{value}{icon}</span></div>");
+    }
+}
