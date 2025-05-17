@@ -18,6 +18,8 @@ namespace ContosoCrafts.WebSite.Models
         // Title represents superhero name, is required and must be 2-50 characters long
         [Required(ErrorMessage = "Required")]
         [StringLength(50, MinimumLength = 2, ErrorMessage = "Must be 2-50 chars")]
+        [RegularExpression(@"^[a-zA-Z0-9\s\-':,!.&()]+$",
+            ErrorMessage = "Title can contain letters, numbers, spaces, and basic punctuation")]
         public string? Title { get; set; }
 
         // Fullname represents superhero real name and must contain max 50 characters
