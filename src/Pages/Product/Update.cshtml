@@ -27,11 +27,7 @@
                             <label asp-for="Product.Title"><strong>Superhero Name</strong></label>
                             <span asp-validation-for="Product.Title" class="text-danger"></span>
                         </div>
-                        <input asp-for="Product.Title"
-                               class="form-control"
-                               maxlength="20"
-                               pattern="^[a-zA-Z0-9\s]+$"
-                               title="Only letters, numbers, and spaces allowed. Max 20 characters." />
+                        <input asp-for="Product.Title" class="form-control" />
                     </div>
 
 
