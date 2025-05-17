@@ -9,17 +9,17 @@ using Microsoft.AspNetCore.Hosting;
 namespace ContosoCrafts.WebSite.Services
 {
     /// <summary>
-    /// Provides access to product data stored in JSON format and supports basic CRUD operations.
+    /// Provides access to product data stored in JSON format and supports basic CRUD operations
     /// </summary>
     public class JsonFileProductService
     {
         /// <summary>
-        /// Provides access to the web root path through the hosting environment.
+        /// Provides access to the web root path through the hosting environment
         /// </summary>
         public IWebHostEnvironment WebHostEnvironment { get; }
 
         /// <summary>
-        /// Initializes a new instance of the JsonFileProductService class using dependency injection.
+        /// Initializes a new instance of the JsonFileProductService class using dependency injection
         /// </summary>
         /// <param name="webHostEnvironment">The current hosting environment.</param>
         public JsonFileProductService(IWebHostEnvironment webHostEnvironment)
@@ -28,7 +28,7 @@ namespace ContosoCrafts.WebSite.Services
         }
 
         /// <summary>
-        /// Constructs the full path to the JSON file where products are stored.
+        /// Constructs the full path to the JSON file where products are stored
         /// </summary>
         private string JsonFileName
         {
@@ -39,18 +39,21 @@ namespace ContosoCrafts.WebSite.Services
         }
 
         /// <summary>
-        /// Retrieves and deserializes all product data from the JSON file.
+        /// Retrieves and deserializes all product data from the JSON file
         /// </summary>
         /// <returns>A collection of ProductModel objects; returns an empty array if the file is empty or invalid.</returns>
         public IEnumerable<ProductModel> GetProducts()
         {
+            // Opens the JSON file for reading
             using var jsonFileReader = File.OpenText(JsonFileName);
 
+            // Serializer options
             JsonSerializerOptions serializerOptions = new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true
             };
 
+            // Array of deserialized JSON content
             ProductModel[]? products = JsonSerializer.Deserialize<ProductModel[]>(
                 jsonFileReader.ReadToEnd(),
                 serializerOptions);
@@ -66,9 +69,10 @@ namespace ContosoCrafts.WebSite.Services
         /// <param name="rating">The rating to add (e.g., from 1 to 5).</param>
         public void AddRating(string productId, int rating)
         {
+            // Existing data
             var products = GetProducts().ToList();
 
-            // Find the product by ID
+            // Find the superhero by ID
             var product = products.FirstOrDefault(x => x.Id == productId);
             if (product == null)
             {
@@ -82,12 +86,17 @@ namespace ContosoCrafts.WebSite.Services
             }
             else
             {
+                // Existing ratings
                 var ratings = product.Ratings.ToList();
+                
+                // Add new rating
                 ratings.Add(rating);
+
+                // Update ratings
                 product.Ratings = ratings.ToArray();
             }
 
-            // Persist the updated product list
+            // Persist the data
             SaveData(products);
         }
 
@@ -98,7 +107,10 @@ namespace ContosoCrafts.WebSite.Services
         /// <returns>True if update was successful; false if the product was not found.</returns>
         public bool UpdateData(ProductModel data)
         {
+            // Existing data
             var products = GetProducts().ToList();
+
+            // Find the superhero by ID
             var productData = products.FirstOrDefault(x => x.Id == data.Id);
 
             if (productData == null)
@@ -127,9 +139,6 @@ namespace ContosoCrafts.WebSite.Services
             productData.Work = string.IsNullOrWhiteSpace(data.Work) ? "-" : data.Work;
             productData.FirstAppear = string.IsNullOrWhiteSpace(data.FirstAppear) ? "-" : data.FirstAppear;
 
-            // Replace ratings
-            productData.Ratings = data.Ratings;
-
             // Save updated product list
             SaveData(products);
             return true;
@@ -147,7 +156,10 @@ namespace ContosoCrafts.WebSite.Services
                 return false;
             }
 
+            // Existing data
             var products = GetProducts().ToList();
+
+            // Find the superhero by ID
             var existing = products.FirstOrDefault(p => p.Id == data.Id);
 
             // Only add if the product ID is unique
@@ -181,7 +193,10 @@ namespace ContosoCrafts.WebSite.Services
                     Alignment = data.Alignment
                 };
 
+                // Add new product to the list
                 products.Add(newProduct);
+
+                // Persist the updated product list
                 SaveData(products);
                 return true;
             }
@@ -190,12 +205,15 @@ namespace ContosoCrafts.WebSite.Services
         }
 
         /// <summary>
-        /// Saves the current list of products to the JSON file, overwriting existing content.
+        /// Saves the current list of products to the JSON file, overwriting existing content
         /// </summary>
-        /// <param name="products">The updated product list to save.</param>
+        /// <param name="products">The product list to save</param>
         public void SaveData(IEnumerable<ProductModel> products)
         {
+            // Writable stream to the JSON file to overwrite existing content
             using var outputStream = File.Create(JsonFileName);
+
+            // Serialize the list of products into JSON format and write it to the output stream
             JsonSerializer.Serialize<IEnumerable<ProductModel>>(
                 new Utf8JsonWriter(outputStream, new JsonWriterOptions
                 {
