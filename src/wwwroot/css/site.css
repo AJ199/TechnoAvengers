@@ -1313,3 +1313,47 @@ form { /* Filter Form */
     border-radius: 8px;
     box-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
 }
+
+/* Wrapper for the entire compare page section with background */
+.compare-wrapper {
+    background: url('/images/marvel-showdown.jpg') no-repeat center center fixed;
+    background-size: cover;
+    padding: 80px 20px;
+    min-height: 100vh;
+    color: white;
+    text-align: center;
+}
+
+/* Heading style for 'Compare Two Superheroes' */
+.compare-heading {
+    font-family: 'Bangers', cursive;
+    font-size: 3.5rem;
+    color: #ff1c1c;
+    -webkit-text-stroke: 1.5px black; /* Black outline for WebKit browsers */
+    text-stroke: 1.5px black; /* Black outline for others */
+    background: none;
+    padding: 0;
+    text-align: center;
+    text-decoration: underline; /* Underline for emphasis */
+    text-underline-offset: 6px; /* Gap between text and underline */
+}
+
+/* Form container styling */
+.compare-form {
+    max-width: 600px;
+    background-color: rgba(0, 0, 0, 0.75); /* Semi-transparent black background */
+    padding: 30px 40px;
+    border-radius: 16px;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.4); /* Red glow effect */
+}
+
+    /* Form group spacing and alignment */
+    .compare-form .form-group {
+        margin-bottom: 20px;
+        text-align: left;
+    }
+
+    /* Label styling inside the form */
+    .compare-form .form-label {
+        font-weight: bold;
+        font-size: 1.1
