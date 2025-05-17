@@ -39,8 +39,8 @@ namespace ContosoCrafts.WebSite.Models
         // ImageUrl must be valid, https, and end with .jpg or .png extension
         [Required(ErrorMessage = "Required")]
         [Url(ErrorMessage = "Enter a valid URL")]
-        [RegularExpression(@"^https:\/\/.*\.(jpg|png)$",
-            ErrorMessage = "Must start with 'https://', end with .jpg or .png")]
+        [RegularExpression(@"^https:\/\/.+\/[^\/]+\.(jpg|jpeg|png)(\?.*)?$",
+            ErrorMessage = "Must be a valid image URL (.jpg, .jpeg, .png) starting with https://")]
         public string? ImageUrl { get; set; }
 
         // Intelligence is a required power statistic and must be bewteen 0 and 100
