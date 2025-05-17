@@ -1,6 +1,7 @@
 ﻿@page "{hero1Id}/{hero2Id}"
 @model ContosoCrafts.WebSite.Pages.Product.CompareResultModel
 @using Microsoft.AspNetCore.Html
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
     ViewData["Title"] = "Superhero Showdown";
@@ -8,13 +9,14 @@
     bool IsEqual(int a, int b) => a == b;
 }
 
-<!-- Back to Superheroes Button -->
-<div class="text-start mb-3 ms-4">
-    <a class="btn btn-primary px-4 py-2" style="font-family: 'Bangers', cursive; font-size: 1.1rem;" asp-page="/Product/Index">
+<!-- Back Button -->
+<div class="back-btn-container text-start">
+    <a class="btn btn-primary btn-back" asp-page="/Product/Index">
         ← BACK TO SUPERHEROES
     </a>
 </div>
 
+<!-- Heading -->
 <div class="showdown-wrapper">
     <h1 class="showdown-title">SUPERHERO SHOWDOWN</h1>
 
@@ -48,10 +50,101 @@
                     @DisplayStat("Combat", Model.Hero2.Combat, Model.Hero1.Combat)
                 </div>
             </div>
+        </div>
 
+        <!-- Chart View Button -->
+        <div class="mt-5">
+            <button class="view-chart-btn" onclick="toggleChart()">📊 View in Chart</button>
+        </div>
+
+        <!-- Chart Container -->
+        <div id="chartContainer" class="chart-container mt-4" style="display: none;">
+            <canvas id="comparisonChart"></canvas>
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const toggleChart = () => {
+            const chartSection = document.getElementById("chartContainer");
+            chartSection.style.display = chartSection.style.display === "none" ? "block" : "none";
+        };
+
+        const ctx = document.getElementById('comparisonChart');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Power', 'Speed', 'Strength', 'Intelligence', 'Durability', 'Combat'],
+                datasets: [
+                    {
+                        label: '@Model.Hero1.Title',
+                        data: [@Model.Hero1.Power, @Model.Hero1.Speed, @Model.Hero1.Strength, @Model.Hero1.Intelligence, @Model.Hero1.Durability, @Model.Hero1.Combat],
+                        backgroundColor: (ctx) => {
+                            const gradient = ctx.chart.ctx.createLinearGradient(0, 0, 0, 400);
+                            gradient.addColorStop(0, 'rgba(255, 99, 132, 0.9)');
+                            gradient.addColorStop(1, 'rgba(255, 99, 132, 0.5)');
+                            return gradient;
+                        },
+                        borderRadius: 6
+                    },
+                    {
+                        label: '@Model.Hero2.Title',
+                        data: [@Model.Hero2.Power, @Model.Hero2.Speed, @Model.Hero2.Strength, @Model.Hero2.Intelligence, @Model.Hero2.Durability, @Model.Hero2.Combat],
+                        backgroundColor: (ctx) => {
+                            const gradient = ctx.chart.ctx.createLinearGradient(0, 0, 0, 400);
+                            gradient.addColorStop(0, 'rgba(54, 162, 235, 0.9)');
+                            gradient.addColorStop(1, 'rgba(54, 162, 235, 0.5)');
+                            return gradient;
+                        },
+                        borderRadius: 6
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        labels: {
+                            font: {
+                                family: 'Nunito',
+                                size: 16
+                            },
+                            color: '#ffffff'
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 120,
+                        ticks: {
+                            color: '#ffffff',
+                            font: {
+                                family: 'Nunito'
+                            }
+                        },
+                        grid: {
+                            color: 'rgba(255,255,255,0.2)'
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: '#ffffff',
+                            font: {
+                                family: 'Nunito'
+                            }
+                        },
+                        grid: {
+                            color: 'rgba(255,255,255,0.1)'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+}
 
 @functions {
     public IHtmlContent DisplayStat(string label, int value, int opponent)
