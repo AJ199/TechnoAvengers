@@ -35,14 +35,12 @@ namespace ContosoCrafts.WebSite.Models
         public string? Birthplace { get; set; }
 
         // Work of superhero must contain max 200 characters
-        [Required(ErrorMessage = "Required")]
         [StringLength(200, ErrorMessage = "Must be 200 chars max")]
         [RegularExpression(@"^(?!.*\b\w{16,}\b)[a-zA-Z\s-,;.:()/*""]+$",
             ErrorMessage = "Use only letters, spaces, commas, semicolons, colons, periods, parentheses, slashes, asterisks, double quotes, and hyphens. Each word must be 15 characters or fewer")]
         public string? Work { get; set; }
 
         // FirstAppear is the first comic the superhero was included and must contain max 100 characters
-        [Required(ErrorMessage = "Required")]
         [StringLength(100, ErrorMessage = "Must be 100 chars max")]
         [RegularExpression(@"^(?!.*\b\w{16,}\b)[a-zA-Z0-9\s-.,:#()]+$",
             ErrorMessage = "Use only letters, numbers, spaces, commas, dashes, colons, periods, parentheses, and hash symbols. Each word must be 15 characters or fewer.")]
