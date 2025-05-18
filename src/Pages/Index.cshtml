@@ -70,7 +70,10 @@
 
 <div class="header-container">
 
+    <!-- Search and sort form -->
     <form method="get" id="searchForm" class="search-bar-container">
+
+        <!-- Search input section -->
         <div class="search-input-group">
             <input type="text" name="SearchTerm" placeholder="Search by name..."
                    value="@Request.Query["SearchTerm"]"
@@ -78,9 +81,9 @@
             <button type="submit" class="search-btn">Search</button>
         </div>
 
-
-        <!-- Sort field selection -->
+        <!-- Dropdown to select the field to sort by -->
         <select name="SortField" class="sort-dropdown">
+            <!-- Each option sets selected based on current query value -->
             <option value="Title" selected="@("Title" == Request.Query["SortField"])">Sort by Name</option>
             <option value="Intelligence" selected="@("Intelligence" == Request.Query["SortField"])">Sort by Intelligence</option>
             <option value="Strength" selected="@("Strength" == Request.Query["SortField"])">Sort by Strength</option>
@@ -90,25 +93,31 @@
             <option value="Combat" selected="@("Combat" == Request.Query["SortField"])">Sort by Combat</option>
         </select>
 
-        <!-- Hidden input used by toggle button -->
+        <!-- Hidden input to track current sort order (asc or desc) -->
         <input type="hidden" name="SortOrder" id="SortOrderInput" value="@(Request.Query["SortOrder"].ToString() ?? "asc")" />
 
-        <!-- Toggle button for sort order -->
+        <!-- Button to toggle the sort order, submits the form on click -->
         <button type="button" class="btn-sort-toggle" onclick="toggleSortOrder()">
             @(Request.Query["SortOrder"] == "desc" ? "▼ Descending" : "▲ Ascending")
         </button>
 
+        <!-- JavaScript function to toggle sort order value and submit the form -->
         <script>
             function toggleSortOrder() {
                 const input = document.getElementById('SortOrderInput');
+                // Toggle between ascending and descending
                 input.value = input.value === 'asc' ? 'desc' : 'asc';
                 document.getElementById('searchForm').submit();
             }
         </script>
 
+        <!-- Button to open filter sidebar -->
         <button type="button" class="btn btn-terciary" onclick="openFilterSidebar()">Filter</button>
+
+        <!-- Button to clear all filters and sorting -->
         <button type="button" class="btn btn-secondary" onclick="clearAll()">Clear All</button>
 
+        <!-- Preserve selected filter values (checkbox/radio) for Alignment, Role, and Gender -->
         @foreach (var category in new[] { "Alignment", "Role", "Gender" })
         {
             foreach (var value in Request.Query[category])
@@ -117,6 +126,7 @@
             }
         }
 
+        <!-- Preserve min/max range filters for each stat in the query -->
         @foreach (var stat in new[] { "Intelligence", "Strength", "Speed", "Durability", "Power", "Combat" })
         {
             <input type="hidden" name="@($"{stat}Min")" value="@Request.Query[$"{stat}Min"].FirstOrDefault() ?? " 1"" />
@@ -124,6 +134,7 @@
         }
     </form>
 </div>
+
 
 <!-- Display number of superheroes found -->
 @if (Request.Query.Count > 0)

@@ -284,8 +284,6 @@ namespace UnitTests.Pages
             Assert.IsTrue(result.SequenceEqual(sorted));
         }
 
-
-
         #endregion OnGet
 
         #region GetValuesForCategory
