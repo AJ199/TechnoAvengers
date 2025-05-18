@@ -22,7 +22,7 @@
 						<small class="text-muted">
 							<!-- View button opens modal with details -->
 							<button @onclick="(e => SelectProduct(product.Id))"
-									data-toggle="modal" data-target="#productModal" class="btn btn-primary">
+							data-toggle="modal" data-target="#productModal" class="btn btn-primary">
 								View Superhero
 							</button>
 						</small>
@@ -114,6 +114,7 @@
 	/// <param name="productId">ID of product to select</param>
 	void SelectProduct(string productId)
 	{
+		Products = ProductService.GetProducts().ToList();
 		selectedProductId = productId;
 		selectedProduct = Products.First(x => x.Id == productId);
 		GetCurrentRating();
