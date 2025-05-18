@@ -902,13 +902,47 @@ form { /* Filter Form */
     display: flex;
     flex-direction: row; /* Ensures horizontal alignment */
     align-items: center; /* Vertical alignment of items */
-    gap: 10px; /* Space between input and buttons */
+    gap: 10px;
     flex-wrap: nowrap;
 }
 
     .search-bar-container input,
     .search-bar-container button {
         width: auto; /* Prevent 100% width from stacking */
+    }
+
+.search-input-group {
+    display: flex;
+    align-items: stretch;
+}
+
+.search-input {
+    padding: 8px 12px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px 0 0 8px;
+    max-width: 400px;
+    flex: 1;
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
+
+.search-btn {
+    border: 1px solid #ccc;
+    border-left: none;
+    border-radius: 0 8px 8px 0;
+    background-color: #000;
+    color: #fff;
+    font-family: 'Bangers', cursive;
+    font-size: 1.2rem;
+    padding: 8px 16px;
+    cursor: pointer;
+    margin-left: -1px;
+}
+
+    .search-btn:hover {
+        background-color: #ED1D24;
+        border-color: #ED1D24;
     }
 
 .search-input {
