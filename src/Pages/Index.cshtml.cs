@@ -127,17 +127,36 @@ namespace ContosoCrafts.WebSite.Pages
             var sortField = Request.Query["SortField"].ToString();
             var sortOrder = Request.Query["SortOrder"].ToString();
 
-            // Apply sorting
-            if (!string.IsNullOrEmpty(sortField))
+            // Check that sortField is provided (not null and not empty)
+            if (string.IsNullOrEmpty(sortField) == false)
             {
+                // Get the property based on sortField
                 var property = typeof(ProductModel).GetProperty(sortField);
-                if (property != null)
+
+                // Proceed only if the property exists
+                if (property == null)
                 {
-                    FilteredHeroes = (sortOrder == "desc")
-                        ? FilteredHeroes.OrderByDescending(hero => property.GetValue(hero)).ToList()
-                        : FilteredHeroes.OrderBy(hero => property.GetValue(hero)).ToList();
+                    // Do nothing — invalid sortField
+                }
+                else
+                {
+                    // Apply sorting based on sortOrder
+                    if (sortOrder == "desc")
+                    {
+                        FilteredHeroes = FilteredHeroes
+                            .OrderByDescending(hero => property.GetValue(hero))
+                            .ToList();
+                    }
+                    else
+                    {
+                        FilteredHeroes = FilteredHeroes
+                            .OrderBy(hero => property.GetValue(hero))
+                            .ToList();
+                    }
                 }
             }
+
+
         }
 
         /// <summary>
