@@ -71,9 +71,13 @@
 <div class="header-container">
 
     <form method="get" id="searchForm" class="search-bar-container">
-        <input type="text" name="SearchTerm" placeholder="Search by name..."
-               value="@Request.Query["SearchTerm"]"
-               class="search-input" />
+        <div class="search-input-group">
+            <input type="text" name="SearchTerm" placeholder="Search by name..."
+                   value="@Request.Query["SearchTerm"]"
+                   class="search-input" />
+            <button type="submit" class="search-btn">Search</button>
+        </div>
+
 
         <!-- Sort field selection -->
         <select name="SortField" class="sort-dropdown">
@@ -102,7 +106,6 @@
             }
         </script>
 
-        <button type="submit" class="btn btn-terciary">Search</button>
         <button type="button" class="btn btn-terciary" onclick="openFilterSidebar()">Filter</button>
         <button type="button" class="btn btn-secondary" onclick="clearAll()">Clear All</button>
 
@@ -225,7 +228,7 @@
 
     // Reset all filters and reload the form
     function clearFilter()
-    {   
+    {
         // Unchecks the filers
         document.querySelectorAll('input[type="checkbox"]').forEach(function(cb)
         {
@@ -234,7 +237,7 @@
 
         // Slider components in Filter sidebar
         var sliders = document.querySelectorAll('md-slider');
-        sliders.forEach(function(slider) 
+        sliders.forEach(function(slider)
         {
             slider.valueStart = 1;
             slider.valueEnd = 100;
@@ -316,7 +319,7 @@
                 maxValue.textContent = slider.valueEnd;
             }
 
-            slider.addEventListener('change', function() 
+            slider.addEventListener('change', function()
             {
                 const startValue = slider.valueStart;
                 const endValue = slider.valueEnd;
@@ -324,12 +327,12 @@
                 minValue.textContent = startValue;
                 maxValue.textContent = endValue;
 
-                if (minInput) 
+                if (minInput)
                 {
                     minInput.value = startValue;
                 }
 
-                if (maxInput) 
+                if (maxInput)
                 {
                     maxInput.value = endValue;
                 }
@@ -338,7 +341,7 @@
     }
 
     // Run on page load: initialize sliders and check sidebar param
-    document.addEventListener('DOMContentLoaded', function() 
+    document.addEventListener('DOMContentLoaded', function()
     {
         // URL parameters
         const params = new URLSearchParams(window.location.search);
@@ -353,7 +356,7 @@
 
     // On form submit, update hidden slider input fields
     document.getElementById('filterForm')?.addEventListener('submit', function(e) {
-        
+
         // Slider components in Filter sidebar
         var sliders = document.querySelectorAll('md-slider');
 
