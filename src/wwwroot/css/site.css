@@ -1485,21 +1485,28 @@ form { /* Filter Form */
 .stats-bar {
   background-color: #e0e0e0;
   border-radius: 20px;
-  overflow: visible;
+  overflow: hidden;
   height: 10px;
-  position: relative;
-  z-index: 10;
 }
 
 .stats-bar-fill {
   height: 100%;
-  border-radius: 20px;
   background: linear-gradient(to right, #ff0001, #260000);
-  position: relative;
-  transition: background 0.3s ease;
-  width: var(--value);
+  width: 0;
+  animation: fillAnimation 1s forwards;
+  border-radius: 20px;
 }
 
 .stats-bar-fill {
   width: var(--value);
+}
+
+@keyframes fillAnimation {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: var(--value);
+  }
 }
