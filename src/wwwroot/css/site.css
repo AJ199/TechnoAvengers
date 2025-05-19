@@ -1510,3 +1510,28 @@ form { /* Filter Form */
     width: var(--value);
   }
 }
+
+/* Unique stat colors */
+.intelligence {
+  background: linear-gradient(to right, #4a90e2, #003d73); /* blue tones */
+}
+
+.strength {
+  background: linear-gradient(to right, #ff6b6b, #8b0000); /* red tones */
+}
+
+.speed {
+  background: linear-gradient(to right, #f9d423, #ff4e50); /* yellow to red */
+}
+
+.durability {
+  background: linear-gradient(to right, #7ed6df, #22a6b3); /* light blue */
+}
+
+.power {
+  background: linear-gradient(to right, #a29bfe, #6c5ce7); /* purple shades */
+}
+
+.combat {
+  background: linear-gradient(to right, #55efc4, #00b894); /* teal/green */
+}
