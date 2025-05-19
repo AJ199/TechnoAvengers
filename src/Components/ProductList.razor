@@ -55,13 +55,43 @@
 							<p class="card-text">Work: @selectedProduct.Work</p>
 							<p class="card-text">First Appearance: @selectedProduct.FirstAppear</p>
 							<p class="card-text">Power statistics:</p>
-							<ul>
-								<li>Intelligence: @selectedProduct.Intelligence</li>
-								<li>Strength: @selectedProduct.Strength</li>
-								<li>Speed: @selectedProduct.Speed</li>
-								<li>Durability: @selectedProduct.Durability</li>
-								<li>Power: @selectedProduct.Power</li>
-								<li>Combat: @selectedProduct.Combat</li>
+							<ul class="power-stats">
+								<li>
+									<span>Intelligence</span>
+									<div class="stats-bar">
+										<div class="stats-bar-fill intelligence" style="--value: @selectedProduct.Intelligence%;"></div>
+									</div>
+								</li>
+								<li>
+									<span>Strength</span>
+									<div class="stats-bar">
+										<div class="stats-bar-fill strength" style="--value: @selectedProduct.Strength%;"></div>
+									</div>
+								</li>
+								<li>
+									<span>Speed</span>
+									<div class="stats-bar">
+										<div class="stats-bar-fill speed" style="--value: @selectedProduct.Speed%;"></div>
+									</div>
+								</li>
+								<li>
+									<span>Durability</span>
+									<div class="stats-bar">
+										<div class="stats-bar-fill durability" style="--value: @selectedProduct.Durability%;"></div>
+									</div>
+								</li>
+								<li>
+									<span>Power</span>
+									<div class="stats-bar">
+										<div class="stats-bar-fill power" style="--value: @selectedProduct.Power%;"></div>
+									</div>
+								</li>
+								<li>
+									<span>Combat</span>
+									<div class="stats-bar">
+										<div class="stats-bar-fill combat" style="--value: @selectedProduct.Combat%;"></div>
+									</div>
+								</li>
 							</ul>
 						</div>
 					</div>

@@ -1464,3 +1464,42 @@ form { /* Filter Form */
     background-color: rgba(0, 0, 0, 0.85);
     box-shadow: 0 0 25px rgba(0,0,0,0.6);
 }
+
+/* Power Stats Bar Styling*/
+.power-stats {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+  .power-stats li {
+    margin-bottom: 10px;
+  }
+
+  .power-stats span {
+    display: block;
+    margin-bottom: 4px;
+    font-weight: bold;
+  }
+
+.stats-bar {
+  background-color: #e0e0e0;
+  border-radius: 20px;
+  overflow: visible;
+  height: 10px;
+  position: relative;
+  z-index: 10;
+}
+
+.stats-bar-fill {
+  height: 100%;
+  border-radius: 20px;
+  background: linear-gradient(to right, #ff0001, #260000);
+  position: relative;
+  transition: background 0.3s ease;
+  width: var(--value);
+}
+
+.stats-bar-fill {
+  width: var(--value);
+}
