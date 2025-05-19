@@ -1485,8 +1485,10 @@ form { /* Filter Form */
 .stats-bar {
   background-color: #e0e0e0;
   border-radius: 20px;
-  overflow: hidden;
+  overflow: visible;
   height: 10px;
+  position: relative;
+  z-index: 10;
 }
 
 .stats-bar-fill {
@@ -1534,4 +1536,26 @@ form { /* Filter Form */
 
 .combat {
   background: linear-gradient(to right, #55efc4, #00b894); /* teal/green */
+}
+
+.stats-bar::after {
+  content: attr(data-value); /* or you can set data-value on .stats-bar */
+  position: absolute;
+  bottom: 110%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+  font-size: 12px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease-in-out;
+  z-index: 10;
+}
+
+.stats-bar:hover::after {
+  opacity: 1;
 }
