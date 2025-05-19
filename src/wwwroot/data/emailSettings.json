@@ -1,0 +1,8 @@
+"EmailSettings": {
+  "SmtpServer": "smtp.office365.com",
+  "Port": 587,
+  "SenderName": "Avengers Encyclopedia",
+  "SenderEmail": "avengers.encyclopedia@outlook.com",
+  "Username": "avengers.encyclopedia@outlook.com",
+  "Password": "Team3isthebest!"
+}
