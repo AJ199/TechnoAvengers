@@ -64,6 +64,18 @@ namespace ContosoCrafts.WebSite.Pages.Product
         }
 
         /// <summary>
+        /// Handles a star-click submission representing a new rating
+        /// </summary>
+        /// <param name="rating">Rating (1-5) to be added</param>
+        /// <returns>Reloads page</returns>
+        public IActionResult OnPost(int rating)
+        {
+            ProductService.AddRating(Id, rating);
+
+            return RedirectToPage(new { id = Id });
+        }
+
+        /// <summary>
         /// Calculates VoteCount, VoteLabel and CurrentRating average
         /// </summary>
         public void CalculateRating()
