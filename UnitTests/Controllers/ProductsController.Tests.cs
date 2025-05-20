@@ -19,9 +19,11 @@ namespace UnitTests.Controllers
         public void TestInitialize()
         {
         }
+
         #endregion
 
-        #region
+        #region GetProducts
+
         /// <summary>
         /// Creates a default datapoint of ProductServices
         /// Creates a new datapoint of the a ProductsController with datapoint
@@ -29,7 +31,7 @@ namespace UnitTests.Controllers
         /// Tests if Equal
         /// </summary>
         [Test]
-        public void get_AllData_Present_Should_Return_True()
+        public void GetProducts_Data_Present_Should_Return_True()
         {
             //arrange
             //Create new default ProductService datapoint
@@ -44,9 +46,10 @@ namespace UnitTests.Controllers
             Assert.AreEqual(newData.Id, response.Id);
         }
 
-        #endregion
+        #endregion GetProducts
 
-        #region
+        #region Ratings
+
         /// <summary>
         /// Creates a default datapoint of ProductServices
         /// Creates a new datapoint of the a ProductsController with datapoint
@@ -54,7 +57,7 @@ namespace UnitTests.Controllers
         /// Tests if Added dataPoint equals the created one
         /// </summary>
         [Test]
-        public void Patch_AddValid_Rating_Should_Return_True()
+        public void Patch_Add_Valid_Rating_Should_Return_True()
         {
             //arrange
             //Create new default ProductService datapoint
@@ -80,7 +83,7 @@ namespace UnitTests.Controllers
         /// Verifies that Patch returns BadRequest (400) when the RatingRequest is null or has a null ProductId.
         /// </summary>
         [Test]
-        public void Patch_NullOrMissingProductId_Returns_BadRequest()
+        public void Patch_Null_Or_Missing_Product_Id_Returns_Bad_Request()
         {
             // Arrange
             var controller = new ProductsController(TestHelper.ProductService);
@@ -100,6 +103,6 @@ namespace UnitTests.Controllers
             Assert.That(resultMissingId, Is.TypeOf<BadRequestResult>());
         }
 
-        #endregion
+        #endregion Ratings
     }
 }
