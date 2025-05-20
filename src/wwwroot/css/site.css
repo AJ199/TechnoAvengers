@@ -895,8 +895,37 @@ form { /* Filter Form */
         transition: transform 0.2s ease-in-out;
     }
 
-/*End of filter styles*/
+.stat-slider {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0 !important;
+    margin-bottom: 1rem;
+}
 
+.stat-slider-label {
+    display: inline-block;
+    font-size: 1rem;
+    line-height: 1;
+    margin: 0;
+    padding: 0;
+    vertical-align: top;
+    margin-bottom:-10px;
+}
+
+.slider-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+}
+.slider-container-value {
+    color: white;
+}
+/*End of filter styles*/
 /*Search Bar styles*/
 .search-bar-container {
     display: flex;
