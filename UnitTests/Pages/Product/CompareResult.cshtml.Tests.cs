@@ -28,6 +28,15 @@ namespace UnitTests.Pages.Product
         }
 
         #endregion TestSetup
+        public static HtmlString DisplayStat(string label, int value, int opponent)
+        {
+            var isHigher = value > opponent;
+            var isEqual = value == opponent;
+            var css = isHigher ? "stat-row highlight-glow" : "stat-row";
+            var icon = isHigher ? " 🏆" : (isEqual ? " ⚔️" : "");
+
+            return new HtmlString($"<div class='{css}'><span>{label}</span><span>{value}{icon}</span></div>");
+        }
 
         #region OnGet Tests
 
@@ -58,13 +67,13 @@ namespace UnitTests.Pages.Product
         public void OnGet_Invalid_Hero1_Should_Redirect_To_Compare()
         {
             // Arrange
-            var validHero = TestHelper.ProductService.GetProducts().First();
+            var data = TestHelper.ProductService.GetProducts().First();
 
             // Act
-            var result = pageModel.OnGet("invalid-id", validHero.Id);
+            var result = pageModel.OnGet("invalid-id", data.Id);
 
             // Assert
-            Assert.IsInstanceOf<RedirectToPageResult>(result);
+            Assert.AreEqual(typeof(RedirectToPageResult), result.GetType());
             Assert.AreEqual("Compare", ((RedirectToPageResult)result).PageName);
         }
 
@@ -75,13 +84,13 @@ namespace UnitTests.Pages.Product
         public void OnGet_Invalid_Hero2_Should_Redirect_To_Compare()
         {
             // Arrange
-            var validHero = TestHelper.ProductService.GetProducts().First();
+            var data = TestHelper.ProductService.GetProducts().First();
 
             // Act
-            var result = pageModel.OnGet(validHero.Id, "invalid-id");
+            var result = pageModel.OnGet(data.Id, "invalid-id");
 
             // Assert
-            Assert.IsInstanceOf<RedirectToPageResult>(result);
+            Assert.AreEqual(typeof(RedirectToPageResult), result.GetType());
             Assert.AreEqual("Compare", ((RedirectToPageResult)result).PageName);
         }
 
@@ -91,11 +100,13 @@ namespace UnitTests.Pages.Product
         [Test]
         public void OnGet_Both_Invalid_Should_Redirect_To_Compare()
         {
+            //Arrange
+
             // Act
             var result = pageModel.OnGet("invalid1", "invalid2");
 
             // Assert
-            Assert.IsInstanceOf<RedirectToPageResult>(result);
+            Assert.AreEqual(typeof(RedirectToPageResult), result.GetType());
             Assert.AreEqual("Compare", ((RedirectToPageResult)result).PageName);
         }
 
@@ -152,18 +163,7 @@ namespace UnitTests.Pages.Product
             Assert.IsFalse(result.Value.Contains("🏆"));
         }
 
-        #endregion
-    
-
-    public static HtmlString DisplayStat(string label, int value, int opponent)
-        {
-            var isHigher = value > opponent;
-            var isEqual = value == opponent;
-            var css = isHigher ? "stat-row highlight-glow" : "stat-row";
-            var icon = isHigher ? " 🏆" : (isEqual ? " ⚔️" : "");
-
-            return new HtmlString($"<div class='{css}'><span>{label}</span><span>{value}{icon}</span></div>");
-        }
+        #endregion DisplayStat
 
     }
 }

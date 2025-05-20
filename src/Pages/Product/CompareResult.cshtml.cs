@@ -6,10 +6,16 @@ using System.Linq;
 
 namespace ContosoCrafts.WebSite.Pages.Product
 {
+    /// <summary>
+    /// PageModel for displaying comparison results between two heroes.
+    /// </summary>
     public class CompareResultModel : PageModel
     {
         private readonly JsonFileProductService _productService;
 
+        /// <summary>
+        /// Constructor that injects the product service.
+        /// </summary>
         public CompareResultModel(JsonFileProductService productService)
         {
             _productService = productService;
@@ -18,6 +24,13 @@ namespace ContosoCrafts.WebSite.Pages.Product
         public ProductModel Hero1 { get; set; }
         public ProductModel Hero2 { get; set; }
 
+        /// <summary>
+        /// Handles the GET request and loads the two selected heroes.
+        /// Redirects back to Compare page if any hero is not found.
+        /// </summary>
+        /// <param name="hero1Id">ID of first hero</param>
+        /// <param name="hero2Id">ID of second hero</param>
+        /// <returns>IActionResult to render the page or redirect</returns>
         public IActionResult OnGet(string hero1Id, string hero2Id)
         {
             var all = _productService.GetProducts().ToList();

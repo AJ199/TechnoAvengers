@@ -38,6 +38,8 @@ namespace UnitTests.Pages.Product
         [Test]
         public void OnGet_Should_Populate_Products_And_HeroOptions()
         {
+            //Arrange
+
             // Act
             pageModel.OnGet();
 
@@ -77,15 +79,15 @@ namespace UnitTests.Pages.Product
         public void OnPost_Same_Hero_Should_Return_Page()
         {
             // Arrange
-            var product = TestHelper.ProductService.GetProducts().First();
-            pageModel.Hero1Id = product.Id;
-            pageModel.Hero2Id = product.Id;
+            var data = TestHelper.ProductService.GetProducts().First();
+            pageModel.Hero1Id = data.Id;
+            pageModel.Hero2Id = data.Id;
 
             // Act
             var result = pageModel.OnPost();
 
             // Assert
-            Assert.IsInstanceOf<PageResult>(result);
+            Assert.AreEqual(typeof(PageResult), result.GetType());
         }
 
         /// <summary>
@@ -95,15 +97,15 @@ namespace UnitTests.Pages.Product
         public void OnPost_Missing_Hero1_Should_Return_Page()
         {
             // Arrange
-            var product = TestHelper.ProductService.GetProducts().First();
+            var data = TestHelper.ProductService.GetProducts().First();
             pageModel.Hero1Id = null;
-            pageModel.Hero2Id = product.Id;
+            pageModel.Hero2Id = data.Id;
 
             // Act
             var result = pageModel.OnPost();
 
             // Assert
-            Assert.IsInstanceOf<PageResult>(result);
+            Assert.AreEqual(typeof(PageResult), result.GetType());
         }
 
         /// <summary>
@@ -113,15 +115,15 @@ namespace UnitTests.Pages.Product
         public void OnPost_Missing_Hero2_Should_Return_Page()
         {
             // Arrange
-            var product = TestHelper.ProductService.GetProducts().First();
-            pageModel.Hero1Id = product.Id;
+            var data = TestHelper.ProductService.GetProducts().First();
+            pageModel.Hero1Id = data.Id;
             pageModel.Hero2Id = null;
 
             // Act
             var result = pageModel.OnPost();
 
             // Assert
-            Assert.IsInstanceOf<PageResult>(result);
+            Assert.AreEqual(typeof(PageResult), result.GetType());
         }
 
         #endregion OnPost Tests

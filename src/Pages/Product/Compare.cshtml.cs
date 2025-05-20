@@ -8,15 +8,25 @@ using System.Linq;
 
 namespace ContosoCrafts.WebSite.Pages.Product
 {
+    /// <summary>
+    /// CompareModel class for comparing two heroes.
+    /// </summary>
     public class CompareModel : PageModel
     {
         private readonly JsonFileProductService _productService;
 
+        /// <summary>
+        /// Constructor that injects the product service.
+        /// </summary>
+        /// <param name="productService">Service to access product data</param>
         public CompareModel(JsonFileProductService productService)
         {
             _productService = productService;
         }
 
+        /// <summary>
+        /// List of all products to be used in comparison.
+        /// </summary>
         public List<ProductModel> Products { get; set; } = new();
 
         [BindProperty]
@@ -27,6 +37,9 @@ namespace ContosoCrafts.WebSite.Pages.Product
 
         public List<SelectListItem> HeroOptions { get; set; } = new();
 
+        /// <summary>
+        /// Handles GET requests to populate hero list and dropdown options.
+        /// </summary>
         public void OnGet()
         {
             Products = _productService.GetProducts().ToList();
@@ -38,6 +51,11 @@ namespace ContosoCrafts.WebSite.Pages.Product
             }).ToList();
         }
 
+        /// <summary>
+        /// Handles POST requests to compare two heroes.
+        /// Returns same page if validation fails, otherwise redirects to result.
+        /// </summary>
+        /// <returns>IActionResult to either reload or redirect</returns>
         public IActionResult OnPost()
         {
             if (Hero1Id == Hero2Id || string.IsNullOrEmpty(Hero1Id) || string.IsNullOrEmpty(Hero2Id))
@@ -52,6 +70,7 @@ namespace ContosoCrafts.WebSite.Pages.Product
                 return Page(); // Stay on page with options intact
             }
 
+            // Redirect to comparison result page with both selected hero IDs
             return RedirectToPage("CompareResult", new { hero1Id = Hero1Id, hero2Id = Hero2Id });
         }
     }
