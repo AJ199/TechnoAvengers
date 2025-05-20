@@ -557,6 +557,53 @@ ul {
     text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
+/* Styles of ratings in read page*/
+.star-rating-wrapper .rating-summary {
+    color: white;
+}
+
+.star-rating-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center; 
+    gap: 0.5rem; 
+    margin-top: 1rem;
+    white-space: nowrap; 
+}
+
+/* force the stars into a single row, no wrap */
+.star-rating-form {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap;
+    gap: 0.25rem;
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
+}
+
+    .star-rating-form button {
+        display: inline-block;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        padding: 0;
+        margin: 0;
+        color: white; /* empty star color */
+        cursor: pointer;
+    }
+
+    .star-rating-form .fa-star.checked {
+        color: #ffc107;
+    }
+
+    .star-rating-form button:focus {
+        outline: none;
+    }
+
+.rating-summary {
+    font-size: 1rem;
+}
 /* End of Read page styles*/
 
 html, body {
