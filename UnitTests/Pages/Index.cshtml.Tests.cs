@@ -55,7 +55,7 @@ namespace UnitTests.Pages
         /// Ensures OnGet correctly filters products by search term.
         /// </summary>
         [Test]
-        public void OnGet_Valid_SearchTerm_Returns_Filtered_By_Title()
+        public void OnGet_Valid_Search_Term_Returns_Filtered_By_Title()
         {
             // Arrange
             var context = new DefaultHttpContext();
