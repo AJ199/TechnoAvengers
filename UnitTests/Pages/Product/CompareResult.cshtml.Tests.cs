@@ -1,5 +1,6 @@
 ﻿using ContosoCrafts.WebSite.Models;
 using ContosoCrafts.WebSite.Pages.Product;
+using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using NUnit.Framework;
@@ -99,5 +100,70 @@ namespace UnitTests.Pages.Product
         }
 
         #endregion OnGet Tests
+
+        #region DisplayStat
+
+        /// <summary>
+        /// Verifies that DisplayStat highlights the hero when their stat is higher.
+        /// </summary>
+        [Test]
+        public void DisplayStat_HigherStat_ReturnsHighlightedHtml()
+        {
+            // Arrange
+
+            // Act
+            var result = DisplayStat("Power", 90, 80) as HtmlString;
+
+            // Assert
+            Assert.IsTrue(result.Value.Contains("highlight-glow"));
+            Assert.IsTrue(result.Value.Contains("🏆"));
+        }
+
+        /// <summary>
+        /// Verifies that DisplayStat shows ⚔️ icon when stats are equal.
+        /// </summary>
+        [Test]
+        public void DisplayStat_EqualStat_ReturnsEqualHtml()
+        {
+            // Arrange
+
+            // Act
+            var result = DisplayStat("Speed", 85, 85) as HtmlString;
+
+            // Assert
+            Assert.IsTrue(result.Value.Contains("stat-row"));
+            Assert.IsTrue(result.Value.Contains("⚔️"));
+        }
+
+        /// <summary>
+        /// Verifies that DisplayStat shows plain stat row when the value is lower.
+        /// </summary>
+        [Test]
+        public void DisplayStat_LowerStat_ReturnsPlainHtml()
+        {
+            // Arrange
+
+            // Act
+            var result = DisplayStat("Strength", 60, 80) as HtmlString;
+
+            // Assert
+            Assert.IsTrue(result.Value.Contains("stat-row"));
+            Assert.IsFalse(result.Value.Contains("highlight-glow"));
+            Assert.IsFalse(result.Value.Contains("🏆"));
+        }
+
+        #endregion
+    
+
+    public static HtmlString DisplayStat(string label, int value, int opponent)
+        {
+            var isHigher = value > opponent;
+            var isEqual = value == opponent;
+            var css = isHigher ? "stat-row highlight-glow" : "stat-row";
+            var icon = isHigher ? " 🏆" : (isEqual ? " ⚔️" : "");
+
+            return new HtmlString($"<div class='{css}'><span>{label}</span><span>{value}{icon}</span></div>");
+        }
+
     }
 }

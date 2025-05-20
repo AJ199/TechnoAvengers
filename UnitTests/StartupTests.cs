@@ -1,7 +1,8 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Hosting;
-
+using ContosoCrafts.WebSite;
 using NUnit.Framework;
+using Microsoft.Extensions.Hosting;
 
 namespace UnitTests.Pages.Startup
 {
@@ -50,6 +51,23 @@ namespace UnitTests.Pages.Startup
         {
             var webHost = Microsoft.AspNetCore.WebHost.CreateDefaultBuilder().UseStartup<Startup>().Build();
             Assert.IsNotNull(webHost);
+        }
+
+        /// <summary>
+        /// Test CreateHostBuilder returns a valid IHostBuilder
+        /// </summary>
+        [Test]
+        public void CreateHostBuilder_ValidArgs_ReturnsHostBuilder()
+        {
+            // Arrange
+            var args = new string[] { };
+
+            // Act
+            var hostBuilder = Program.CreateHostBuilder(args);
+
+            // Assert
+            Assert.IsNotNull(hostBuilder);
+            Assert.IsInstanceOf<IHostBuilder>(hostBuilder);
         }
 
         #endregion Configure
