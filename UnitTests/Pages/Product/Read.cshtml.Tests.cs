@@ -1,3 +1,4 @@
+using ContosoCrafts.WebSite.Models;
 using ContosoCrafts.WebSite.Pages.Product;
 using Microsoft.AspNetCore.Mvc;
 using NUnit.Framework;
@@ -10,7 +11,6 @@ namespace UnitTests.Pages.Product
     /// </summary>
     public class ReadTests
     {
-
         #region TestSetup
 
         // The Read page model for testing
@@ -129,6 +129,103 @@ namespace UnitTests.Pages.Product
             pageModel.ModelState.Clear();
         }
 
+        /// <summary>
+        /// Validates that given a valid, OnGet populates the properties related to ratings 
+        /// </summary>
+        [Test]
+        public void OnGet_Valid_Id_Populates_Ratings_Properties()
+        {
+            // Arrange
+            var data = TestHelper.ProductService.GetProducts().First();
+
+            // Act
+            pageModel.OnGet(data.Id);
+            var expectedCount = data.Ratings?.Length ?? 0;
+            var expectedLabel = expectedCount == 1 ? "Vote" : "Votes";
+            var expectedAvg = expectedCount > 0 ? data.Ratings!.Sum() / expectedCount : 0;
+
+            // Assert
+            Assert.AreEqual(expectedCount, pageModel.VoteCount);
+            Assert.AreEqual(expectedLabel, pageModel.VoteLabel);
+            Assert.AreEqual(expectedAvg, pageModel.CurrentRating);
+
+            // Reset
+            pageModel.ModelState.Clear();
+        }
         #endregion OnGet
+
+        #region CalculateRating
+        /// <summary>
+        /// Validates CalculateRating with null ratings, sets VoteCount 
+        /// and CurrentRating to zero and VoteLabel to "Votes"
+        /// </summary>
+        [Test]
+        public void CalculateRating_Valid_Ratings_Null_Sets_Count_and_Rating_To_Zero()
+        {
+            // Arrange
+            var data = new ProductModel
+            {
+                Id = "10003",
+                Ratings = null
+            };
+
+            pageModel.Product = data;
+            
+            // Act
+            pageModel.CalculateRating();
+
+            // assert
+            Assert.AreEqual(0, pageModel.VoteCount);
+            Assert.AreEqual(0, pageModel.CurrentRating);
+            Assert.AreEqual("Votes", pageModel.VoteLabel);
+        }
+
+        /// <summary>
+        /// Validates that CalculateRating with one single rating setes VoteCount to 1,
+        /// CurrentRating (average) to that value, and VoteLabel to "Vote"
+        /// </summary>
+        [Test]
+        public void CalculateRating_Valid_Single_Rating_Sets_Count_One_And_Singular_Vote_Label()
+        {
+            // arrange
+            var data = new ProductModel
+            {
+                Id = "x",
+                Ratings = new[] { 4 }
+            };
+
+            pageModel.Product = data;
+
+            // Act
+            pageModel.CalculateRating();
+
+            // Assert
+            Assert.AreEqual(1, pageModel.VoteCount);
+            Assert.AreEqual(4, pageModel.CurrentRating);
+            Assert.AreEqual("Vote", pageModel.VoteLabel);
+        }
+
+        [Test]
+        public void CalculateRating_Valid_Multiple_Ratings_Calculates_Average_And_Sets_Plural_Label()
+        {
+            // Arrange
+            var ratingsArray = new[] { 3, 5, 2 }; // sum = 10, avg = 3
+            var data = new ProductModel
+            {
+                Id = "1004",
+                Ratings = ratingsArray
+            };
+
+            pageModel.Product = data;
+
+            // Act
+            pageModel.CalculateRating();
+
+            // assert
+            Assert.AreEqual(ratingsArray.Length, pageModel.VoteCount);
+            Assert.AreEqual(ratingsArray.Sum() / ratingsArray.Length, pageModel.CurrentRating);
+            Assert.AreEqual("Votes", pageModel.VoteLabel);
+        }
+        #endregion CalculateRating
     }
 }
