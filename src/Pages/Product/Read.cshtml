@@ -31,6 +31,17 @@
                                     aria-label="Give @i star@(i>1? "s":"")"></button>
                         }
                     </form>
+                    <!-- Rating message -->
+                    <div class="rating-summary mt-4">
+                        @if (Model.VoteCount == 0)
+                        {
+                            <span>Be the first to vote!</span>
+                        }
+                        else
+                        {
+                            <span>@Model.VoteCount @Model.VoteLabel</span>
+                        }
+                    </div>
                 </div>
             </div>
 
