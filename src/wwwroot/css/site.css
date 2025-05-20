@@ -227,6 +227,17 @@ ul {
     font-size: 2.2rem;
     text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
 }
+    /* keep the brand logo white on hover/focus */
+    .navbar-brand-logo,
+    .navbar-brand-logo:visited {
+        color: white;
+    }
+
+        .navbar-brand-logo:hover,
+        .navbar-brand-logo:focus {
+            color: white;
+            text-decoration: none; 
+        }
 
 .site-footer {
     background-color: #0b0c2a;
