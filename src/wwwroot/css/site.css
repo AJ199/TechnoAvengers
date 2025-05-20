@@ -1765,3 +1765,20 @@ form { /* Filter Form */
   .sort-dropdown:hover {
     background-color: #333;
   }
+
+/* Contact page styles */
+.contact-heading {
+    font-family: 'Bangers', cursive;
+    text-shadow: 2px 2px 6px black;
+}
+
+.contact-subheading {
+    font-family: 'Bangers', cursive;
+}
+
+.contact-email {
+    font-size: 1.5rem;
+    font-weight: bold; 
+    margin-top: 1rem; 
+}
+/* End of contact page styles*/
