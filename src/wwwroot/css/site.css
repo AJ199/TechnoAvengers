@@ -220,6 +220,62 @@ ul {
     margin: 1rem 0;
 }
 
+/* Styles for _Layout*/
+.navbar-brand-logo {
+    font-family: 'Bangers', cursive;
+    color: white;
+    font-size: 2.2rem;
+    text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
+}
+
+.site-footer {
+    background-color: #0b0c2a;
+    color: white;
+    padding: 50px 20px;
+    text-align: center;
+    margin-top: 40px;
+    background-image: url('/images/marvel-bg.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+    .site-footer .footer-container {
+        max-width: 900px;
+        margin: auto;
+    }
+
+    .site-footer .footer-title {
+        font-family: 'Bangers', cursive;
+        font-size: 32px;
+        color: #ff1c1c;
+        text-shadow: 0 0 8px #ff1c1c;
+        margin-bottom: 10px;
+    }
+
+    .site-footer .footer-text {
+        font-size: 15px;
+        color: #e0e0e0;
+        margin-top: 10px;
+    }
+
+    .site-footer .footer-links {
+        margin: 25px 0;
+    }
+
+        .site-footer .footer-links a {
+            margin: 0 15px;
+            color: #ff1c1c;
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+    .site-footer .footer-copy {
+        font-size: 13px;
+        color: #888;
+    }
+/* End of styles for _Layout*/
+
 .hero-text {
     background-color: rgba(0, 0, 0, 0.9); /* semi-transparent black */
     color: #fff; /* white text */
