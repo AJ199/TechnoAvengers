@@ -43,7 +43,7 @@ namespace ContosoCrafts.WebSite.Pages.Product
         }
 
         /// <summary>
-        /// Responds to GET requests and loads the appropiate superhero 
+        /// Responds to GET requests, loads the appropiate superhero and calculates ratings
         /// </summary>
         /// <param name="id">Superhero ID</param>
         public void OnGet(string id)
@@ -59,6 +59,8 @@ namespace ContosoCrafts.WebSite.Pages.Product
 
             // Assigns the product only if it's not null
             Product = retrievedProduct;
+
+            CalculateRating();
         }
 
         /// <summary>
