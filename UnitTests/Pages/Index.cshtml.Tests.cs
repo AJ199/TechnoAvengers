@@ -7,6 +7,8 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
 using System.Reflection;
+using ContosoCrafts.WebSite.Models;
+using System.Threading.Tasks;
 
 namespace UnitTests.Pages
 {
@@ -282,6 +284,50 @@ namespace UnitTests.Pages
             var result = _pageModel.FilteredHeroes;
             var sorted = result.OrderByDescending(h => h.Strength).ToList();
             Assert.IsTrue(result.SequenceEqual(sorted));
+        }
+
+        /// <summary>
+        /// Test that the default value of SortOrder is 'asc' and it can be changed.
+        /// </summary>
+        [Test]
+        public void SortOrder_Property_Default_And_Set_Should_Pass()
+        {
+            // Arrange
+            var model = _pageModel; // Replace with your actual class name that contains SortOrder
+
+            // Assert default value
+            Assert.AreEqual("asc", model.SortOrder);
+
+            // Act
+            model.SortOrder = "desc";
+
+            // Assert new value
+            Assert.AreEqual("desc", model.SortOrder);
+        }
+
+        /// <summary>
+        /// Ensures OnGet does not throw or alter list when an invalid SortField is passed.
+        /// Covers: property == null
+        /// </summary>
+        [Test]
+        public void OnGet_Invalid_SortField_Does_Not_Sort()
+        {
+            // Arrange
+            var context = new DefaultHttpContext();
+            context.Request.QueryString = new QueryString("?SortField=NotARealProperty&SortOrder=asc");
+            _pageModel.PageContext.HttpContext = context;
+
+            // Add known initial data
+            var initial = TestHelper.ProductService.GetProducts().ToList();
+            _pageModel.FilteredHeroes = initial.ToList(); // Clone before sort attempt
+
+            // Act
+            _pageModel.OnGet();
+
+            // Assert
+            var afterSort = _pageModel.FilteredHeroes.Select(h => h.Title).ToList();
+            var beforeSort = initial.Select(h => h.Title).ToList();
+            CollectionAssert.AreEqual(beforeSort, afterSort);
         }
 
         #endregion OnGet
