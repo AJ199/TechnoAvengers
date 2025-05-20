@@ -11,6 +11,9 @@ using NUnit.Framework;
 
 namespace UnitTests.Components
 {
+    /// <summary>
+    /// Tests related to Component productlist page behavior
+    /// </summary>
     public class ProductListTests : Bunit.TestContext
     {
         private JsonFileProductService _productService;
@@ -26,6 +29,27 @@ namespace UnitTests.Components
         {
             // No service registrations here; only reset state if needed
         }
+
+        #region Reflection Helpers
+        // --- Reflection helpers ---
+        private void InvokePrivateMethod(object instance, string methodName, params object[] parameters)
+        {
+            var method = instance.GetType().GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+            method.Invoke(instance, parameters);
+        }
+
+        private void SetPrivateField(object instance, string fieldName, object value)
+        {
+            var field = instance.GetType().GetField(fieldName, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+            field.SetValue(instance, value);
+        }
+
+        private T GetPrivateField<T>(object instance, string fieldName)
+        {
+            var field = instance.GetType().GetField(fieldName, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+            return (T)field.GetValue(instance);
+        }
+        #endregion
 
         /// <summary>
         /// Verifies that the component renders product cards for each product passed in.
@@ -73,7 +97,7 @@ namespace UnitTests.Components
         /// Checks that star rating UI reflects current rating and updates after rating submission.
         /// </summary>
         [Test]
-        public void Stars_Render_Based_On_Current_Rating_And_SubmitRating_Updates()
+        public void Stars_Render_Based_On_Current_Rating_And_Submit_Rating_Updates()
         {
             // Arrange
             var products = _productService.GetProducts().ToList();
@@ -94,30 +118,11 @@ namespace UnitTests.Components
             Assert.That(checkedStarsAfter, Is.GreaterThanOrEqualTo(1));
         }
 
-        // --- Reflection helpers ---
-        private void InvokePrivateMethod(object instance, string methodName, params object[] parameters)
-        {
-            var method = instance.GetType().GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
-            method.Invoke(instance, parameters);
-        }
-
-        private void SetPrivateField(object instance, string fieldName, object value)
-        {
-            var field = instance.GetType().GetField(fieldName, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
-            field.SetValue(instance, value);
-        }
-
-        private T GetPrivateField<T>(object instance, string fieldName)
-        {
-            var field = instance.GetType().GetField(fieldName, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
-            return (T)field.GetValue(instance);
-        }
-
         /// <summary>
         /// Ensures currentRating and voteCount are zero when selected product's Ratings is null.
         /// </summary>
         [Test]
-        public void GetCurrentRating_SelectedProductRatingsNull_SetsZero()
+        public void GetCurrentRating_Selected_Product_Ratings_Null_Sets_Zero()
         {
             // Arrange
             var products = _productService.GetProducts().ToList();
@@ -143,8 +148,11 @@ namespace UnitTests.Components
             Assert.AreEqual(0, voteCount);
         }
 
+        /// <summary>
+        /// Verifies that GetCurrentRating sets currentRating and voteCount to zero and leaves voteLabel null when the selected product's Ratings property is null.
+        /// </summary>
         [Test]
-        public void GetCurrentRating_SelectedProductRatings_Null_SetsZeroAndPrints()
+        public void GetCurrentRating_Selected_Product_Ratings_Null_Sets_Zero_And_Prints()
         {
             // Arrange
             var cut = RenderComponent<ProductList>(parameters => parameters.Add(p => p.Products, new List<ProductModel>()));
@@ -171,8 +179,11 @@ namespace UnitTests.Components
             Assert.IsNull(voteLabel); // voteLabel is not set in this branch
         }
 
+        /// <summary>
+        /// Confirms that when the selected product has exactly one rating, GetCurrentRating sets voteCount to 1 and voteLabel to "Vote".
+        /// </summary>
         [Test]
-        public void GetCurrentRating_VoteCountOne_SetsVoteLabelToVote()
+        public void GetCurrentRating_Vote_Count_One_Sets_Vote_Label_To_Vote()
         {
             // Arrange
             var cut = RenderComponent<ProductList>(parameters => parameters.Add(p => p.Products, new List<ProductModel>()));
@@ -196,8 +207,11 @@ namespace UnitTests.Components
             Assert.AreEqual("Vote", voteLabel);
         }
 
+        /// <summary>
+        /// Ensures that if the selected product is null, GetCurrentRating safely sets currentRating and voteCount to zero and leaves voteLabel null.
+        /// </summary>
         [Test]
-        public void GetCurrentRating_SelectedProductIsNull_SetsZeroAndPrints()
+        public void GetCurrentRating_Selected_Product_Is_Null_Sets_Zero_And_Prints()
         {
             var cut = RenderComponent<ProductList>(parameters => parameters.Add(p => p.Products, new List<ProductModel>()));
 
@@ -219,9 +233,11 @@ namespace UnitTests.Components
             Assert.IsNull(voteLabel);
         }
 
-
+        /// <summary>
+        /// Validates that when the selected product has multiple ratings, GetCurrentRating sets voteCount accordingly and sets voteLabel to "Votes".
+        /// </summary>
         [Test]
-        public void GetCurrentRating_VoteCountMoreThanOne_SetsVoteLabelToVotes()
+        public void GetCurrentRating_Vote_Count_More_Than_One_Sets_Vote_Label_To_Votes()
         {
             var cut = RenderComponent<ProductList>(parameters => parameters.Add(p => p.Products, new List<ProductModel>()));
 
@@ -242,13 +258,36 @@ namespace UnitTests.Components
             Assert.AreEqual("Votes", voteLabel); // Covers voteLabel = "Votes"
         }
 
+        /// <summary>
+        /// Verifies that the UI displays "Be the first to vote!" message when the selected product has no ratings.
+        /// </summary>
+        [Test]
+        public void Modal_Shows_Be_The_First_To_Vote_When_No_Ratings()
+        {
+            // Arrange
+            var cut = RenderComponent<ProductList>(parameters => parameters.Add(p => p.Products, new List<ProductModel>()));
 
+            var productWithNullRatings = new ProductModel
+            {
+                Id = "no-votes",
+                Ratings = null
+            };
+
+            SetPrivateField(cut.Instance, "selectedProduct", productWithNullRatings);
+
+            // Act
+            InvokePrivateMethod(cut.Instance, "GetCurrentRating");
+            cut.Render();
+
+            // Assert
+            Assert.That(cut.Markup, Does.Contain("Be the first to vote!"));
+        }
 
         /// <summary>
         /// Verifies that SubmitRating exits early when selectedProductId is null.
         /// </summary>
         [Test]
-        public void SubmitRating_SelectedProductIdNull_DoesNotCallAddRating()
+        public void SubmitRating_Selected_Product_Id_Null_Does_Not_Call_Add_Rating()
         {
             // Arrange
             var products = _productService.GetProducts().ToList();
@@ -264,7 +303,7 @@ namespace UnitTests.Components
         /// Confirms SubmitRating with valid selectedProductId adds rating and updates component.
         /// </summary>
         [Test]
-        public void SubmitRating_ValidSelectedProductId_CallsAddRating()
+        public void SubmitRating_Valid_Selected_Product_Id_Calls_Add_Rating()
         {
             // Arrange
             var products = _productService.GetProducts().ToList();
