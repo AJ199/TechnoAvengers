@@ -31,6 +31,7 @@ namespace UnitTests.Components
         }
 
         #region Reflection Helpers
+
         // --- Reflection helpers ---
         private void InvokePrivateMethod(object instance, string methodName, params object[] parameters)
         {
@@ -49,7 +50,10 @@ namespace UnitTests.Components
             var field = instance.GetType().GetField(fieldName, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
             return (T)field.GetValue(instance);
         }
+
         #endregion
+
+        #region ProductCards
 
         /// <summary>
         /// Verifies that the component renders product cards for each product passed in.
@@ -69,6 +73,24 @@ namespace UnitTests.Components
             {
                 Assert.That(cut.Markup, Does.Contain(product.Title));
             }
+        }
+
+        /// <summary>
+        /// Verifies that when the Products list is null or empty, the component does not render any product cards or deck layout.
+        /// </summary>
+        [Test]
+        public void Should_Not_Render_Product_Cards_When_Products_Null_Or_Empty()
+        {
+            // Arrange
+            var cutNull = RenderComponent<ProductList>();
+
+            Assert.That(cutNull.Markup, Does.Not.Contain("card-deck"));
+
+            // Arrange
+            var cutEmpty = RenderComponent<ProductList>(parameters => parameters.Add(p => p.Products, new List<ProductModel>()));
+
+            // Assert
+            Assert.That(cutEmpty.Markup, Does.Not.Contain("card-deck"));
         }
 
         /// <summary>
@@ -320,5 +342,33 @@ namespace UnitTests.Components
             Assert.AreEqual(firstProduct.Id, idAfter);
             Assert.That(cut.Markup, Does.Contain(firstProduct.Title));
         }
+
+        /// <summary>
+        /// Verifies that clicking on a star in the else branch (i.e., not pre-checked) does not throw an exception and updates the UI to reflect the new rating.
+        /// </summary>
+        [Test]
+        public void Stars_ElseBranch_Click_Does_Not_Throw_And_Updates_UI()
+        {
+            // Arrange
+            var products = _productService.GetProducts().ToList();
+
+            var cut = RenderComponent<ProductList>(parameters => parameters.Add(p => p.Products, products));
+
+            // Select a product first so stars appear (simulate View Superhero click)
+            cut.Find("button.btn-primary").Click();
+
+            // Find stars WITHOUT 'checked' class (these are in else branch)
+            var starsWithoutChecked = cut.FindAll("span.fa-star:not(.checked)");
+
+            Assert.IsTrue(starsWithoutChecked.Count > 0);
+
+            // Act & Assert - click on one star without checked class and assert no exception
+            Assert.DoesNotThrow(() => starsWithoutChecked[0].Click());
+            var checkedStarsAfterClick = cut.FindAll("span.fa-star.checked").Count;
+
+            Assert.IsTrue(checkedStarsAfterClick >= 1);
+        }
+
+        #endregion ProductCards
     }
 }
