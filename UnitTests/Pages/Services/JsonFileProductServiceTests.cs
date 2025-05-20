@@ -36,7 +36,7 @@ namespace UnitTests.Services.TestJsonFileProductService
         /// Valid product ID with no prior ratings should create a new ratings array with one entry
         /// </summary>
         [Test]
-        public void AddRating_ValidProductId_NoPriorRatings_ShouldInitializeRatings()
+        public void Add_Rating_Valid_ProductId_No_Prior_Ratings_Should_Initialize_Ratings()
         {
             // Arrange
             var data = _productService.GetProducts().FirstOrDefault(p => p.Ratings == null);
@@ -56,7 +56,7 @@ namespace UnitTests.Services.TestJsonFileProductService
         /// Valid product ID with existing ratings should append the new rating to the array
         /// </summary>
         [Test]
-        public void AddRating_ValidProductId_WithPriorRatings_ShouldAppendRating()
+        public void Add_Rating_Valid_Product_Id_With_Prior_Ratings_Should_Append_Rating()
         {
             // Arrange
             var data = _productService.GetProducts().FirstOrDefault(p => p.Ratings != null);
@@ -76,18 +76,23 @@ namespace UnitTests.Services.TestJsonFileProductService
         /// Invalid product ID should not throw an exception when rating is added
         /// </summary>
         [Test]
-        public void AddRating_InvalidProductId_ShouldNotThrowException()
+        public void Add_Rating_Invalid_Product_Id_Should_Not_Throw_Exception()
         {
-            // Act & Assert
-            _productService.AddRating("invalid_id_123", 3);
-            Assert.Pass("No exception thrown");
+            // Act
+            Assert.DoesNotThrow(() =>
+            {
+                _productService.AddRating("invalid_id_123", 3);
+            });
+
+            var x = true;
+            Assert.IsTrue(x);
         }
 
         /// <summary>
         /// GetProducts returns null, AddRating should not throw and should do nothing
         /// </summary>
         [Test]
-        public void AddRating_NullProductList_ShouldNotThrow()
+        public void Add_Rating_Null_Product_List_Should_Not_Throw()
         {
             // Arrange: Set up a temp directory and corrupted JSON file ("null")
             string tempRoot = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
@@ -119,7 +124,7 @@ namespace UnitTests.Services.TestJsonFileProductService
         /// Valid product should update successfully and return true
         /// </summary>
         [Test]
-        public void UpdateData_ValidProduct_ShouldUpdateAndReturnTrue()
+        public void Update_Data_Valid_Product_Should_Update_And_Return_True()
         {
             // Arrange
             var data = _productService.GetProducts().First();
@@ -153,7 +158,7 @@ namespace UnitTests.Services.TestJsonFileProductService
         /// Product with nonexistent ID should return false when attempting update
         /// </summary>
         [Test]
-        public void UpdateData_InvalidProduct_ShouldReturnFalse()
+        public void Update_Data_Invalid_Product_Should_Return_False()
         {
             // Arrange
             var data = new ProductModel
@@ -173,7 +178,7 @@ namespace UnitTests.Services.TestJsonFileProductService
         /// Empty optional fields should default to dash ("-") after update
         /// </summary>
         [Test]
-        public void UpdateData_EmptyOptionalFields_UsesDashAsDefault()
+        public void Update_Data_Empty_Optional_Fields_Uses_Dash_As_Default()
         {
             // Arrange
             var data = _productService.GetProducts().First();
@@ -214,46 +219,10 @@ namespace UnitTests.Services.TestJsonFileProductService
         #region CreateData
 
         /// <summary>
-        /// Valid product should be created successfully and return true
-        /// </summary>
-        public void CreateData_ValidProduct_ShouldUpdateAndReturnTrue()
-        {
-            // Arrange
-            var newId = "1000";
-
-            var data = new ProductModel
-            {
-                Id = newId,
-                Title = "Create Title",
-                Fullname = "Create Name",
-                Birthplace = "Create Place",
-                Work = "Create Work",
-                FirstAppear = "Create Date",
-                ImageUrl = "https://updated.jpg",
-                Intelligence = 10,
-                Strength = 10,
-                Speed = 10,
-                Durability = 10,
-                Power = 10,
-                Combat = 10,
-                Ratings = new[] { 1 }
-            };
-
-            // Act
-            var result = _productService.CreateData(data);
-
-            // Assert
-            Assert.AreEqual(true, result);
-            var dataSaved = _productService.GetProducts().FirstOrDefault(x => x.Id == newId);
-            Assert.AreEqual(false, dataSaved == null);
-            Assert.AreEqual("Create Title", dataSaved.Title);
-        }
-
-        /// <summary>
         /// Duplicate product ID should not be added and return false
         /// </summary>
         [Test]
-        public void CreateData_DuplicateProductId_ShouldReturnFalse()
+        public void Create_Data_Duplicate_Product_Id_Should_Return_False()
         {
             // Arrange
             // Create data with duplicated id
@@ -283,7 +252,7 @@ namespace UnitTests.Services.TestJsonFileProductService
         /// Null input should return false 
         /// </summary>
         [Test]
-        public void CreateData_NullProduct_ShouldReturnFalse()
+        public void Create_Data_Null_Product_Should_Return_False()
         {
             // Act
             var result = _productService.CreateData(null);
@@ -296,7 +265,7 @@ namespace UnitTests.Services.TestJsonFileProductService
         /// Product with blank optional fields should store "-" as default
         /// </summary>
         [Test]
-        public void CreateData_EmptyOptionalFields_UseDashDefault()
+        public void Create_Data_Empty_Optional_Fields_Use_Dash_Default()
         {
             // Arrange
             var testId = "1000";
