@@ -70,6 +70,21 @@ namespace UnitTests.Pages.Startup
             Assert.IsInstanceOf<IHostBuilder>(hostBuilder);
         }
 
+        [Test]
+        public void ConfigurationProperty_Getter_ReturnsInstance()
+        {
+            // Arrange
+            var config = new ConfigurationBuilder().Build();
+            var startup = new Startup(config);
+
+            // Act
+            var result = startup.Configuration;
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreSame(config, result); // Check the same instance is returned
+        }
+
         #endregion Configure
     }
 }
