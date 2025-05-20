@@ -152,11 +152,15 @@ namespace UnitTests.Pages
             _pageModel.OnGet();
 
             // Assert
-            var result = _pageModel.FilteredHeroes.All(h =>
-                h.Alignment == "good" &&
-                h.Gender == "Male" &&
-                h.Role == "Core Avenger");
-            Assert.AreEqual(true, result);
+            var heroes = _pageModel.FilteredHeroes;
+            Assert.IsTrue(heroes.Any(), "FilteredHeroes should not be empty");
+
+            foreach (var h in heroes)
+            {
+                Assert.AreEqual("good", h.Alignment);
+                Assert.AreEqual("Male", h.Gender);
+                Assert.AreEqual("Core Avenger", h.Role);
+            }
 
             // Reset
         }
@@ -176,11 +180,14 @@ namespace UnitTests.Pages
             _pageModel.OnGet();
 
             // Assert
-            var result = _pageModel.FilteredHeroes.All(h =>
-                h.Intelligence >= 80 && h.Intelligence <= 100);
-            Assert.AreEqual(true, result);
+            var heroes = _pageModel.FilteredHeroes;
+            Assert.IsTrue(heroes.Any(), "FilteredHeroes should not be empty");
 
-            // Reset
+            foreach (var h in heroes)
+            {
+                Assert.GreaterOrEqual(h.Intelligence, 80);
+                Assert.LessOrEqual(h.Intelligence, 100);
+            }
         }
 
         /// <summary>
