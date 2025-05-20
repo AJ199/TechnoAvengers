@@ -14,8 +14,21 @@ namespace ContosoCrafts.WebSite.Pages.Product
         // Service that accesses superhero data
         public JsonFileProductService ProductService { get; }
 
+        // Binds the {id} segment on GET and POST
+        [BindProperty(SupportsGet = true)]
+        public string Id { get; set; }
+
         // Stores superhero associated with provided ID
         public ProductModel? Product { get; set; }
+
+        // Current average of ratings 
+        public int CurrentRating { get; set; }
+
+        // Vote count of ratings
+        public int VoteCount { get; set; }
+
+        // Label to be displayed with ratings
+        public string VoteLabel { get; set; } = string.Empty;
 
         // Holds the response to be sent back to the client.
         public IActionResult? ClientResponse { get; set; }
@@ -46,6 +59,18 @@ namespace ContosoCrafts.WebSite.Pages.Product
 
             // Assigns the product only if it's not null
             Product = retrievedProduct;
+        }
+
+        /// <summary>
+        /// Calculates VoteCount, VoteLabel and CurrentRating average
+        /// </summary>
+        public void CalculateRating()
+        {
+            // Retrieves the existent ratings, if empty, assigns an empty collection
+            var ratings = Product.Ratings ?? Enumerable.Empty<int>();
+            VoteCount = ratings.Count();
+            VoteLabel = VoteCount == 1 ? "Vote" : "Votes";
+            CurrentRating = VoteCount > 0 ? ratings.Sum() / VoteCount : 0;
         }
     }
 }
