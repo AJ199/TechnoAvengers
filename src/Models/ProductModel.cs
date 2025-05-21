@@ -1,9 +1,5 @@
-﻿using Newtonsoft.Json.Serialization;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 
 namespace ContosoCrafts.WebSite.Models
 {
@@ -50,7 +46,7 @@ namespace ContosoCrafts.WebSite.Models
         [Required(ErrorMessage = "Required")]
         [Url(ErrorMessage = "Enter a valid URL")]
         [RegularExpression(@"^https:\/\/.+\.(?i)(jpg|jpeg|png|webp|gif|bmp|svg)(\?.*)?$",
-        ErrorMessage = "Must be a valid image URL")]
+        ErrorMessage = "Use image extensions:  jpg, jpeg, png, webp, gif, bmp, svg")]
         public string? ImageUrl { get; set; }
 
         // Intelligence is a required power statistic and must be bewteen 0 and 100
