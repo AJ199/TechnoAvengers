@@ -35,6 +35,9 @@ namespace ContosoCrafts.WebSite.Pages
         /// <summary>
         /// Handles GET requests and sets the RequestId.
         /// </summary>
-        public void OnGet() => RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
+        public void OnGet()
+        {
+            RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
+        }
     }
 }
