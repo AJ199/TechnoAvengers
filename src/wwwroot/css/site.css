@@ -1782,3 +1782,40 @@ form { /* Filter Form */
     margin-top: 1rem; 
 }
 /* End of contact page styles*/
+
+/* Styles for Avengers history*/
+.history-page-title {
+    text-align: center;
+    color: white;
+    font-family: 'Bangers', cursive;
+    font-size: 3rem;
+    text-shadow: 2px 2px 8px black;
+}
+
+.history-intro-paragraph {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 20px;
+    border-radius: 12px;
+    color: white;
+    text-shadow: 1px 1px 2px black;
+}
+
+.history-highlight {
+    color: #ffcc00; /* gold*/
+}
+
+.history-future-highlight {
+    color: #00e6e6;/* teal*/
+}
+
+.history-timeline-title {
+    text-align: center;
+    color: white;
+    font-family: 'Bangers', cursive;
+    font-size: 2.8rem;
+    margin-top: 60px;
+    text-shadow: 2px 2px 5px black;
+}
+/*End of styles for Avengers history*/
