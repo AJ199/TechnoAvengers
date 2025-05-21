@@ -27,16 +27,16 @@ namespace UnitTests.Pages
         #region OnGet Tests
 
         /// <summary>
-        /// Verifies that OnGet executes without errors
+        /// Verifies that OnGet leaves ModelState valid
         /// </summary>
         [Test]
-        public void OnGet_Should_Work_Without_Error()
+        public void OnGet_Valid_Default_Execution_Model_State_Should_Be_Valid()
         {
             // Act
             pageModel.OnGet();
 
             // Assert
-            Assert.IsNotNull(pageModel);
+            Assert.AreEqual(true, pageModel.ModelState.IsValid);
         }
 
         #endregion OnGet Tests
