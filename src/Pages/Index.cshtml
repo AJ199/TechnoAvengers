@@ -5,68 +5,6 @@
     ViewData["Title"] = "Home page";
 }
 
-<style>
-    .sort-order-options label {
-        margin-right: 1rem;
-        font-weight: 600;
-        cursor: pointer;
-        color: white;
-        background-color: #222;
-        padding: 6px 12px;
-        border-radius: 6px;
-        border: 1px solid #444;
-        transition: background-color 0.2s ease-in-out;
-    }
-
-        .sort-order-options label:hover {
-            background-color: #333;
-        }
-
-    .btn-sort-toggle {
-        background-color: #ffcc00;
-        color: black;
-        border: none;
-        padding: 8px 14px;
-        border-radius: 6px;
-        font-weight: none;
-        font-family: 'Bangers', cursive;
-        font-size: 1.1rem;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
-
-        .btn-sort-toggle:hover {
-            background-color: #e6b800;
-        }
-
-    .sort-dropdown {
-        margin-left: 10px;
-        padding: 6px 10px;
-        padding-right: 30px;
-        border-radius: 5px;
-        background-color: #222;
-        color: white;
-        border: 1px solid #444;
-        font-weight: bold;
-        cursor: pointer;
-        appearance: none;
-        background-image: url("data:image/svg+xml,%3Csvg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
-        background-repeat: no-repeat;
-        background-position: right 10px center;
-        background-size: 16px;
-    }
-
-        .sort-dropdown:focus {
-            outline: none;
-            border-color: #ffcc00;
-        }
-
-        .sort-dropdown:hover {
-            background-color: #333;
-        }
-
-</style>
-
 <div class="header-container">
 
     <!-- Search and sort form -->
@@ -96,19 +34,9 @@
         <input type="hidden" name="SortOrder" id="SortOrderInput" value="@(Request.Query["SortOrder"].ToString() ?? "asc")" />
 
         <!-- Button to toggle the sort order, submits the form on click -->
-        <button type="button" class="btn-sort-toggle" onclick="toggleSortOrder()">
+        <button type="button" class="sort-btn-toggle" onclick="toggleSortOrder()">
             @(Request.Query["SortOrder"] == "desc" ? "▼ Descending" : "▲ Ascending")
         </button>
-
-        <!-- JavaScript function to toggle sort order value and submit the form -->
-        <script>
-            function toggleSortOrder() {
-                const input = document.getElementById('SortOrderInput');
-                // Toggle between ascending and descending
-                input.value = input.value === 'asc' ? 'desc' : 'asc';
-                document.getElementById('searchForm').submit();
-            }
-        </script>
 
         <!-- Button to open filter sidebar -->
         <button type="button" class="btn btn-terciary" onclick="openFilterSidebar()">Filter</button>
@@ -153,7 +81,7 @@
     }
     else
     {
-        <p class="hero-text hero-subtext">No superheroes match the selected filters</p>
+        <p class="hero-text hero-subtext">No superheroes found</p>
     }
 }
 
@@ -210,7 +138,7 @@
 
                         <input type="hidden" name="@(stat)Min" id="@(stat)Min" value="@(Request.Query[$"{stat}Min"].FirstOrDefault() ?? "1")" />
                         <input type="hidden" name="@(stat)Max" id="@(stat)Max" value="@(Request.Query[$"{stat}Max"].FirstOrDefault() ?? "100")" />
-                        
+
                     </div>
                 }
             </div>
@@ -225,20 +153,36 @@
 
 <script src="_framework/blazor.server.js"></script>
 <script>
-    // Open the filter sidebar panel
+    /// <summary>
+    /// Toggles the sort order between ascending and descending, then submits the search form
+    /// </summary>
+    function toggleSortOrder() {
+        const input = document.getElementById('SortOrderInput');
+        // Toggle between ascending and descending
+        input.value = input.value === 'asc' ? 'desc' : 'asc';
+        document.getElementById('searchForm').submit();
+    }
+
+    /// <summary>
+    /// Opens the filter sidebar and initializes sliders
+    /// </summary>
     function openFilterSidebar()
     {
         document.getElementById("filterSidebar").classList.add("show");
         setupSliders();
     }
 
-    // Close the filter sidebar panel
+    /// <summary>
+    /// Closes the filter sidebar
+    /// </summary>
     function closeSidebar()
     {
         document.getElementById("filterSidebar").classList.remove("show");
     }
 
-    // Reset all filters and reload the form
+    /// <summary>
+    /// Clears all checkbox filters, resets sliders to defaults, and submits the filter form
+    /// </summary>
     function clearFilter()
     {
         // Unchecks the filers
@@ -254,26 +198,48 @@
             slider.valueStart = 1;
             slider.valueEnd = 100;
 
+            // The name of the statistic, as defined in the slider’s data-stat attribute
             const statName = slider.getAttribute('data-stat');
+
+            // The nearest parent element with the 'stat-slider' class
             const container = slider.closest('.stat-slider');
+
+            // The element displaying the minimum value for this stat
             const minValue = container.querySelector('.min-value');
+
+            // The element displaying the maximum value for this stat
             const maxValue = container.querySelector('.max-value');
+
+            // The hidden input field used to store the slider’s minimum value on form submit
             const minInput = document.getElementById(`${statName}Min`);
+
+             // The hidden input field used to store the slider’s maximum value on form submit
             const maxInput = document.getElementById(`${statName}Max`);
 
             minValue.textContent = '1';
             maxValue.textContent = '100';
 
-            if (minInput) minInput.value = '1';
-            if (maxInput) maxInput.value = '100';
+            if (minInput)
+            {
+                minInput.value = '1';
+            }
+
+            if (maxInput)
+            {
+                maxInput.value = '100';
+            }
         });
 
+        // Submit the filter form
         document.getElementById('filterForm').submit();
     }
 
-     // Clears search input and resets all filters
+    /// <summary>
+    /// Clears the search input, unchecks filters, resets sliders, and reloads the page
+    /// </summary>
     function clearAll()
     {
+        // Clear search term
         document.querySelector('input[name="SearchTerm"]').value = '';
 
         // Unchecks the filters
@@ -289,25 +255,47 @@
             slider.valueStart = 1;
             slider.valueEnd = 100;
 
+            // The name of the statistic, as defined in the slider’s data-stat attribute
             const statName = slider.getAttribute('data-stat');
+
+            // The nearest parent element with the 'stat-slider' class
             const container = slider.closest('.stat-slider');
+
+            // The element displaying the minimum value for this stat
             const minValue = container.querySelector('.min-value');
+
+            // The element displaying the maximum value for this stat
             const maxValue = container.querySelector('.max-value');
+
+            // The hidden input field used to store the slider’s minimum value on form submit
             const minInput = document.getElementById(`${statName}Min`);
+
+            // The hidden input field used to store the slider’s maximum value on form submit
             const maxInput = document.getElementById(`${statName}Max`);
 
             minValue.textContent = '1';
             maxValue.textContent = '100';
 
-            if (minInput) minInput.value = '1';
-            if (maxInput) maxInput.value = '100';
+           if (minInput)
+            {
+                minInput.value = '1';
+            }
+
+            if (maxInput)
+            {
+                maxInput.value = '100';
+            }
         });
 
+        // Reload page
         window.location.href = window.location.pathname;
     }
 
 
-    // Configure slider positions and listeners
+    /// <summary>
+    /// Configures each slider’s start/end values and attaches input listeners
+    /// to keep displayed values and hidden inputs in sync.
+    /// </summary>
     function setupSliders()
     {
         // Slider components in Filter sidebar
@@ -315,12 +303,22 @@
 
         sliders.forEach(function(slider)
         {
+            // The name of the statistic, as defined in the slider’s data-stat attribute
             const statName = slider.getAttribute('data-stat');
+
+            // The nearest parent element with the 'stat-slider' class
             const container = slider.closest('.stat-slider');
+
+            // The element displaying the minimum value for this stat
             const minValue = container.querySelector('.min-value');
+
+            // The element displaying the maximum value for this stat
             const maxValue = container.querySelector('.max-value');
 
+            // The hidden input field used to store the slider’s minimum value on form submit
             const minInput = document.getElementById(`${statName}Min`);
+
+            // The hidden input field used to store the slider’s maximum value on form submit
             const maxInput = document.getElementById(`${statName}Max`);
 
             if (minInput && maxInput)
@@ -331,9 +329,13 @@
                 maxValue.textContent = slider.valueEnd;
             }
 
+            // Update on user interaction
             slider.addEventListener('input', function()
             {
+                // Start slider value
                 const startValue = slider.valueStart;
+
+                // End slider value
                 const endValue = slider.valueEnd;
 
                 minValue.textContent = startValue;
@@ -352,7 +354,9 @@
         });
     }
 
-    // Run on page load: initialize sliders and check sidebar param
+    /// <summary>
+    /// On DOMContentLoaded, open sidebar if requested and initialize sliders.
+    /// </summary>
     document.addEventListener('DOMContentLoaded', function()
     {
         // URL parameters
@@ -374,8 +378,13 @@
 
         sliders.forEach(function(slider)
         {
+            // The name of the statistic, as defined in the slider’s data-stat attribute
             const statName = slider.getAttribute('data-stat');
+
+            // The hidden input field used to store the slider’s minimum value on form submit
             const minInput = document.getElementById(`${statName}Min`);
+
+            // The hidden input field used to store the slider’s maximum value on form submit
             const maxInput = document.getElementById(`${statName}Max`);
 
             if (minInput && maxInput)
