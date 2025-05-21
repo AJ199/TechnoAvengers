@@ -1912,3 +1912,80 @@ form { /* Filter Form */
     font-family: 'Bangers', cursive;
 }
 /* End of styles for Privacy*/
+
+/* Styles for Create*/
+/* Container for the entire form */
+.create-form-container {
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black */
+    color: white; /* White text */
+    padding: 30px; /* Inner padding */
+    border-radius: 10px; /* Rounded corners */
+    max-width: 600px; /* Limit width */
+    margin: 40px auto; /* Center with vertical margin */
+}
+
+    /* Form header */
+    .create-form-container h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        font-family: 'Bangers', cursive; /* Comic-style font */
+        font-weight: bold;
+        color: #ffcc00; /* Bright yellow */
+    }
+
+/* Group each field */
+.create-form-group {
+    margin-bottom: 15px;
+}
+
+    /* Labels in each group */
+    .create-form-group label {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    /* Inputs, selects, textareas in each group */
+    .create-form-group input,
+    .create-form-group select,
+    .create-form-group textarea {
+        width: 100%;
+        padding: 8px;
+        border: none;
+        border-radius: 5px;
+        background-color: #222;
+        color: white;
+    }
+
+    /* Validation/error spans */
+    .create-form-group span {
+        color: red;
+        font-size: 0.9em;
+    }
+
+/* Submit button */
+.create-btn-submit {
+    background-color: #ffcc00;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+    .create-btn-submit:hover {
+        background-color: #e6b800;
+    }
+
+/* Slider wrapper */
+.create-slider-container {
+    margin-top: 10px;
+}
+
+/* Slider value display */
+.create-slider-values {
+    margin: 5px;
+    font-size: 1.1em;
+}
+/* End of styles for create*/
