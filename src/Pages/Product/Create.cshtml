@@ -4,84 +4,6 @@
     ViewData["Title"] = "Create";
 }
 
-<style>
-    /* Container for the entire form */
-    .form-container {
-        background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
-        color: white; /* White text color */
-        padding: 30px; /* Padding around the form */
-        border-radius: 10px; /* Rounded corners */
-        max-width: 600px; /* Maximum width of the form */
-        margin: 40px auto; /* Center the form with margin on top/bottom */
-    }
-
-        /* Form header style */
-        .form-container h2 {
-            text-align: center; /* Center the title */
-            margin-bottom: 20px; /* Space below the title */
-            font-family: 'Bangers', cursive; /* Fun, comic-style font */
-            font-weight: bold; /* Bold title text */
-            color: #ffcc00; /* Bright yellow color */
-        }
-
-    /* Group each label/input/select/textarea logically */
-    .form-group {
-        margin-bottom: 15px; /* Space between fields */
-    }
-
-        .form-group label {
-            font-weight: bold; /* Emphasize labels */
-            display: block; /* Make sure label takes full line */
-            margin-bottom: 5px; /* Space below label */
-        }
-
-        /* Style all form inputs uniformly */
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 8px; /* Inner spacing */
-            border: none;
-            border-radius: 5px; /* Rounded corners */
-            background-color: #222; /* Dark background for inputs */
-            color: white; /* White text inside inputs */
-        }
-
-        /* Validation/error message styling */
-        .form-group span {
-            color: red; /* Red color for errors or notes */
-            font-size: 0.9em; /* Slightly smaller text */
-        }
-
-    /* Submit button style */
-    .btn-submit {
-        background-color: #ffcc00; /* Yellow background */
-        color: black; /* Black text */
-        border: none; /* No border */
-        padding: 10px 20px; /* Size of the button */
-        font-weight: bold; /* Bold button text */
-        border-radius: 5px; /* Rounded edges */
-        cursor: pointer; /* Pointer cursor on hover */
-    }
-
-        /* Submit button hover effect */
-        .btn-submit:hover {
-            background-color: #e6b800; /* Darker yellow on hover */
-        }
-
-    /* Wrapper for slider components */
-    .slider-container {
-        margin-top: 10px; /* Space above slider */
-    }
-
-    /* Display current slider values */
-    .slider-values {
-        margin: 5px;
-        font-size: 1.1em;
-    }
-</style>
-
-
 <!-- Back Button -->
 <div>
     <a href="@Url.Page("/Product/Index")" class="btn btn-primary">
@@ -89,28 +11,28 @@
     </a>
 </div>
 
-<div class="form-container">
+<div class="create-form-container">
     <h2>Create New Hero</h2>
 
     <form method="post">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
         <!-- Title -->
-        <div class="form-group">
+        <div class="create-form-group">
             <label asp-for="Product.Title"></label>
             <span asp-validation-for="Product.Title"></span>
             <input asp-for="Product.Title" />
         </div>
 
         <!-- Fullname -->
-        <div class="form-group">
+        <div class="create-form-group">
             <label asp-for="Product.Fullname"></label>
             <span asp-validation-for="Product.Fullname"></span>
             <input asp-for="Product.Fullname" />
         </div>
 
         <!-- Gender Dropdown -->
-        <div class="form-group">
+        <div class="create-form-group">
             <label asp-for="Product.Gender">Gender</label>
             <span asp-validation-for="Product.Gender"></span>
             <select asp-for="Product.Gender" class="form-control">
@@ -121,7 +43,7 @@
         </div>
 
         <!-- Role Dropdown -->
-        <div class="form-group">
+        <div class="create-form-group">
             <label asp-for="Product.Role">Role</label>
             <span asp-validation-for="Product.Role"></span>
             <select asp-for="Product.Role" class="form-control">
@@ -131,11 +53,10 @@
                 <option value="Support">Support</option>
                 <option value="Mystic Defender">Mystic Defender</option>
             </select>
-            <span asp-validation-for="Product.Role"></span>
         </div>
 
         <!-- Alignment Dropdown -->
-        <div class="form-group">
+        <div class="create-form-group">
             <label asp-for="Product.Alignment">Alignment</label>
             <span asp-validation-for="Product.Alignment"></span>
             <select asp-for="Product.Alignment" class="form-control">
@@ -146,28 +67,28 @@
         </div>
 
         <!-- Birthplace -->
-        <div class="form-group">
+        <div class="create-form-group">
             <label asp-for="Product.Birthplace"></label>
             <span asp-validation-for="Product.Birthplace"></span>
             <input asp-for="Product.Birthplace" />
         </div>
 
         <!-- Work -->
-        <div class="form-group">
+        <div class="create-form-group">
             <label asp-for="Product.Work"></label>
             <span asp-validation-for="Product.Work"></span>
             <input asp-for="Product.Work" />
         </div>
 
         <!-- First Appearance -->
-        <div class="form-group">
+        <div class="create-form-group">
             <label asp-for="Product.FirstAppear"></label>
             <span asp-validation-for="Product.FirstAppear"></span>
             <input asp-for="Product.FirstAppear" />
         </div>
 
         <!-- Image URL -->
-        <div class="form-group">
+        <div class="create-form-group">
             <label asp-for="Product.ImageUrl"></label>
             <span asp-validation-for="Product.ImageUrl"></span>
             <input asp-for="Product.ImageUrl" />
@@ -177,82 +98,126 @@
         <h3>Powerstats</h3>
 
         <!-- Intelligence -->
-        <div class="form-group">
+        <div class="create-form-group">
             <label asp-for="Product.Intelligence">Intelligence:</label>
-            <div class="slider-container">
-                <input asp-for="Product.Intelligence" type="range" min="1" max="100" class="slider" />
-                <span class="slider-values" id="Intelligence-value">0</span>
+            <div class="create-slider-container">
+                <input asp-for="Product.Intelligence"
+                       type="range"
+                       min="1"
+                       max="100"
+                       class="slider" />
+                <span class="create-slider-values" id="Intelligence-value">0</span>
             </div>
         </div>
 
         <!-- Strength -->
-        <div class="form-group">
+        <div class="create-form-group">
             <label asp-for="Product.Strength">Strength:</label>
-            <div class="slider-container">
-                <input asp-for="Product.Strength" type="range" min="1" max="100" class="slider" />
-                <span class="slider-values" id="Strength-value">0</span>
+            <div class="create-slider-container">
+                <input asp-for="Product.Strength"
+                       type="range"
+                       min="1"
+                       max="100"
+                       class="slider" />
+                <span class="create-slider-values" id="Strength-value">0</span>
             </div>
         </div>
 
         <!-- Speed -->
-        <div class="form-group">
+        <div class="create-form-group">
             <label asp-for="Product.Speed">Speed:</label>
-            <div class="slider-container">
-                <input asp-for="Product.Speed" type="range" min="1" max="100" class="slider" />
-                <span class="slider-values" id="Speed-value">0</span>
+            <div class="create-slider-container">
+                <input asp-for="Product.Speed"
+                       type="range"
+                       min="1"
+                       max="100"
+                       class="slider" />
+                <span class="create-slider-values" id="Speed-value">0</span>
             </div>
         </div>
 
         <!-- Durability -->
-        <div class="form-group">
+        <div class="create-form-group">
             <label asp-for="Product.Durability">Durability:</label>
-            <div class="slider-container">
-                <input asp-for="Product.Durability" type="range" min="1" max="100" class="slider" />
-                <span class="slider-values" id="Durability-value">0</span>
+            <div class="create-slider-container">
+                <input asp-for="Product.Durability"
+                       type="range"
+                       min="1"
+                       max="100"
+                       class="slider" />
+                <span class="create-slider-values" id="Durability-value">0</span>
             </div>
         </div>
 
         <!-- Power -->
-        <div class="form-group">
+        <div class="create-form-group">
             <label asp-for="Product.Power">Power:</label>
-            <div class="slider-container">
-                <input asp-for="Product.Power" type="range" min="1" max="100" class="slider" />
-                <span class="slider-values" id="Power-value">0</span>
+            <div class="create-slider-container">
+                <input asp-for="Product.Power"
+                       type="range"
+                       min="1"
+                       max="100"
+                       class="slider" />
+                <span class="create-slider-values" id="Power-value">0</span>
             </div>
         </div>
 
         <!-- Combat -->
-        <div class="form-group">
+        <div class="create-form-group">
             <label asp-for="Product.Combat">Combat:</label>
-            <div class="slider-container">
-                <input asp-for="Product.Combat" type="range" min="1" max="100" class="slider" />
-                <span class="slider-values" id="Combat-value">0</span>
+            <div class="create-slider-container">
+                <input asp-for="Product.Combat"
+                       type="range"
+                       min="1"
+                       max="100"
+                       class="slider" />
+                <span class="create-slider-values" id="Combat-value">0</span>
             </div>
         </div>
 
         <!-- Submit Button -->
-        <button type="submit" class="btn btn-primary">Create</button>
+        <button type="submit" class="create-btn-submit">Create</button>
     </form>
 </div>
 
 <script>
-    // Wait for the DOM to be ready
-    document.addEventListener('DOMContentLoaded', function () {
-        const sliders = document.querySelectorAll('.slider'); // Select all sliders
-        sliders.forEach(function(slider) {
+    /// <summary>
+    ///  Initializes all slider controls once the DOM is fully loaded.
+    /// </summary>
+    function onDomReady()
+    {
+        // Collection of all slider input elements on the page
+        var sliders = document.querySelectorAll('.slider');
 
-            // Find the correct span inside the same .slider-container
-            const container = slider.closest('.slider-container');
-            const valueDisplay = container.querySelector('.slider-values');
+        // Iterate through each slider and set it up
+        for (var i = 0; i < sliders.length; i++)
+        {
+            setupSlider(sliders[i]);
+        }
+    }
 
-            // Set the initial slider value to 0
-            slider.value = 0;
-            valueDisplay.textContent = slider.value; // Set the displayed value
+    // Listen for DOMContentLoaded and invoke onDomReady
+    document.addEventListener('DOMContentLoaded', onDomReady);
 
-            // Update the displayed value when the slider is moved
-            slider.addEventListener('input', function () {
-                valueDisplay.textContent = slider.value; // Update the value displayed next to the slider
-            });
+    /// <summary>
+    /// Initializes and hooks up a single slider’s display.
+    /// </summary>
+    /// <param name="slider">The slider element.</param>
+    function setupSlider(slider)
+    {
+        // Container wrapping this slider
+        var container = slider.closest('.create-slider-container');
+
+        // Span showing this slider’s numeric value
+        var display = container.querySelector('.create-slider-values');
+
+        // Set initial display
+        display.textContent = slider.value;
+
+        // Update display on input
+        slider.addEventListener('input', function onSliderInput()
+        {
+            display.textContent = slider.value;
         });
-    });
+    }
 </script>
