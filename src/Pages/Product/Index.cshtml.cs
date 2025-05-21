@@ -1,9 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
 using System.IO;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
 
 namespace ContosoCrafts.WebSite.Pages.Product
 {

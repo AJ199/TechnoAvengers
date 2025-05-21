@@ -63,24 +63,3 @@
         }
     </script>
 }
-
-<!-- Slider JavaScript -->
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const sliders = document.querySelectorAll('.slider');
-        sliders.forEach(function (slider) {
-            const valueDisplay = slider.nextElementSibling;
-            slider.value = 0;
-
-            function updateSliderValue() {
-                valueDisplay.textContent = slider.value;
-            }
-
-            slider.addEventListener('input', function () {
-                updateSliderValue();
-            });
-
-            updateSliderValue();
-        });
-    });
-</script>
