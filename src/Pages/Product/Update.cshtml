@@ -14,7 +14,7 @@
 
         <div class="hero-read-content">
             <!-- Image -->
-            <img class="hero-update-image" src='@Model.Product.ImageUrl' alt='Image for @Model.Product.Title'>
+            <img class="hero-update-image" src="@Model.Product.ImageUrl" alt="Image for @Model.Product.Title" />
 
             <!-- Fields to fill -->
             <div class="hero-read-details">
@@ -29,7 +29,6 @@
                         </div>
                         <input asp-for="Product.Title" class="form-control" />
                     </div>
-
 
                     <!-- Full Name -->
                     <div class="form-group">
@@ -53,7 +52,6 @@
                             <option value="Other" selected="@("Other" == Model.Product.Gender)">Other</option>
                         </select>
                     </div>
-
 
                     <!-- Role Dropdown -->
                     <div class="form-group">
@@ -122,7 +120,7 @@
                     </div>
 
                     <!-- Power statistics title -->
-                    <h2 class="hero-read-title" style="font-size: 1.5rem;">Power Statistics</h2>
+                    <h2 class="hero-read-title">Power Statistics</h2>
 
                     <!-- Intelligence -->
                     <div class="form-group">
@@ -130,80 +128,112 @@
                             <label asp-for="Product.Intelligence"><strong>Intelligence</strong></label>
                             <span asp-validation-for="Product.Intelligence" class="text-danger"></span>
                         </div>
-                        <input asp-for="Product.Intelligence"
-                               type="range"
-                               min="0"
-                               max="100"
-                               class="form-range"
-                               id="intelligenceSlider"
-                               oninput="document.getElementById('intelligenceValue').innerText = this.value" />
-                        <span id="intelligenceValue">@Model.Product.Intelligence</span>
-
+                        <div class="slider-container">
+                            <input asp-for="Product.Intelligence"
+                                   type="range"
+                                   min="0"
+                                   max="100"
+                                   class="form-range slider"
+                                   id="Intelligence-slider" />
+                            <span class="slider-values" id="Intelligence-value">
+                                @Model.Product.Intelligence
+                            </span>
+                        </div>
                     </div>
 
                     <!-- Strength -->
                     <div class="form-group">
-                        <label for="strengthSlider"><strong>Strength</strong></label>
-                        <input asp-for="Product.Strength"
-                               type="range"
-                               min="0"
-                               max="100"
-                               id="strengthSlider"
-                               class="form-range"
-                               oninput="document.getElementById('strengthValue').innerText = this.value" />
-                        <span id="strengthValue">@Model.Product.Strength</span>
+                        <div class="label-row">
+                            <label asp-for="Product.Strength"><strong>Strength</strong></label>
+                            <span asp-validation-for="Product.Strength" class="text-danger"></span>
+                        </div>
+                        <div class="slider-container">
+                            <input asp-for="Product.Strength"
+                                   type="range"
+                                   min="0"
+                                   max="100"
+                                   class="form-range slider"
+                                   id="Strength-slider" />
+                            <span class="slider-values" id="Strength-value">
+                                @Model.Product.Strength
+                            </span>
+                        </div>
                     </div>
 
                     <!-- Speed -->
                     <div class="form-group">
-                        <label for="speedSlider"><strong>Speed</strong></label>
-                        <input asp-for="Product.Speed"
-                               type="range"
-                               min="0"
-                               max="100"
-                               id="speedSlider"
-                               class="form-range"
-                               oninput="document.getElementById('speedValue').innerText = this.value" />
-                        <span id="speedValue">@Model.Product.Speed</span>
+                        <div class="label-row">
+                            <label asp-for="Product.Speed"><strong>Speed</strong></label>
+                            <span asp-validation-for="Product.Speed" class="text-danger"></span>
+                        </div>
+                        <div class="slider-container">
+                            <input asp-for="Product.Speed"
+                                   type="range"
+                                   min="0"
+                                   max="100"
+                                   class="form-range slider"
+                                   id="Speed-slider" />
+                            <span class="slider-values" id="Speed-value">
+                                @Model.Product.Speed
+                            </span>
+                        </div>
                     </div>
 
                     <!-- Durability -->
                     <div class="form-group">
-                        <label for="durabilitySlider"><strong>Durability</strong></label>
-                        <input asp-for="Product.Durability"
-                               type="range"
-                               min="0"
-                               max="100"
-                               id="durabilitySlider"
-                               class="form-range"
-                               oninput="document.getElementById('durabilityValue').innerText = this.value" />
-                        <span id="durabilityValue">@Model.Product.Durability</span>
+                        <div class="label-row">
+                            <label asp-for="Product.Durability"><strong>Durability</strong></label>
+                            <span asp-validation-for="Product.Durability" class="text-danger"></span>
+                        </div>
+                        <div class="slider-container">
+                            <input asp-for="Product.Durability"
+                                   type="range"
+                                   min="0"
+                                   max="100"
+                                   class="form-range slider"
+                                   id="Durability-slider" />
+                            <span class="slider-values" id="Durability-value">
+                                @Model.Product.Durability
+                            </span>
+                        </div>
                     </div>
 
                     <!-- Power -->
                     <div class="form-group">
-                        <label for="powerSlider"><strong>Power</strong></label>
-                        <input asp-for="Product.Power"
-                               type="range"
-                               min="0"
-                               max="100"
-                               id="powerSlider"
-                               class="form-range"
-                               oninput="document.getElementById('powerValue').innerText = this.value" />
-                        <span id="powerValue">@Model.Product.Power</span>
+                        <div class="label-row">
+                            <label asp-for="Product.Power"><strong>Power</strong></label>
+                            <span asp-validation-for="Product.Power" class="text-danger"></span>
+                        </div>
+                        <div class="slider-container">
+                            <input asp-for="Product.Power"
+                                   type="range"
+                                   min="0"
+                                   max="100"
+                                   class="form-range slider"
+                                   id="Power-slider" />
+                            <span class="slider-values" id="Power-value">
+                                @Model.Product.Power
+                            </span>
+                        </div>
                     </div>
 
                     <!-- Combat -->
                     <div class="form-group">
-                        <label for="combatSlider"><strong>Combat</strong></label>
-                        <input asp-for="Product.Combat"
-                               type="range"
-                               min="0"
-                               max="100"
-                               id="combatSlider"
-                               class="form-range"
-                               oninput="document.getElementById('combatValue').innerText = this.value" />
-                        <span id="combatValue">@Model.Product.Combat</span>
+                        <div class="label-row">
+                            <label asp-for="Product.Combat"><strong>Combat</strong></label>
+                            <span asp-validation-for="Product.Combat" class="text-danger"></span>
+                        </div>
+                        <div class="slider-container">
+                            <input asp-for="Product.Combat"
+                                   type="range"
+                                   min="0"
+                                   max="100"
+                                   class="form-range slider"
+                                   id="Combat-slider" />
+                            <span class="slider-values" id="Combat-value">
+                                @Model.Product.Combat
+                            </span>
+                        </div>
                     </div>
 
                     <div class="form-actions">
@@ -215,3 +245,50 @@
         </div>
     </div>
 </div>
+
+<script>
+    /// <summary>
+    /// Initializes all sliders on the page once the DOM is loaded.
+    /// </summary>
+    function initializeSliders()
+    {
+        // Get all slider input elements
+        var sliders = document.querySelectorAll('.slider');
+
+        // Setup each slider individually
+        for (var i = 0; i < sliders.length; i++)
+        {
+            setupSlider(sliders[i]);
+        }
+    }
+
+    /// <summary>
+    /// Sets up a single slider: initializes its display and attaches an input listener.
+    /// </summary>
+    /// <param name="slider">The slider input element.</param>
+    function setupSlider(slider)
+    {
+        // Find the container element for this slider
+        var container = slider.closest('.slider-container');
+
+        // Find the span element that displays the slider’s current value
+        var display = container.querySelector('.slider-values');
+
+        // Initialize the display with the slider’s starting value
+        display.textContent = slider.value;
+
+        // Update the display whenever the slider value changes
+        slider.addEventListener('input', function onSliderInput()
+        {
+            display.textContent = slider.value;
+        });
+    }
+
+    /// <summary>
+    /// Entry point: wait for DOMContentLoaded then initialize sliders.
+    /// </summary>
+    document.addEventListener('DOMContentLoaded', function onDocumentReady()
+    {
+        initializeSliders();
+    });
+</script>
