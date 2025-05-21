@@ -6,9 +6,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
-using System.Reflection;
-using ContosoCrafts.WebSite.Models;
-using System.Threading.Tasks;
 
 namespace UnitTests.Pages
 {
@@ -234,10 +231,11 @@ namespace UnitTests.Pages
         }
 
         /// <summary>
-        /// Sorts heroes by Title in ascending order.
+        /// Verifies that SortField=Title and SortOrder=asc 
+        /// return superheroes sorted by title ascending
         /// </summary>
         [Test]
-        public void OnGet_Sort_By_Title_Ascending_Returns_Sorted_List()
+        public void OnGet_Valid_Sort_Field_Title_Ascending_Returns_Sorted_List()
         {
             // Arrange
             var context = new DefaultHttpContext();
@@ -246,18 +244,19 @@ namespace UnitTests.Pages
 
             // Act
             _pageModel.OnGet();
-
-            // Assert
             var result = _pageModel.FilteredHeroes;
             var sorted = result.OrderBy(h => h.Title).ToList();
-            Assert.IsTrue(result.SequenceEqual(sorted));
+
+            // Assert
+            Assert.AreEqual(result, sorted);
         }
 
         /// <summary>
-        /// Sorts heroes by Intelligence in descending order.
+        /// Verifies that SortField=Intelligence and SortOrder=desc 
+        /// return superheroes sorted by intelligence descending
         /// </summary>
         [Test]
-        public void OnGet_Sort_By_Intelligence_Descending_Returns_Sorted_List()
+        public void OnGet_Valid_Sort_By_Intelligence_Descending_Returns_Sorted_List()
         {
             // Arrange
             var context = new DefaultHttpContext();
@@ -266,18 +265,18 @@ namespace UnitTests.Pages
 
             // Act
             _pageModel.OnGet();
-
-            // Assert
             var result = _pageModel.FilteredHeroes;
             var sorted = result.OrderByDescending(h => h.Intelligence).ToList();
-            Assert.IsTrue(result.SequenceEqual(sorted));
+
+            // Assert
+            Assert.AreEqual(sorted, result);
         }
 
         /// <summary>
-        /// Sorts heroes by Strength in descending order.
+        /// Validates that OnGet sorts heroes by Strength in descending order.
         /// </summary>
         [Test]
-        public void OnGet_Sort_By_Strength_Descending_Returns_Sorted_List()
+        public void OnGet_Valid_Sort_By_Strength_Descending_Returns_Sorted_List()
         {
             // Arrange
             var context = new DefaultHttpContext();
@@ -286,24 +285,36 @@ namespace UnitTests.Pages
 
             // Act
             _pageModel.OnGet();
-
-            // Assert
             var result = _pageModel.FilteredHeroes;
             var sorted = result.OrderByDescending(h => h.Strength).ToList();
-            Assert.IsTrue(result.SequenceEqual(sorted));
+
+            // Assert
+            Assert.AreEqual(sorted, result);
         }
 
         /// <summary>
-        /// Test that the default value of SortOrder is 'asc' and it can be changed.
+        /// Test that the default value of SortOrder is 'asc'
         /// </summary>
         [Test]
-        public void SortOrder_Property_Default_And_Set_Should_Pass()
+        public void OnGet_Valid_SortOrder_Property_Default_Retuns_Sorted_List_Ascending()
         {
             // Arrange
-            var model = _pageModel; // Replace with your actual class name that contains SortOrder
+            var model = _pageModel;
 
-            // Assert default value
+            // Act
+
+            // Assert
             Assert.AreEqual("asc", model.SortOrder);
+        }
+
+        /// <summary>
+        /// Test that the default value of SortOrder can be changed
+        /// </summary>
+        [Test]
+        public void OnGet_Valid_SortOrder_Property_Set_To_Desc_Returns_Sorted_List_Descending()
+        {
+            // Arrange
+            var model = _pageModel;
 
             // Act
             model.SortOrder = "desc";
@@ -311,6 +322,7 @@ namespace UnitTests.Pages
             // Assert new value
             Assert.AreEqual("desc", model.SortOrder);
         }
+
 
         /// <summary>
         /// Ensures OnGet does not throw or alter list when an invalid SortField is passed.
@@ -389,7 +401,7 @@ namespace UnitTests.Pages
         /// Ensures unknown category returns an empty list.
         /// </summary>
         [Test]
-        public void GetValuesForCategory_InValid_Unknown_Category_Returns_EmptyList()
+        public void GetValuesForCategory_Invalid_Unknown_Category_Returns_EmptyList()
         {
             // Act
             var result = _pageModel.GetValuesForCategory("Unknown");
@@ -427,7 +439,7 @@ namespace UnitTests.Pages
         /// Ensures GetMin defaults when input is invalid.
         /// </summary>
         [Test]
-        public void GetMin_InValid_Query_Returns_Default_Min()
+        public void GetMin_Invalid_Query_Returns_Default_Min()
         {
             // Arrange
             var context = new DefaultHttpContext();
