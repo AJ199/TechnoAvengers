@@ -17,7 +17,10 @@ namespace ContosoCrafts.WebSite.Pages
         /// Constructor that initializes the logger.
         /// </summary>
         /// <param name="logger">Logger used for capturing runtime information</param>
-        public PrivacyModel(ILogger<PrivacyModel> logger) => _logger = logger;
+        public PrivacyModel(ILogger<PrivacyModel> logger)
+        {
+            _logger = logger;
+        }
 
         /// <summary>
         /// Handles GET requests to the Privacy page.
