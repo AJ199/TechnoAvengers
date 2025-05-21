@@ -41,7 +41,7 @@
         .form-group textarea {
             width: 100%;
             padding: 8px; /* Inner spacing */
-            border: none; 
+            border: none;
             border-radius: 5px; /* Rounded corners */
             background-color: #222; /* Dark background for inputs */
             color: white; /* White text inside inputs */
@@ -76,8 +76,8 @@
 
     /* Display current slider values */
     .slider-values {
-        margin: 5px; 
-        font-size: 1.1em; 
+        margin: 5px;
+        font-size: 1.1em;
     }
 </style>
 
@@ -98,31 +98,32 @@
         <!-- Title -->
         <div class="form-group">
             <label asp-for="Product.Title"></label>
-            <input asp-for="Product.Title" />
             <span asp-validation-for="Product.Title"></span>
+            <input asp-for="Product.Title" />
         </div>
 
         <!-- Fullname -->
         <div class="form-group">
             <label asp-for="Product.Fullname"></label>
-            <input asp-for="Product.Fullname" />
             <span asp-validation-for="Product.Fullname"></span>
+            <input asp-for="Product.Fullname" />
         </div>
 
         <!-- Gender Dropdown -->
         <div class="form-group">
             <label asp-for="Product.Gender">Gender</label>
+            <span asp-validation-for="Product.Gender"></span>
             <select asp-for="Product.Gender" class="form-control">
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
                 <option value="Other">Other</option>
             </select>
-            <span asp-validation-for="Product.Gender"></span>
         </div>
 
         <!-- Role Dropdown -->
         <div class="form-group">
             <label asp-for="Product.Role">Role</label>
+            <span asp-validation-for="Product.Role"></span>
             <select asp-for="Product.Role" class="form-control">
                 <option value="Core Avenger">Core Avenger</option>
                 <option value="Founding Avenger">Founding Avenger</option>
@@ -136,40 +137,40 @@
         <!-- Alignment Dropdown -->
         <div class="form-group">
             <label asp-for="Product.Alignment">Alignment</label>
+            <span asp-validation-for="Product.Alignment"></span>
             <select asp-for="Product.Alignment" class="form-control">
                 <option value="good">Good</option>
                 <option value="bad">Bad</option>
                 <option value="neutral">Neutral</option>
             </select>
-            <span asp-validation-for="Product.Alignment"></span>
         </div>
 
         <!-- Birthplace -->
         <div class="form-group">
             <label asp-for="Product.Birthplace"></label>
-            <input asp-for="Product.Birthplace" />
             <span asp-validation-for="Product.Birthplace"></span>
+            <input asp-for="Product.Birthplace" />
         </div>
 
         <!-- Work -->
         <div class="form-group">
             <label asp-for="Product.Work"></label>
-            <input asp-for="Product.Work" />
             <span asp-validation-for="Product.Work"></span>
+            <input asp-for="Product.Work" />
         </div>
 
         <!-- First Appearance -->
         <div class="form-group">
             <label asp-for="Product.FirstAppear"></label>
-            <input asp-for="Product.FirstAppear" />
             <span asp-validation-for="Product.FirstAppear"></span>
+            <input asp-for="Product.FirstAppear" />
         </div>
 
         <!-- Image URL -->
         <div class="form-group">
             <label asp-for="Product.ImageUrl"></label>
-            <input asp-for="Product.ImageUrl" />
             <span asp-validation-for="Product.ImageUrl"></span>
+            <input asp-for="Product.ImageUrl" />
         </div>
 
         <!-- Powerstats Sliders -->
