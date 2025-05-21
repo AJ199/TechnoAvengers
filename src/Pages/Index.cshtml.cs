@@ -13,7 +13,7 @@ namespace ContosoCrafts.WebSite.Pages
     /// </summary>
     public class IndexModel : PageModel
     {
-        // Sorts to ascending initially
+        // Sort order, sorts ascending initially
         [BindProperty(SupportsGet = true)]
         public string SortOrder { get; set; } = "asc";
 
@@ -124,40 +124,42 @@ namespace ContosoCrafts.WebSite.Pages
                 .ToList();
 
             // Retrieve sort parameters
+            // The field to sort by
             var sortField = Request.Query["SortField"].ToString();
+
+            // The order in which to sort
             var sortOrder = Request.Query["SortOrder"].ToString();
 
             // Check that sortField is provided (not null and not empty)
-            if (string.IsNullOrEmpty(sortField) == false)
+            if (string.IsNullOrEmpty(sortField))
             {
-                // Get the property based on sortField
-                var property = typeof(ProductModel).GetProperty(sortField);
-
-                // Proceed only if the property exists
-                if (property == null)
-                {
-                    // Do nothing — invalid sortField
-                }
-                else
-                {
-                    // Apply sorting based on sortOrder
-                    if (sortOrder == "desc")
-                    {
-                        FilteredHeroes = FilteredHeroes
-                            .OrderByDescending(hero => property.GetValue(hero))
-                            .ToList();
-                    }
-                    else
-                    {
-                        FilteredHeroes = FilteredHeroes
-                            .OrderBy(hero => property.GetValue(hero))
-                            .ToList();
-                    }
-                }
+                return;
             }
+            
+            // Get the property based on sortField
+            var propertyInfo = typeof(ProductModel).GetProperty(sortField);
 
-
+            // Proceed only if the property exists
+            if (propertyInfo == null)
+            {
+                return;
+            }
+             
+            // Apply sorting based on sortOrder
+            if (sortOrder == "desc")
+            {
+                FilteredHeroes = FilteredHeroes
+                    .OrderByDescending(hero => propertyInfo.GetValue(hero))
+                    .ToList();
+            }
+            else 
+            {
+                FilteredHeroes = FilteredHeroes
+                 .OrderBy(hero => propertyInfo.GetValue(hero))
+                 .ToList();
+            }      
         }
+        
 
         /// <summary>
         /// Retrieves the list of possible values for a given category
