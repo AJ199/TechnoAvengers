@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Linq;
 using ContosoCrafts.WebSite.Models;
 using ContosoCrafts.WebSite.Services;
