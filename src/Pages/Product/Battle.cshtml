@@ -1,5 +1,29 @@
 ﻿@page
 @model ContosoCrafts.WebSite.Pages.Product.BattleModel
 @{
-    ViewData["Title"] = "Superhero Showdown";
+    ViewData["Title"] = "Superhero Battle";
 }
+
+<div class="compare-wrapper">
+    <h1 class="compare-heading">⚡ Heroic Battle ⚡</h1>
+
+    <form method="post" class="compare-form mx-auto">
+        <div class="form-group">
+            <label for="hero1" class="form-label">Select First Superhero to Fight</label>
+            <select asp-for="Hero1Id" asp-items="Model.HeroOptions" class="form-select">
+                <option value="">  Choose Hero 1 </option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="hero2" class="form-label">Select Second Superhero to Fight</label>
+            <select asp-for="Hero2Id" asp-items="Model.HeroOptions" class="form-select">
+                <option value="">  Choose Hero 2 </option>
+            </select>
+        </div>
+
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-primary compare-btn">⚔️ Start Battle ⚔️</button>
+        </div>
+    </form>
+</div>
