@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
-using System;
 
 namespace ContosoCrafts.WebSite.Pages.Product
 {
@@ -15,6 +14,7 @@ namespace ContosoCrafts.WebSite.Pages.Product
         VoteWinner = 2,
         ShowResult = 3
     }
+
     public class BattleModel : PageModel
     {
         private readonly JsonFileProductService _productService;
@@ -41,6 +41,8 @@ namespace ContosoCrafts.WebSite.Pages.Product
         public ProductModel? PredictedWinner { get; set; }
 
         public ProductModel? ActualWinner { get; set; }
+        public ProductModel? Loser { get; set; }
+        public string? ResultMessage { get; set; }
 
         public List<SelectListItem> HeroOptions { get; set; } = new();
 
@@ -70,7 +72,6 @@ namespace ContosoCrafts.WebSite.Pages.Product
 
             if (Step == BattleStep.SelectHeroes)
             {
-                // Validate hero selection
                 if (string.IsNullOrEmpty(Hero1Id) || string.IsNullOrEmpty(Hero2Id) || Hero1Id == Hero2Id)
                 {
                     ModelState.AddModelError(string.Empty, "Please select two different heroes.");
@@ -80,12 +81,11 @@ namespace ContosoCrafts.WebSite.Pages.Product
                 Hero1 = Products.FirstOrDefault(p => p.Id == Hero1Id);
                 Hero2 = Products.FirstOrDefault(p => p.Id == Hero2Id);
 
-                Step = BattleStep.VoteWinner; // Move to poll step
+                Step = BattleStep.VoteWinner;
                 return Page();
             }
             else if (Step == BattleStep.VoteWinner)
             {
-                // Validate predicted winner
                 if (string.IsNullOrEmpty(PredictedWinnerId))
                 {
                     ModelState.AddModelError(string.Empty, "Please select who you think will win.");
@@ -98,8 +98,39 @@ namespace ContosoCrafts.WebSite.Pages.Product
                 Hero2 = Products.FirstOrDefault(p => p.Id == Hero2Id);
                 PredictedWinner = Products.FirstOrDefault(p => p.Id == PredictedWinnerId);
 
-                // For demo, pick the actual winner randomly or by any logic
-                ActualWinner = (new Random().Next(0, 2) == 0) ? Hero1 : Hero2;
+                if (Hero1 != null && Hero2 != null)
+                {
+                    int hero1Total = Hero1.Intelligence + Hero1.Strength + Hero1.Speed +
+                                     Hero1.Durability + Hero1.Power + Hero1.Combat;
+
+                    int hero2Total = Hero2.Intelligence + Hero2.Strength + Hero2.Speed +
+                                     Hero2.Durability + Hero2.Power + Hero2.Combat;
+
+                    if (hero1Total > hero2Total)
+                    {
+                        ActualWinner = Hero1;
+                        Loser = Hero2;
+                    }
+                    else if (hero2Total > hero1Total)
+                    {
+                        ActualWinner = Hero2;
+                        Loser = Hero1;
+                    }
+                    else
+                    {
+                        ActualWinner = Hero1;
+                        Loser = Hero2;
+                    }
+
+                    if (PredictedWinner?.Id == ActualWinner?.Id)
+                    {
+                        ResultMessage = "You predicted correctly! 🎉";
+                    }
+                    else
+                    {
+                        ResultMessage = "Oops! Your prediction was wrong. 😢";
+                    }
+                }
 
                 Step = BattleStep.ShowResult;
                 return Page();

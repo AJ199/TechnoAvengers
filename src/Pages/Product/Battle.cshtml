@@ -33,31 +33,53 @@
     }
     else if (Model.Step == BattleStep.VoteWinner)
     {
-        <form method="post">
+        <form method="post" class="compare-form mx-auto">
             <input type="hidden" asp-for="Step" value="VoteWinner" />
             <input type="hidden" asp-for="Hero1Id" />
             <input type="hidden" asp-for="Hero2Id" />
 
-            <p>Who do you think will win?</p>
+            <div class="form-group">
+                <label class="form-label">Who do you think will win?</label> 
 
-            <label>
-                <input type="radio" asp-for="PredictedWinnerId" value="@Model.Hero1.Id" />
-                @Model.Hero1.Title
-            </label>
+                <div class="form-check"> 
+                    <input type="radio" asp-for="PredictedWinnerId" value="@Model.Hero1.Id" class="form-check-input" /> 
+                    <label class="form-check-label">@Model.Hero1.Title</label> 
+                </div> 
 
-            <label>
-                <input type="radio" asp-for="PredictedWinnerId" value="@Model.Hero2.Id" />
-                @Model.Hero2.Title
-            </label>
+                <div class="form-check">
+                    <input type="radio" asp-for="PredictedWinnerId" value="@Model.Hero2.Id" class="form-check-input" /> 
+                    <label class="form-check-label">@Model.Hero2.Title</label>
+                </div>
+            </div>
 
-            <button type="submit">Vote</button>
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-success compare-btn">📊 Vote</button>
+            </div>
         </form>
     }
     else if (Model.Step == BattleStep.ShowResult)
     {
-        <h2>🏆 Winner: @Model.ActualWinner.Title</h2>
-        <p>Your prediction was @(Model.PredictedWinner.Id == Model.ActualWinner.Id ? "correct!" : "incorrect.")</p>
+        <div class="compare-result text-center">
+            <h2 class="compare-heading">🏆 Winner: @Model.ActualWinner.Title</h2>
+            <p class="compare-summary">
+                Your prediction was
+                <strong>
+                    @(Model.PredictedWinner.Id == Model.ActualWinner.Id ? "correct!" : "incorrect.")
+                </strong>
+            </p>
+            <p class="compare-summary">@Model.ResultMessage</p>
 
-        <a asp-page="./Battle" class="btn btn-terciary compare-btn">Start New Battle</a>
+            <a asp-page="./Battle" class="btn btn-terciary compare-btn mt-3">🔁 Start New Battle</a>
+        </div>
+    }
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger mt-3">
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <div>@error.ErrorMessage</div>
+            }
+        </div>
     }
 </div>
