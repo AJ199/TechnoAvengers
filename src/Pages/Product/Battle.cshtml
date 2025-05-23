@@ -1,4 +1,5 @@
-﻿@page
+﻿
+@page
 @model ContosoCrafts.WebSite.Pages.Product.BattleModel
 @{
     ViewData["Title"] = "Superhero Battle";
@@ -7,23 +8,56 @@
 <div class="compare-wrapper">
     <h1 class="compare-heading">⚡ Heroic Battle ⚡</h1>
 
-    <form method="post" class="compare-form mx-auto">
-        <div class="form-group">
-            <label for="hero1" class="form-label">Select First Superhero to Fight</label>
-            <select asp-for="Hero1Id" asp-items="Model.HeroOptions" class="form-select">
-                <option value="">  Choose Hero 1 </option>
-            </select>
-        </div>
+    @if (Model.Step == BattleStep.SelectHeroes)
+    {
+        <form method="post" class="compare-form mx-auto">
+            <input type="hidden" asp-for="Step" value="SelectHeroes" />
+            <div class="form-group">
+                <label class ="form-label">Select First Superhero for Battle</label>
+                <select asp-for="Hero1Id" asp-items="Model.HeroOptions">
+                    <option value="">Choose Hero 1</option>
+                </select>
+            </div>
 
-        <div class="form-group">
-            <label for="hero2" class="form-label">Select Second Superhero to Fight</label>
-            <select asp-for="Hero2Id" asp-items="Model.HeroOptions" class="form-select">
-                <option value="">  Choose Hero 2 </option>
-            </select>
-        </div>
+            <div class="form-group">
+                <label class="form-label">Select Second Superhero for Battle</label>
+                <select asp-for="Hero2Id" asp-items="Model.HeroOptions">
+                    <option value="">Choose Hero 2</option>
+                </select>
+            </div>
 
-        <div class="text-center mt-4">
-            <button type="submit" class="btn btn-primary compare-btn">⚔️ Start Battle ⚔️</button>
-        </div>
-    </form>
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-primary compare-btn">⚔️ Start Battle ⚔️</button>
+            </div>
+        </form>
+    }
+    else if (Model.Step == BattleStep.VoteWinner)
+    {
+        <form method="post">
+            <input type="hidden" asp-for="Step" value="VoteWinner" />
+            <input type="hidden" asp-for="Hero1Id" />
+            <input type="hidden" asp-for="Hero2Id" />
+
+            <p>Who do you think will win?</p>
+
+            <label>
+                <input type="radio" asp-for="PredictedWinnerId" value="@Model.Hero1.Id" />
+                @Model.Hero1.Title
+            </label>
+
+            <label>
+                <input type="radio" asp-for="PredictedWinnerId" value="@Model.Hero2.Id" />
+                @Model.Hero2.Title
+            </label>
+
+            <button type="submit">Vote</button>
+        </form>
+    }
+    else if (Model.Step == BattleStep.ShowResult)
+    {
+        <h2>🏆 Winner: @Model.ActualWinner.Title</h2>
+        <p>Your prediction was @(Model.PredictedWinner.Id == Model.ActualWinner.Id ? "correct!" : "incorrect.")</p>
+
+        <a asp-page="./Battle" class="btn btn-terciary compare-btn">Start New Battle</a>
+    }
 </div>
