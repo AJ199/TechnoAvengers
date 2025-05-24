@@ -7,8 +7,8 @@
 <div class="container mt-5 text-white text-center animate__animated animate__fadeIn">
     <h1 class="mb-4 hero-text">🧠 Discover Your Inner Avenger</h1>
 
-    <form id="quizForm" class="text-start" onsubmit="return handleQuiz(event)">
-        <div class="new-text mb-4">
+    <form id="quizForm" class="quiz-form text-start" onsubmit="return handleQuiz(event)">
+        <div class="quiz-question">
             <p><i class="fas fa-bolt"></i> <strong>1. What drives you the most?</strong></p>
             <label><input type="radio" name="q1" value="ironman" required> Innovation</label><br />
             <label><input type="radio" name="q1" value="thor"> Honor</label><br />
@@ -16,7 +16,7 @@
             <label><input type="radio" name="q1" value="captainmarvel"> Power</label>
         </div>
 
-        <div class="new-text mb-4">
+        <div class="quiz-question">
             <p><i class="fas fa-crosshairs"></i> <strong>2. Preferred weapon?</strong></p>
             <label><input type="radio" name="q2" value="thor" required> Hammer</label><br />
             <label><input type="radio" name="q2" value="blackwidow"> Pistols</label><br />
@@ -24,7 +24,7 @@
             <label><input type="radio" name="q2" value="ironman"> High-Tech Armor</label>
         </div>
 
-        <div class="new-text mb-4">
+        <div class="quiz-question">
             <p><i class="fas fa-chess-king"></i> <strong>3. Leadership style?</strong></p>
             <label><input type="radio" name="q3" value="ironman" required> Lead with logic</label><br />
             <label><input type="radio" name="q3" value="thor"> Lead by example</label><br />
@@ -32,7 +32,7 @@
             <label><input type="radio" name="q3" value="captainmarvel"> Inspire from the front</label>
         </div>
 
-        <div class="new-text mb-4">
+        <div class="quiz-question">
             <p><i class="fas fa-dumbbell"></i> <strong>4. Biggest strength?</strong></p>
             <label><input type="radio" name="q4" value="blackwidow" required> Intelligence & Tactics</label><br />
             <label><input type="radio" name="q4" value="thor"> Raw Power</label><br />
@@ -40,7 +40,7 @@
             <label><input type="radio" name="q4" value="ironman"> Invention & Tech</label>
         </div>
 
-        <div class="new-text mb-4">
+        <div class="quiz-question">
             <p><i class="fas fa-user-shield"></i> <strong>5. Who do you trust most?</strong></p>
             <label><input type="radio" name="q5" value="captainmarvel" required> Yourself</label><br />
             <label><input type="radio" name="q5" value="blackwidow"> Your team</label><br />
@@ -49,15 +49,14 @@
         </div>
 
         <div class="d-flex justify-content-center gap-3 mt-4">
-            <button type="submit" class="btn btn-danger btn-lg"><i class="fas fa-fire"></i> Reveal My Avenger</button>
-            <button type="button" class="btn btn-secondary btn-lg" onclick="resetQuiz()">↩ Retake</button>
+            <button type="submit" class="btn btn-danger btn-lg animate__animated animate__pulse"><i class="fas fa-fire"></i> Reveal My Avenger</button>
+            <button type="button" class="btn btn-secondary btn-lg" onclick="resetQuiz()"><i class="fas fa-undo-alt"></i> Retake</button>
         </div>
     </form>
 
     <!-- Modal-style result box -->
     <div id="quizModal" class="popup-overlay d-none">
         <div class="popup-modal animate__animated animate__zoomIn">
-            <img id="heroImage" src="" alt="Hero Image" class="hero-img mb-3" style="max-width: 200px;" />
             <div class="popup-message" id="resultText"></div>
             <button class="popup-close" onclick="closeModal()">Close</button>
         </div>
@@ -67,49 +66,24 @@
 @section Scripts {
     <script>
         const heroAssets = {
-            ironman: {
-                name: "Iron Man 🧠",
-                image: "/images/ironman.png"
-            },
-            thor: {
-                name: "Thor ⚡",
-                image: "/images/thor.png"
-            },
-            blackwidow: {
-                name: "Black Widow 🕵️",
-                image: "/images/blackwidow.png"
-            },
-            captainmarvel: {
-                name: "Captain Marvel 🌟",
-                image: "/images/captainmarvel.png"
-            }
+            ironman: { name: "Iron Man 🧠" },
+            thor: { name: "Thor ⚡" },
+            blackwidow: { name: "Black Widow 🕵️" },
+            captainmarvel: { name: "Captain Marvel 🌟" }
         };
 
         function handleQuiz(e) {
             e.preventDefault();
-
             const form = new FormData(document.getElementById('quizForm'));
             const scores = { ironman: 0, thor: 0, blackwidow: 0, captainmarvel: 0 };
 
-            for (const [, value] of form.entries()) {
-                scores[value]++;
-            }
-
+            for (const [, value] of form.entries()) { scores[value]++; }
             const result = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
 
-            // Update modal content
             document.getElementById("resultText").innerHTML =
                 `<strong>You are:</strong> ${heroAssets[result].name}<br>Your traits align with ${heroAssets[result].name.split(" ")[0]}.`;
-            document.getElementById("heroImage").src = heroAssets[result].image;
 
-            // Show modal
             document.getElementById("quizModal").classList.remove("d-none");
-
-            // Optional: Change background color
-            document.body.style.backgroundColor = "#000";
-            document.body.style.backgroundImage = "none";
-
-            return false;
         }
 
         function closeModal() {
@@ -119,8 +93,6 @@
         function resetQuiz() {
             document.getElementById("quizForm").reset();
             closeModal();
-            document.body.style.background = "url('https://wallpaperaccess.com/full/342047.jpg') no-repeat center center fixed";
-            document.body.style.backgroundSize = "cover";
         }
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
