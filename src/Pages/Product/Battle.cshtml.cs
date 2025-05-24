@@ -9,16 +9,6 @@ using System.Linq;
 namespace ContosoCrafts.WebSite.Pages.Product
 {
     /// <summary>
-    /// Enum representing the current step of the battle process.
-    /// </summary>
-    public enum BattleStep
-    {
-        SelectHeroes = 1,
-        VoteWinner = 2,
-        ShowResult = 3
-    }
-
-    /// <summary>
     /// Manages the superhero battle page including hero selection, voting, results and comments.
     /// </summary>
     public class BattleModel : PageModel
@@ -163,11 +153,20 @@ namespace ContosoCrafts.WebSite.Pages.Product
                 /// </summary>
                 if (Hero1 != null && Hero2 != null)
                 {
-                    int hero1Total = Hero1.Intelligence + Hero1.Strength + Hero1.Speed +
+                    // Calculate base stat totals
+                    int hero1Stats = Hero1.Intelligence + Hero1.Strength + Hero1.Speed +
                                      Hero1.Durability + Hero1.Power + Hero1.Combat;
 
-                    int hero2Total = Hero2.Intelligence + Hero2.Strength + Hero2.Speed +
+                    int hero2Stats = Hero2.Intelligence + Hero2.Strength + Hero2.Speed +
                                      Hero2.Durability + Hero2.Power + Hero2.Combat;
+
+                    // Calculate average ratings (default to 0 if null/empty)
+                    double hero1Rating = (Hero1.Ratings?.Length > 0) ? Hero1.Ratings.Average() : 0;
+                    double hero2Rating = (Hero2.Ratings?.Length > 0) ? Hero2.Ratings.Average() : 0;
+
+                    // Combine stats and rating: 90% stats + 10% rating (rating scaled to 50)
+                    double hero1Total = hero1Stats * 0.9 + hero1Rating * 10;
+                    double hero2Total = hero2Stats * 0.9 + hero2Rating * 10;
 
                     if (hero1Total > hero2Total)
                     {
@@ -185,6 +184,7 @@ namespace ContosoCrafts.WebSite.Pages.Product
                         Loser = Hero2;
                     }
 
+                    // Set Result Message
                     if (PredictedWinner?.Id == ActualWinner?.Id)
                     {
                         ResultMessage = "You predicted correctly! 🎉";
@@ -201,5 +201,15 @@ namespace ContosoCrafts.WebSite.Pages.Product
 
             return Page();
         }
+    }
+
+    /// <summary>
+    /// Enum representing the current step of the battle process.
+    /// </summary>
+    public enum BattleStep
+    {
+        SelectHeroes = 1,
+        VoteWinner = 2,
+        ShowResult = 3
     }
 }
