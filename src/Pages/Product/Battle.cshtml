@@ -17,6 +17,7 @@
 
     @if (Model.Step == BattleStep.SelectHeroes)
     {
+        <!-- Select the Superheros to fight -->
         <form method="post" class="compare-form mx-auto">
             <input type="hidden" asp-for="Step" value="SelectHeroes" />
             <div class="form-group">
@@ -33,6 +34,7 @@
                 </select>
             </div>
 
+            <!-- Start the battle -->
             <div class="text-center mt-4">
                 <button type="submit" class="btn btn-primary compare-btn">⚔️ Start Battle ⚔️</button>
             </div>
@@ -40,6 +42,7 @@
     }
     else if (Model.Step == BattleStep.VoteWinner)
     {
+        <!-- Start voting and Predict the winner -->
         <form method="post" class="compare-form mx-auto">
             <input type="hidden" asp-for="Step" value="VoteWinner" />
             <input type="hidden" asp-for="Hero1Id" />
@@ -66,6 +69,7 @@
     }
     else if (Model.Step == BattleStep.ShowResult)
     {
+        <!-- Result of Battle -->
         <div class="battle-final">
             <div class="battle-result d-flex justify-content-around align-items-center mt-5">
                 <div class="winner">
@@ -94,6 +98,7 @@
 
     @if (!ViewData.ModelState.IsValid)
     {
+        <!-- Error Message if failure occurs -->
         <div class="alert alert-danger mt-3">
             @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
             {

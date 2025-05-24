@@ -8,6 +8,9 @@ using System.Linq;
 
 namespace ContosoCrafts.WebSite.Pages.Product
 {
+    /// <summary>
+    /// Enum representing the current step of the battle process.
+    /// </summary>
     public enum BattleStep
     {
         SelectHeroes = 1,
@@ -15,40 +18,92 @@ namespace ContosoCrafts.WebSite.Pages.Product
         ShowResult = 3
     }
 
+    /// <summary>
+    /// Manages the superhero battle page including hero selection, voting, results and comments.
+    /// </summary>
     public class BattleModel : PageModel
     {
+        /// <summary>
+        /// Service used to access superhero data.
+        /// </summary>
         private readonly JsonFileProductService _productService;
 
+        /// <summary>
+        /// Constructor to inject the product service.
+        /// </summary>
+        /// <param name="productService">Service for accessing superhero data</param>
         public BattleModel(JsonFileProductService productService)
         {
             _productService = productService;
         }
 
+        /// <summary>
+        /// List of all available superheroes.
+        /// </summary>
         public List<ProductModel> Products { get; set; } = new();
 
+        /// <summary>
+        /// ID of the first selected hero.
+        /// </summary>
         [BindProperty]
         public string? Hero1Id { get; set; }
 
+        /// <summary>
+        /// ID of the second selected hero.
+        /// </summary>
         [BindProperty]
         public string? Hero2Id { get; set; }
 
+        /// <summary>
+        /// First hero's full data.
+        /// </summary>
         public ProductModel? Hero1 { get; set; }
+
+        /// <summary>
+        /// Second hero's full data.
+        /// </summary>
         public ProductModel? Hero2 { get; set; }
 
+        /// <summary>
+        /// ID of the hero predicted to win.
+        /// </summary>
         [BindProperty]
         public string? PredictedWinnerId { get; set; }
 
+        /// <summary>
+        /// Hero predicted to win.
+        /// </summary>
         public ProductModel? PredictedWinner { get; set; }
 
+        /// <summary>
+        /// The actual winner hero.
+        /// </summary>
         public ProductModel? ActualWinner { get; set; }
+
+        /// <summary>
+        /// The hero who lost.
+        /// </summary>
         public ProductModel? Loser { get; set; }
+
+        /// <summary>
+        /// Message showing whether prediction was correct.
+        /// </summary>
         public string? ResultMessage { get; set; }
 
+        /// <summary>
+        /// List of selectable hero options for dropdown.
+        /// </summary>
         public List<SelectListItem> HeroOptions { get; set; } = new();
 
+        /// <summary>
+        /// Current step in the battle workflow.
+        /// </summary>
         [BindProperty]
         public BattleStep Step { get; set; } = BattleStep.SelectHeroes;
 
+        /// <summary>
+        /// Handles GET requests to initialize the page.
+        /// </summary>
         public void OnGet()
         {
             Products = _productService.GetProducts().ToList();
@@ -60,6 +115,10 @@ namespace ContosoCrafts.WebSite.Pages.Product
             }).ToList();
         }
 
+        /// <summary>
+        /// Handles POST requests for all steps: selecting heroes, voting, showing results, and adding comments.
+        /// </summary>
+        /// <returns>The page with updated model</returns>
         public IActionResult OnPost()
         {
             Products = _productService.GetProducts().ToList();
@@ -98,6 +157,10 @@ namespace ContosoCrafts.WebSite.Pages.Product
                 Hero2 = Products.FirstOrDefault(p => p.Id == Hero2Id);
                 PredictedWinner = Products.FirstOrDefault(p => p.Id == PredictedWinnerId);
 
+                /// <summary>
+                /// Determines the actual winner and loser based on hero stats.
+                /// Sets the ResultMessage accordingly.
+                /// </summary>
                 if (Hero1 != null && Hero2 != null)
                 {
                     int hero1Total = Hero1.Intelligence + Hero1.Strength + Hero1.Speed +
