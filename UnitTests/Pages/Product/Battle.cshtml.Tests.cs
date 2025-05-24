@@ -155,9 +155,11 @@ namespace UnitTests.Pages.Product
 
             // Assert
             Assert.AreEqual(typeof(PageResult), result.GetType());
+            Assert.IsInstanceOf<PageResult>(result);
             Assert.AreEqual(BattleStep.ShowResult, pageModel.Step);
-            Assert.AreEqual(hulkId, pageModel.ActualWinner?.Id);
-            Assert.AreEqual(grootId, pageModel.Loser?.Id);
+            Assert.IsNotNull(pageModel.ActualWinner);
+            Assert.AreEqual("332", pageModel.ActualWinner.Id);
+            Assert.AreEqual("303", pageModel.Loser.Id);
             Assert.AreEqual("You predicted correctly! 🎉", pageModel.ResultMessage);
         }
 
@@ -198,19 +200,21 @@ namespace UnitTests.Pages.Product
             const string grootId = "303";
             const string hulkId = "332";
 
+            // Set IDs and Step to enter comparison logic
             pageModel.Hero1Id = grootId;
             pageModel.Hero2Id = hulkId;
-            pageModel.PredictedWinnerId = hulkId;
+            pageModel.PredictedWinnerId = hulkId;  // Predict Hulk wins
             pageModel.Step = BattleStep.VoteWinner;
 
             // Act
             var result = pageModel.OnPost();
 
             // Assert
-            Assert.AreEqual(typeof(PageResult), result.GetType());
+            Assert.IsInstanceOf<PageResult>(result);
             Assert.AreEqual(BattleStep.ShowResult, pageModel.Step);
-            Assert.AreEqual(hulkId, pageModel.ActualWinner?.Id);
-            Assert.AreEqual(grootId, pageModel.Loser?.Id);
+            Assert.IsNotNull(pageModel.ActualWinner);
+            Assert.AreEqual("332", pageModel.ActualWinner.Id);
+            Assert.AreEqual("303", pageModel.Loser.Id);
         }
 
         /// <summary>
