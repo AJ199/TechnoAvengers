@@ -154,6 +154,8 @@ namespace UnitTests.Pages.Product
             // Assert
             Assert.AreEqual(typeof(PageResult), result.GetType());
             Assert.AreEqual(BattleStep.ShowResult, pageModel.Step);
+            Assert.AreEqual(hulkId, pageModel.ActualWinner?.Id);
+            Assert.AreEqual(grootId, pageModel.Loser?.Id);
             Assert.AreEqual("You predicted correctly! 🎉", pageModel.ResultMessage);
         }
 
@@ -180,6 +182,28 @@ namespace UnitTests.Pages.Product
             Assert.AreEqual(typeof(PageResult), result.GetType());
             Assert.AreEqual(BattleStep.ShowResult, pageModel.Step);
             Assert.AreEqual("Oops! Your prediction was wrong. 😢", pageModel.ResultMessage);
+        }
+
+        [Test]
+        public void OnPost_VoteWinner_Hero2IsStronger_Should_Set_ActualWinner_As_Hero2()
+        {
+            // Arrange: Groot (Hero1) vs Hulk (Hero2) → Hulk wins
+            const string grootId = "303";
+            const string hulkId = "332";
+
+            pageModel.Hero1Id = grootId;
+            pageModel.Hero2Id = hulkId;
+            pageModel.PredictedWinnerId = hulkId;
+            pageModel.Step = BattleStep.VoteWinner;
+
+            // Act
+            var result = pageModel.OnPost();
+
+            // Assert
+            Assert.AreEqual(typeof(PageResult), result.GetType());
+            Assert.AreEqual(BattleStep.ShowResult, pageModel.Step);
+            Assert.AreEqual(hulkId, pageModel.ActualWinner?.Id);
+            Assert.AreEqual(grootId, pageModel.Loser?.Id);
         }
 
 
