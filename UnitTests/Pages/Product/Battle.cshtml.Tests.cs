@@ -132,6 +132,57 @@ namespace UnitTests.Pages.Product
             Assert.IsTrue(pageModel.ModelState.ErrorCount > 0);
         }
 
+        /// <summary>
+        /// Verifies that when the user's prediction matches the actual winner,
+        /// the result message confirms a correct prediction
+        /// </summary>
+        [Test]
+        public void OnPost_VoteWinner_Valid_Correct_Prediction_Should_Set_Correct_ResultMessage()
+        {
+            // Arrange: Predicting Hulk (stronger) wins against Groot (weaker)
+            const string hulkId = "332";
+            const string grootId = "303";
+
+            pageModel.Hero1Id = hulkId;
+            pageModel.Hero2Id = grootId;
+            pageModel.PredictedWinnerId = hulkId; // Correct prediction
+            pageModel.Step = BattleStep.VoteWinner;
+
+            // Act
+            var result = pageModel.OnPost();
+
+            // Assert
+            Assert.AreEqual(typeof(PageResult), result.GetType());
+            Assert.AreEqual(BattleStep.ShowResult, pageModel.Step);
+            Assert.AreEqual("You predicted correctly! 🎉", pageModel.ResultMessage);
+        }
+
+        /// <summary>
+        /// Verifies that when the user's prediction does not match the actual winner,
+        /// the result message confirms an incorrect prediction
+        /// </summary>
+        [Test]
+        public void OnPost_VoteWinner_Invalid_Prediction_Should_Set_Wrong_ResultMessage()
+        {
+            // Arrange: Predicting Groot (weaker) wins against Hulk (stronger)
+            const string hulkId = "332";
+            const string grootId = "303";
+
+            pageModel.Hero1Id = hulkId;
+            pageModel.Hero2Id = grootId;
+            pageModel.PredictedWinnerId = grootId; // Incorrect prediction
+            pageModel.Step = BattleStep.VoteWinner;
+
+            // Act
+            var result = pageModel.OnPost();
+
+            // Assert
+            Assert.AreEqual(typeof(PageResult), result.GetType());
+            Assert.AreEqual(BattleStep.ShowResult, pageModel.Step);
+            Assert.AreEqual("Oops! Your prediction was wrong. 😢", pageModel.ResultMessage);
+        }
+
+
         #endregion OnPost Tests - VoteWinner Step
     }
 }
