@@ -178,11 +178,6 @@ namespace ContosoCrafts.WebSite.Pages.Product
                         ActualWinner = Hero2;
                         Loser = Hero1;
                     }
-                    else
-                    {
-                        ActualWinner = Hero1;
-                        Loser = Hero2;
-                    }
 
                     // Set Result Message
                     if (PredictedWinner?.Id == ActualWinner?.Id)
