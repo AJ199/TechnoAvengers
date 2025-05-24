@@ -173,7 +173,7 @@ namespace ContosoCrafts.WebSite.Pages.Product
                         ActualWinner = Hero1;
                         Loser = Hero2;
                     }
-                    else if (hero2Total > hero1Total)
+                    else
                     {
                         ActualWinner = Hero2;
                         Loser = Hero1;

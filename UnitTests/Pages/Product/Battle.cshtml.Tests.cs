@@ -1,6 +1,8 @@
-﻿using ContosoCrafts.WebSite.Pages.Product;
+﻿using ContosoCrafts.WebSite.Models;
+using ContosoCrafts.WebSite.Pages.Product;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using NUnit.Framework;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace UnitTests.Pages.Product
@@ -184,6 +186,11 @@ namespace UnitTests.Pages.Product
             Assert.AreEqual("Oops! Your prediction was wrong. 😢", pageModel.ResultMessage);
         }
 
+        /// <summary>
+        /// Verifies that when Hero2 has stronger stats than Hero1,
+        /// the ActualWinner is set to Hero2 and Loser is set to Hero1,
+        /// and the page flow proceeds correctly to show the result.
+        /// </summary>
         [Test]
         public void OnPost_VoteWinner_Hero2IsStronger_Should_Set_ActualWinner_As_Hero2()
         {
@@ -206,6 +213,24 @@ namespace UnitTests.Pages.Product
             Assert.AreEqual(grootId, pageModel.Loser?.Id);
         }
 
+        /// <summary>
+        /// Verifies that when the battle step is not SelectHeroes or VoteWinner,
+        /// the OnPost method returns the page without changing state.
+        /// </summary>
+        [Test]
+        public void OnPost_OtherStep_Should_ReturnPage()
+        {
+            // Arrange
+            pageModel.Step = BattleStep.ShowResult;  // or any step other than SelectHeroes or VoteWinner
+
+            // Act
+            var result = pageModel.OnPost();
+
+            // Assert
+            Assert.IsInstanceOf<PageResult>(result);
+            // Optionally, verify the Step remains unchanged
+            Assert.AreEqual(BattleStep.ShowResult, pageModel.Step);
+        }
 
         #endregion OnPost Tests - VoteWinner Step
     }
