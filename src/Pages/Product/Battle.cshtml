@@ -5,6 +5,13 @@
     ViewData["Title"] = "Superhero Battle";
 }
 
+<!-- Back Button -->
+<div class="back-btn-container text-start">
+    <a class="btn btn-primary btn-back" asp-page="/Product/Index">
+        ← BACK TO SUPERHEROES
+    </a>
+</div>
+
 <div class="compare-wrapper">
     <h1 class="compare-heading">⚡ Heroic Battle ⚡</h1>
 
@@ -38,8 +45,8 @@
             <input type="hidden" asp-for="Hero1Id" />
             <input type="hidden" asp-for="Hero2Id" />
 
-            <div class="form-group">
-                <label class="form-label">Who do you think will win?</label> 
+            <div class="form-group battle-vote">
+                <h3>Who do you think will win?</h3> 
 
                 <div class="form-check"> 
                     <input type="radio" asp-for="PredictedWinnerId" value="@Model.Hero1.Id" class="form-check-input" /> 
@@ -59,17 +66,29 @@
     }
     else if (Model.Step == BattleStep.ShowResult)
     {
-        <div class="compare-result text-center">
-            <h2 class="compare-heading">🏆 Winner: @Model.ActualWinner.Title</h2>
-            <p class="compare-summary">
-                Your prediction was
-                <strong>
-                    @(Model.PredictedWinner.Id == Model.ActualWinner.Id ? "correct!" : "incorrect.")
-                </strong>
-            </p>
-            <p class="compare-summary">@Model.ResultMessage</p>
+        <div class="battle-final">
+            <div class="battle-result d-flex justify-content-around align-items-center mt-5">
+                <div class="winner">
+                    <h3 class="text-success">🏆 Winner: @Model.ActualWinner.Title</h3>
+                    <img src="@Model.ActualWinner.ImageUrl" class="card-img" alt="@Model.ActualWinner.Title" />
+                </div>
 
-            <a asp-page="./Battle" class="btn btn-terciary compare-btn mt-3">🔁 Start New Battle</a>
+                <div class="vs-text">
+                    <h2>VS</h2>
+                </div>
+
+                <div class="loser">
+                    <h3 class="text-danger">💀 Defeated: @(Model.Hero1.Id == Model.ActualWinner.Id ? Model.Hero2.Title : Model.Hero1.Title)</h3>
+                    <img src="@(Model.Hero1.Id == Model.ActualWinner.Id ? Model.Hero2.ImageUrl : Model.Hero1.ImageUrl)"
+                         class="card-img" alt="Defeated Hero" />
+                </div>
+            </div>
+
+            <p class="text-center mt-3">Your prediction was @(Model.PredictedWinner.Id == Model.ActualWinner.Id ? "Correct ✅" : "Incorrect ❌")</p>
+
+            <div class="text-center mt-4">
+                <a asp-page="./Battle" class="btn btn-terciary compare-btn">Start New Battle</a>
+            </div>
         </div>
     }
 

@@ -1989,3 +1989,115 @@ form { /* Filter Form */
     font-size: 1.1em;
 }
 /* End of styles for create*/
+
+
+/* Container for the battle result showing both winner and loser */
+.battle-final {
+  background-color: rgba(0, 0, 0, 0.75);
+  padding: 2rem;
+  border-radius:20px
+}
+.battle-result {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 3rem;
+  margin-top: 2rem;
+  padding: 2rem;
+  border-radius: 20px;
+}
+
+  /* Style for hero image containers */
+  .battle-result .winner,
+  .battle-result .loser {
+    text-align: center;
+  }
+
+/* Winner image */
+.battle-image {
+  width: 100px;
+  height: auto;
+  border-radius: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.4);
+  height: 400px;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* VS text in the center */
+.vs-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Bangers', cursive; /* Comic-style font */
+  font-weight: bold;
+  color: #ffcc00; /* Bright yellow */
+}
+
+  .vs-text h2 {
+    color: #fff;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+    margin: 0;
+    font-size: 4rem !important;
+    letter-spacing: 0.13rem;
+  }
+
+.battle-vote {
+  font-family: 'Bangers', cursive; /* Comic-style font */
+  font-weight: bold;
+  font-size: 25px !important;
+  letter-spacing: 0.12rem;
+}
+
+/* Battle outcome text */
+.battle-result h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.battle-result .winner h3 {
+  color: #28a745 !important; /* Bootstrap green, forced override */
+  font-size: 2rem !important; /* bigger font size */
+  font-family: 'Bangers', cursive; /* Comic-style font */
+  font-weight: bold;
+  letter-spacing:0.1rem;
+}
+
+.battle-result .loser h3 {
+  color: white !important;
+  font-size: 2rem !important; /* bigger font size */
+  font-family: 'Bangers', cursive; /* Comic-style font */
+  font-weight: bold;
+  letter-spacing: 0.1rem;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mt-3 {
+  margin-top: 1rem;
+  font-family: 'Bangers', cursive; /* Comic-style font */
+  font-weight: bold;
+  font-size: 30px;
+  color: black;
+  letter-spacing: 0.1rem;
+  background-color: #ffcc00;
+  padding: 6px;
+  width: 50%;
+  margin-left:300px;
+}
+
+.mt-4 {
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .battle-result {
+    flex-direction: column;
+    align-items: center;
+  }
+}
