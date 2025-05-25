@@ -19,7 +19,8 @@
         </div>
 
         <!-- Dropdown to select the field to sort by -->
-        <select name="SortField" class="sort-dropdown">
+        <select name="SortField" class="sort-dropdown" onchange="document.getElementById('searchForm').submit()">
+
             <!-- Each option sets selected based on current query value -->
             <option value="Title" selected="@("Title" == Request.Query["SortField"])">Sort by Name</option>
             <option value="Intelligence" selected="@("Intelligence" == Request.Query["SortField"])">Sort by Intelligence</option>
