@@ -1,0 +1,77 @@
+﻿@page
+@model ContosoCrafts.WebSite.Pages.KnowledgeQuizModel
+@{
+    ViewData["Title"] = "Test Your Avengers Knowledge!";
+}
+
+<div class="container mt-5 text-white text-center animate__animated animate__fadeIn">
+    <h1 class="mb-4 hero-text">Test Your Avengers Knowledge!</h1>
+    <p class="lead">Answer 10 questions and see how much of an Avenger fan you really are!</p>
+
+    <form id="quizForm" class="quiz-form text-start" onsubmit="return handleQuizSubmit(event)">
+        @for (int i = 0; i < Model.Questions.Count; i++)
+        {
+            <div class="quiz-question mb-4">
+                <p><strong>@(i + 1). @Model.Questions[i].Question</strong></p>
+                @foreach (var option in Model.Questions[i].Options)
+                {
+                    <label>
+                        <input type="radio" name="q@(i)" value="@option" required> @option
+                    </label>
+            
+                    <br />
+                }
+            </div>
+        }
+
+        <div class="d-flex justify-content-center gap-3 mt-4">
+            <button type="submit" class="btn btn-danger btn-lg animate__animated animate__pulse">
+                <i class="fas fa-fire"></i> Submit Answers
+            </button>
+            <button type="button" class="btn btn-secondary btn-lg" onclick="resetQuiz()">
+                <i class="fas fa-undo-alt"></i> Retake
+            </button>
+        </div>
+    </form>
+
+    <!-- Score Modal -->
+    <div id="scoreModal" class="popup-overlay d-none">
+        <div class="popup-modal animate__animated animate__zoomIn">
+            <div class="popup-message" id="scoreText"></div>
+            <button class="btn btn-light mt-3" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        const correctAnswers = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.CorrectAnswers));
+
+        function handleQuizSubmit(e) {
+            e.preventDefault();
+            let score = 0;
+            const form = new FormData(document.getElementById('quizForm'));
+
+            for (let i = 0; i < correctAnswers.length; i++) {
+                const userAnswer = form.get("q" + i);
+                if (userAnswer && userAnswer.trim().toLowerCase() === correctAnswers[i].toLowerCase()) {
+                    score++;
+                }
+            }
+
+            document.getElementById("scoreText").innerHTML = `<h3>🎉 Quiz Complete!</h3><p>You scored ${score} / 10!</p>`;
+            document.getElementById("scoreModal").classList.remove("d-none");
+        }
+
+        function closeModal() {
+            document.getElementById("scoreModal").classList.add("d-none");
+        }
+
+        function resetQuiz() {
+            document.getElementById("quizForm").reset();
+            closeModal();
+        }
+    </script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+}
