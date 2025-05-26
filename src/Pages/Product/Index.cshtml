@@ -36,26 +36,30 @@
                     <a asp-page="./Index"
                        asp-route-SortField="Title"
                        asp-route-SortOrder="@(Request.Query["SortField"] == "Title" && Request.Query["SortOrder"] == "asc" ? "desc" : "asc")"
-                       style="text-decoration:none; color:inherit;">
+                       style="text-decoration:none; color:inherit;"
+                       title="Click to sort by superhero name">
                         Superhero Name
-                        @{
-                            var sortField = (string)Request.Query["SortField"];
-                            var sortOrder = (string)Request.Query["SortOrder"];
-                            var isSortedByTitle = sortField == "Title";
-                            var isAscending = sortOrder == "asc";
+                        <span style="font-size: 0.8em;">
+                            @{
+                                var sortField = (string)Request.Query["SortField"];
+                                var sortOrder = (string)Request.Query["SortOrder"];
 
-                            var sortIcon = string.Empty;
-                            if (isSortedByTitle && isAscending)
-                            {
-                                sortIcon = "▲";
-                            }
+                                var isSortedByTitle = sortField == "Title";
+                                var icon = "⇅"; // Default sort icon
 
-                            if (isSortedByTitle && !isAscending)
-                            {
-                                sortIcon = "▼";
+                                if (isSortedByTitle && sortOrder == "asc")
+                                {
+                                    icon = "▲";
+                                }
+
+                                if (isSortedByTitle && sortOrder == "desc")
+                                {
+                                    icon = "▼";
+                                }
+
+                                @icon
                             }
-                        }
-                        <span>@sortIcon</span>
+                        </span>
                     </a>
                 </th>
                 <th class="hero-action-header">Actions</th>
