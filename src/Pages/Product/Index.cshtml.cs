@@ -25,20 +25,13 @@ namespace ContosoCrafts.WebSite.Pages.Product
             Products = JsonConvert.DeserializeObject<List<ContosoCrafts.WebSite.Models.ProductModel>>(json);
 
             // Apply sorting based on query
-            if (!string.IsNullOrEmpty(SortField))
+            if (!string.IsNullOrEmpty(SortField) && SortField == "Title")
             {
-                if (SortField == "Title")
-                {
-                    if (SortOrder == "desc")
-                    {
-                        Products = Products.OrderByDescending(p => p.Title).ToList();
-                    }
-                    else
-                    {
-                        Products = Products.OrderBy(p => p.Title).ToList();
-                    }
-                }
-                // Add more fields here if you want to sort by other properties
+                bool isDescending = SortOrder == "desc";
+
+                Products = isDescending
+                    ? Products.OrderByDescending(p => p.Title).ToList()
+                    : Products.OrderBy(p => p.Title).ToList();
             }
         }
     }
