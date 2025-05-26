@@ -8,25 +8,25 @@
 <!-- Container for the entire index page content -->
 <div class="container hero-index-container">
 
-    <!-- Top Action Buttons -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
+<div class="container mb-5">
+    <div class="row text-center g-4">
+
         <!-- Create New Hero -->
-        <a class="btn btn-primary" asp-page="Create">
-            Create New Hero
-        </a>
-
-        <div class="d-flex gap-3 flex-wrap">
-            <!-- Compare Superheroes -->
-            <a class="btn btn-terciary" asp-page="Compare">
-                Compare Superheroes
-            </a>
-
-            <!-- Battle Superheroes -->
-            <a class="btn btn-terciary" asp-page="Battle">
-                Epic Battle
-            </a>
+        <div class="col-md-4">
+            <div class="card shadow h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Create New Hero</h5>
+                    <p class="card-text">Add a brand-new superhero to your roster by filling out the creation form.</p>
+                    <a class="btn btn-primary" asp-page="Create">Create</a>
+                </div>
+            </div>
         </div>
+
+
+
     </div>
+</div>
+
 
     <!-- Table displaying all superheroes -->
     <table class="table hero-table">
