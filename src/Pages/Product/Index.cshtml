@@ -8,44 +8,45 @@
 <!-- Container for the entire index page content -->
 <div class="container hero-index-container">
 
-<div class="container mb-5">
-    <div class="row text-center g-4">
+    <div class="container mb-5">
+        <div class="row text-center g-4">
 
-        <!-- Create New Hero -->
-        <div class="col-md-4">
-            <div class="card shadow h-100">
-                <div class="card-body">
-                    <h5 class="card-title">Create New Hero</h5>
-                    <p class="card-text">Add a brand-new superhero to your roster by filling out the creation form.</p>
-                    <a class="btn btn-primary" asp-page="Create">Create</a>
+            <!-- Create New Hero -->
+            <div class="col-md-4">
+                <div class="card shadow h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Create New Hero</h5>
+                        <p class="card-text">Add a brand-new superhero to your roster by filling out the creation form.</p>
+                        <a class="btn btn-primary" asp-page="Create">Create</a>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Compare Heroes -->
-        <div class="col-md-4">
-            <div class="card shadow h-100">
-                <div class="card-body">
-                    <h5 class="card-title">Compare Heroes</h5>
-                    <p class="card-text">Choose two superheroes to compare their attributes side by side.</p>
-                    <button class="btn btn-secondary" type="button" onclick="selectAction('Compare')">Compare</button>
+            <!-- Compare Heroes -->
+            <div class="col-md-4">
+                <div class="card shadow h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Compare Heroes</h5>
+                        <p class="card-text">Choose two superheroes to compare their abilities side-by-side.</p>
+                        <a class="btn btn-secondary" asp-page="Compare">Compare</a>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Battle Heroes -->
-        <div class="col-md-4">
-            <div class="card shadow h-100">
-                <div class="card-body">
-                    <h5 class="card-title">Battle Heroes</h5>
-                    <p class="card-text">Pick two superheroes and simulate an epic battle to see who wins.</p>
-                    <button class="btn btn-danger" type="button" onclick="selectAction('Battle')">Battle</button>
+            <!-- Battle Heroes -->
+            <div class="col-md-4">
+                <div class="card shadow h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Battle Heroes</h5>
+                        <p class="card-text">Select two heroes and find out who would win in an epic showdown.</p>
+                        <a class="btn btn-danger" asp-page="Battle">Battle</a>
+                    </div>
                 </div>
             </div>
-        </div>
 
+        </div>
     </div>
-</div>
+
 
 
     <!-- Table displaying all superheroes -->
