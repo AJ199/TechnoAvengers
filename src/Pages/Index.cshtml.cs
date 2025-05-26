@@ -111,7 +111,6 @@ namespace ContosoCrafts.WebSite.Pages
                     (selectedAlignments.Count == 0 || selectedAlignments.Contains(hero.Alignment)) &&
                     (selectedRoles.Count == 0 || selectedRoles.Contains(hero.Role)) &&
                     (selectedGenders.Count == 0 || selectedGenders.Contains(hero.Gender)) &&
-
                     hero.Intelligence >= minIntelligence && hero.Intelligence <= maxIntelligence &&
                     hero.Strength >= minStrength && hero.Strength <= maxStrength &&
                     hero.Speed >= minSpeed && hero.Speed <= maxSpeed &&
@@ -119,9 +118,8 @@ namespace ContosoCrafts.WebSite.Pages
                     hero.Power >= minPower && hero.Power <= maxPower &&
                     hero.Combat >= minCombat && hero.Combat <= maxCombat
                 )
-                .OrderBy(hero => SortOrder == "desc" ? null : hero.Title)  // ascending if "asc"
-                .ThenByDescending(hero => SortOrder == "desc" ? hero.Title : null) // descending if "desc"
                 .ToList();
+
 
             // Retrieve sort parameters
             // The field to sort by
