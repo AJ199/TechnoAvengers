@@ -41,18 +41,21 @@
                         @{
                             var sortField = (string)Request.Query["SortField"];
                             var sortOrder = (string)Request.Query["SortOrder"];
-                            if (sortField == "Title")
+                            var isSortedByTitle = sortField == "Title";
+                            var isAscending = sortOrder == "asc";
+
+                            var sortIcon = string.Empty;
+                            if (isSortedByTitle && isAscending)
                             {
-                                if (sortOrder == "asc")
-                                {
-                                    <span>▲</span>
-                                }
-                                else
-                                {
-                                    <span>▼</span>
-                                }
+                                sortIcon = "▲";
+                            }
+
+                            if (isSortedByTitle && !isAscending)
+                            {
+                                sortIcon = "▼";
                             }
                         }
+                        <span>@sortIcon</span>
                     </a>
                 </th>
                 <th class="hero-action-header">Actions</th>
