@@ -140,9 +140,9 @@ namespace UnitTests.Pages.Product
 
             // Act
             pageModel.OnGet(data.Id);
-            var expectedCount = data.Ratings?.Length ?? 0;
-            var expectedLabel = expectedCount == 1 ? "Vote" : "Votes";
-            var expectedAvg = expectedCount > 0 ? data.Ratings!.Sum() / expectedCount : 0;
+            var expectedCount = data.Ratings.Length;
+            var expectedLabel = "Votes";
+            var expectedAvg = data.Ratings!.Sum() / expectedCount;
 
             // Assert
             Assert.AreEqual(expectedCount, pageModel.VoteCount);
