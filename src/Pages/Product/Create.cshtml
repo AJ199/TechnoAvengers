@@ -13,27 +13,28 @@
 
 <div class="create-form-container">
     <h2>Create New Hero</h2>
+    <p><strong>Fields marked with (<span class="text-danger">*</span>) are required</strong></p>
 
     <form method="post">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
         <!-- Title -->
         <div class="create-form-group">
-            <label asp-for="Product.Title"></label>
+            <label asp-for="Product.Title">Superhero Name (<span class="text-danger">*</span>)</label>
             <span asp-validation-for="Product.Title"></span>
             <input asp-for="Product.Title" />
         </div>
 
         <!-- Fullname -->
         <div class="create-form-group">
-            <label asp-for="Product.Fullname"></label>
+            <label asp-for="Product.Fullname">Fullname (Optional)</label>
             <span asp-validation-for="Product.Fullname"></span>
             <input asp-for="Product.Fullname" />
         </div>
 
         <!-- Gender Dropdown -->
         <div class="create-form-group">
-            <label asp-for="Product.Gender">Gender</label>
+            <label asp-for="Product.Gender">Gender (<span class="text-danger">*</span>)</label>
             <span asp-validation-for="Product.Gender"></span>
             <select asp-for="Product.Gender" class="form-control">
                 <option value="Male">Male</option>
@@ -44,7 +45,7 @@
 
         <!-- Role Dropdown -->
         <div class="create-form-group">
-            <label asp-for="Product.Role">Role</label>
+            <label asp-for="Product.Role">Role (<span class="text-danger">*</span>)</label>
             <span asp-validation-for="Product.Role"></span>
             <select asp-for="Product.Role" class="form-control">
                 <option value="Core Avenger">Core Avenger</option>
@@ -57,7 +58,7 @@
 
         <!-- Alignment Dropdown -->
         <div class="create-form-group">
-            <label asp-for="Product.Alignment">Alignment</label>
+            <label asp-for="Product.Alignment">Alignment (<span class="text-danger">*</span>)</label>
             <span asp-validation-for="Product.Alignment"></span>
             <select asp-for="Product.Alignment" class="form-control">
                 <option value="good">Good</option>
@@ -68,28 +69,28 @@
 
         <!-- Birthplace -->
         <div class="create-form-group">
-            <label asp-for="Product.Birthplace"></label>
+            <label asp-for="Product.Birthplace">Birthplace (Optional)</label>
             <span asp-validation-for="Product.Birthplace"></span>
             <input asp-for="Product.Birthplace" />
         </div>
 
         <!-- Work -->
         <div class="create-form-group">
-            <label asp-for="Product.Work"></label>
+            <label asp-for="Product.Work">Work (Optional)</label>
             <span asp-validation-for="Product.Work"></span>
             <input asp-for="Product.Work" />
         </div>
 
         <!-- First Appearance -->
         <div class="create-form-group">
-            <label asp-for="Product.FirstAppear"></label>
+            <label asp-for="Product.FirstAppear">First Appearance (Optional)</label>
             <span asp-validation-for="Product.FirstAppear"></span>
             <input asp-for="Product.FirstAppear" />
         </div>
 
         <!-- Image URL -->
         <div class="create-form-group">
-            <label asp-for="Product.ImageUrl"></label>
+            <label asp-for="Product.ImageUrl">Image URL (<span class="text-danger">*</span>)</label>
             <span asp-validation-for="Product.ImageUrl"></span>
             <input asp-for="Product.ImageUrl" />
         </div>
@@ -99,7 +100,7 @@
 
         <!-- Intelligence -->
         <div class="create-form-group">
-            <label asp-for="Product.Intelligence">Intelligence:</label>
+            <label asp-for="Product.Intelligence">Intelligence (<span class="text-danger">*</span>)</label>
             <div class="create-slider-container">
                 <input asp-for="Product.Intelligence"
                        type="range"
@@ -112,7 +113,7 @@
 
         <!-- Strength -->
         <div class="create-form-group">
-            <label asp-for="Product.Strength">Strength:</label>
+            <label asp-for="Product.Strength">Strength (<span class="text-danger">*</span>)</label>
             <div class="create-slider-container">
                 <input asp-for="Product.Strength"
                        type="range"
@@ -125,7 +126,7 @@
 
         <!-- Speed -->
         <div class="create-form-group">
-            <label asp-for="Product.Speed">Speed:</label>
+            <label asp-for="Product.Speed">Speed (<span class="text-danger">*</span>)</label>
             <div class="create-slider-container">
                 <input asp-for="Product.Speed"
                        type="range"
@@ -138,7 +139,7 @@
 
         <!-- Durability -->
         <div class="create-form-group">
-            <label asp-for="Product.Durability">Durability:</label>
+            <label asp-for="Product.Durability">Durability (<span class="text-danger">*</span>)</label>
             <div class="create-slider-container">
                 <input asp-for="Product.Durability"
                        type="range"
@@ -151,7 +152,7 @@
 
         <!-- Power -->
         <div class="create-form-group">
-            <label asp-for="Product.Power">Power:</label>
+            <label asp-for="Product.Power">Power (<span class="text-danger">*</span>)</label>
             <div class="create-slider-container">
                 <input asp-for="Product.Power"
                        type="range"
@@ -164,14 +165,14 @@
 
         <!-- Combat -->
         <div class="create-form-group">
-            <label asp-for="Product.Combat">Combat:</label>
+            <label asp-for="Product.Combat">Combat (<span class="text-danger">*</span>)</label>
             <div class="create-slider-container">
                 <input asp-for="Product.Combat"
                        type="range"
                        min="1"
                        max="100"
                        class="slider" />
-                <span class="create-slider-values" id="Combat-value">0</span>
+                <output class="create-slider-values" id="Combat-value">0</output>
             </div>
         </div>
 
