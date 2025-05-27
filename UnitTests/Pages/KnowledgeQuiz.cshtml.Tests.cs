@@ -2,6 +2,7 @@
 using ContosoCrafts.WebSite.Models;
 using NUnit.Framework;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace UnitTests.Pages
 {
@@ -64,6 +65,24 @@ namespace UnitTests.Pages
             // Assert: Check if Questions was updated correctly
             Assert.AreEqual(1, pageModel.Questions.Count);
             Assert.AreEqual("Test?", pageModel.Questions[0].Question);
+        }
+
+        /// <summary>
+        /// Validates that OnGet correctly populates the Questions list
+        /// </summary>
+        [Test]
+        public void OnGet_Valid_Options_Getter_Should_Return_Expected_Values()
+        {
+            // Arrange
+            pageModel.OnGet();
+
+            var data = pageModel.Questions[0];
+
+            // Act
+            var result = data.Options;
+
+            // Assert
+            Assert.AreEqual(true, result.Contains(data.Answer));
         }
         #endregion
     }
