@@ -13,8 +13,10 @@ using Moq;
 
 using ContosoCrafts.WebSite.Pages;
 using ContosoCrafts.WebSite.Services;
-using static System.Net.WebRequestMethods;
-
+using ContosoCrafts.WebSite.Models;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
+using System;
 
 namespace UnitTests
 {
@@ -116,6 +118,25 @@ namespace UnitTests
             JsonFileProductService productService;
 
             productService = new JsonFileProductService(TestHelper.MockWebHostEnvironment.Object);
+        }
+
+        /// <summary>
+        /// Loads and binds the EmailSettings section from appsettingsTest.json for unit tests
+        /// </summary>
+        /// <returns>EmailSettingsModel wrapped in IOptions</returns>
+        public static IOptions<EmailSettingsModel> LoadEmailSettings()
+        {
+            // Build configuration using the test environment base directory
+            var config = new ConfigurationBuilder()
+                .SetBasePath(AppContext.BaseDirectory)
+                .AddJsonFile("appsettingsTest.json", optional: false, reloadOnChange: true)
+                .Build();
+
+            // Extract and bind the EmailSettings section
+            var settings = config.GetSection("EmailSettings").Get<EmailSettingsModel>();
+
+            // Wrap the settings object in IOptions and return it
+            return Options.Create(settings);
         }
     }
 }
