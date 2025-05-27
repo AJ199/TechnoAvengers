@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Moq;
 using NUnit.Framework;
 
-namespace UnitTests.Services.TestJsonFileProductService
+namespace UnitTests.Services
 {
     /// <summary>
     /// Unit tests for JsonFileProductService
