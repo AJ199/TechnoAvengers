@@ -1,4 +1,5 @@
 ﻿using ContosoCrafts.WebSite.Pages;
+using ContosoCrafts.WebSite.Models;
 using NUnit.Framework;
 using System.Collections.Generic;
 
@@ -9,6 +10,7 @@ namespace UnitTests.Pages
     /// </summary>
     public class KnowledgeQuizModelTests
     {
+        #region Setup
         // The page model instance for each test
         private KnowledgeQuizModel pageModel;
 
@@ -20,12 +22,14 @@ namespace UnitTests.Pages
         {
             pageModel = new KnowledgeQuizModel();
         }
+        #endregion
 
+        #region OnGet
         /// <summary>
         /// Verifies that OnGet() populates the CorrectAnswers list with answers from Questions.
         /// </summary>
         [Test]
-        public void OnGet_Should_Populate_CorrectAnswers()
+        public void OnGet_Valid_Model_State_Should_Populate_Correct_Answers()
         {
             // Act: Call OnGet to initialize CorrectAnswers
             pageModel.OnGet();
@@ -39,12 +43,13 @@ namespace UnitTests.Pages
         /// Verifies that setting the Questions property updates the Questions list.
         /// </summary>
         [Test]
-        public void Questions_Setter_Should_Assign_New_Questions()
+        public void OnGet_Valid_Questions_Setter_Should_Assign_New_Questions()
         {
-            // Arrange: Create a new question list
-            var newQuestions = new List<KnowledgeQuizModel.QuestionModel>
+            // Arrange
+            // Create a new question list
+            var data = new List<QuestionModel>
             {
-                new KnowledgeQuizModel.QuestionModel
+                new QuestionModel
                 {
                     Question = "Test?",
                     Options = new[] { "A", "B", "C" },
@@ -52,12 +57,14 @@ namespace UnitTests.Pages
                 }
             };
 
-            // Act: Assign the new list to the Questions property
-            pageModel.Questions = newQuestions;
+            // Act
+            // Assign the new list to the Questions property
+            pageModel.Questions = data;
 
             // Assert: Check if Questions was updated correctly
             Assert.AreEqual(1, pageModel.Questions.Count);
             Assert.AreEqual("Test?", pageModel.Questions[0].Question);
         }
+        #endregion
     }
 }
