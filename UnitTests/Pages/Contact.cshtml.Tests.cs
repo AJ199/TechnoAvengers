@@ -1,6 +1,10 @@
-﻿using ContosoCrafts.WebSite.Pages;
+﻿using ContosoCrafts.WebSite.Models;
+using ContosoCrafts.WebSite.Pages;
 using ContosoCrafts.WebSite.Services;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using NUnit.Framework;
+using System.Threading.Tasks;
 
 namespace UnitTests.Pages
 {
@@ -93,6 +97,100 @@ namespace UnitTests.Pages
             Assert.AreEqual(false, pageModel.SentToAdmin);
             Assert.IsNotNull(pageModel.Form);
         }
-        #endregion OnGet Tests
+        #endregion
+
+        #region OnPostAsync
+
+        /// <summary>
+        /// Validates that a valid form submission triggers both emails 
+        /// and redirects
+        /// </summary>
+        /// <returns>Task</returns>
+        [Test]
+        public async Task OnPostAsync_Valid_Form_Sends_Emails_And_Redirect()
+        {
+            // Arrange
+            pageModel.TempData = TestHelper.TempData;
+            pageModel.Form = new ContactFormModel
+            {
+                Name = "User",
+                Email = "User@example.com",
+                Message = "Test"
+            };
+
+            // Act
+            var result = await pageModel.OnPostAsync();
+            var redirectResult = (RedirectToPageResult)result;
+
+            // Assert
+            Assert.AreEqual(true, pageModel.SentToUser);
+            Assert.AreEqual(true, pageModel.SentToAdmin);
+            Assert.AreEqual(false, pageModel.IsFailed);
+            Assert.IsInstanceOf<RedirectToPageResult>(result);
+            Assert.AreEqual(true, pageModel.TempData.ContainsKey("Success"));
+        }
+
+        /// <summary>
+        /// Validates that OnPost returns to the page when ModelState is invalid
+        /// </summary>
+        /// <returns>Task</returns>
+        [Test]
+        public async Task OnPostAsync_Invalid_Model_State_Returns_Page()
+        {
+            // Arrange
+            var settings = TestHelper.LoadEmailSettings();
+            var emailService = new EmailService(settings);
+            var model = new ContactModel(emailService);
+
+            model.ModelState.AddModelError("Form Email", "Email is required");
+
+            // Act
+            var result = await model.OnPostAsync();
+
+            // Assert
+            Assert.IsInstanceOf<PageResult>(result);
+            Assert.AreEqual(false, model.SentToUser);
+            Assert.AreEqual(false, model.SentToAdmin);
+            Assert.AreEqual(false, model.IsFailed);
+        }
+
+        /// <summary>
+        /// Validates that an SMTP failure triggers the IsFailed flag and returns to the page
+        /// </summary>
+        /// <returns>Task</returns>
+        [Test]
+        public async Task OnPostAsync_Invalid_Smtp_Configuration_Triggers_Flag()
+        {
+            var options = Microsoft.Extensions.Options.Options.Create(new EmailSettingsModel
+            {
+                SmtpServer = "invalid.smtp.server",
+                Port = 2525,
+                SenderName = "Fake",
+                SenderEmail = "fake@example.com",
+                Username = "wrong",
+                Password = "wrong"
+            });
+
+            var emailService = new EmailService(options);
+            var model = new ContactModel(emailService)
+            {
+                Form = new ContactFormModel
+                {
+                    Name = "User",
+                    Email = "User@example.com",
+                    Message = "Unit Test"
+                }
+            };
+
+            // Act
+            var result = await model.OnPostAsync();
+
+            // Assert
+            Assert.AreEqual(false, model.SentToUser);
+            Assert.AreEqual(false, model.SentToAdmin);
+            Assert.AreEqual(true, model.IsFailed);
+            Assert.IsInstanceOf<PageResult>(result);
+        }
+        #endregion 
     }
 }
