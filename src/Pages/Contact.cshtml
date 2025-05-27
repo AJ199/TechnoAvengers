@@ -22,21 +22,22 @@
                 or just want to say hi — we’re happy to connect! Reach out to us by filling out the form:
             </p>
 
+            <p><strong>Fields marked with (<span class="text-danger">*</span>) are required</strong></p>
             <form method="post">
                 <div class="form-group text-start">
-                    <label asp-for="Form.Name"></label>
+                    <label asp-for="Form.Name">Name (<span class="text-danger">*</span>)</label>
                     <span asp-validation-for="Form.Name" class="text-danger d-block"></span>
                     <input asp-for="Form.Name" class="form-control" />
                 </div>
 
                 <div class="form-group text-start">
-                    <label asp-for="Form.Email"></label>
+                    <label asp-for="Form.Email">Email (<span class="text-danger">*</span>)</label>
                     <span asp-validation-for="Form.Email" class="text-danger d-block"></span>
                     <input asp-for="Form.Email" class="form-control" />
                 </div>
 
                 <div class="form-group text-start">
-                    <label asp-for="Form.Message"></label>
+                    <label asp-for="Form.Message">Message (<span class="text-danger">*</span>)</label>
                     <span asp-validation-for="Form.Message" class="text-danger d-block"></span>
                     <textarea asp-for="Form.Message" class="form-control" rows="4"></textarea>
                 </div>
