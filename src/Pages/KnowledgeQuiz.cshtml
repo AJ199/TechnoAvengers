@@ -45,14 +45,23 @@
 
 @section Scripts {
     <script>
+        // List of correct answers
         const correctAnswers = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.CorrectAnswers));
 
+        /// <summary>
+        /// Handles quiz submission, calculates score, and displays result
+        /// </summary>
         function handleQuizSubmit(e) {
             e.preventDefault();
+
+            // Count start
             let score = 0;
+
+            // form toolbar be submitted
             const form = new FormData(document.getElementById('quizForm'));
 
             for (let i = 0; i < correctAnswers.length; i++) {
+                // User answer
                 const userAnswer = form.get("q" + i);
                 if (userAnswer && userAnswer.trim().toLowerCase() === correctAnswers[i].toLowerCase()) {
                     score++;
@@ -63,10 +72,16 @@
             document.getElementById("scoreModal").classList.remove("d-none");
         }
 
+        /// <summary>
+        /// Hides the result modal
+        /// </summary>
         function closeModal() {
             document.getElementById("scoreModal").classList.add("d-none");
         }
 
+        /// <summary>
+        /// Resets the quiz and hides the modal
+        /// </summary>
         function resetQuiz() {
             document.getElementById("quizForm").reset();
             closeModal();
