@@ -1,4 +1,5 @@
 using ContosoCrafts.WebSite.Services;
+using ContosoCrafts.WebSite.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Threading.Tasks;
@@ -6,16 +7,70 @@ using System.Threading.Tasks;
 namespace ContosoCrafts.WebSite.Pages
 {
     /// <summary>
-    /// Handles the logic for displaying the Contact Razor Page.
+    /// Handles the logic for displaying the Contact Razor Page
     /// </summary>
     public class ContactModel : PageModel
     {
+        // Service to send email
+        private readonly EmailService EmailService;
+
+        // Contact form input data
+        [BindProperty]
+        public ContactFormModel Form { get; set; }
+
+        // Indicates email was sent to user
+        public bool SentToUser { get; set; }
+
+        // Indicates email was sent to admin
+        public bool SentToAdmin { get; set; }
+
+        // Indicates a failure sending an occurred
+        public bool IsFailed { get; set; }
+
+        /// <summary>
+        /// Initiales ContactModel with a given EmailService
+        /// </summary>
+        /// <param name="emailService">Service used to send emails</param>
+        public ContactModel(EmailService emailService)
+        {
+            EmailService = emailService;
+        }
+
         /// <summary>
         /// Handles GET requests to load the Contact page
         /// </summary>
         public void OnGet()
         {
-            // No data processing is needed
+            // No success state is displayed if there was no successful POST submission before
+            if (TempData.ContainsKey("Success") == false)
+            {
+                Form = new ContactFormModel();
+                return;
+            }
+
+            // Prevents unsafe casting 
+            if (TempData["Success"] is bool == false)
+            {
+                Form = new ContactFormModel();
+                return;
+            }
+
+            // Retrieve TempData value
+            var valueTemptData = TempData["Success"];
+
+            // Cast the value to a boolean
+            var successFlag = (bool)valueTemptData;
+
+            // Update the status indicators used to display success message
+            if (successFlag == true)
+            {
+                SentToUser = true;
+
+                SentToAdmin = true;
+            }
+
+            // Create a fresh, empty form
+            Form = new ContactFormModel();
         }
 
         /// <summary>
