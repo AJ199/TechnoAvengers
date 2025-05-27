@@ -6,6 +6,7 @@ namespace ContosoCrafts.WebSite.Pages
     {
         public void OnGet()
         {
+            ViewData["Title"] = "Discover Your Avenger";
         }
     }
 }
