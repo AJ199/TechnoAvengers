@@ -1985,11 +1985,12 @@ form { /* Filter Form */
 
 /* Slider value display */
 .create-slider-values {
+    color: white;
     margin: 5px;
+    font-weight: bold;
     font-size: 1.1em;
 }
 /* End of styles for create*/
-
 
 /* Container for the battle result showing both winner and loser */
 .battle-final {
