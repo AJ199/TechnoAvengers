@@ -154,18 +154,26 @@ namespace ContosoCrafts.WebSite.Pages.Product
                 if (Hero1 != null && Hero2 != null)
                 {
                     // Calculate base stat totals
+                    // Hero 1 Statistics
                     int hero1Stats = Hero1.Intelligence + Hero1.Strength + Hero1.Speed +
                                      Hero1.Durability + Hero1.Power + Hero1.Combat;
 
+                    // Hero 2 statistics
                     int hero2Stats = Hero2.Intelligence + Hero2.Strength + Hero2.Speed +
                                      Hero2.Durability + Hero2.Power + Hero2.Combat;
 
                     // Calculate average ratings (default to 0 if null/empty)
+                    // Hero 1 rating
                     double hero1Rating = (Hero1.Ratings?.Length > 0) ? Hero1.Ratings.Average() : 0;
+
+                    // Hero 2 rating
                     double hero2Rating = (Hero2.Ratings?.Length > 0) ? Hero2.Ratings.Average() : 0;
 
                     // Combine stats and rating: 90% stats + 10% rating (rating scaled to 50)
+                    // Hero 1 total
                     double hero1Total = hero1Stats * 0.9 + hero1Rating * 10;
+
+                    // Hero 2 total
                     double hero2Total = hero2Stats * 0.9 + hero2Rating * 10;
 
                     if (hero1Total > hero2Total)
