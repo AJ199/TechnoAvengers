@@ -18,33 +18,34 @@
 
             <!-- Fields to fill -->
             <div class="hero-read-details">
+                <p><strong>Fields marked with (<span class="text-danger">*</span>) are required</strong></p>
                 <form method="post" class="update-form">
                     <input type="hidden" asp-for="Product.Id" />
 
                     <!-- Superhero Name -->
                     <div class="form-group">
                         <div class="label-row">
-                            <label asp-for="Product.Title"><strong>Superhero Name</strong></label>
-                            <span asp-validation-for="Product.Title" class="text-danger"></span>
+                            <label asp-for="Product.Title"><strong>Superhero Name (<span class="text-danger">*</span>)</strong></label>
                         </div>
+                        <span asp-validation-for="Product.Title" class="text-danger"></span>
                         <input asp-for="Product.Title" class="form-control" />
                     </div>
 
                     <!-- Full Name -->
                     <div class="form-group">
                         <div class="label-row">
-                            <label asp-for="Product.Fullname"><strong>Full Name</strong></label>
-                            <span asp-validation-for="Product.Fullname" class="text-danger"></span>
+                            <label asp-for="Product.Fullname"><strong>Fullname (Optional)</strong></label>
                         </div>
+                        <span asp-validation-for="Product.Fullname" class="text-danger"></span>
                         <input asp-for="Product.Fullname" class="form-control" />
                     </div>
 
                     <!-- Gender Dropdown -->
                     <div class="form-group">
                         <div class="label-row">
-                            <label asp-for="Product.Gender"><strong>Gender</strong></label>
-                            <span asp-validation-for="Product.Gender" class="text-danger"></span>
+                            <label asp-for="Product.Gender"><strong>Gender (<span class="text-danger">*</span>)</strong></label>
                         </div>
+                        <span asp-validation-for="Product.Gender" class="text-danger"></span>
                         <select asp-for="Product.Gender" class="form-control">
                             <option value="">-- Select Gender --</option>
                             <option value="Male" selected="@("Male" == Model.Product.Gender)">Male</option>
@@ -56,9 +57,9 @@
                     <!-- Role Dropdown -->
                     <div class="form-group">
                         <div class="label-row">
-                            <label asp-for="Product.Role"><strong>Role</strong></label>
-                            <span asp-validation-for="Product.Role" class="text-danger"></span>
+                            <label asp-for="Product.Role"><strong>Role (<span class="text-danger">*</span>)</strong></label>
                         </div>
+                        <span asp-validation-for="Product.Role" class="text-danger"></span>
                         <select asp-for="Product.Role" class="form-control">
                             <option value="">-- Select Role --</option>
                             <option value="Core Avenger" selected="@("Core Avenger" == Model.Product.Role)">Core Avenger</option>
@@ -71,10 +72,10 @@
 
                     <!-- Alignment Dropdown -->
                     <div class="form-group">
-                        <div class="label-row">
-                            <label asp-for="Product.Alignment"><strong>Alignment</strong></label>
-                            <span asp-validation-for="Product.Alignment" class="text-danger"></span>
+                        <div class="label-row">  
+                            <label asp-for="Product.Alignment"><strong>Alignment (<span class="text-danger">*</span>)</strong></label>
                         </div>
+                        <span asp-validation-for="Product.Alignment" class="text-danger"></span>
                         <select asp-for="Product.Alignment" class="form-control">
                             <option value="">-- Select Alignment --</option>
                             <option value="good" selected="@("good" == Model.Product.Alignment)">Good</option>
@@ -86,36 +87,36 @@
                     <!-- Birthplace -->
                     <div class="form-group">
                         <div class="label-row">
-                            <label asp-for="Product.Birthplace"><strong>Birthplace</strong></label>
-                            <span asp-validation-for="Product.Birthplace" class="text-danger"></span>
+                            <label asp-for="Product.Birthplace"><strong>Birthplace (Optional)</strong></label>                            
                         </div>
+                        <span asp-validation-for="Product.Birthplace" class="text-danger"></span>
                         <input asp-for="Product.Birthplace" class="form-control" />
                     </div>
 
                     <!-- Work -->
                     <div class="form-group">
                         <div class="label-row">
-                            <label asp-for="Product.Work"><strong>Work</strong></label>
-                            <span asp-validation-for="Product.Work" class="text-danger"></span>
+                            <label asp-for="Product.Work"><strong>Work (Optional)</strong></label>                            
                         </div>
+                        <span asp-validation-for="Product.Work" class="text-danger"></span>
                         <input asp-for="Product.Work" class="form-control" />
                     </div>
 
                     <!-- First Appearance -->
                     <div class="form-group">
-                        <div class="label-row">
-                            <label asp-for="Product.FirstAppear"><strong>First Appearance</strong></label>
-                            <span asp-validation-for="Product.FirstAppear" class="text-danger"></span>
+                        <div class="label-row">                            
+                            <label asp-for="Product.FirstAppear"><strong>First Appearance (Optional)</strong></label>
                         </div>
+                        <span asp-validation-for="Product.FirstAppear" class="text-danger"></span>                        
                         <input asp-for="Product.FirstAppear" class="form-control" />
                     </div>
 
                     <!-- Image URL -->
                     <div class="form-group">
                         <div class="label-row">
-                            <label asp-for="Product.ImageUrl"><strong>Image URL</strong></label>
-                            <span asp-validation-for="Product.ImageUrl" class="text-danger"></span>
+                            <label asp-for="Product.ImageUrl"><strong>Image URL (<span class="text-danger">*</span>)</strong></label>
                         </div>
+                        <span asp-validation-for="Product.ImageUrl" class="text-danger"></span>
                         <input asp-for="Product.ImageUrl" class="form-control" />
                     </div>
 
@@ -125,7 +126,7 @@
                     <!-- Intelligence -->
                     <div class="form-group">
                         <div class="label-row">
-                            <label asp-for="Product.Intelligence"><strong>Intelligence</strong></label>
+                            <label asp-for="Product.Intelligence"><strong>Intelligence (<span class="text-danger">*</span>)</strong></label>
                             <span asp-validation-for="Product.Intelligence" class="text-danger"></span>
                         </div>
                         <div class="slider-container">
@@ -144,7 +145,7 @@
                     <!-- Strength -->
                     <div class="form-group">
                         <div class="label-row">
-                            <label asp-for="Product.Strength"><strong>Strength</strong></label>
+                            <label asp-for="Product.Strength"><strong>Strength (<span class="text-danger">*</span>)</strong></label>
                             <span asp-validation-for="Product.Strength" class="text-danger"></span>
                         </div>
                         <div class="slider-container">
@@ -163,7 +164,7 @@
                     <!-- Speed -->
                     <div class="form-group">
                         <div class="label-row">
-                            <label asp-for="Product.Speed"><strong>Speed</strong></label>
+                            <label asp-for="Product.Speed"><strong>Speed (<span class="text-danger">*</span>)</strong></label>
                             <span asp-validation-for="Product.Speed" class="text-danger"></span>
                         </div>
                         <div class="slider-container">
@@ -182,7 +183,7 @@
                     <!-- Durability -->
                     <div class="form-group">
                         <div class="label-row">
-                            <label asp-for="Product.Durability"><strong>Durability</strong></label>
+                            <label asp-for="Product.Durability"><strong>Durability (<span class="text-danger">*</span>)</strong></label>
                             <span asp-validation-for="Product.Durability" class="text-danger"></span>
                         </div>
                         <div class="slider-container">
@@ -201,7 +202,7 @@
                     <!-- Power -->
                     <div class="form-group">
                         <div class="label-row">
-                            <label asp-for="Product.Power"><strong>Power</strong></label>
+                            <label asp-for="Product.Power"><strong>Power (<span class="text-danger">*</span>)</strong></label>
                             <span asp-validation-for="Product.Power" class="text-danger"></span>
                         </div>
                         <div class="slider-container">
@@ -220,7 +221,7 @@
                     <!-- Combat -->
                     <div class="form-group">
                         <div class="label-row">
-                            <label asp-for="Product.Combat"><strong>Combat</strong></label>
+                            <label asp-for="Product.Combat"><strong>Combat (<span class="text-danger">*</span>)</strong></label>
                             <span asp-validation-for="Product.Combat" class="text-danger"></span>
                         </div>
                         <div class="slider-container">
