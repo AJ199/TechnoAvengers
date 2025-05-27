@@ -65,6 +65,7 @@
 
 @section Scripts {
     <script>
+        // Map of heroes for result display
         const heroAssets = {
             ironman: { name: "Iron Man 🧠" },
             thor: { name: "Thor ⚡" },
@@ -72,24 +73,39 @@
             captainmarvel: { name: "Captain Marvel 🌟" }
         };
 
+        /// <summary>
+        /// Handles form submission and calculates result
+        /// </summary>
         function handleQuiz(e) {
             e.preventDefault();
+
+            // Form to be submitted
             const form = new FormData(document.getElementById('quizForm'));
+            
+            // Score counters for each character
             const scores = { ironman: 0, thor: 0, blackwidow: 0, captainmarvel: 0 };
 
+            // Scores based on selected answers
             for (const [, value] of form.entries()) { scores[value]++; }
             const result = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
 
+            // Result message
             document.getElementById("resultText").innerHTML =
                 `<strong>You are:</strong> ${heroAssets[result].name}<br>Your traits align with ${heroAssets[result].name.split(" ")[0]}.`;
 
             document.getElementById("quizModal").classList.remove("d-none");
         }
 
+        /// <summary>
+        /// Hides the modal result window
+        /// </summary
         function closeModal() {
             document.getElementById("quizModal").classList.add("d-none");
         }
 
+        /// <summary>
+        /// Resets quiz answers and hides result
+        /// </summary>
         function resetQuiz() {
             document.getElementById("quizForm").reset();
             closeModal();
