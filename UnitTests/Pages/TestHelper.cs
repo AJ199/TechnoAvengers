@@ -129,7 +129,7 @@ namespace UnitTests
             // Build configuration using the test environment base directory
             var config = new ConfigurationBuilder()
                 .SetBasePath(AppContext.BaseDirectory)
-                .AddJsonFile("appsettingsTest.json", optional: false, reloadOnChange: true)
+                .AddJsonFile("appsettingsTests.json", optional: false, reloadOnChange: true)
                 .Build();
 
             // Extract and bind the EmailSettings section
