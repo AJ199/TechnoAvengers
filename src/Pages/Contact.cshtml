@@ -4,8 +4,8 @@
     ViewData["Title"] = "Contact Us";
 }
 
-<div class="container text-center mt-5">
-    <h1 class="display-3 text-white fw-bold contact-heading">
+<div class="container mt-5">
+    <h1 class="display-3 text-white fw-bold contact-heading text-center">
         CONTACT US
     </h1>
 
@@ -13,18 +13,50 @@
     <div class="row justify-content-center mt-5">
         <div class="col-md-8 p-4 bg-dark bg-opacity-75 rounded-4 text-white shadow-lg">
 
-            <h4 class="text-warning mb-3 contact-subheading">
+            <h4 class="text-warning mb-3 contact-subheading text-center">
                 Need Help or Have Feedback?
             </h4>
 
-            <p>
+            <p class="text-center">
                 Whether you're a Marvel fan with suggestions, a developer reporting a bug,
-                or just want to say hi — we’re happy to connect! Reach out to us via email:
+                or just want to say hi — we’re happy to connect! Reach out to us by filling out the form:
             </p>
 
-            <p class="contact-email">
-                avengers.encyclopedia@gmail.com
-            </p>
+            <form method="post">
+                <div class="form-group text-start">
+                    <label asp-for="Form.Name"></label>
+                    <span asp-validation-for="Form.Name" class="text-danger d-block"></span>
+                    <input asp-for="Form.Name" class="form-control" />
+                </div>
+
+                <div class="form-group text-start">
+                    <label asp-for="Form.Email"></label>
+                    <span asp-validation-for="Form.Email" class="text-danger d-block"></span>
+                    <input asp-for="Form.Email" class="form-control" />
+                </div>
+
+                <div class="form-group text-start">
+                    <label asp-for="Form.Message"></label>
+                    <span asp-validation-for="Form.Message" class="text-danger d-block"></span>
+                    <textarea asp-for="Form.Message" class="form-control" rows="4"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Send</button>
+            </form>
+
+            <hr />
+
+            @if (Model.SentToUser && Model.SentToAdmin)
+            {
+                <div class="alert alert-success">
+                    We’ve received your message and sent a confirmation email your way.
+                    If it doesn’t arrive, it might be due to a typo or a spam filter—feel free to contact us again if needed.
+                </div>
+            }
+            else if (Model.IsFailed)
+            {
+                <div class="alert alert-danger">Oops! Something went wrong. Please try again later.</div>
+            }
 
         </div>
     </div>
