@@ -1,4 +1,5 @@
 ﻿using ContosoCrafts.WebSite.Services;
+using ContosoCrafts.WebSite.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -7,14 +8,27 @@ using Microsoft.Extensions.Hosting;
 
 namespace ContosoCrafts.WebSite
 {
+    /// <summary>
+    /// Configures application services and middleware
+    /// </summary>
     public class Startup
     {
-        public Startup(IConfiguration configuration) =>
-            Configuration = configuration;
-
+        // Holds the application's configuration values
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        /// <summary>
+        /// Constructor that receives and stores the application's configuration
+        /// </summary>
+        /// <param name="configuration"></param>
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+        /// <summary>
+        /// Registers services for dependency injection
+        /// </summary>
+        /// <param name="services">Services for the application</param>
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
@@ -22,9 +36,15 @@ namespace ContosoCrafts.WebSite
             services.AddHttpClient();
             services.AddControllers();
             services.AddTransient<JsonFileProductService>();
+            services.Configure<EmailSettingsModel>(Configuration.GetSection("EmailSettings"));
+            services.AddTransient<EmailService>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// <summary>
+        /// Configures the middleware pipeline for handling HTTP requests
+        /// </summary>
+        /// <param name="app">Application builder </param>
+        /// <param name="env">Provides environment information</param>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
