@@ -65,7 +65,6 @@ namespace ContosoCrafts.WebSite.Pages
             if (successFlag == true)
             {
                 SentToUser = true;
-
                 SentToAdmin = true;
             }
 
@@ -80,7 +79,12 @@ namespace ContosoCrafts.WebSite.Pages
         public async Task<IActionResult> OnPostAsync()
         {
             if (ModelState.IsValid == false)
+            {
                 return Page();
+            }
+
+            // Admin email
+            var adminEmail = "avengers.encyclopedia@gmail.com";
 
             // Email subject for user email
             string userSubject = "Thanks for contacting the Avengers Encyclopedia!";
@@ -104,7 +108,7 @@ namespace ContosoCrafts.WebSite.Pages
                 SentToUser = true;
 
                 // Send email to admin
-                await EmailService.SendEmailAsync("avengers.encyclopedia@gmail.com", adminSubject, adminBody);
+                await EmailService.SendEmailAsync(adminEmail, adminSubject, adminBody);
                 SentToAdmin = true;
 
                 // Store success state
