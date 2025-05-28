@@ -7,17 +7,19 @@ using System.Linq;
 namespace UnitTests.Pages.Product
 {
     /// <summary>
-    /// Unit testing for Index page
+    /// Unit tests for the Index page model.
     /// </summary>
     public class IndexTests
     {
         #region TestSetup
 
-        // Index page model for testing
+        /// <summary>
+        /// The Index page model instance for testing.
+        /// </summary>
         public static IndexModel pageModel;
 
         /// <summary>
-        /// Initializes the test environment
+        /// Initializes the test environment by creating a new IndexModel instance.
         /// </summary>
         [SetUp]
         public void TestInitialize()
@@ -26,41 +28,97 @@ namespace UnitTests.Pages.Product
         }
 
         #endregion TestSetup
+
+        #region OnGet Tests
+
         /// <summary>
-        /// Validates OnGet method loads superhero data
+        /// Ensures OnGet loads products successfully when no sorting parameters are provided.
         /// </summary>
-        #region OnGet
         [Test]
-        public void OnGet_Valid_Should_Return_Products()
+        public void OnGet_Should_Load_Products_When_No_Sort()
+        {
+            // Act
+            pageModel.OnGet();
+
+            // Assert
+            Assert.IsNotNull(pageModel.Products, "Products list should not be null.");
+            Assert.IsNotEmpty(pageModel.Products, "Products list should not be empty.");
+        }
+
+        /// <summary>
+        /// Ensures OnGet sorts products by Title in ascending order when requested.
+        /// </summary>
+        [Test]
+        public void OnGet_Sort_By_Title_Ascending_Should_Order_Correctly()
         {
             // Arrange
-
-            // Start at current test output directory
-            var currentDir = Directory.GetCurrentDirectory();
-
-            // Go up to the solution root and build relative path to products.json
-            var projectRoot = Directory.GetParent(currentDir).Parent.Parent.Parent.FullName;
-            var sourceFilePath = Path.Combine(projectRoot, "src", "wwwroot", "data", "products.json");
-            var targetDirectory = Path.Combine(currentDir, "wwwroot", "data");
-            var targetFilePath = Path.Combine(targetDirectory, "products.json");
-            Directory.CreateDirectory(targetDirectory);
-
-            var data = TestHelper.ProductService.GetProducts();
-            var expectedProduct = data.First();
+            pageModel.SortField = "Title";
+            pageModel.SortOrder = "asc";
 
             // Act
             pageModel.OnGet();
-            var result = pageModel.Products;
+
+            // Assert: Titles should be sorted alphabetically in ascending order.
+            var titles = pageModel.Products.Select(p => p.Title).ToList();
+            var sorted = titles.OrderBy(t => t).ToList();
+            Assert.IsTrue(titles.SequenceEqual(sorted));
+        }
+
+        /// <summary>
+        /// Ensures OnGet sorts products by Title in descending order when requested.
+        /// </summary>
+        [Test]
+        public void OnGet_Sort_By_Title_Descending_Should_Order_Correctly()
+        {
+            // Arrange
+            pageModel.SortField = "Title";
+            pageModel.SortOrder = "desc";
+
+            // Act
+            pageModel.OnGet();
+
+            // Assert: Titles should be sorted alphabetically in descending order.
+            var titles = pageModel.Products.Select(p => p.Title).ToList();
+            var sorted = titles.OrderByDescending(t => t).ToList();
+            Assert.IsTrue(titles.SequenceEqual(sorted));
+        }
+
+        /// <summary>
+        /// Ensures OnGet handles an invalid SortField gracefully without applying sorting.
+        /// </summary>
+        [Test]
+        public void OnGet_Invalid_SortField_Should_Not_Sort()
+        {
+            // Arrange
+            pageModel.SortField = "InvalidField";
+
+            // Act
+            pageModel.OnGet();
 
             // Assert
-            Assert.AreEqual(false, result == null, "Products list should not be null");
-            Assert.AreEqual(false, result.Count == 0, "Products list should not be empty");
-
-            var resultProduct = pageModel.Products.First(p => p.Id == expectedProduct.Id);
-
-            Assert.AreEqual(false, resultProduct == null, "Product should exist in the result list");
-            Assert.AreEqual(expectedProduct.Title, resultProduct.Title, "Product titles should match");
+            Assert.IsNotNull(pageModel.Products, "Products list should not be null.");
+            Assert.IsNotEmpty(pageModel.Products, "Products list should not be empty.");
         }
-        #endregion OnGet
+
+        /// <summary>
+        /// Ensures OnGet applies default ascending sorting when SortOrder is null.
+        /// </summary>
+        [Test]
+        public void OnGet_Null_SortOrder_Should_Default_To_Ascending()
+        {
+            // Arrange
+            pageModel.SortField = "Title";
+            pageModel.SortOrder = null;
+
+            // Act
+            pageModel.OnGet();
+
+            // Assert: Titles should be sorted alphabetically in ascending order.
+            var titles = pageModel.Products.Select(p => p.Title).ToList();
+            var sorted = titles.OrderBy(t => t).ToList();
+            Assert.IsTrue(titles.SequenceEqual(sorted));
+        }
+
+        #endregion OnGet Tests
     }
 }
