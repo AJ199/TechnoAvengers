@@ -164,10 +164,10 @@ namespace ContosoCrafts.WebSite.Pages.Product
 
                     // Calculate average ratings (default to 0 if null/empty)
                     // Hero 1 rating
-                    double hero1Rating = (Hero1.Ratings?.Length > 0) ? Hero1.Ratings.Average() : 0;
+                    double hero1Rating = (Hero1.Ratings.Length > 0) ? Hero1.Ratings.Average() : 0;
 
                     // Hero 2 rating
-                    double hero2Rating = (Hero2.Ratings?.Length > 0) ? Hero2.Ratings.Average() : 0;
+                    double hero2Rating = (Hero2.Ratings.Length > 0) ? Hero2.Ratings.Average() : 0;
 
                     // Combine stats and rating: 90% stats + 10% rating (rating scaled to 50)
                     // Hero 1 total
@@ -188,7 +188,7 @@ namespace ContosoCrafts.WebSite.Pages.Product
                     }
 
                     // Set Result Message
-                    if (PredictedWinner?.Id == ActualWinner?.Id)
+                    if (PredictedWinner.Id == ActualWinner.Id)
                     {
                         ResultMessage = "You predicted correctly! 🎉";
                     }
