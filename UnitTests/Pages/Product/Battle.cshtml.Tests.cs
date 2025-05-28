@@ -8,16 +8,20 @@ using System.Linq;
 namespace UnitTests.Pages.Product
 {
     /// <summary>
-    /// Unit test suite for the Battle page
+    /// Unit test suite for the Battle page.
+    /// Validates hero selection, prediction, results, and battle logic.
     /// </summary>
     public class BattleTests
     {
         #region TestSetup
 
+        /// <summary>
+        /// The Battle page model instance used for testing.
+        /// </summary>
         public static BattleModel pageModel;
 
         /// <summary>
-        /// Initializes the test environment
+        /// Initializes the Battle page model before each test.
         /// </summary>
         [SetUp]
         public void TestInitialize()
@@ -30,7 +34,7 @@ namespace UnitTests.Pages.Product
         #region OnGet Tests
 
         /// <summary>
-        /// Ensures OnGet loads products and dropdown options
+        /// Ensures OnGet populates Products and HeroOptions.
         /// </summary>
         [Test]
         public void OnGet_Should_Populate_Products_And_HeroOptions()
@@ -49,60 +53,51 @@ namespace UnitTests.Pages.Product
         #region OnPost Tests - SelectHeroes Step
 
         /// <summary>
-        /// Ensures OnPost returns PageResult when same hero is selected
+        /// Validates that selecting the same hero for both slots results in an error and stays on the page.
         /// </summary>
         [Test]
         public void OnPost_SelectHeroes_Same_Hero_Should_Return_Page()
         {
-            // Arrange
             var data = TestHelper.ProductService.GetProducts().First();
             pageModel.Hero1Id = data.Id;
             pageModel.Hero2Id = data.Id;
             pageModel.Step = BattleStep.SelectHeroes;
 
-            // Act
             var result = pageModel.OnPost();
 
-            // Assert
             Assert.AreEqual(typeof(PageResult), result.GetType());
             Assert.IsTrue(pageModel.ModelState.ErrorCount > 0);
         }
 
         /// <summary>
-        /// Ensures OnPost returns PageResult when Hero1 is null
+        /// Ensures that missing Hero1Id triggers an error and remains on the page.
         /// </summary>
         [Test]
         public void OnPost_SelectHeroes_Missing_Hero1_Should_Return_Page()
         {
-            // Arrange
             var data = TestHelper.ProductService.GetProducts().First();
             pageModel.Hero1Id = null;
             pageModel.Hero2Id = data.Id;
             pageModel.Step = BattleStep.SelectHeroes;
 
-            // Act
             var result = pageModel.OnPost();
 
-            // Assert
             Assert.AreEqual(typeof(PageResult), result.GetType());
         }
 
         /// <summary>
-        /// Ensures OnPost proceeds to VoteWinner step with valid different heroes
+        /// Ensures that selecting two valid different heroes progresses to the VoteWinner step.
         /// </summary>
         [Test]
         public void OnPost_SelectHeroes_Valid_Should_Proceed_To_VoteWinner()
         {
-            // Arrange
             var products = TestHelper.ProductService.GetProducts().Take(2).ToList();
             pageModel.Hero1Id = products[0].Id;
             pageModel.Hero2Id = products[1].Id;
             pageModel.Step = BattleStep.SelectHeroes;
 
-            // Act
             var result = pageModel.OnPost();
 
-            // Assert
             Assert.AreEqual(typeof(PageResult), result.GetType());
             Assert.AreEqual(BattleStep.VoteWinner, pageModel.Step);
             Assert.AreEqual(products[0].Id, pageModel.Hero1.Id);
@@ -114,126 +109,124 @@ namespace UnitTests.Pages.Product
         #region OnPost Tests - VoteWinner Step
 
         /// <summary>
-        /// Ensures OnPost returns PageResult when PredictedWinnerId is missing
+        /// Verifies that not selecting a predicted winner triggers an error and stays on the page.
         /// </summary>
         [Test]
         public void OnPost_VoteWinner_Missing_PredictedWinner_Should_Return_Page()
         {
-            // Arrange
             var products = TestHelper.ProductService.GetProducts().Take(2).ToList();
             pageModel.Hero1Id = products[0].Id;
             pageModel.Hero2Id = products[1].Id;
             pageModel.PredictedWinnerId = null;
             pageModel.Step = BattleStep.VoteWinner;
 
-            // Act
             var result = pageModel.OnPost();
 
-            // Assert
             Assert.AreEqual(typeof(PageResult), result.GetType());
             Assert.IsTrue(pageModel.ModelState.ErrorCount > 0);
         }
 
         /// <summary>
-        /// Verifies that when the user's prediction matches the actual winner,
-        /// the result message confirms a correct prediction
+        /// Ensures correct prediction results in "You predicted correctly!" message.
         /// </summary>
         [Test]
         public void OnPost_VoteWinner_Valid_Correct_Prediction_Should_Set_Correct_ResultMessage()
         {
-            // Arrange: Predicting Hulk (stronger) wins against Groot (weaker)
-            const string hulkId = "332";
-            const string grootId = "303";
+            var products = TestHelper.ProductService.GetProducts().Take(2).ToList();
+            var strongHero = products.OrderByDescending(p => p.Strength + p.Intelligence + p.Speed + p.Durability + p.Power + p.Combat).First();
+            var weakHero = products.First(p => p.Id != strongHero.Id);
 
-            pageModel.Hero1Id = hulkId;
-            pageModel.Hero2Id = grootId;
-            pageModel.PredictedWinnerId = hulkId; // Correct prediction
+            pageModel.Hero1Id = strongHero.Id;
+            pageModel.Hero2Id = weakHero.Id;
+            pageModel.PredictedWinnerId = strongHero.Id;
             pageModel.Step = BattleStep.VoteWinner;
 
-            // Act
             var result = pageModel.OnPost();
 
-            // Assert
             Assert.AreEqual(typeof(PageResult), result.GetType());
-            Assert.IsInstanceOf<PageResult>(result);
             Assert.AreEqual(BattleStep.ShowResult, pageModel.Step);
             Assert.IsNotNull(pageModel.ActualWinner);
-            Assert.AreEqual("332", pageModel.ActualWinner.Id);
-            Assert.AreEqual("303", pageModel.Loser.Id);
+            Assert.AreEqual(strongHero.Id, pageModel.ActualWinner.Id);
             Assert.AreEqual("You predicted correctly! 🎉", pageModel.ResultMessage);
         }
 
         /// <summary>
-        /// Verifies that when the user's prediction does not match the actual winner,
-        /// the result message confirms an incorrect prediction
+        /// Ensures incorrect prediction results in "Oops! Your prediction was wrong." message.
         /// </summary>
         [Test]
         public void OnPost_VoteWinner_Invalid_Prediction_Should_Set_Wrong_ResultMessage()
         {
-            // Arrange: Predicting Groot (weaker) wins against Hulk (stronger)
-            const string hulkId = "332";
-            const string grootId = "303";
+            var products = TestHelper.ProductService.GetProducts().Take(2).ToList();
+            var strongHero = products.OrderByDescending(p => p.Strength + p.Intelligence + p.Speed + p.Durability + p.Power + p.Combat).First();
+            var weakHero = products.First(p => p.Id != strongHero.Id);
 
-            pageModel.Hero1Id = hulkId;
-            pageModel.Hero2Id = grootId;
-            pageModel.PredictedWinnerId = grootId; // Incorrect prediction
+            pageModel.Hero1Id = strongHero.Id;
+            pageModel.Hero2Id = weakHero.Id;
+            pageModel.PredictedWinnerId = weakHero.Id;
             pageModel.Step = BattleStep.VoteWinner;
 
-            // Act
             var result = pageModel.OnPost();
 
-            // Assert
             Assert.AreEqual(typeof(PageResult), result.GetType());
-            Assert.AreEqual(BattleStep.ShowResult, pageModel.Step);
             Assert.AreEqual("Oops! Your prediction was wrong. 😢", pageModel.ResultMessage);
         }
 
         /// <summary>
-        /// Verifies that when Hero2 has stronger stats than Hero1,
-        /// the ActualWinner is set to Hero2 and Loser is set to Hero1,
-        /// and the page flow proceeds correctly to show the result.
+        /// Verifies Hero2 wins when stronger stats are present.
         /// </summary>
         [Test]
         public void OnPost_VoteWinner_Hero2IsStronger_Should_Set_ActualWinner_As_Hero2()
         {
-            // Arrange: Groot (Hero1) vs Hulk (Hero2) → Hulk wins
-            const string grootId = "303";
-            const string hulkId = "332";
+            var products = TestHelper.ProductService.GetProducts().Take(2).ToList();
+            var strongHero = products.OrderByDescending(p => p.Strength + p.Intelligence + p.Speed + p.Durability + p.Power + p.Combat).First();
+            var weakHero = products.First(p => p.Id != strongHero.Id);
 
-            // Set IDs and Step to enter comparison logic
-            pageModel.Hero1Id = grootId;
-            pageModel.Hero2Id = hulkId;
-            pageModel.PredictedWinnerId = hulkId;  // Predict Hulk wins
+            pageModel.Hero1Id = weakHero.Id;
+            pageModel.Hero2Id = strongHero.Id;
+            pageModel.PredictedWinnerId = strongHero.Id;
             pageModel.Step = BattleStep.VoteWinner;
 
-            // Act
             var result = pageModel.OnPost();
 
-            // Assert
             Assert.IsInstanceOf<PageResult>(result);
-            Assert.AreEqual(BattleStep.ShowResult, pageModel.Step);
-            Assert.IsNotNull(pageModel.ActualWinner);
-            Assert.AreEqual("332", pageModel.ActualWinner.Id);
-            Assert.AreEqual("303", pageModel.Loser.Id);
+            Assert.AreEqual(strongHero.Id, pageModel.ActualWinner.Id);
+            Assert.AreEqual(weakHero.Id, pageModel.Loser.Id);
         }
 
         /// <summary>
-        /// Verifies that when the battle step is not SelectHeroes or VoteWinner,
-        /// the OnPost method returns the page without changing state.
+        /// Ensures OnPost handles unexpected steps gracefully by returning PageResult.
         /// </summary>
         [Test]
         public void OnPost_OtherStep_Should_ReturnPage()
         {
-            // Arrange
-            pageModel.Step = BattleStep.ShowResult;  // or any step other than SelectHeroes or VoteWinner
+            pageModel.Step = BattleStep.ShowResult;
 
-            // Act
             var result = pageModel.OnPost();
 
-            // Assert
             Assert.IsInstanceOf<PageResult>(result);
-            // Optionally, verify the Step remains unchanged
             Assert.AreEqual(BattleStep.ShowResult, pageModel.Step);
+        }
+
+        /// <summary>
+        /// Verifies that Loser property is correctly set after a battle.
+        /// </summary>
+        [Test]
+        public void Get_Loser_Should_Return_Assigned_Loser()
+        {
+            var products = TestHelper.ProductService.GetProducts().Take(2).ToList();
+            var strongHero = products.OrderByDescending(p => p.Strength + p.Intelligence + p.Speed + p.Durability + p.Power + p.Combat).First();
+            var weakHero = products.First(p => p.Id != strongHero.Id);
+
+            pageModel.Hero1Id = strongHero.Id;
+            pageModel.Hero2Id = weakHero.Id;
+            pageModel.PredictedWinnerId = strongHero.Id;
+            pageModel.Step = BattleStep.VoteWinner;
+
+            pageModel.OnPost();
+            var loser = pageModel.Loser;
+
+            Assert.IsNotNull(loser);
+            Assert.AreEqual(weakHero.Id, loser.Id);
         }
 
         #endregion OnPost Tests - VoteWinner Step
