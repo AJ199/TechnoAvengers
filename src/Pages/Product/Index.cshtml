@@ -5,7 +5,6 @@
     ViewData["Title"] = "Index page";
 }
 
-<!-- Container for the entire index page content -->
 <div class="container hero-index-container">
 
     <div class="container mb-5">
@@ -58,11 +57,41 @@
         </div>
     </div>
 
-    <!-- Table displaying all superheroes -->
     <table class="table hero-table">
         <thead>
             <tr>
-                <th class="hero-title-header">Superhero Name</th>
+                <th class="hero-title-header">
+                    <!-- Sortable column header for Superhero Name -->
+                    <a asp-page="./Index"
+                       asp-route-SortField="Title"
+                       asp-route-SortOrder="@(Model.SortOrder == "asc" ? "desc" : "asc")"
+                       style="text-decoration: none; color: inherit;">
+
+                        <!-- Display column title -->
+                        Superhero Name
+
+                        <!-- Conditional rendering of sort icons -->
+                        @if (Model.SortField == "Title")
+                        {
+                            // If currently sorted by Title in ascending order, show the up arrow
+                            if (Model.SortOrder == "asc")
+                            {
+                                <i class="fas fa-arrow-up"></i>
+                            }
+                            // If currently sorted by Title in descending order, show the down arrow
+                            else
+                            {
+                                <i class="fas fa-arrow-down"></i>
+                            }
+                        }
+                        else
+                        {
+                            // If not sorted by Title, show the default sort icon
+                            <i class="fas fa-sort"></i>
+                        }
+                    </a>
+                </th>
+
                 <th class="hero-action-header">Actions</th>
             </tr>
         </thead>
