@@ -1,0 +1,38 @@
+﻿@page
+@model ContosoCrafts.WebSite.Pages.Product.RankModel
+
+@{
+    // Set the page title for the browser and layout
+    ViewData["Title"] = "Superhero Rankings";
+}
+
+<!-- Page Heading -->
+<h2 class="text-center my-4">Superhero Rankings</h2>
+
+<!-- Container for the superhero rankings table -->
+<div class="container">
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <!-- Column headers for the table -->
+                <th>Superhero</th>
+                <th>Score</th>
+                <th>Rank</th>
+                <th>Role</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Iterate over the Superheroes collection, sorted by Score descending -->
+            @foreach (var hero in Model.Superheroes.OrderByDescending(h => h.Score))
+            {
+                <tr>
+                    <!-- Display superhero details in table rows -->
+                    <td>@hero.Title</td>
+                    <td>@hero.Score</td>
+                    <td>@hero.Rank</td>
+                    <td>@hero.Role</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
