@@ -19,7 +19,7 @@ namespace ContosoCrafts.WebSite.Models
         public string? Title { get; set; }
 
         // Fullname represents superhero real name, is required and must contain max 50 characters
-        [StringLength(50, ErrorMessage ="Must be 50 chars max")]
+        [StringLength(50, ErrorMessage = "Must be 50 chars max")]
         [RegularExpression(@"^(?!.*\b\w{16,}\b)[a-zA-Z\s\-\'\.]+$",
             ErrorMessage = "Use only letters, spaces, hyphens, apostrophes, and hyphens. Each word must be 15 characters or fewer")]
         public string? Fullname { get; set; }
@@ -96,6 +96,21 @@ namespace ContosoCrafts.WebSite.Models
 
         // Array of ratings
         public int[]? Ratings { get; set; }
+
+        // Computed Score
+        public int Score => Intelligence + Strength + Speed + Durability + Power + Combat;
+
+        // Computed Rank based on Score
+        public string Rank
+        {
+            get
+            {
+                if (Score >= 500) return "S-Tier";
+                if (Score >= 400) return "A-Tier";
+                if (Score >= 300) return "B-Tier";
+                return "C-Tier";
+            }
+        }
 
         /// <summary>
         /// Converts the object to a JSON string
