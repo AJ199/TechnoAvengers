@@ -2309,3 +2309,63 @@ form { /* Filter Form */
         transform: translateY(0);
     }
 }
+
+/* Rank Page Styles */
+.rank-page {
+    margin: 50px auto;
+    padding: 40px;
+    max-width: 900px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
+    color: white;
+    text-align: center;
+}
+
+.rank-heading {
+    font-family: 'Bangers', cursive;
+    font-size: 3rem;
+    color: #ffcc00;
+    text-shadow: 2px 2px 6px black;
+    margin-bottom: 30px;
+}
+
+.rank-table-container {
+    overflow-x: auto;
+}
+
+.rank-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.2rem;
+}
+
+    .rank-table th, .rank-table td {
+        padding: 12px 18px;
+        text-align: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        color: white;
+    }
+
+    .rank-table th {
+        background-color: #ED1D24;
+        font-family: 'Bangers', cursive;
+        font-size: 1.4rem;
+        text-shadow: 1px 1px 4px black;
+    }
+
+    .rank-table tr {
+        background-color: rgba(0, 0, 0, 0.5);
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+        .rank-table tr:nth-child(even) {
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        .rank-table tr:hover {
+            background-color: rgba(255, 215, 0, 0.4); /* Light gold for contrast */
+            color: #000; /* Dark text on hover */
+            font-weight: bold;
+        }
