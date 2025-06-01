@@ -7,41 +7,73 @@
 
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-    <link href="https://fonts.googleapis.com/css?family=Yellowtail&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    @Html.Raw("<script type='module' src='https://unpkg.com/@material/web/slider/slider.js?module'></script>")
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
 </head>
 <body>
     <div class="page-wrapper d-flex flex-column min-vh-100">
 
         <header>
-            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-navbar border-bottom box-shadow mb-3">
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light" style="background: linear-gradient(90deg, #0288D1, #03A9F4); border-bottom: 4px solid red;">
                 <div class="container">
-                    <a class="navbar-brand-logo d-flex align-items-center" asp-area="" asp-page="/Index">
+
+                    <a class="navbar-brand d-flex align-items-center" asp-area="" asp-page="/Index"
+                       style="font-family: 'Bangers', cursive; font-size: 2.5rem; color: white; text-shadow: 3px 3px 0px red, 5px 5px 10px rgba(0,0,0,0.7);">
                         <img src="~/images/avengers-logo.png" alt="Avengers Logo" style="height: 40px; margin-right: 10px;" />
-                        Avengers Encyclopedia
+                        AVENGERS ENCYCLOPEDIA
                     </a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+
+                    <!-- Navbar toggle -->
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent"
                             aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                        <ul class="nav nav-pills navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-page="/Product/Index">Superheroes</a>
+
+                    <!-- Navbar dropdowns: Explore, Activities, More Info -->
+                    <div class="collapse navbar-collapse" id="navbarContent">
+                        <ul class="navbar-nav ms-auto">
+
+                            <!-- Explore Dropdown -->
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-white" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Explore
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" asp-page="/Product/Index">Superheroes List</a>
+                                    <a class="dropdown-item" asp-page="/AvengersHistory">Avengers History</a>
+                                    <a class="dropdown-item" asp-page="/Product/Rank">Rankings of Heroes</a>
+                                </div>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-page="/AvengersHistory">Avengers History</a>
+
+                            <!-- Activities Dropdown -->
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-white" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Activities
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" asp-page="/Product/Create">Create New Hero</a>
+                                    <a class="dropdown-item" asp-page="/Product/Compare">Compare Heroes</a>
+                                    <a class="dropdown-item" asp-page="/Product/Battle">Battle Heroes</a>
+                                    <a class="dropdown-item" asp-page="/Discover">Discover Your Avenger</a>
+                                    <a class="dropdown-item" asp-page="/KnowledgeQuiz">Knowledge Quiz</a>
+                                </div>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-page="/Discover">Discover Your Avenger</a>
+
+                            <!-- More Info Dropdown -->
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-white" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    More Info
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" asp-page="/Privacy">Privacy</a>
+                                    <a class="dropdown-item" asp-page="/About">About Us</a>
+                                    <a class="dropdown-item" asp-page="/Contact">Contact</a>
+                                    <a class="dropdown-item" asp-page="/News">News</a>
+                                    <a class="dropdown-item" asp-page="/FAQ">FAQ</a>
+                                </div>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-page="/KnowledgeQuiz">Knowledge Quiz</a>
-                            </li>
+
                         </ul>
                     </div>
                 </div>
@@ -53,31 +85,25 @@
         </main>
 
         <footer class="site-footer">
-            <div class="footer-container">
-                <h3 class="footer-title">
-                    AVENGERS ENCYCLOPEDIA
-                </h3>
-                <p class="footer-text">
-                    Your ultimate guide to Earth's mightiest heroes.
-                </p>
+            <div class="footer-container text-center text-white">
+                <h3 class="footer-title">AVENGERS ENCYCLOPEDIA</h3>
+                <p class="footer-text">Your ultimate guide to Earth's mightiest heroes.</p>
                 <div class="footer-links">
-                    <a asp-page="/Privacy">Privacy</a> |
-                    <a asp-page="/About">About Us</a> |
-                    <a asp-page="/Contact">Contact</a> |
-                    <a asp-page="/News">News</a> |
-                    <a asp-page="/FAQ">FAQ</a>
+                    <a asp-page="/Privacy" class="text-danger">Privacy</a> |
+                    <a asp-page="/About" class="text-danger">About Us</a> |
+                    <a asp-page="/Contact" class="text-danger">Contact</a> |
+                    <a asp-page="/News" class="text-danger">News</a> |
+                    <a asp-page="/FAQ" class="text-danger">FAQ</a>
                 </div>
-                <p class="footer-copy">
-                    &copy; 2025 Avengers Encyclopedia. All rights reserved.
-                </p>
+                <p class="footer-copy">&copy; 2025 Avengers Encyclopedia. All rights reserved.</p>
             </div>
         </footer>
+
     </div>
 
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-
     @RenderSection("Scripts", required: false)
 </body>
 </html>
