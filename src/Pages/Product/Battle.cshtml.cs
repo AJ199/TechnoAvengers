@@ -228,7 +228,7 @@ namespace ContosoCrafts.WebSite.Pages.Product
         /// </summary>
         public enum BattleStep
         {
-            SelectHeroes = 1,   // Selecting two heroes
+            SelectHeroes = 1,   // Selecting heroes
             VoteWinner = 2,     // Voting on winner
             ShowResult = 3      // Displaying result
         }
