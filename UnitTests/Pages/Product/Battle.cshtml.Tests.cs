@@ -37,7 +37,7 @@ namespace UnitTests.Pages.Product
         /// Ensures OnGet populates Products and HeroOptions.
         /// </summary>
         [Test]
-        public void OnGet_Should_Populate_Products_And_Hero_Options()
+        public void OnGet_Valid__Should_Populate_Products_And_Hero_Options()
         {
             // Act: load the page
             pageModel.OnGet();
@@ -56,7 +56,7 @@ namespace UnitTests.Pages.Product
         /// Selecting the same hero twice should trigger a validation error.
         /// </summary>
         [Test]
-        public void OnPost_Select_Heroes_Same_Hero_Should_Return_Page()
+        public void OnPost_Invalid_Select_Heroes_Same_Hero_Should_Return_Page()
         {
             // Arrange: assign identical IDs to both slots
             var data = TestHelper.ProductService.GetProducts().First();
@@ -76,7 +76,7 @@ namespace UnitTests.Pages.Product
         /// Missing Hero1 selection should stay on page with error.
         /// </summary>
         [Test]
-        public void OnPost_Select_Heroes_Missing_Hero1_Should_Return_Page()
+        public void OnPost_Invalid_Select_Heroes_Missing_Hero1_Should_Return_Page()
         {
             // Arrange: omit Hero1
             var data = TestHelper.ProductService.GetProducts().First();
@@ -96,7 +96,7 @@ namespace UnitTests.Pages.Product
         /// Missing Hero2 selection should stay on page with error.
         /// </summary>
         [Test]
-        public void OnPost_Select_Heroes_Missing_Hero2_Should_Return_Page()
+        public void OnPost_Invalid_Select_Heroes_Missing_Hero2_Should_Return_Page()
         {
             // Arrange: omit Hero2
             var data = TestHelper.ProductService.GetProducts().First();
@@ -142,7 +142,7 @@ namespace UnitTests.Pages.Product
         /// Failing to predict a winner should stay on page with error and retain hero data.
         /// </summary>
         [Test]
-        public void OnPost_Vote_Winner_Missing_Predicted_Winner_Should_Return_Page_And_Populate_Heroes()
+        public void OnPost_Invalid_Vote_Winner_Missing_Predicted_Winner_Should_Return_Page_And_Populate_Heroes()
         {
             // Arrange: select heroes but no prediction
             var products = TestHelper.ProductService.GetProducts().Take(2).ToList();
@@ -217,7 +217,7 @@ namespace UnitTests.Pages.Product
         /// Verifies actual winner and loser are set when Hero2 is stronger.
         /// </summary>
         [Test]
-        public void OnPost_Vote_Winner_Hero2_Is_Stronger_Should_Set_Actual_Winner_And_Loser()
+        public void OnPost_Vote_Winner_Hero2_Is_Stronger_Should_Set_Actual_Winner_And_Loser_Valid()
         {
             // Arrange: swap roles so second hero is stronger
             var products = TestHelper.ProductService.GetProducts().Take(2).ToList();
@@ -292,7 +292,7 @@ namespace UnitTests.Pages.Product
         /// If Step is already ShowResult, OnPost should simply return the page.
         /// </summary>
         [Test]
-        public void OnPost_Other_Step_Should_Return_Page()
+        public void OnPost_Other_Step_Should_Return_Page_Valid ()
         {
             // Arrange: set step to final
             pageModel.Step = BattleStep.ShowResult;
@@ -309,7 +309,7 @@ namespace UnitTests.Pages.Product
         /// Verifies that the Loser property is assigned after a battle completes.
         /// </summary>
         [Test]
-        public void Get_Loser_Should_Return_Assigned_Loser()
+        public void Get_Loser_Should_Return_Valid_Assigned_Loser()
         {
             // Arrange: simulate a correct prediction to set Loser
             var products = TestHelper.ProductService.GetProducts().Take(2).ToList();
