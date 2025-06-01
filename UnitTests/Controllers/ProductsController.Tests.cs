@@ -31,7 +31,7 @@ namespace UnitTests.Controllers
         /// Tests if Equal
         /// </summary>
         [Test]
-        public void GetProducts_Data_Present_Should_Return_True()
+        public void GetProducts_Valid_Data_Present_Should_Return_True()
         {
             //arrange
             //Create new default ProductService datapoint
@@ -83,7 +83,7 @@ namespace UnitTests.Controllers
         /// Verifies that Patch returns BadRequest (400) when the RatingRequest is null or has a null ProductId.
         /// </summary>
         [Test]
-        public void Patch_Null_Or_Missing_Product_Id_Returns_Bad_Request()
+        public void Patch_Invalid_Null_Or_Missing_Product_Id_Returns_Bad_Request()
         {
             // Arrange
             var controller = new ProductsController(TestHelper.ProductService);
