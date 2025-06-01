@@ -59,7 +59,7 @@ namespace UnitTests.Components
         /// Verifies that the component renders product cards for each product passed in.
         /// </summary>
         [Test]
-        public void Should_Render_Product_Cards()
+        public void Should_Render_Valid_Product_Cards()
         {
             // Arrange
             var products = TestHelper.ProductService.GetProducts().ToList();
@@ -79,7 +79,7 @@ namespace UnitTests.Components
         /// Verifies that when the Products list is null or empty, the component does not render any product cards or deck layout.
         /// </summary>
         [Test]
-        public void Should_Not_Render_Product_Cards_When_Products_Null_Or_Empty()
+        public void Should_Not_Render_Product_Cards_Invalid_When_Products_Null_Or_Empty()
         {
             // Arrange
             var cutNull = RenderComponent<ProductList>();
@@ -97,7 +97,7 @@ namespace UnitTests.Components
         /// Tests that clicking "View Superhero" button opens modal showing product details.
         /// </summary>
         [Test]
-        public void Clicking_View_Superhero_Opens_Modal_With_Product_Details()
+        public void Clicking_View_Superhero_Opens_Modal_With_Product_Details_Valid()
         {
             // Arrange
             var products = _productService.GetProducts().ToList();
@@ -119,7 +119,7 @@ namespace UnitTests.Components
         /// Checks that star rating UI reflects current rating and updates after rating submission.
         /// </summary>
         [Test]
-        public void Stars_Render_Based_On_Current_Rating_And_Submit_Rating_Updates()
+        public void Stars_Render_Based_On_Current_Rating_And_Submit_Rating_Updates_Valid()
         {
             // Arrange
             var products = _productService.GetProducts().ToList();
@@ -144,7 +144,7 @@ namespace UnitTests.Components
         /// Ensures currentRating and voteCount are zero when selected product's Ratings is null.
         /// </summary>
         [Test]
-        public void GetCurrentRating_Selected_Product_Ratings_Null_Sets_Zero()
+        public void GetCurrentRating_Selected_Product_Ratings_Null_Sets_Zero_Invalid()
         {
             // Arrange
             var products = _productService.GetProducts().ToList();
@@ -174,7 +174,7 @@ namespace UnitTests.Components
         /// Verifies that GetCurrentRating sets currentRating and voteCount to zero and leaves voteLabel null when the selected product's Ratings property is null.
         /// </summary>
         [Test]
-        public void GetCurrentRating_Selected_Product_Ratings_Null_Sets_Zero_And_Prints()
+        public void GetCurrentRating_Invalid_Selected_Product_Ratings_Null_Sets_Zero_And_Prints()
         {
             // Arrange
             var cut = RenderComponent<ProductList>(parameters => parameters.Add(p => p.Products, new List<ProductModel>()));
@@ -205,7 +205,7 @@ namespace UnitTests.Components
         /// Confirms that when the selected product has exactly one rating, GetCurrentRating sets voteCount to 1 and voteLabel to "Vote".
         /// </summary>
         [Test]
-        public void GetCurrentRating_Vote_Count_One_Sets_Vote_Label_To_Vote()
+        public void GetCurrentRating_Valid_Vote_Count_One_Sets_Vote_Label_To_Vote()
         {
             // Arrange
             var cut = RenderComponent<ProductList>(parameters => parameters.Add(p => p.Products, new List<ProductModel>()));
@@ -233,7 +233,7 @@ namespace UnitTests.Components
         /// Ensures that if the selected product is null, GetCurrentRating safely sets currentRating and voteCount to zero and leaves voteLabel null.
         /// </summary>
         [Test]
-        public void GetCurrentRating_Selected_Product_Is_Null_Sets_Zero_And_Prints()
+        public void GetCurrentRating_Invalid_Selected_Product_Is_Null_Sets_Zero_And_Prints()
         {
             var cut = RenderComponent<ProductList>(parameters => parameters.Add(p => p.Products, new List<ProductModel>()));
 
@@ -259,7 +259,7 @@ namespace UnitTests.Components
         /// Validates that when the selected product has multiple ratings, GetCurrentRating sets voteCount accordingly and sets voteLabel to "Votes".
         /// </summary>
         [Test]
-        public void GetCurrentRating_Vote_Count_More_Than_One_Sets_Vote_Label_To_Votes()
+        public void GetCurrentRating_Valid_Vote_Count_More_Than_One_Sets_Vote_Label_To_Votes()
         {
             var cut = RenderComponent<ProductList>(parameters => parameters.Add(p => p.Products, new List<ProductModel>()));
 
@@ -284,7 +284,7 @@ namespace UnitTests.Components
         /// Verifies that the UI displays "Be the first to vote!" message when the selected product has no ratings.
         /// </summary>
         [Test]
-        public void Modal_Shows_Be_The_First_To_Vote_When_No_Ratings()
+        public void Modal_Shows_Be_The_First_To_Vote_When_No_Ratings_Invalid()
         {
             // Arrange
             var cut = RenderComponent<ProductList>(parameters => parameters.Add(p => p.Products, new List<ProductModel>()));
@@ -309,7 +309,7 @@ namespace UnitTests.Components
         /// Verifies that SubmitRating exits early when selectedProductId is null.
         /// </summary>
         [Test]
-        public void SubmitRating_Selected_Product_Id_Null_Does_Not_Call_Add_Rating()
+        public void SubmitRating_Invalid_Selected_Product_Id_Null_Does_Not_Call_Add_Rating()
         {
             // Arrange
             var products = _productService.GetProducts().ToList();
@@ -347,7 +347,7 @@ namespace UnitTests.Components
         /// Verifies that clicking on a star in the else branch (i.e., not pre-checked) does not throw an exception and updates the UI to reflect the new rating.
         /// </summary>
         [Test]
-        public void Stars_ElseBranch_Click_Does_Not_Throw_And_Updates_UI()
+        public void Stars_Valid_ElseBranch_Click_Does_Not_Throw_And_Updates_UI()
         {
             // Arrange
             var products = _productService.GetProducts().ToList();
