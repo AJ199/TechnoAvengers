@@ -6,46 +6,56 @@
 }
 
 <div class="header-container">
-
-    <!-- Search and sort form -->
     <form method="get" id="searchForm" class="search-bar-container">
+        <div class="homepage-left-controls">
+            <div class="homepage-sort-input-group">
+                <input type="text" name="SearchTerm" placeholder="Search by Name..."
+                       value="@Request.Query["SearchTerm"]"
+                       class="search-input" />
+                <button type="submit" class="search-btn">Search</button>
+            </div>
 
-        <!-- Search input section -->
-        <div class="search-input-group">
-            <input type="text" name="SearchTerm" placeholder="Search by name..."
-                   value="@Request.Query["SearchTerm"]"
-                   class="search-input" />
-            <button type="submit" class="search-btn">Search</button>
+            <div class="homepage-sort-input-group">
+                <select name="SortField" id="SortFieldDropdown" class="homepage-sort-dropdown">
+                    <option value="Title" selected="@("Title" == Request.Query["SortField"])">Sort by Name</option>
+                    <option value="Intelligence" selected="@("Intelligence" == Request.Query["SortField"])">Sort by Intelligence</option>
+                    <option value="Strength" selected="@("Strength" == Request.Query["SortField"])">Sort by Strength</option>
+                    <option value="Speed" selected="@("Speed" == Request.Query["SortField"])">Sort by Speed</option>
+                    <option value="Durability" selected="@("Durability" == Request.Query["SortField"])">Sort by Durability</option>
+                    <option value="Power" selected="@("Power" == Request.Query["SortField"])">Sort by Power</option>
+                    <option value="Combat" selected="@("Combat" == Request.Query["SortField"])">Sort by Combat</option>
+                </select>
+
+                @{
+                    var sortField = Request.Query["SortField"].ToString();
+                    var sortOrder = Request.Query["SortOrder"].ToString();
+                    var defaultSortOrder = string.IsNullOrEmpty(sortOrder)
+                    ? (sortField == "Title" || string.IsNullOrEmpty(sortField) ? "asc" : "desc")
+                    : sortOrder;
+                }
+
+                <input type="hidden" name="SortOrder" id="SortOrderInput" value="@defaultSortOrder" />
+
+                <div class="homepage-sort-order-buttons">
+                    <button type="button"
+                            class="homepage-sort-arrow @(Request.Query["SortOrder"] == "desc" ? "selected" : "")"
+                            onclick="setSortOrder('desc')">
+                        ↓
+                    </button>
+                    <button type="button"
+                            class="homepage-sort-arrow @(Request.Query["SortOrder"] != "desc" ? "selected" : "")"
+                            onclick="setSortOrder('asc')">
+                        ↑
+                    </button>
+                </div>
+            </div>
         </div>
 
-        <!-- Dropdown to select the field to sort by -->
-        <select name="SortField" class="sort-dropdown" onchange="document.getElementById('searchForm').submit()">
+        <div class="homepage-sort-button-group">
+            <button type="button" class="btn btn-terciary" onclick="openFilterSidebar()">Filter</button>
+            <button type="button" class="btn btn-secondary" onclick="clearAll()">Clear All</button>
+        </div>
 
-            <!-- Each option sets selected based on current query value -->
-            <option value="Title" selected="@("Title" == Request.Query["SortField"])">Sort by Name</option>
-            <option value="Intelligence" selected="@("Intelligence" == Request.Query["SortField"])">Sort by Intelligence</option>
-            <option value="Strength" selected="@("Strength" == Request.Query["SortField"])">Sort by Strength</option>
-            <option value="Speed" selected="@("Speed" == Request.Query["SortField"])">Sort by Speed</option>
-            <option value="Durability" selected="@("Durability" == Request.Query["SortField"])">Sort by Durability</option>
-            <option value="Power" selected="@("Power" == Request.Query["SortField"])">Sort by Power</option>
-            <option value="Combat" selected="@("Combat" == Request.Query["SortField"])">Sort by Combat</option>
-        </select>
-
-        <!-- Hidden input to track current sort order (asc or desc) -->
-        <input type="hidden" name="SortOrder" id="SortOrderInput" value="@(Request.Query["SortOrder"].ToString() ?? "asc")" />
-
-        <!-- Button to toggle the sort order, submits the form on click -->
-        <button type="button" class="sort-btn-toggle" onclick="toggleSortOrder()">
-            @(Request.Query["SortOrder"] == "desc" ? "▼ Descending" : "▲ Ascending")
-        </button>
-
-        <!-- Button to open filter sidebar -->
-        <button type="button" class="btn btn-terciary" onclick="openFilterSidebar()">Filter</button>
-
-        <!-- Button to clear all filters and sorting -->
-        <button type="button" class="btn btn-secondary" onclick="clearAll()">Clear All</button>
-
-        <!-- Preserve selected filter values (checkbox/radio) for Alignment, Role, and Gender -->
         @foreach (var category in new[] { "Alignment", "Role", "Gender" })
         {
             foreach (var value in Request.Query[category])
@@ -54,7 +64,6 @@
             }
         }
 
-        <!-- Preserve min/max range filters for each stat in the query -->
         @foreach (var stat in new[] { "Intelligence", "Strength", "Speed", "Durability", "Power", "Combat" })
         {
             <input type="hidden" name="@($"{stat}Min")" value="@Request.Query[$"{stat}Min"].FirstOrDefault() ?? " 1"" />
@@ -63,8 +72,6 @@
     </form>
 </div>
 
-
-<!-- Display number of superheroes found -->
 @if (Request.Query.Count > 0)
 {
     if (Model.FilteredHeroes.Count == 1)
@@ -73,7 +80,6 @@
             <span class="numbers">@Model.FilteredHeroes.Count</span> superhero found
         </p>
     }
-
     else if (Model.FilteredHeroes.Count > 1)
     {
         <p class="hero-text hero-subtext">
@@ -86,7 +92,6 @@
     }
 }
 
-<!-- Display filtered superheroes using Blazor component -->
 @(await Html.RenderComponentAsync<ProductList>(RenderMode.ServerPrerendered, new { Products = Model.FilteredHeroes }))
 
 <!-- Sidebar filter menu (hidden by default) -->
@@ -155,14 +160,39 @@
 <script src="_framework/blazor.server.js"></script>
 <script>
     /// <summary>
-    /// Toggles the sort order between ascending and descending, then submits the search form
+    /// Handles setting the sort order based on button click.
     /// </summary>
-    function toggleSortOrder() {
+     function setSortOrder(order)
+    {
+        // Input element that stores the sort order
         const input = document.getElementById('SortOrderInput');
-        // Toggle between ascending and descending
-        input.value = input.value === 'asc' ? 'desc' : 'asc';
+        input.value = order;
         document.getElementById('searchForm').submit();
     }
+
+    /// <summary>
+    /// Adds event listener to the sort field dropdown to update sort order on change.
+    /// </summary>
+    document.getElementById("SortFieldDropdown").addEventListener("change", function () {
+        // Selected field from dropdown
+        const selectedField = this.value;
+
+        // Input element for sort order
+        const sortOrderInput = document.getElementById("SortOrderInput");
+
+        // Set default sort order
+        if (selectedField === "Title")
+        {
+            sortOrderInput.value = "asc";
+        }
+        else
+        {
+            sortOrderInput.value = "desc";
+        }
+
+        // Submit the form
+        document.getElementById("searchForm").submit();
+    });
 
     /// <summary>
     /// Opens the filter sidebar and initializes sliders
@@ -396,3 +426,112 @@
         });
     });
 </script>
+
+<style>
+    .homepage-sort-dropdown {
+        padding: 8px 12px;
+        font-size: 1rem;
+        font-family: inherit;
+        background-color: white;
+        color: #7D6A6A;
+        border: 1px solid white;
+        border-right: none;
+        border-radius: 8px 0 0 8px;
+        height: 47px;
+        box-sizing: border-box;
+        appearance: none;
+        background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='12' viewBox='0 0 24 24' width='12' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+        background-repeat: no-repeat;
+        background-position: right 10px center;
+        background-size: 12px;
+    }
+
+        .homepage-sort-dropdown:focus,
+        .homepage-sort-dropdown:active,
+        .homepage-sort-dropdown:hover {
+            background-color: white !important;
+            color: #7D6A6A !important;
+            outline: none;
+            box-shadow: none;
+            border: 1px solid white !important;
+        }
+
+    .homepage-sort-order-buttons {
+        display: flex;
+        align-items: stretch;
+        height: 100%;
+    }
+
+    .homepage-sort-arrow {
+        background-color: black;
+        color: white;
+        font-size: 1.2rem;
+        font-family: 'Bangers', cursive;
+        border: 1px solid white;
+        cursor: pointer;
+        height: 47px;
+        width: 42px !important;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+        .homepage-sort-arrow:first-child {
+            border-radius: 0;
+            border-left: none;
+        }
+
+        .homepage-sort-arrow:last-child {
+            border-radius: 0 8px 8px 0;
+            border-left: none;
+        }
+
+        .homepage-sort-arrow:hover {
+            background-color: #ED1D24;
+            border-color: #ED1D24;
+        }
+
+        .homepage-sort-arrow.selected {
+            font-weight: bold;
+            background-color: #ED1D24 !important;
+            border-color: white !important;
+            color: white !important;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
+        }
+
+    .homepage-sort-input-group {
+        display: flex;
+        align-items: stretch;
+    }
+
+    .search-bar-container {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        gap: 0.5rem;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+
+    .homepage-left-controls {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.5rem;
+        flex-grow: 1;
+    }
+
+    .homepage-sort-button-group {
+        display: flex;
+        gap: 0.5rem;
+        justify-content: flex-end;
+        align-items: center;
+        flex-shrink: 0;
+        margin-left: auto;
+        padding-right: 1rem; /* <--- Critical for pushing to the right */
+    }
+
+</style>
