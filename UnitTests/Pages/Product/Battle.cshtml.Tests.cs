@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using NUnit.Framework;
 using System.Linq;
+using static ContosoCrafts.WebSite.Pages.Product.BattleModel;
 
 namespace UnitTests.Pages.Product
 {

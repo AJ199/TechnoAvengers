@@ -14,7 +14,7 @@
 <div class="compare-wrapper">
     <h1 class="compare-heading">Epic Battle</h1>
 
-    @if (Model.Step == BattleStep.SelectHeroes)
+    @if (Model.Step == BattleModel.BattleStep.SelectHeroes)
     {
         <!-- Select the Superheros to fight -->
         <form method="post" class="compare-form mx-auto">
@@ -39,7 +39,7 @@
             </div>
         </form>
     }
-    else if (Model.Step == BattleStep.VoteWinner)
+    else if (Model.Step == BattleModel.BattleStep.VoteWinner)
     {
         <!-- Start voting and Predict the winner -->
         <form method="post" class="compare-form mx-auto">
@@ -66,7 +66,7 @@
             </div>
         </form>
     }
-    else if (Model.Step == BattleStep.ShowResult)
+    else if (Model.Step == BattleModel.BattleStep.ShowResult)
     {
         <!-- Result of Battle -->
         <div class="battle-final">

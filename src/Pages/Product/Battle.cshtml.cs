@@ -111,38 +111,63 @@ namespace ContosoCrafts.WebSite.Pages.Product
         /// <returns>The page with updated model</returns>
         public IActionResult OnPost()
         {
+            // Retrieve the full list of superheroes from the product service
             Products = _productService.GetProducts().ToList();
 
+            // Create a list of selectable hero options for dropdown menus,
+            // mapping each hero's ID to the option value and the hero's title to the display text
             HeroOptions = Products.Select(p => new SelectListItem
             {
                 Value = p.Id,
                 Text = p.Title
             }).ToList();
 
+            // Check if the current battle step is hero selection
             if (Step == BattleStep.SelectHeroes)
             {
-                if (string.IsNullOrEmpty(Hero1Id) || string.IsNullOrEmpty(Hero2Id) || Hero1Id == Hero2Id)
+                // Validate that two different heroes have been selected and neither is empty or null
+                var isInvalid = string.IsNullOrEmpty(Hero1Id) || string.IsNullOrEmpty(Hero2Id) || Hero1Id == Hero2Id;
+                if (isInvalid)
                 {
+                    // Add a validation error to prompt user to select two distinct heroes
                     ModelState.AddModelError(string.Empty, "Please select two different heroes.");
+                    // Return the page with the error message displayed, preventing progress to next step
                     return Page();
                 }
 
+                // Load full data for each selected hero for use in the next step (voting)
                 Hero1 = Products.FirstOrDefault(p => p.Id == Hero1Id);
                 Hero2 = Products.FirstOrDefault(p => p.Id == Hero2Id);
 
+                // Advance the battle step to voting for the winner
                 Step = BattleStep.VoteWinner;
+
+                // Return the page to re-render with updated data and UI state
                 return Page();
             }
-            else if (Step == BattleStep.VoteWinner)
+
+
+            // Handle VoteWinner step
+            if (Step == BattleStep.VoteWinner)
             {
-                if (string.IsNullOrEmpty(PredictedWinnerId))
+                // Check if the user failed to select a predicted winner
+                var predictionMissing = string.IsNullOrEmpty(PredictedWinnerId);
+
+                // If no prediction was made, show validation error and reload the selection page
+                if (predictionMissing)
                 {
+                    // Add a validation error to the model state to be displayed on the page
                     ModelState.AddModelError(string.Empty, "Please select who you think will win.");
+
+                    // Reload hero data so the page can re-render the same selected heroes
                     Hero1 = Products.FirstOrDefault(p => p.Id == Hero1Id);
                     Hero2 = Products.FirstOrDefault(p => p.Id == Hero2Id);
+
+                    // Return to the same page with validation message shown
                     return Page();
                 }
 
+                // Load full hero data objects from their IDs for further processing
                 Hero1 = Products.FirstOrDefault(p => p.Id == Hero1Id);
                 Hero2 = Products.FirstOrDefault(p => p.Id == Hero2Id);
                 PredictedWinner = Products.FirstOrDefault(p => p.Id == PredictedWinnerId);
@@ -176,26 +201,19 @@ namespace ContosoCrafts.WebSite.Pages.Product
                     // Hero 2 total
                     double hero2Total = hero2Stats * 0.9 + hero2Rating * 10;
 
-                    if (hero1Total > hero2Total)
-                    {
-                        ActualWinner = Hero1;
-                        Loser = Hero2;
-                    }
-                    else
-                    {
-                        ActualWinner = Hero2;
-                        Loser = Hero1;
-                    }
+                    // Determine winner and loser
+                    bool hero1Wins = hero1Total > hero2Total;
+                    ActualWinner = hero1Wins ? Hero1 : Hero2;
+                    Loser = hero1Wins ? Hero2 : Hero1;
 
-                    // Set Result Message
-                    if (PredictedWinner.Id == ActualWinner.Id)
+                    // Evaluate prediction
+                    bool predictionCorrect = PredictedWinner?.Id == ActualWinner?.Id;
+                    if (predictionCorrect)
                     {
                         ResultMessage = "You predicted correctly! 🎉";
                     }
-                    else
-                    {
-                        ResultMessage = "Oops! Your prediction was wrong. 😢";
-                    }
+                    ResultMessage = "Oops! Your prediction was wrong. 😢";
+
                 }
 
                 Step = BattleStep.ShowResult;
@@ -204,15 +222,15 @@ namespace ContosoCrafts.WebSite.Pages.Product
 
             return Page();
         }
-    }
 
-    /// <summary>
-    /// Enum representing the current step of the battle process.
-    /// </summary>
-    public enum BattleStep
-    {
-        SelectHeroes = 1,
-        VoteWinner = 2,
-        ShowResult = 3
+        /// <summary>
+        /// Enum representing the current step of the battle process.
+        /// </summary>
+        public enum BattleStep
+        {
+            SelectHeroes = 1,   // Selecting two heroes
+            VoteWinner = 2,     // Voting on winner
+            ShowResult = 3      // Displaying result
+        }
     }
 }

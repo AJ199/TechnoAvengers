@@ -74,13 +74,14 @@ a {
 .btn-primary,
 .btn-secondary,
 .btn-terciary {
-    font-family: 'Bangers', cursive;
-    font-size: 1.2rem; /* Slightly smaller text */
-    color: #fff;
-    padding: 6px 12px; /* Reduced padding for smaller buttons */
-    text-decoration: none;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  font-family: 'Bangers', cursive;
+  font-size: 1.2rem; /* Slightly smaller text */
+  color: #fff;
+  padding: 6px 12px; /* Reduced padding for smaller buttons */
+  text-decoration: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  margin-top: 10px;
 }
 
 /* Read background, white letters, white hover */
