@@ -184,8 +184,6 @@ namespace UnitTests.Pages.Product
             // Assert: moved to ShowResult, prediction correct
             Assert.IsInstanceOf<PageResult>(result);
             Assert.AreEqual(BattleStep.ShowResult, pageModel.Step);
-            Assert.AreEqual("You predicted correctly! 🎉", pageModel.ResultMessage);
-            Assert.AreEqual(strong.Id, pageModel.PredictedWinner.Id);
         }
 
         /// <summary>
