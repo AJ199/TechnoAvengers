@@ -207,7 +207,7 @@ namespace ContosoCrafts.WebSite.Pages.Product
                     Loser = hero1Wins ? Hero2 : Hero1;
 
                     // Evaluate prediction
-                    bool predictionCorrect = PredictedWinner?.Id == ActualWinner?.Id;
+                    bool predictionCorrect = PredictedWinner.Id == ActualWinner.Id;
                     if (predictionCorrect)
                     {
                         ResultMessage = "You predicted correctly! 🎉";
