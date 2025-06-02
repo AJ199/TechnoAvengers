@@ -24,6 +24,17 @@ namespace ContosoCrafts.WebSite.Pages
             EmailService = emailService;
         }
 
+        public class ShareForm
+        {
+            [Required]
+            [EmailAddress]
+            public string Email { get; set; }
+
+            [Required]
+            [Display(Name = "Message")]
+            public string Message { get; set; }
+        }
+
 
         public void OnGet()
         {
@@ -65,22 +76,13 @@ Let me know what you think!";
 
                 return RedirectToPage(); // Or RedirectToPage("SuccessPage") if needed
             }
-            catch
+            catch (Exception ex)
             {
                 IsFailed = true;
+                Console.WriteLine("Email sending failed: " + ex.Message);
+                Console.WriteLine("StackTrace: " + ex.StackTrace);
                 return Page();
             }
-        }
-
-        public class ShareForm
-        {
-            [Required]
-            [EmailAddress]
-            public string Email { get; set; }
-
-            [Required]
-            [Display(Name = "Message")]
-            public string Message { get; set; }
         }
     }
 }
