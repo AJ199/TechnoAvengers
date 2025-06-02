@@ -58,10 +58,11 @@
                     🎉 Email has been successfully sent!
                 </div>
             }
+
             <!-- Display failure message if sending failed -->
-            else if (Model.IsFailed)
+            @if (Model.IsFailed)
             {
-            <div class="alert alert-danger mt-3">Oops! Something went wrong. Please try again later.</div>
+            <div class="alert alert-danger">Oops! Something went wrong. Please try again later.</div>
             }
 
         </div>

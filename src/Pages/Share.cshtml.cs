@@ -135,7 +135,6 @@ Let me know what you think!";
             {
                 // If an error occurs during sending, mark failure flag and log the error
                 IsFailed = true;
-                Console.WriteLine("Email sending failed: " + ex.Message);
 
                 // Redisplay the page showing failure message
                 return Page();
