@@ -33,15 +33,15 @@ namespace ContosoCrafts.WebSite.Pages
             {
                 Form.Message = @"Hey there!
 
-            I just found this awesome Avengers Encyclopedia site and thought you’d love it too.
+I just found this awesome Avengers Encyclopedia site and thought you’d love it too.
 
-            It’s a beautifully designed fan-made site packed with detailed profiles of all Marvel heroes — from Iron Man to Black Widow — along with their origin stories, powers, team-ups, and movies they appeared in.
+It’s a beautifully designed fan-made site packed with detailed profiles of all Marvel heroes — from Iron Man to Black Widow — along with their origin stories, powers, team-ups, and movies they appeared in.
 
-            If you’re into Marvel or know someone who is, this is a must-see!
+If you’re into Marvel or know someone who is, this is a must-see!
 
-            Check it out here: https://5110technoavengersteam3.azurewebsites.net/
+Check it out here: https://5110technoavengersteam3.azurewebsites.net/
 
-            Let me know what you think!";
+Let me know what you think!";
             }
         }
 

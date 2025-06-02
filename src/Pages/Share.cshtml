@@ -29,13 +29,13 @@
                     <input asp-for="Form.Email" class="form-control" />
                 </div>
 
-                <div class="form-group text-start mt-3">
-                    <label asp-for="Form.Message">Message (<span class="text-danger">*</span>)</label>
+                <div class="form-group text-start">
+                    <label asp-for="Form.Message">Message (Customize your own Message) (<span class="text-danger">*</span>)</label>
                     <span asp-validation-for="Form.Message" class="text-danger d-block"></span>
                     <textarea asp-for="Form.Message" class="form-control" rows="6"></textarea>
                 </div>
 
-                <button type="submit" class="btn btn-primary mt-3">Send Email</button>
+                <button type="submit" class="btn btn-primary">Send Email</button>
             </form>
 
             <hr />
