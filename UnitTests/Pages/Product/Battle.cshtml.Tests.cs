@@ -1,4 +1,6 @@
-﻿using ContosoCrafts.WebSite.Pages.Product;
+﻿using ContosoCrafts.WebSite.Models;
+using ContosoCrafts.WebSite.Pages.Product;
+using ContosoCrafts.WebSite.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using NUnit.Framework;
@@ -258,6 +260,25 @@ namespace UnitTests.Pages.Product
             Assert.AreEqual(BattleStep.ShowResult, pageModel.Step);
             Assert.IsNull(pageModel.ActualWinner);
             Assert.IsNull(pageModel.Loser);
+        }
+
+        /// <summary>
+        /// GetHeroRating returns 0 when the hero's Ratings array is empty.
+        /// </summary>
+        [Test]
+        public void GetHeroRating_Invalid_EmptyRatings_ReturnsZero()
+        {
+            // Arrange: create a hero with empty Ratings array
+            var heroWithNoRatings = new ProductModel
+            {
+                Ratings = new int[0]  // empty array
+            };
+
+            // Act
+            double rating = pageModel.GetHeroRating(heroWithNoRatings);
+
+            // Assert
+            Assert.AreEqual(0, rating);
         }
 
         /// <summary>

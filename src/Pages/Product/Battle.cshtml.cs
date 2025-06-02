@@ -92,6 +92,28 @@ namespace ContosoCrafts.WebSite.Pages.Product
         public BattleStep Step { get; set; } = BattleStep.SelectHeroes;
 
         /// <summary>
+        /// Enum representing the current step of the battle process.
+        /// </summary>
+        public enum BattleStep
+        {
+            SelectHeroes = 1,   // Selecting heroes
+            VoteWinner = 2,     // Voting on winner
+            ShowResult = 3      // Displaying result
+        }
+
+        /// <summary>
+        /// Returns the average rating of the hero if ratings exist; otherwise, returns 0.
+        /// </summary>
+        public double GetHeroRating(ProductModel hero)
+        {
+            if (hero.Ratings.Length > 0)
+            {
+                return hero.Ratings.Average();
+            }
+            return 0;
+        }
+
+        /// <summary>
         /// Handles GET requests to initialize the page.
         /// </summary>
         public void OnGet()
@@ -187,12 +209,18 @@ namespace ContosoCrafts.WebSite.Pages.Product
                     int hero2Stats = Hero2.Intelligence + Hero2.Strength + Hero2.Speed +
                                      Hero2.Durability + Hero2.Power + Hero2.Combat;
 
-                    // Calculate average ratings (default to 0 if null/empty)
-                    // Hero 1 rating
-                    double hero1Rating = (Hero1.Ratings.Length > 0) ? Hero1.Ratings.Average() : 0;
+                    //// Calculate average ratings (default to 0 if null/empty)
+                    //// Hero 1 rating
+                    //double hero1Rating = (Hero1.Ratings.Length > 0) ? Hero1.Ratings.Average() : 0;
 
-                    // Hero 2 rating
-                    double hero2Rating = (Hero2.Ratings.Length > 0) ? Hero2.Ratings.Average() : 0;
+                    //// Hero 2 rating
+                    //double hero2Rating = (Hero2.Ratings.Length > 0) ? Hero2.Ratings.Average() : 0;
+
+
+
+                    double hero1Rating = GetHeroRating(Hero1);
+                    double hero2Rating = GetHeroRating(Hero2);
+
 
                     // Combine stats and rating: 90% stats + 10% rating (rating scaled to 50)
                     // Hero 1 total
@@ -223,14 +251,5 @@ namespace ContosoCrafts.WebSite.Pages.Product
             return Page();
         }
 
-        /// <summary>
-        /// Enum representing the current step of the battle process.
-        /// </summary>
-        public enum BattleStep
-        {
-            SelectHeroes = 1,   // Selecting heroes
-            VoteWinner = 2,     // Voting on winner
-            ShowResult = 3      // Displaying result
-        }
     }
 }
