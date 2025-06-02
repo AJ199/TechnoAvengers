@@ -24,17 +24,13 @@
                         AVENGERS ENCYCLOPEDIA
                     </a>
 
-                    <!-- Navbar toggle -->
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent"
                             aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
 
-                    <!-- Navbar dropdowns: Explore, Activities, More Info -->
                     <div class="collapse navbar-collapse" id="navbarContent">
                         <ul class="navbar-nav ms-auto">
-
-                            <!-- Explore Dropdown -->
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle text-white" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Explore
@@ -46,7 +42,6 @@
                                 </div>
                             </li>
 
-                            <!-- Activities Dropdown -->
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle text-white" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Activities
@@ -60,7 +55,6 @@
                                 </div>
                             </li>
 
-                            <!-- More Info Dropdown -->
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle text-white" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     More Info
@@ -73,8 +67,8 @@
                                     <a class="dropdown-item" asp-page="/FAQ">FAQ</a>
                                 </div>
                             </li>
-
                         </ul>
+
                     </div>
                 </div>
             </nav>
@@ -105,5 +99,19 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
+
+    <script>
+        let musicWindow;
+
+        function openMusicPlayer() {
+            if (!musicWindow || musicWindow.closed) {
+                musicWindow = window.open('/Shared/MusicPlayer', 'MarvelThemeMusic', 'width=300,height=80');
+            } else {
+                musicWindow.focus();
+            }
+        }
+    </script>
+
 </body>
 </html>
+
