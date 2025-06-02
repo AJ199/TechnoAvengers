@@ -84,7 +84,7 @@
                                     Share with Friends
                                 </a>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item">Copy Link to Clipboard</a>
+                                    <a class="dropdown-item" href="#" id="copyLink">Copy Link to Clipboard</a>
                                     <a class="dropdown-item">Share via Email</a>
                                 </div>
                             </li>
@@ -120,5 +120,17 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
+    <script>
+        document.getElementById("copyLink").addEventListener("click", function (event) {
+            event.preventDefault();
+            const link = "https://5110technoavengersteam3.azurewebsites.net/";
+
+            navigator.clipboard.writeText(link).then(function () {
+                alert("Link copied to clipboard!");
+            }, function (err) {
+                alert("Failed to copy: ", err);
+            });
+        });
+    </script>
 </body>
 </html>
