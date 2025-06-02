@@ -54,6 +54,9 @@ namespace ContosoCrafts.WebSite.Services
             // Add the recipient to the message
             message.To.Add(to);
 
+            // Add Reply-To header to reduce spam marking
+            message.ReplyToList.Add(new MailAddress(Settings.SenderEmail));
+
             // Send the message using the configured SMTP client
             await smtpClient.SendMailAsync(message);
         }
