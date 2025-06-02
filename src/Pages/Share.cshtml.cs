@@ -70,19 +70,24 @@ Let me know what you think!";
 
             try
             {
-                // Send the email via your existing EmailService
                 await EmailService.SendEmailAsync(Form.Email, subject, body);
                 SentToRecipient = true;
 
-                return RedirectToPage(); // Or RedirectToPage("SuccessPage") if needed
+                // Clear the email field value
+                Form.Email = "";
+
+                // Remove email from ModelState so it doesn't repopulate on re-render
+                ModelState.Remove("Form.Email");
+
+                return Page();
             }
+
             catch (Exception ex)
             {
                 IsFailed = true;
                 Console.WriteLine("Email sending failed: " + ex.Message);
-                Console.WriteLine("StackTrace: " + ex.StackTrace);
                 return Page();
-            }
+            }           
         }
     }
 }
