@@ -35,6 +35,24 @@ namespace UnitTests.Pages
 
         #endregion TestSetup
 
-       
+        #region OnGet Tests
+
+        /// <summary>
+        /// Validates that OnGet initializes the form with default message
+        /// </summary>
+        [Test]
+        public void OnGet_Should_Initialize_Form_And_Default_Message()
+        {
+            // Act
+            pageModel.OnGet();
+
+            // Assert
+            Assert.IsNotNull(pageModel.Form);
+            Assert.IsFalse(string.IsNullOrEmpty(pageModel.Form.Message));
+            StringAssert.Contains("Avengers Encyclopedia", pageModel.Form.Message);
+        }
+
+        #endregion OnGet Tests
+
     }
 }
