@@ -41,7 +41,7 @@ namespace UnitTests.Pages
         /// Validates that OnGet initializes the form with default message
         /// </summary>
         [Test]
-        public void OnGet_Should_Initialize_Form_And_Default_Message()
+        public void OnGet_Should_Initialize_Form_And_Default_Message_Valid()
         {
             // Act
             pageModel.OnGet();
@@ -60,7 +60,7 @@ namespace UnitTests.Pages
         /// Validates that a valid form submission sends email successfully
         /// </summary>
         [Test]
-        public async Task OnPostAsync_ValidForm_SendsEmail_SetsSentFlag()
+        public async Task OnPostAsync_Valid_Form_Sends_Email_Sets_Sent_Flag()
         {
             // Arrange
             pageModel.Form = new ShareModel.ShareForm
@@ -83,7 +83,7 @@ namespace UnitTests.Pages
         /// Validates that invalid ModelState returns the page without sending email
         /// </summary>
         [Test]
-        public async Task OnPostAsync_InvalidModelState_ReturnsPageWithoutSending()
+        public async Task OnPostAsync_Invalid_Model_State_Returns_Page_Without_Sending()
         {
             // Arrange
             pageModel.Form = new ShareModel.ShareForm
@@ -106,7 +106,7 @@ namespace UnitTests.Pages
         /// Validates that email sending failure sets IsFailed flag and returns page
         /// </summary>
         [Test]
-        public async Task OnPostAsync_EmailSendFailure_SetsIsFailedFlag()
+        public async Task OnPostAsync_Invalid_Email_Send_Failure_Sets_Is_Failed_Flag()
         {
             // Arrange
             // Create EmailService with invalid SMTP config to simulate failure
