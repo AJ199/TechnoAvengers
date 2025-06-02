@@ -1,5 +1,60 @@
 ﻿@page
 @model ContosoCrafts.WebSite.Pages.ShareModel
 @{
-	ViewData["Title"] = "Share via Email";
+    ViewData["Title"] = "Share via Email";
+}
+
+<div class="container mt-5">
+    <h1 class="display-3 text-white fw-bold contact-heading text-center">
+        SHARE VIA EMAIL
+    </h1>
+
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-8 p-4 bg-dark bg-opacity-75 rounded-4 text-white shadow-lg">
+
+            <h4 class="text-warning mb-3 text-center">
+                Spread the Word About the Avengers Encyclopedia!
+            </h4>
+
+            <p class="text-center">
+                Want to share the Marvel magic? Just enter an email and craft your message — we’ll handle the rest!
+            </p>
+
+            <p><strong>Fields marked with (<span class="text-danger">*</span>) are required</strong></p>
+
+            <form method="post">
+                <div class="form-group text-start">
+                    <label asp-for="Form.Email">Recipient Email (<span class="text-danger">*</span>)</label>
+                    <span asp-validation-for="Form.Email" class="text-danger d-block"></span>
+                    <input asp-for="Form.Email" class="form-control" />
+                </div>
+
+                <div class="form-group text-start mt-3">
+                    <label asp-for="Form.Message">Message (<span class="text-danger">*</span>)</label>
+                    <span asp-validation-for="Form.Message" class="text-danger d-block"></span>
+                    <textarea asp-for="Form.Message" class="form-control" rows="6"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary mt-3">Send Email</button>
+            </form>
+
+            <hr />
+
+            @if (Model.SentToRecipient)
+            {
+                <div class="alert alert-success mt-3">
+                    🎉 Email has been successfully sent!
+                </div>
+            }
+            else if (Model.IsFailed)
+            {
+                <div class="alert alert-danger mt-3">Oops! Something went wrong. Please try again later.</div>
+            }
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
 }
