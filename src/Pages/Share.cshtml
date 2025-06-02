@@ -5,56 +5,70 @@
 }
 
 <div class="container mt-5">
+    <!-- Page heading -->
     <h1 class="display-3 text-white fw-bold contact-heading text-center">
         SHARE VIA EMAIL
     </h1>
 
     <div class="row justify-content-center mt-5">
+        <!-- Form container with styling -->
         <div class="col-md-8 p-4 bg-dark bg-opacity-75 rounded-4 text-white shadow-lg">
 
+            <!-- Subheading encouraging sharing -->
             <h4 class="text-warning mb-3 text-center">
                 Spread the Word About the Avengers Encyclopedia!
             </h4>
 
+            <!-- Brief description/instructions -->
             <p class="text-center">
                 Want to share the Marvel magic? Just enter an email and craft your message — we’ll handle the rest!
             </p>
 
+            <!-- Required fields notice -->
             <p><strong>Fields marked with (<span class="text-danger">*</span>) are required</strong></p>
 
+            <!-- Email sharing form -->
             <form method="post">
+                <!-- Recipient email input -->
                 <div class="form-group text-start">
                     <label asp-for="Form.Email">Recipient Email (<span class="text-danger">*</span>)</label>
+                    <!-- Validation message for email -->
                     <span asp-validation-for="Form.Email" class="text-danger d-block"></span>
                     <input asp-for="Form.Email" class="form-control" />
                 </div>
 
+                <!-- Message textarea -->
                 <div class="form-group text-start">
                     <label asp-for="Form.Message">Message (Customize your own Message) (<span class="text-danger">*</span>)</label>
+                    <!-- Validation message for message -->
                     <span asp-validation-for="Form.Message" class="text-danger d-block"></span>
                     <textarea asp-for="Form.Message" class="form-control" rows="6"></textarea>
                 </div>
 
+                <!-- Submit button -->
                 <button type="submit" class="btn btn-primary">Send Email</button>
             </form>
 
             <hr />
 
+            <!-- Display success message if email sent -->
             @if (Model.SentToRecipient)
             {
                 <div class="alert alert-success">
                     🎉 Email has been successfully sent!
                 </div>
             }
+            <!-- Display failure message if sending failed -->
             else if (Model.IsFailed)
             {
-                <div class="alert alert-danger mt-3">Oops! Something went wrong. Please try again later.</div>
+            <div class="alert alert-danger mt-3">Oops! Something went wrong. Please try again later.</div>
             }
 
         </div>
     </div>
 </div>
 
+<!-- Client-side validation scripts -->
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
