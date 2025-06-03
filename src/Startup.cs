@@ -10,6 +10,7 @@ namespace ContosoCrafts.WebSite
 {
     /// <summary>
     /// Configures application services and middleware
+    /// /// Test Comment
     /// </summary>
     public class Startup
     {
