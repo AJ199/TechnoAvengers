@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 
+
 namespace ContosoCrafts.WebSite.Pages.Product
 {
     /// <summary>
     /// Manages the superhero battle page including hero selection, voting, results and comments.
     /// </summary>
+
     public class BattleModel : PageModel
     {
         /// <summary>

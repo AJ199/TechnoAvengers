@@ -2478,3 +2478,45 @@ form { /* Filter Form */
             color: #000; /* Dark text on hover */
             font-weight: bold;
         }
+.scroll-container {
+    display: flex;
+    overflow-x: auto;
+    padding: 10px 0;
+    gap: 12px;
+}
+
+.hero-card {
+    min-width: 120px;
+    flex-shrink: 0;
+    text-align: center;
+    background-color: #1a1a1a;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    padding: 8px;
+    cursor: pointer;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+    .hero-card img {
+        width: 100%;
+        height: auto;
+        max-height: 100px;
+        object-fit: cover;
+        border-radius: 5px;
+    }
+
+    .hero-card:hover {
+        transform: scale(1.05);
+        border-color: #007bff;
+    }
+
+    .hero-card.selected {
+        border-color: limegreen;
+        background-color: #2a2a2a;
+    }
+
+.hero-name {
+    color: white;
+    font-size: 0.9rem;
+    margin-top: 4px;
+}

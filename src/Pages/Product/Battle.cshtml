@@ -20,18 +20,33 @@
         <form method="post" class="compare-form mx-auto">
             <input type="hidden" asp-for="Step" value="SelectHeroes" />
             <div class="form-group">
-                <label class ="form-label">Select First Superhero for Battle</label>
-                <select asp-for="Hero1Id" asp-items="Model.HeroOptions">
-                    <option value="">Choose Hero 1</option>
-                </select>
+                <label class="form-label">Select First Superhero for Battle</label>
+                <input type="hidden" name="Hero1Id" id="Hero1Id" />
+                <div class="scroll-container" id="hero1-scroll">
+                    @foreach (var hero in Model.AllHeroes)
+                    {
+                        <div class="hero-card" onclick="selectHero('Hero1Id', this, '@hero.Id')">
+                            <img src="@hero.ImageUrl" alt="@hero.Title" />
+                            <div class="hero-name">@hero.Title</div>
+                        </div>
+                    }
+                </div>
             </div>
 
             <div class="form-group">
                 <label class="form-label">Select Second Superhero for Battle</label>
-                <select asp-for="Hero2Id" asp-items="Model.HeroOptions">
-                    <option value="">Choose Hero 2</option>
-                </select>
+                <input type="hidden" name="Hero2Id" id="Hero2Id" />
+                <div class="scroll-container" id="hero2-scroll">
+                    @foreach (var hero in Model.products)
+                    {
+                        <div class="hero-card" onclick="selectHero('Hero2Id', this, '@hero.Id')">
+                            <img src="@hero.ImageUrl" alt="@hero.Title" />
+                            <div class="hero-name">@hero.Title</div>
+                        </div>
+                    }
+                </div>
             </div>
+
 
             <!-- Start the battle -->
             <div class="text-center mt-4">
@@ -106,3 +121,17 @@
         </div>
     }
 </div>
+
+<script>
+    function selectHero(hiddenFieldId, cardElement, heroId) {
+        document.getElementById(hiddenFieldId).value = heroId;
+
+        // Deselect all cards in the current scroll container
+        const container = cardElement.parentElement;
+        const cards = container.querySelectorAll('.hero-card');
+        cards.forEach(card => card.classList.remove('selected'));
+
+        // Highlight the selected card
+        cardElement.classList.add('selected');
+    }
+</script>

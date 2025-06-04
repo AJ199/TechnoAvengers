@@ -7,17 +7,33 @@ using System.Linq;
 
 namespace ContosoCrafts.WebSite.Pages.Product
 {
+    /// <summary>
+    /// Handles displaying and sorting the list of products on the index page.
+    /// </summary>
     public class IndexModel : PageModel
     {
+        /// <summary>
+        /// The list of all products loaded from the JSON file.
+        /// </summary>
         public List<ContosoCrafts.WebSite.Models.ProductModel> Products { get; set; }
 
-        // Add query-bound properties for sorting
+        /// <summary>
+        /// Field to sort the product list by (e.g., "Title").
+        /// Bound from query parameters.
+        /// </summary>
         [BindProperty(SupportsGet = true)]
         public string SortField { get; set; }
 
+        /// <summary>
+        /// Direction of sorting (e.g., "asc" or "desc").
+        /// Bound from query parameters.
+        /// </summary>
         [BindProperty(SupportsGet = true)]
         public string SortOrder { get; set; }
 
+        /// <summary>
+        /// Handles GET requests by loading products from JSON and applying optional sorting.
+        /// </summary>
         public void OnGet()
         {
             var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "data", "products.json");
@@ -36,3 +52,4 @@ namespace ContosoCrafts.WebSite.Pages.Product
         }
     }
 }
+
