@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json;
 
 namespace ContosoCrafts.WebSite.Models
@@ -9,6 +10,7 @@ namespace ContosoCrafts.WebSite.Models
     public class ProductModel
     {
         // Unique identifier for superhero
+        [BindProperty(SupportsGet = true)]
         public string? Id { get; set; }
 
         // Title represents superhero name, is required and must be 2-50 characters long
@@ -97,17 +99,29 @@ namespace ContosoCrafts.WebSite.Models
         // Array of ratings
         public int[]? Ratings { get; set; }
 
-        // Computed Score
+        // Total computed score from all power stats
         public int Score => Intelligence + Strength + Speed + Durability + Power + Combat;
 
-        // Computed Rank based on Score
+        // Tier ranking based on score thresholds
         public string Rank
         {
             get
             {
-                if (Score >= 500) return "S-Tier";
-                if (Score >= 400) return "A-Tier";
-                if (Score >= 300) return "B-Tier";
+                if (Score >= 500)
+                {
+                    return "S-Tier";
+                }
+
+                if (Score >= 400)
+                {
+                    return "A-Tier";
+                }
+
+                if (Score >= 300)
+                {
+                    return "B-Tier";
+                }
+
                 return "C-Tier";
             }
         }
