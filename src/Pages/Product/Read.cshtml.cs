@@ -3,16 +3,24 @@ using ContosoCrafts.WebSite.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Collections.Generic;
+using System;
+using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace ContosoCrafts.WebSite.Pages.Product
 {
     /// <summary>
-    /// Page model for reading superhero data
+    /// Page model for reading superhero data, interaction 
+    /// with comment submission and rating functionality
     /// </summary>
     public class ReadModel : PageModel
     {
         // Service that accesses superhero data
         public JsonFileProductService ProductService { get; }
+
+        // Service to access comments
+        public JsonFileCommentService CommentService;
 
         // Binds the {id} segment on GET and POST
         [BindProperty(SupportsGet = true)]
@@ -20,6 +28,13 @@ namespace ContosoCrafts.WebSite.Pages.Product
 
         // Stores superhero associated with provided ID
         public ProductModel? Product { get; set; }
+
+        // Comment input from the user
+        [BindProperty]
+        public CommentModel NewComment { get; set; }
+
+        // List of all comments associated with the superhero
+        public List<CommentModel> Comments { get; set; }
 
         // Current average of ratings 
         public int CurrentRating { get; set; }
@@ -36,10 +51,12 @@ namespace ContosoCrafts.WebSite.Pages.Product
         /// <summary>
         /// Initializes new instance of ReadModel with the given service
         /// </summary>
-        /// <param name="productService">Service used to retrieve data</param>
-        public ReadModel(JsonFileProductService productService)
+        /// <param name="productService">Service used to reading data</param>
+        /// <param name="commentService">Service used to reading/writing comments</param>
+        public ReadModel(JsonFileProductService productService, JsonFileCommentService commentService)
         {
             ProductService = productService;
+            CommentService = commentService;
         }
 
         /// <summary>
