@@ -60,7 +60,7 @@ namespace ContosoCrafts.WebSite.Pages.Product
         }
 
         /// <summary>
-        /// Responds to GET requests, loads the appropiate superhero and calculates ratings
+        /// Responds to GET requests, retrieves superhero, loads ratings and comments
         /// </summary>
         /// <param name="id">Superhero ID</param>
         public void OnGet(string id)
@@ -78,6 +78,12 @@ namespace ContosoCrafts.WebSite.Pages.Product
             Product = retrievedProduct;
 
             CalculateRating();
+
+            Comments = CommentService.GetComments(Id);
+            NewComment = new CommentModel
+            {
+                SuperheroId = Id
+            };
         }
 
         /// <summary>
