@@ -16,35 +16,36 @@
             <!-- Left: Superhero image and View More Info -->
             <div class="hero-read-left">
                 <img class="hero-read-image" src="@Model.Product.ImageUrl" alt="Image for @Model.Product.Title" />
-                <div class="star-rating-wrapper mt-4">
-                    <!-- Star buttons -->
-                    <form method="post" class="star-rating-form">
-                        <!-- keep the same ID -->
-                        <input type="hidden" name="id" value="@Model.Id" />
+                <div class="star-rating-wrapper">
+                    <div class="star-rating-display">
 
-                        @for (int i = 1; i <= 5; i++)
-                        {
-                            var css = i <= Model.CurrentRating ? "fa-star checked" : "fa-star";
-                            <button type="submit"
-                                    name="rating"
-                                    value="@i"
-                                    class="fa @css"
-                                    aria-label="Give @i star@(i>1? "s":"")"></button>
-                        }
-                    </form>
-                    <!-- Rating message -->
-                    <div class="rating-summary mt-4">
-                        @if (Model.VoteCount == 0)
-                        {
-                            <span>Be the first to vote!</span>
-                        }
-                        else
-                        {
-                            <span>@Model.VoteCount @Model.VoteLabel</span>
-                        }
+                        <form class="star-rating-form" method="post">
+                            <input type="hidden" name="__RequestVerificationToken" value="@(Antiforgery.GetAndStoreTokens(HttpContext).RequestToken)" />
+                            <input type="hidden" name="id" value="@Model.Id" />
+                            @for (int i = 5; i >= 1; i--)
+                            {
+                                var css = i <= Model.CurrentRating ? "fa-star checked" : "fa-star";
+                                <button type="button"
+                                        name="rating"
+                                        data-rating="@i"
+                                        class="fa @css"
+                                        aria-label="Give @i star@(i>1? "s":"")"></button>
+                            }
+                        </form>
+
+
+                        <div class="rating-summary">
+                            @if (Model.VoteCount == 0)
+                            {
+                                <span class="hero-read-text">Be the first to vote!</span>
+                            }
+                            else
+                            {
+                                <span class="hero-read-text">@Model.VoteCount @Model.VoteLabel</span>
+                            }
+                        </div>
                     </div>
                 </div>
-            </div>
 
             <!-- Right: Superhero stats and details -->
             <div class="hero-read-details">
@@ -78,3 +79,19 @@
         </div>
     </div>
 </div>
+
+<style>
+      
+    .star-rating-display {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .star-rating-form {
+        display: flex;
+        gap: 0.25rem;
+    }
+
+
+</style>
