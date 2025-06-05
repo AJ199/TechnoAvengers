@@ -159,6 +159,106 @@ namespace UnitTests.Pages.Product
         }
         #endregion OnGet
 
+        #region OnPostAddRating
+        /// <summary>
+        /// Verifies that OnPostAddRating returns vote count and average when given a valid ID
+        /// </summary>
+        /// <returns></returns>
+        [Test]
+        public async Task OnPostAddRating_Valid_Id_Returns_Vote_Count_And_Average()
+        {
+            // Arrange
+            var model = new ReadModel(TestHelper.ProductService, new JsonFileCommentService(TestHelper.MockWebHostEnvironment.Object));
+            var id = TestHelper.ProductService.GetProducts().First().Id;
+
+            // Act
+            var result = await model.OnPostAddRating(id, 4) as JsonResult;
+            var json = result.Value.ToString();
+
+            // Assert
+            Assert.AreEqual(true, json.Contains("voteCount"));
+            Assert.AreEqual(true, json.Contains("average"));
+        }
+
+        /// <summary>
+        /// Validates that OnPostAddRating returns an error when given an invalid ID
+        /// </summary>
+        /// <returns></returns>
+        [Test]
+        public async Task OnPostAddRating_Invalid_Id_Returns_Error()
+        {
+            // Arrange
+            var model = new ReadModel(TestHelper.ProductService, new JsonFileCommentService(TestHelper.MockWebHostEnvironment.Object));
+
+            // Act
+            var result = await model.OnPostAddRating("invalid-id", 5) as JsonResult;
+            var json = result.Value.ToString();
+
+            // Assert
+            Assert.AreEqual(true, json.Contains("error"));
+        }
+
+        /// <summary>
+        /// Validates OnPostAddRating returs vote count and average when the ratings are null
+        /// </summary>
+        /// <returns></returns>
+        [Test]
+        public async Task OnPostAddRating_Valid_Known_Null_Ratings_Product_Uses_Empty_Fallback()
+        {
+            // Arrange
+            var model = new ReadModel(TestHelper.ProductService, TestHelper.CommentService);
+
+            // Act
+            var result = await model.OnPostAddRating("714", 5) as JsonResult;
+            var resultText = result.Value.ToString();
+
+            // Assert
+            Assert.AreEqual(false, result == null);
+            Assert.AreEqual(true, resultText.Contains("voteCount"));
+            Assert.AreEqual(true, resultText.Contains("average"));
+        }
+
+        /// <summary>
+        /// Validates OnPostAddRating succesfully adds a rating to a product with null ratings and 
+        /// returns the JSON with vote count and average
+        /// </summary>
+        /// <returns></returns>
+        [Test]
+        public async Task OnPostAddRating_Valid_Product_With_Null_Ratings_Adds_Rating_Returns_Vote_Count_And_Average()
+        {
+            // Arrange
+            var model = new ReadModel(TestHelper.ProductService, TestHelper.CommentService);
+            var data = new ProductModel
+            {
+                Id = "null-ratings-id",
+                Title = "Null Ratings",
+                Ratings = null
+            };
+
+            // Save to JSON
+            var products = TestHelper.ProductService.GetProducts().ToList();
+            products.RemoveAll(p => p.Id == data.Id);
+            products.Add(data);
+
+            File.WriteAllText(
+                Path.Combine(TestHelper.MockWebHostEnvironment.Object.WebRootPath, "data", "products.json"),
+                System.Text.Json.JsonSerializer.Serialize(products)
+            );
+
+            model.Product = data;
+
+            // Act
+            var result = await model.OnPostAddRating(data.Id, 1) as JsonResult;
+            var text = result.Value.ToString();
+
+            // Assert
+            Assert.AreEqual(false, text == null);
+            Assert.AreEqual(true, text.Contains("voteCount = 1"));
+            Assert.AreEqual(true, text.Contains("average = 1"));
+        }
+        #endregion
+
+
         #region CalculateRating
         /// <summary>
         /// Validates CalculateRating with null ratings, sets VoteCount 
