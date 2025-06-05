@@ -1,1 +1,16 @@
-[]
+[
+  {
+    "Id": "7acca24d-910a-42ec-b788-aa840f24159a",
+    "SuperheroId": "31",
+    "Username": "user908",
+    "Message": "The storyline for Ant-Man felt rushed in the Avengers.",
+    "Likes": -67
+  },
+  {
+    "Id": "e229bb27-c355-4f27-ac47-480aa0c80581",
+    "SuperheroId": "31",
+    "Username": "user707",
+    "Message": "Ant-Man was better before Quantumania",
+    "Likes": 260
+  }
+]
