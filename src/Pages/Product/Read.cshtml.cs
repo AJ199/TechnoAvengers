@@ -170,6 +170,25 @@ namespace ContosoCrafts.WebSite.Pages.Product
         }
 
         /// <summary>
+        /// Updates the like count for a specific comment
+        /// </summary>
+        /// <param name="commentId">ID of the comment</param>
+        /// <param name="delta">Change to apply to the like count</param>
+        /// <returns>A JSON result indicating success or failure</returns>
+        public IActionResult OnPostUpdateLikes([FromForm] string commentId, [FromForm] int delta)
+        {
+            // Update likes using delta (+1 or -1)
+            var updated = CommentService.UpdateLikes(commentId, delta);
+
+            if (updated == null)
+            {
+                return new JsonResult(new { success = false, message = "Comment not found" });
+            }
+
+            return new JsonResult(new { success = true, likes = updated.Likes });
+        }
+
+        /// <summary>
         /// Calculates the total number of votes and the average rating for the specified product
         /// Returns zero for both values if the product or its ratings are null
         /// </summary>
