@@ -140,6 +140,36 @@ namespace ContosoCrafts.WebSite.Pages.Product
         }
 
         /// <summary>
+        /// Submits a new rating and returns updated average
+        /// </summary>
+        /// <param name="id">Superhero ID</param>
+        /// <param name="rating">New rating value (1-5)</param>
+        /// <returns>JSON result with updated vote count and average</returns>
+        public async Task<IActionResult> OnPostAddRating([FromForm] string id, [FromForm] int rating)
+        {
+            Id = id;
+            ProductService.AddRating(Id, rating);
+
+            // Re-fetch the updated product
+            Product = ProductService.GetProducts().FirstOrDefault(p => p.Id == Id);
+
+            if (Product == null)
+            {
+                return new JsonResult(new { error = "Product not found" });
+            }
+
+            // Retrieved ratings
+            var (voteCount, average) = ComputeRatingStats(Product);
+
+            // Count of votes
+            return new JsonResult(new
+            {
+                voteCount,
+                average
+            });
+        }
+
+        /// <summary>
         /// Calculates VoteCount, VoteLabel and CurrentRating average
         /// </summary>
         public void CalculateRating()
