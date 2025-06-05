@@ -256,6 +256,43 @@ namespace UnitTests.Pages.Product
             Assert.AreEqual(true, text.Contains("voteCount = 1"));
             Assert.AreEqual(true, text.Contains("average = 1"));
         }
+
+        /// <summary>
+        /// Validates that OnPostAddRating returns a JSON with votes and average when ratings are null
+        /// </summary>
+        /// <returns></returns>
+        [Test]
+        public async Task OnPostAddRating_Valid_Product_With_Null_Ratings_Returns_Votes_And_Average()
+        {
+            // Arrange
+            var model = new ReadModel(TestHelper.ProductService, TestHelper.CommentService);
+
+            // Manually insert a product with no ratings
+            var data = new ProductModel
+            {
+                Id = "100009",
+                Title = "No Ratings Hero",
+                Ratings = null
+            };
+
+            var products = TestHelper.ProductService.GetProducts().ToList();
+            products.Add(data);
+
+            // Write modified products list back to file (only needed if the service reads from disk)
+            File.WriteAllText(
+                Path.Combine(TestHelper.MockWebHostEnvironment.Object.WebRootPath, "data", "products.json"),
+                System.Text.Json.JsonSerializer.Serialize(products)
+            );
+
+            // Act
+            var result = await model.OnPostAddRating("100009", 5) as JsonResult;
+
+            // Assert
+            var resultText = result.Value.ToString();
+            Assert.AreEqual(false, resultText == null);
+            Assert.AreEqual(true, resultText.Contains("voteCount"));
+            Assert.AreEqual(true, resultText.Contains("average"));
+        }
         #endregion
 
         #region OnPostAddComment
@@ -393,6 +430,44 @@ namespace UnitTests.Pages.Product
         }
         #endregion
 
+        #region OnPostUpdateLikes
+        /// <summary>
+        /// Validates OnPostUpdateLikes returns a success JSON 
+        /// when given a valid comment ID
+        /// </summary>
+        [Test]
+        public void OnPostUpdateLikes_Valid_Comment_Id_Returns_Success_Json()
+        {
+            // Arrange
+            var model = new ReadModel(TestHelper.ProductService, TestHelper.CommentService);
+            var data = new CommentModel { SuperheroId = "1", Username = "U", Message = "M" };
+            TestHelper.CommentService.AddComment(data);
+
+            // Act
+            var result = model.OnPostUpdateLikes(data.Id, 1) as JsonResult;
+
+            // Assert
+            Assert.AreEqual(true, result.Value.ToString().Contains("success"));
+        }
+
+        /// <summary>
+        /// Validates OnPostUpdateLikes returns a failure JSON when given an 
+        /// invalid comment id
+        /// </summary>
+        [Test]
+        public void OnPostUpdateLikes_Invalid_Comment_Id_Returns_Failure_Json()
+        {
+            // Arrange
+            var model = new ReadModel(TestHelper.ProductService, TestHelper.CommentService);
+
+            // Act
+            var result = model.OnPostUpdateLikes("100008", 1) as JsonResult;
+
+            // Assert
+            Assert.AreEqual(true, result.Value.ToString().Contains("False"));
+        }
+        #endregion Onpost
+
         #region CalculateRating
         /// <summary>
         /// Validates CalculateRating with null ratings, sets VoteCount 
@@ -444,6 +519,9 @@ namespace UnitTests.Pages.Product
             Assert.AreEqual("Vote", pageModel.VoteLabel);
         }
 
+        /// <summary>
+        /// Validates that CalculateRating with multiple ratings, return average and label
+        /// </summary>
         [Test]
         public void CalculateRating_Valid_Multiple_Ratings_Calculates_Average_And_Sets_Plural_Label()
         {
@@ -466,5 +544,45 @@ namespace UnitTests.Pages.Product
             Assert.AreEqual("Votes", pageModel.VoteLabel);
         }
         #endregion CalculateRating
+
+        #region ComputeRatingStats
+        /// <summary>
+        /// Validates ComputeRatingStats returns zero vote count and average when the 
+        /// product model is null
+        /// </summary>
+        [Test]
+        public void ComputeRatingStats_Invalid_Null_Product_Returns_Zero_Vote_Count()
+        {
+            // Arrange
+            var model = new ReadModel(TestHelper.ProductService, TestHelper.CommentService);
+
+            // Act
+            var (voteCount, average) = model.ComputeRatingStats(null);
+
+            // Assert
+            Assert.AreEqual(0, voteCount);
+            Assert.AreEqual(0, average);
+        }
+
+        /// <summary>
+        /// Validates that ComputeRatingStats returns zero vote count and average when the 
+        /// ratings are null
+        /// </summary>
+        [Test]
+        public void ComputeRatingStats_Valid_Product_With_Null_Ratings_Returns_Zero()
+        {
+            // Arrange
+            var model = new ReadModel(TestHelper.ProductService, TestHelper.CommentService);
+            var product = new ProductModel { Ratings = null };
+
+            // Act
+            var result = model.ComputeRatingStats(product);
+            var (voteCount, average) = ((int, int))result;
+
+            // Assert
+            Assert.AreEqual(0, voteCount);
+            Assert.AreEqual(0, average);
+        }
+        #endregion
     }
 }
