@@ -1,8 +1,13 @@
 using ContosoCrafts.WebSite.Models;
 using ContosoCrafts.WebSite.Pages.Product;
+using ContosoCrafts.WebSite.Services;
 using Microsoft.AspNetCore.Mvc;
+using Moq;
 using NUnit.Framework;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace UnitTests.Pages.Product
 {
@@ -22,7 +27,8 @@ namespace UnitTests.Pages.Product
         [SetUp]
         public void TestInitialize()
         {
-            pageModel = new ReadModel(TestHelper.ProductService);
+            var commentService = new JsonFileCommentService(TestHelper.MockWebHostEnvironment.Object);
+            pageModel = new ReadModel(TestHelper.ProductService, commentService);
         }
         #endregion TestSetup
 
@@ -72,7 +78,6 @@ namespace UnitTests.Pages.Product
             Assert.AreEqual(true, result.Durability > 0);
             Assert.AreEqual(true, result.Power > 0);
             Assert.AreEqual(true, result.Combat > 0);
-
         }
 
         /// <summary>
@@ -115,7 +120,7 @@ namespace UnitTests.Pages.Product
         /// Validates that OnGet with null ID returns null product
         /// </summary>
         [Test]
-        public void OnGet_Null_Id_Should_Return_Null()
+        public void OnGet_Invalid_Null_Id_Should_Return_Null()
         {
             // Arrange
 
