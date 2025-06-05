@@ -2531,3 +2531,132 @@ form { /* Filter Form */
     font-size: 0.9rem;
     margin-top: 4px;
 }
+
+/* Poll Container */
+.poll-container {
+    background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
+    padding: 30px;
+    border-radius: 15px;
+    max-width: 550px;
+    margin: 0 auto;
+    box-shadow: 0 0 25px rgba(255, 0, 0, 0.6);
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+/* Poll Heading */
+.poll-heading {
+    font-family: 'Bangers', cursive;
+    font-size: 2.2rem;
+    color: #ffcc00;
+    text-shadow: 3px 3px 6px black;
+    margin-bottom: 25px;
+    letter-spacing: 1px;
+}
+
+/* Poll Buttons */
+.poll-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+    .poll-buttons.voted {
+        display: none;
+    }
+
+.btn-poll-yes, .btn-poll-no {
+    font-family: 'Bangers', cursive;
+    font-size: 1.6rem;
+    padding: 14px 30px;
+    border: none;
+    border-radius: 12px;
+    width: 85%;
+    box-shadow: 3px 3px 10px rgba(0,0,0,0.7);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    letter-spacing: 1px;
+    color: #fff !important;
+}
+
+.btn-poll-yes {
+    background: linear-gradient(145deg, #43a047, #2e7d32);
+}
+
+.btn-poll-no {
+    background: linear-gradient(145deg, #e53935, #b71c1c);
+}
+
+    .btn-poll-yes:hover, .btn-poll-no:hover {
+        transform: scale(1.05);
+        box-shadow: 4px 4px 15px rgba(255, 255, 255, 0.3);
+    }
+
+/* Poll Bar Chart */
+.poll-bar-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    margin-top: 25px;
+}
+
+.poll-bar-title {
+    font-family: 'Bangers', cursive;
+    font-size: 1.8rem;
+    color: #ffcc00;
+    text-shadow: 1px 1px 2px black;
+    margin-bottom: 12px;
+    text-align: left;
+}
+
+.poll-bar {
+    position: relative;
+    height: 45px;
+    border-radius: 8px;
+    overflow: hidden;
+    font-family: 'Bangers', cursive;
+    font-size: 1.4rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+    color: white;
+    padding-left: 12px;
+    display: flex;
+    align-items: center;
+    box-shadow: inset 0 0 8px rgba(0,0,0,0.4);
+    transition: width 0.5s ease-in-out;
+}
+
+/* Final Bar Colors */
+.poll-bar-yes {
+    background: linear-gradient(90deg, #64b5f6, #42a5f5); /* Light Blue shades */
+}
+
+.poll-bar-no {
+    background: linear-gradient(90deg, #ef9a9a, #e57373); /* Light Red shades */
+}
+
+.poll-bar-text {
+    position: relative;
+    z-index: 2;
+    white-space: nowrap;
+}
+
+/* Pulse Animation */
+@keyframes pulseBar {
+    0% {
+        transform: scaleX(1);
+    }
+
+    50% {
+        transform: scaleX(1.02);
+    }
+
+    100% {
+        transform: scaleX(1);
+    }
+}
+
+.poll-bar-yes, .poll-bar-no {
+    animation: pulseBar 2s infinite ease-in-out;
+}
