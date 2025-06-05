@@ -258,6 +258,140 @@ namespace UnitTests.Pages.Product
         }
         #endregion
 
+        #region OnPostAddComment
+        /// <summary>
+        /// Validates OnPostAddComment returs JSON when page model is valid
+        /// </summary>
+        /// <returns></returns>
+        [Test]
+        public async Task OnPostAddComment_Valid_Model_Returns_Success_Json()
+        {
+            // Arrange
+            var model = new ReadModel(TestHelper.ProductService, TestHelper.CommentService)
+            {
+                PageContext = TestHelper.PageContext,
+                MetadataProvider = TestHelper.ModelMetadataProvider
+            };
+
+            // Validation is enabled and succeeds
+            TestHelper.EnableValidation(model);
+
+            var id = TestHelper.ProductService.GetProducts().First().Id;
+
+            // Clear the file so new comment is the only one
+            var commentFile = Path.Combine(TestHelper.MockWebHostEnvironment.Object.WebRootPath, "data", "comments.json");
+            File.WriteAllText(commentFile, "[]");
+
+            // Act
+            var result = await model.OnPostAddComment("CoverageUser", "CoverageTest", id) as JsonResult;
+
+            // Assert
+            var resultText = result.Value.ToString();
+            Assert.AreEqual(true, resultText.Contains("success"));
+        }
+
+        /// <summary>
+        /// Validates that OnPostAddComment returns json with expected comment fields 
+        /// when the page model is valid
+        /// </summary>
+        /// <returns></returns>
+        [Test]
+        public async Task OnPostAddComment_Valid_Model_Returns_Expected_Fields()
+        {
+            // Arrange
+            var model = new ReadModel(TestHelper.ProductService, TestHelper.CommentService)
+            {
+                PageContext = TestHelper.PageContext,
+                MetadataProvider = TestHelper.ModelMetadataProvider
+            };
+            TestHelper.EnableValidation(model);
+
+            var id = TestHelper.ProductService.GetProducts().First().Id;
+
+            // Clear comments so only new comment exists
+            var commentFile = Path.Combine(TestHelper.MockWebHostEnvironment.Object.WebRootPath, "data", "comments.json");
+            File.WriteAllText(commentFile, "[]");
+
+            // Act
+            var result = await model.OnPostAddComment("CoverageUser", "CoverageTest", id) as JsonResult;
+
+            var json = System.Text.Json.JsonSerializer.Serialize(result.Value);
+
+            var parsed = System.Text.Json.JsonDocument.Parse(json);
+            var comments = parsed.RootElement.GetProperty("comments");
+
+            var found = false;
+            foreach (var comment in comments.EnumerateArray())
+            {
+                var username = comment.GetProperty("Username").GetString();
+                var message = comment.GetProperty("Message").GetString();
+                var likes = comment.GetProperty("Likes").GetInt32();
+                var commentId = comment.GetProperty("Id").GetString();
+
+                Assert.AreEqual(false, username == null);
+                Assert.AreEqual(false, message == null);
+                Assert.AreEqual(true, likes >= 0);
+                Assert.AreEqual(false, string.IsNullOrEmpty(commentId));
+                found = true;
+            }
+
+            Assert.AreEqual(true, found); // At least one comment was checked
+        }
+
+        /// <summary>
+        /// Validates that OnPostAddComment uses method AddComment when the model is valid
+        /// </summary>
+        /// <returns></returns>
+        [Test]
+        public async Task OnPostAddComment_Valid_Model_Calls_Add_Comment()
+        {
+            // Arrange
+            var mockCommentService = new Mock<JsonFileCommentService>(TestHelper.MockWebHostEnvironment.Object);
+            var model = new ReadModel(TestHelper.ProductService, mockCommentService.Object)
+            {
+                PageContext = TestHelper.PageContext,
+                MetadataProvider = TestHelper.ModelMetadataProvider
+            };
+
+            var id = TestHelper.ProductService.GetProducts().First().Id;
+            var username = "TestUser";
+            var message = "Test comment";
+
+            TestHelper.EnableValidation(model);
+
+            // Act
+            var result = await model.OnPostAddComment(username, message, id) as JsonResult;
+
+            // Assert: Check JsonResult still returns success
+            var resultText = result.Value.ToString();
+            Assert.AreEqual(true, resultText.Contains("success"));
+        }
+
+        /// <summary>
+        /// Validates OnPostAddComment returns Json with errors when model is invalid
+        /// </summary>
+        /// <returns></returns>
+        [Test]
+        public async Task OnPostAddComment_Invalid_Model_Returns_Failure_Json()
+        {
+            // Arrange
+            var model = new ReadModel(TestHelper.ProductService, TestHelper.CommentService);
+
+            // Act
+            var result = await model.OnPostAddComment("", "", "1") as JsonResult;
+
+            // Use reflection to get the 'errors' property
+            var errorsProperty = result.Value.GetType().GetProperty("errors");
+            var errors = errorsProperty.GetValue(result.Value) as IEnumerable<string>;
+
+            // Assert
+            var errorList = errors.ToList();
+            Assert.AreEqual(false, errorList == null);
+            Assert.AreEqual(2, errorList.Count);
+            Assert.AreEqual(true, errorList.Contains("Alias is required"));
+            Assert.AreEqual(true, errorList.Contains("Comment is required"));
+        }
+        #endregion
 
         #region CalculateRating
         /// <summary>
