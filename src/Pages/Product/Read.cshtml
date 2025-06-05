@@ -166,6 +166,127 @@
             gap: 0rem;
         }
 
+
+        .like-button,
+        .dislike-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        .like-count {
+            font-weight: bold;
+            color: #222;
+        }
+
+        .vote-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.2rem;
+            background-color: #ececec;
+            border-radius: 999px;
+            padding: 0.2rem 0.4rem;
+            border: none;
+        }
+
+        .vote-count {
+            font-weight: bold;
+            color: #333;
+            font-size: 1rem;
+        }
+
+        .arrow-icon {
+            width: 24px;
+            height: 24px;
+            fill: #444;
+            transition: fill 0.2s ease;
+            cursor: pointer;
+        }
+
+        .vote-count {
+            font-weight: bold;
+            font-size: 0.9rem;
+            color: #333;
+            margin: 0 0.5rem;
+        }
+
+        .arrow-icon {
+            width: 20px;
+            height: 20px;
+            color: #444;
+            transition: color 0.2s ease;
+        }
+
+        .vote-button {
+            background: none;
+            border: none;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+            .vote-button:focus {
+                outline: none;
+                box-shadow: none;
+            }
+
+            .vote-button .arrow-icon {
+                transition: transform 0.2s ease;
+            }
+
+            .vote-button.upvote:hover .arrow-icon {
+                color: green;
+            }
+
+            .vote-button.downvote:hover .arrow-icon {
+                color: red;
+            }
+
+            .vote-button:hover .arrow-icon,
+            .vote-button:active .arrow-icon {
+                transform: scale(1.2);
+            }
+
+        .comment-form-box {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            background-color: #f9f9f9;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+            .comment-form-box input[type="text"],
+            .comment-form-box textarea {
+                width: 100%;
+                padding: 0.5rem;
+                margin-bottom: 0.5rem;
+                border: 1px solid #ccc;
+                border-radius: 6px;
+                box-sizing: border-box;
+                font-size: 1rem;
+            }
+
+            .comment-form-box button[type="submit"] {
+                background-color: #ED1D24; /* Marvel red */
+                color: white;
+                border: none;
+                padding: 0.5rem 1rem;
+                border-radius: 6px;
+                cursor: pointer;
+                font-size: 1rem;
+                transition: background-color 0.2s ease;
+            }
+
+                .comment-form-box button[type="submit"]:hover {
+                    background-color: #b31217; /* darker red for hover */
+                }
+
         .star-rating-display {
         display: flex;
         align-items: center;
