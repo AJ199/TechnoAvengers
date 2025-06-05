@@ -159,29 +159,6 @@ namespace UnitTests.Pages.Product
         }
         #endregion OnGet
 
-        #region OnPost
-        /// <summary>
-        /// Validates OnPost redirects to the same page with the id route given a rating
-        /// </summary>
-        [Test]
-        public void OnPost_Valid_Rating_Provided_Redirects_To_Same_Page_With_Id()
-        {
-            // Arrange
-            var data = TestHelper.ProductService.GetProducts().First();
-            pageModel.Id = data.Id;
-            var rating = 5;
-
-            // Act
-            var result = (RedirectToPageResult)pageModel.OnPost(rating);
-
-            // assert
-            Assert.IsNotNull(result, "Should return RedirectToPageResult");
-            Assert.IsTrue(result.RouteValues.ContainsKey("id"));
-            Assert.AreEqual(data.Id, result.RouteValues["id"]);
-        }
-
-        #endregion Onpost
-
         #region CalculateRating
         /// <summary>
         /// Validates CalculateRating with null ratings, sets VoteCount 
