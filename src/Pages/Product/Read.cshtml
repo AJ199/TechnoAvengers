@@ -250,6 +250,90 @@
                 summary.appendChild(span);
             }
         }
+
+        /// <summary>
+        /// Handle comment submission
+        /// </summary>
+
+        // Form containing comment
+        const form = document.getElementById("commentForm");
+
+        // Container for displaying comments
+        const container = document.getElementById("commentsContainer");
+
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            // New form
+            const formData = new URLSearchParams();
+
+            // Append input values
+            formData.append("username", form.username.value);
+            formData.append("message", form.message.value);
+            formData.append("superheroId", form.superheroId.value);
+            formData.append("__RequestVerificationToken", form.__RequestVerificationToken.value);
+
+            // Submit comment via POST
+            fetch(`/Product/Read/${form.superheroId.value}?handler=AddComment`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: formData
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (!data.success) {
+                    alert(data.errors.join("\n"));
+                    return;
+                }
+
+                // Clear previous comments
+                container.innerHTML = "";
+
+                // Add returned comments
+                data.comments.forEach(c => {
+
+                    // New comment block
+                    const div = document.createElement("div");
+                    div.className = "comment-box";
+
+                    // Comment structure
+                    div.innerHTML = `
+                        <div class="comment-header">
+                            <strong class="comment-username">${c.username}</strong>
+                        </div>
+                        <div class="comment-body">
+                            <p class="comment-message">${c.message}</p>
+                        </div>
+                        <div class="comment-actions" data-comment-id="${c.id}">
+                            <div class="vote-pill comment-form">
+                                <button type="button" class="vote-button upvote" aria-label="Upvote">
+                                    <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path d="M12 2 L5 9 H9 V22 H15 V9 H19 Z" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linejoin="round" />
+                                    </svg>
+                                </button>
+                                <span class="vote-count">${c.likes}</span>
+                                <button type="button" class="vote-button downvote" aria-label="Downvote">
+                                    <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path d="M12 22 L5 15 H9 V2 H15 V15 H19 Z" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linejoin="round" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    // Append comment to the container
+                    container.appendChild(div);
+                });
+
+                // Reset form inputs
+                form.reset();
+
+                // Bind vote buttons for new comment elements
+                bindVoteButtons();
+            })
+            .catch(err => console.error("Comment error:", err));
+        });
     });
 </script>
 
