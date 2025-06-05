@@ -170,6 +170,26 @@ namespace ContosoCrafts.WebSite.Pages.Product
         }
 
         /// <summary>
+        /// Calculates the total number of votes and the average rating for the specified product
+        /// Returns zero for both values if the product or its ratings are null
+        /// </summary>
+        /// <param name="product">Superhero being rated</param>
+        /// <returns>Tuple containing total votes and average rating</returns>
+        public (int voteCount, int average) ComputeRatingStats(ProductModel? product)
+        {
+            // Existent ratings
+            var ratings = product?.Ratings ?? Enumerable.Empty<int>();
+
+            // Number of votes
+            var voteCount = ratings.Count();
+
+            // Average rating
+            var average = voteCount > 0 ? ratings.Sum() / voteCount : 0;
+
+            return (voteCount, average);
+        }
+
+        /// <summary>
         /// Calculates VoteCount, VoteLabel and CurrentRating average
         /// </summary>
         public void CalculateRating()
