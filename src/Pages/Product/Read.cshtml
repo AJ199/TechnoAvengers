@@ -218,6 +218,38 @@
                 });
             });
         });
+
+        /// <summary>
+        /// Updates the star rating display and the vote total
+        /// </summary>
+        function updateRatingDisplay(form, voteCount, average) {
+            // Buttons in the form
+            const buttons = form.querySelectorAll("button");
+
+            // Apply or remove the 'checked' class based on average
+            buttons.forEach((btn, index) => {
+                // Star value
+                const value = 5 - index;
+                btn.classList.toggle("checked", value <= average);
+            });
+
+            // Update the total votes text
+            const summary = document.querySelector(".rating-summary");
+            if (summary)
+            {
+                // New text
+                const span = document.createElement("span");
+                span.className = "hero-read-text";
+                span.textContent = voteCount === 0
+                    ? "Be the first to vote!"
+                    : `${voteCount} ${voteCount === 1 ? "Vote" : "Votes"}`;
+
+                summary.innerHTML = "";
+
+                // Append new text
+                summary.appendChild(span);
+            }
+        }
     });
 </script>
 
