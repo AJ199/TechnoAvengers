@@ -17,6 +17,7 @@ using ContosoCrafts.WebSite.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using System;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace UnitTests
 {
@@ -66,9 +67,14 @@ namespace UnitTests
         // Context for Razor Page execution
         public static PageContext PageContext;
 
-        // Service to access data from JSON files
+        // Service to access superhero data from JSON file
         public static JsonFileProductService ProductService;
 
+        // Service to access comment data from JSON file
+        public static JsonFileCommentService CommentService;
+
+        // Default IObjectModelValidator implementation for real validation
+        public static IObjectModelValidator ObjectModelValidator;
         /// <summary>
         /// Provides setup and configuration for web-related services during unit tests
         /// </summary>
@@ -115,9 +121,7 @@ namespace UnitTests
             // JSON product service using the mock environment
             ProductService = new JsonFileProductService(MockWebHostEnvironment.Object);
 
-            JsonFileProductService productService;
-
-            productService = new JsonFileProductService(TestHelper.MockWebHostEnvironment.Object);
+            CommentService = new JsonFileCommentService(MockWebHostEnvironment.Object);
         }
 
         /// <summary>
