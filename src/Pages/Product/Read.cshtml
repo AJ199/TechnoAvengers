@@ -334,6 +334,58 @@
             })
             .catch(err => console.error("Comment error:", err));
         });
+
+        /// <summary>
+        /// Binds upvote and downvote buttons to comment
+        /// </summary>
+        function bindVoteButtons() {
+            document.querySelectorAll('.comment-actions').forEach(actionBox => {
+
+                // Comment ID
+                const commentId = actionBox.dataset.commentId;
+
+                // Vote count
+                const voteCountSpan = actionBox.querySelector('.vote-count');
+
+                // Upvote button
+                const upvoteBtn = actionBox.querySelector('.upvote');
+
+                // Downvote button
+                const downvoteBtn = actionBox.querySelector('.downvote');
+
+                // Helper function to send vote delta to server
+                function sendVote(delta) {
+                    // Anti-forgery token
+                    const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+
+                    // New form
+                    const formData = new URLSearchParams();
+                    formData.append("commentId", commentId);
+                    formData.append("delta", delta);
+                    formData.append("__RequestVerificationToken", token);
+
+                    // Submit vote update
+                    fetch(`/Product/Read/@Model.Product.Id?handler=UpdateLikes`, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                        body: formData
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.success) {
+                            voteCountSpan.textContent = data.likes;
+                        }
+                    })
+                    .catch(err => console.error("Vote error:", err));
+                }
+
+                // Bind click events to upvote and downvote buttons
+                upvoteBtn.addEventListener("click", () => sendVote(+1));
+                downvoteBtn.addEventListener("click", () => sendVote(-1));
+            });
+        }
+       // Bind vote buttons on page load
+        bindVoteButtons();
     });
 </script>
 
