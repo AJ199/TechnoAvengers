@@ -142,5 +142,40 @@ namespace UnitTests
             // Wrap the settings object in IOptions and return it
             return Options.Create(settings);
         }
+
+        /// <summary>
+        /// Configures HttpContext.RequestServices to enable TryValidateModel during Razor Page unit tests
+        /// </summary>
+        /// <param name="pageModel">The PageModel instance to modify</param>
+        public static void EnableValidation(PageModel pageModel)
+        {
+            // Validator object
+            var objectValidator = new Mock<IObjectModelValidator>();
+
+            objectValidator
+                .Setup(o => o.Validate(
+                    It.IsAny<ActionContext>(),
+                    It.IsAny<ValidationStateDictionary>(),
+                    It.IsAny<string>(),
+                    It.IsAny<object>()));
+
+            // Mock service provider
+            var serviceProvider = new Mock<IServiceProvider>();
+            serviceProvider
+                .Setup(x => x.GetService(typeof(IObjectModelValidator)))
+                .Returns(objectValidator.Object);
+
+            // Assign both PageContext and ControllerContext
+            var httpContext = new DefaultHttpContext
+            {
+                RequestServices = serviceProvider.Object
+            };
+
+            pageModel.PageContext = new PageContext
+            {
+                HttpContext = httpContext,
+                ViewData = new ViewDataDictionary(new EmptyModelMetadataProvider(), new ModelStateDictionary())
+            };
+        }
     }
 }
