@@ -46,7 +46,15 @@
                         </div>
                     </div>
                 </div>
-
+                <div class="comment-form-box">
+                    <form id="commentForm">
+                        <input name="username" placeholder="Your alias (*)" />
+                        <textarea name="message" placeholder="Your thoughts (*)"></textarea>
+                        <input type="hidden" name="superheroId" value="@Model.Product.Id" />
+                        <input type="hidden" name="__RequestVerificationToken" value="@(Antiforgery.GetAndStoreTokens(HttpContext).RequestToken)" />
+                        <button type="submit">Post</button>
+                    </form>
+                </div>
             <!-- Right: Superhero stats and details -->
             <div class="hero-read-details">
                 <div class="hero-read-stats">
