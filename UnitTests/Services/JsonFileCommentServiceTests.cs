@@ -169,7 +169,56 @@ namespace UnitTests.Services
             Assert.AreEqual(1, result.Count);
             Assert.AreEqual("NullCase", result[0].Username);
         }
+        #endregion
 
+        #region UpdateLikes
+        /// <summary>
+        /// Verifies that UpdateLikes successfully increments likes when given a valid ID
+        /// </summary>
+        [Test]
+        public void UpdateLikes_Valid_Id_Updates_Count()
+        {
+            // Arrange
+            var comment = commentService.GetComments(testSuperheroId).First();
+
+            // Act
+            var updated = commentService.UpdateLikes(comment.Id, 1);
+
+            // Assert
+            Assert.AreEqual(false, updated == null);
+            Assert.AreEqual(1, updated.Likes);
+        }
+
+        /// <summary>
+        /// Verifies that UpdateLikes returns null for a nonexistent comment ID
+        /// </summary>
+        [Test]
+        public void UpdateLikes_Invalid_Id_Returns_Null()
+        {
+            //Arrange
+
+            // Act
+            var result = commentService.UpdateLikes("invalid-id", 1);
+
+            // Assert
+            Assert.AreEqual(true, result == null);
+        }
+
+        /// <summary>
+        /// Verifies that UpdateLikes returns null when the file content is null
+        /// </summary>
+        [Test]
+        public void UpdateLikes_Invalid_Null_Deserialization_Returns_Null()
+        {
+            // Arrange
+            File.WriteAllText(GetTestFilePath(), "null");
+
+            // Act
+            var result = commentService.UpdateLikes("nonexistent-id", 1);
+
+            // Assert
+            Assert.AreEqual(true, result == null);
+        }
         #endregion
 
         #region HelperMethods
