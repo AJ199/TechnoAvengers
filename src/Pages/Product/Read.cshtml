@@ -5,7 +5,7 @@
 @model ContosoCrafts.WebSite.Pages.Product.ReadModel
 
 @{
-    ViewData["Title"] = "Read page";
+    ViewData["Title"] = Model.Product.Title;
 }
 
 <div class="hero-read-container">
@@ -16,129 +16,136 @@
             <!-- Left: Superhero image and View More Info -->
             <div class="hero-read-left">
                 <img class="hero-read-image" src="@Model.Product.ImageUrl" alt="Image for @Model.Product.Title" />
-                <div class="star-rating-wrapper">
-                    <div class="star-rating-display">
+                <div class="rating-comment-block">
+                    <p class="hero-read-text comments-title">Leave a rating and comment!</p>
+                    <div class="star-rating-wrapper">
+                        <div class="star-rating-display">
 
-                        <form class="star-rating-form" method="post">
-                            <input type="hidden" name="__RequestVerificationToken" value="@(Antiforgery.GetAndStoreTokens(HttpContext).RequestToken)" />
-                            <input type="hidden" name="id" value="@Model.Id" />
-                            @for (int i = 5; i >= 1; i--)
-                            {
-                                var css = i <= Model.CurrentRating ? "fa-star checked" : "fa-star";
-                                <button type="button"
-                                        name="rating"
-                                        data-rating="@i"
-                                        class="fa @css"
-                                        aria-label="Give @i star@(i>1? "s":"")"></button>
-                            }
-                        </form>
+                            <form class="star-rating-form" method="post">
+                                <input type="hidden" name="__RequestVerificationToken" value="@(Antiforgery.GetAndStoreTokens(HttpContext).RequestToken)" />
+                                <input type="hidden" name="id" value="@Model.Id" />
+                                @for (int i = 5; i >= 1; i--)
+                                {
+                                    var css = i <= Model.CurrentRating ? "fa-star checked" : "fa-star";
+                                    <button type="button"
+                                            name="rating"
+                                            data-rating="@i"
+                                            class="fa @css"
+                                            aria-label="Give @i star@(i>1? "s":"")"></button>
+                                }
+                            </form>
 
 
-                        <div class="rating-summary">
-                            @if (Model.VoteCount == 0)
+                            <div class="rating-summary">
+                                @if (Model.VoteCount == 0)
+                                {
+                                    <span class="hero-read-text">Be the first to vote!</span>
+                                }
+                                else
+                                {
+                                    <span class="hero-read-text">@Model.VoteCount @Model.VoteLabel</span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="comment-section-wrapper">
+                        <div class="comment-form-box">
+                            <form id="commentForm">
+                                <input name="username" placeholder="Your alias (*)" />
+                                <textarea name="message" placeholder="Your thoughts (*)"></textarea>
+                                <input type="hidden" name="superheroId" value="@Model.Product.Id" />
+                                <input type="hidden" name="__RequestVerificationToken" value="@(Antiforgery.GetAndStoreTokens(HttpContext).RequestToken)" />
+                                <button type="submit">Post</button>
+                            </form>
+                        </div>
+
+                        <div id="commentsContainer">
+                            @foreach (var comment in Model.Comments)
                             {
-                                <span class="hero-read-text">Be the first to vote!</span>
-                            }
-                            else
-                            {
-                                <span class="hero-read-text">@Model.VoteCount @Model.VoteLabel</span>
+                                <div class="comment-box">
+                                    <div class="comment-header">
+                                        <strong class="comment-username">@comment.Username</strong>
+                                    </div>
+                                    <div class="comment-body">
+                                        <p class="comment-message">@comment.Message</p>
+                                    </div>
+                                    <div class="comment-actions" data-comment-id="@comment.Id">
+                                        <div class="vote-pill comment-form">
+                                            <button type="button" class="vote-button upvote" aria-label="Upvote">
+                                                <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                    <path d="M12 2 L5 9 H9 V22 H15 V9 H19 Z" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linejoin="round" />
+                                                </svg>
+                                            </button>
+
+                                            <span class="vote-count">@comment.Likes</span>
+
+                                            <button type="button" class="vote-button downvote" aria-label="Downvote">
+                                                <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                    <path d="M12 22 L5 15 H9 V2 H15 V15 H19 Z" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linejoin="round" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
                             }
                         </div>
                     </div>
                 </div>
-                <div class="comment-form-box">
-                    <form id="commentForm">
-                        <input name="username" placeholder="Your alias (*)" />
-                        <textarea name="message" placeholder="Your thoughts (*)"></textarea>
-                        <input type="hidden" name="superheroId" value="@Model.Product.Id" />
-                        <input type="hidden" name="__RequestVerificationToken" value="@(Antiforgery.GetAndStoreTokens(HttpContext).RequestToken)" />
-                        <button type="submit">Post</button>
-                    </form>
-                </div>
+            </div>
 
-
-                <div id="commentsContainer">
-                    @foreach (var comment in Model.Comments)
-                    {
-                        <div class="comment-box">
-                            <div class="comment-header">
-                                <strong class="comment-username">@comment.Username</strong>
-                            </div>
-                            <div class="comment-body">
-                                <p class="comment-message">@comment.Message</p>
-                            </div>
-                            <div class="comment-actions" data-comment-id="@comment.Id">
-                                <div class="vote-pill comment-form">
-                                    <button type="button" class="vote-button upvote" aria-label="Upvote">
-                                        <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                            <path d="M12 2 L5 9 H9 V22 H15 V9 H19 Z" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linejoin="round" />
-                                        </svg>
-                                    </button>
-
-                                    <span class="vote-count">@comment.Likes</span>
-
-
-                                    <button type="button" class="vote-button downvote" aria-label="Downvote">
-                                        <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                            <path d="M12 22 L5 15 H9 V2 H15 V15 H19 Z" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linejoin="round" />
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    }
-                </div>
             <!-- Right: Superhero stats and details -->
             <div class="hero-read-details">
                 <div class="hero-read-stats">
                     <p class="hero-read-text stats-title">Power Statistics</p>
-                        <ul class="hero-read-list">
-                            <li>
-                                <span class="hero-read-text">Intelligence</span>
-                                <div class="stats-bar read-stats-bar" data-value="@Model.Product.Intelligence">
-                                    <div class="stats-bar-fill intelligence" style="--value: @Model.Product.Intelligence%;"></div>
-                                </div>
-                            </li>
-                            <li>
-                                <span class="hero-read-text">Strength</span>
-                                <div class="stats-bar read-stats-bar" data-value="@Model.Product.Strength">
-                                    <div class="stats-bar-fill strength" style="--value: @Model.Product.Strength%;"></div>
-                                </div>
-                            </li>
-                            <li>
-                                <span class="hero-read-text">Speed</span>
-                                <div class="stats-bar read-stats-bar" data-value="@Model.Product.Speed">
-                                    <div class="stats-bar-fill speed" style="--value: @Model.Product.Speed%;"></div>
-                                </div>
-                            </li>
-                            <li>
-                                <span class="hero-read-text">Durability</span>
-                                <div class="stats-bar read-stats-bar" data-value="@Model.Product.Durability">
-                                    <div class="stats-bar-fill durability" style="--value: @Model.Product.Durability%;"></div>
-                                </div>
-                            </li>
-                            <li>
-                                <span class="hero-read-text">Power</span>
-                                <div class="stats-bar read-stats-bar" data-value="@Model.Product.Power">
-                                    <div class="stats-bar-fill power" style="--value: @Model.Product.Power%;"></div>
-                                </div>
-                            </li>
-                            <li>
-                                <span class="hero-read-text">Combat</span>
-                                <div class="stats-bar read-stats-bar" data-value="@Model.Product.Combat">
-                                    <div class="stats-bar-fill combat" style="--value: @Model.Product.Combat%;"></div>
-                                </div>
-                            </li>
-                        </ul>
+                    <ul class="hero-read-list">
+                        <li>
+                            <span class="hero-read-text">Intelligence</span>
+                            <div class="stats-bar read-stats-bar" data-value="@Model.Product.Intelligence">
+                                <div class="stats-bar-fill intelligence" style="--value: @Model.Product.Intelligence%;"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="hero-read-text">Strength</span>
+                            <div class="stats-bar read-stats-bar" data-value="@Model.Product.Strength">
+                                <div class="stats-bar-fill strength" style="--value: @Model.Product.Strength%;"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="hero-read-text">Speed</span>
+                            <div class="stats-bar read-stats-bar" data-value="@Model.Product.Speed">
+                                <div class="stats-bar-fill speed" style="--value: @Model.Product.Speed%;"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="hero-read-text">Durability</span>
+                            <div class="stats-bar read-stats-bar" data-value="@Model.Product.Durability">
+                                <div class="stats-bar-fill durability" style="--value: @Model.Product.Durability%;"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="hero-read-text">Power</span>
+                            <div class="stats-bar read-stats-bar" data-value="@Model.Product.Power">
+                                <div class="stats-bar-fill power" style="--value: @Model.Product.Power%;"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="hero-read-text">Combat</span>
+                            <div class="stats-bar read-stats-bar" data-value="@Model.Product.Combat">
+                                <div class="stats-bar-fill combat" style="--value: @Model.Product.Combat%;"></div>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
-
-                <p class="hero-read-text">Real name: <strong>@Model.Product.Fullname</strong></p>
-                <p class="hero-read-text">Birthplace: @Model.Product.Birthplace</p>
-                <p class="hero-read-text">Gender: @Model.Product.Gender</p>
-                <p class="hero-read-text">Role: @Model.Product.Role</p>
-                <p class="hero-read-text">Alignment: @Model.Product.Alignment</p>
-                <p class="hero-read-text">Work: @Model.Product.Work</p>
-                <p class="hero-read-text">First Appearance: <em>@Model.Product.FirstAppear</em></p>
+                <div class="hero-read-stats">
+                    <p class="hero-read-text">Real name: <strong>@Model.Product.Fullname</strong></p>
+                    <p class="hero-read-text">Birthplace: @Model.Product.Birthplace</p>
+                    <p class="hero-read-text">Gender: @Model.Product.Gender</p>
+                    <p class="hero-read-text">Role: @Model.Product.Role</p>
+                    <p class="hero-read-text">Alignment: @Model.Product.Alignment</p>
+                    <p class="hero-read-text">Work: @Model.Product.Work</p>
+                    <p class="hero-read-text">First Appearance: <em>@Model.Product.FirstAppear</em></p>
+                </div>
 
                 <!-- Action buttons -->
                 <div class="form-actions button-row1">
@@ -154,172 +161,172 @@
 </div>
 
 <style>
-        .comment-box {
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            padding: 0.5rem 0.5rem;
+    .comment-box {
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 0.5rem 0.5rem;
+        margin-bottom: 0.5rem;
+        background-color: #f9f9f9;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .comment-header {
+        margin-bottom: 0.2rem;
+    }
+
+    .comment-username {
+        font-weight: bold;
+        font-size: 1rem;
+        color: #333;
+    }
+
+    .comment-body {
+        margin-bottom: 0.3rem;
+    }
+
+    .comment-message {
+        margin: 0;
+        font-size: 0.95rem;
+        color: #444;
+    }
+
+    .comment-actions {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .comment-form {
+        display: flex;
+        flex-direction: row; /* ensure horizontal layout */
+        align-items: center;
+        gap: 0rem;
+    }
+
+
+    .like-button,
+    .dislike-button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 1.2rem;
+    }
+
+    .like-count {
+        font-weight: bold;
+        color: #222;
+    }
+
+    .vote-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.2rem;
+        background-color: #ececec;
+        border-radius: 999px;
+        padding: 0.2rem 0.4rem;
+        border: none;
+    }
+
+    .vote-count {
+        font-weight: bold;
+        color: #333;
+        font-size: 1rem;
+    }
+
+    .arrow-icon {
+        width: 24px;
+        height: 24px;
+        fill: #444;
+        transition: fill 0.2s ease;
+        cursor: pointer;
+    }
+
+    .vote-count {
+        font-weight: bold;
+        font-size: 0.9rem;
+        color: #333;
+        margin: 0 0.5rem;
+    }
+
+    .arrow-icon {
+        width: 20px;
+        height: 20px;
+        color: #444;
+        transition: color 0.2s ease;
+    }
+
+    .vote-button {
+        background: none;
+        border: none;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+        .vote-button:focus {
+            outline: none;
+            box-shadow: none;
+        }
+
+        .vote-button .arrow-icon {
+            transition: transform 0.2s ease;
+        }
+
+        .vote-button.upvote:hover .arrow-icon {
+            color: green;
+        }
+
+        .vote-button.downvote:hover .arrow-icon {
+            color: red;
+        }
+
+        .vote-button:hover .arrow-icon,
+        .vote-button:active .arrow-icon {
+            transform: scale(1.2);
+        }
+
+    .comment-form-box {
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+        background-color: #f9f9f9;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+        .comment-form-box input[type="text"],
+        .comment-form-box textarea {
+            width: 100%;
+            padding: 0.5rem;
             margin-bottom: 0.5rem;
-            background-color: #f9f9f9;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        .comment-header {
-            margin-bottom: 0.2rem;
-        }
-
-        .comment-username {
-            font-weight: bold;
-            font-size: 1rem;
-            color: #333;
-        }
-
-        .comment-body {
-            margin-bottom: 0.3rem;
-        }
-
-        .comment-message {
-            margin: 0;
-            font-size: 0.95rem;
-            color: #444;
-        }
-
-        .comment-actions {
-            display: flex;
-            gap: 0.5rem;
-            align-items: center;
-            justify-content: flex-start;
-        }
-
-        .comment-form {
-            display: flex;
-            flex-direction: row; /* ensure horizontal layout */
-            align-items: center;
-            gap: 0rem;
-        }
-
-
-        .like-button,
-        .dislike-button {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 1.2rem;
-        }
-
-        .like-count {
-            font-weight: bold;
-            color: #222;
-        }
-
-        .vote-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.2rem;
-            background-color: #ececec;
-            border-radius: 999px;
-            padding: 0.2rem 0.4rem;
-            border: none;
-        }
-
-        .vote-count {
-            font-weight: bold;
-            color: #333;
-            font-size: 1rem;
-        }
-
-        .arrow-icon {
-            width: 24px;
-            height: 24px;
-            fill: #444;
-            transition: fill 0.2s ease;
-            cursor: pointer;
-        }
-
-        .vote-count {
-            font-weight: bold;
-            font-size: 0.9rem;
-            color: #333;
-            margin: 0 0.5rem;
-        }
-
-        .arrow-icon {
-            width: 20px;
-            height: 20px;
-            color: #444;
-            transition: color 0.2s ease;
-        }
-
-        .vote-button {
-            background: none;
-            border: none;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-
-            .vote-button:focus {
-                outline: none;
-                box-shadow: none;
-            }
-
-            .vote-button .arrow-icon {
-                transition: transform 0.2s ease;
-            }
-
-            .vote-button.upvote:hover .arrow-icon {
-                color: green;
-            }
-
-            .vote-button.downvote:hover .arrow-icon {
-                color: red;
-            }
-
-            .vote-button:hover .arrow-icon,
-            .vote-button:active .arrow-icon {
-                transform: scale(1.2);
-            }
-
-        .comment-form-box {
             border: 1px solid #ccc;
-            border-radius: 8px;
-            padding: 1rem;
-            margin-bottom: 1.5rem;
-            background-color: #f9f9f9;
-            width: 100%;
+            border-radius: 6px;
             box-sizing: border-box;
+            font-size: 1rem;
         }
 
-            .comment-form-box input[type="text"],
-            .comment-form-box textarea {
-                width: 100%;
-                padding: 0.5rem;
-                margin-bottom: 0.5rem;
-                border: 1px solid #ccc;
-                border-radius: 6px;
-                box-sizing: border-box;
-                font-size: 1rem;
+        .comment-form-box button[type="submit"] {
+            background-color: #ED1D24; /* Marvel red */
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.2s ease;
+        }
+
+            .comment-form-box button[type="submit"]:hover {
+                background-color: #b31217; /* darker red for hover */
             }
 
-            .comment-form-box button[type="submit"] {
-                background-color: #ED1D24; /* Marvel red */
-                color: white;
-                border: none;
-                padding: 0.5rem 1rem;
-                border-radius: 6px;
-                cursor: pointer;
-                font-size: 1rem;
-                transition: background-color 0.2s ease;
-            }
-
-                .comment-form-box button[type="submit"]:hover {
-                    background-color: #b31217; /* darker red for hover */
-                }
-
-        .star-rating-display {
+    .star-rating-display {
         display: flex;
         align-items: center;
         gap: 0.5rem;
@@ -330,82 +337,149 @@
         gap: 0.25rem;
     }
 
-        .btn-delete-option {
-            font-family: 'Bangers', cursive;
-            text-transform: uppercase;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease-in-out;
-            background-color: #ED1D24;
-            color: white;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            vertical-align: middle; /* ✅ Aligns with neighbors */
-            transform-origin: center center; /* ✅ Prevents misalignment from scale */
+    .rating-summary {
+        font-size: 0.95rem;
+        color: white;
+        margin: 0;
+        padding: 0;
+    }
+
+    .btn-delete-option {
+        font-family: 'Bangers', cursive;
+        text-transform: uppercase;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+        background-color: #ED1D24;
+        color: white;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        vertical-align: middle; /* ✅ Aligns with neighbors */
+        transform-origin: center center; /* ✅ Prevents misalignment from scale */
+    }
+
+
+        .btn-delete-option:hover {
+            background-color: #c4141b;
+            transform: scale(1.05);
         }
 
+    .uniform-button {
+        flex: 1;
+        min-width: 150px;
+        max-width: 200px;
+        text-align: center;
+        padding: 12px 20px;
+        font-size: 1.3rem;
+        border-radius: 10px;
+        height: 50px;
+        line-height: 1;
+        box-sizing: border-box;
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+    }
 
-            .btn-delete-option:hover {
-                background-color: #c4141b;
-                transform: scale(1.05);
-            }
+    .button-row1 {
+        display: flex;
+        justify-content: center;
+        align-items: stretch;
+        gap: 20px;
+        margin-top: 30px;
+    }
 
-        .uniform-button {
-            flex: 1;
-            min-width: 150px;
-            max-width: 200px;
-            text-align: center;
-            padding: 12px 20px;
-            font-size: 1.3rem;
-            border-radius: 10px;
-            height: 50px;
-            line-height: 1;
-            box-sizing: border-box; /* ✅ Add this */
-            display: flex; /* ✅ Force alignment of text */
-            align-items: center; /* ✅ Vertically center text */
-            justify-content: center; /* ✅ Horizontally center text */
+    .btn-update-option {
+        background-color: #ED1D24;
+        border-color: #ED1D24;
+        color: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        text-decoration: none;
+        text-transform: uppercase;
+        font-family: 'Bangers', cursive;
+        transition: background-color 0.2s ease-in-out;
+    }
+
+        .btn-update-option:hover {
+            background-color: #e9a8a6;
+            border-color: #e9a8a6;
         }
 
-        .button-row1 {
-            display: flex;
-            justify-content: center;
-            align-items: stretch; /* ✅ force consistent height alignment */
-            gap: 20px;
-            margin-top: 30px;
+    .btn-back-option {
+        background-color: #666;
+        border-color: #666;
+        color: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        text-decoration: none;
+        text-transform: uppercase;
+        font-family: 'Bangers', cursive;
+        transition: background-color 0.2s ease-in-out;
+    }
+
+        .btn-back-option:hover {
+            background-color: #999;
+            border-color: #999;
         }
 
-        .btn-update-option {
-            background-color: #ED1D24;
-            border-color: #ED1D24;
-            color: white;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            text-decoration: none;
-            text-transform: uppercase;
-            font-family: 'Bangers', cursive;
-            transition: background-color 0.2s ease-in-out;
-        }
+    .icon-label {
+        margin-left: 6px; 
+    }
 
-            .btn-update-option:hover {
-                background-color: #e9a8a6;
-                border-color: #e9a8a6;
-            }
+    .comment-section-wrapper {
+        width: 100%;
+        max-width: 450px;
+        margin: 0 auto; 
+    }
 
-        /* ---- */
+    .read-stats-bar::after {
+        font-family: 'Nunito', cursive;
+        font-size: 1rem;
+        color: #fff;
+        text-shadow: 1px 1px 2px #000;
+        letter-spacing: 1px;
+    }
 
-        .btn-back-option {
-            background-color: #666;
-            border-color: #666;
-            color: white;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            text-decoration: none;
-            text-transform: uppercase;
-            font-family: 'Bangers', cursive;
-            transition: background-color 0.2s ease-in-out;
-        }
+    .read-stats-bar {
+        height: 16px; 
+    }
 
-            .btn-back-option:hover {
-                background-color: #999;
-                border-color: #999;
-            }
+    .hero-read-left,
+    .hero-read-details {
+        padding-left: 2rem;
+        padding-right: 2rem;
+        box-sizing: border-box;
+    }
+
+    .hero-read-text.comments-title {
+        font-size: 1.6rem;
+        font-weight: bold;
+        margin-bottom: 15px;
+        font-family: 'Bangers', cursive;
+        text-align: center;
+        letter-spacing: 3px;
+        color: white;
+        text-shadow: 3px 3px 0px red;
+    }
+
+    .rating-comment-block {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 0.5rem; 
+        margin-top: 0rem;
+        margin-bottom: 0rem;
+    }
+
+    .hero-read-text.comments-title {
+        margin-bottom: 0;
+    }
+
+    .star-rating-wrapper {
+        margin-bottom: 0;
+    }
+
+    .comment-form-box {
+        margin-top: 0;
+    }
+
 </style>
