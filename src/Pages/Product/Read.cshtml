@@ -1,6 +1,7 @@
 ﻿@page "{id}"
 @using ContosoCrafts.WebSite.Services
 @inject JsonFileProductService ProductService
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
 @model ContosoCrafts.WebSite.Pages.Product.ReadModel
 
 @{
