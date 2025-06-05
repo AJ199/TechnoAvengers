@@ -44,4 +44,28 @@
             <i class="fas fa-file-pdf"></i> Download PDF
         </button>
     </div>
+
+    <!-- Poll Section -->
+    <hr />
+    <div class="poll-container text-center mt-5">
+        <h4 class="poll-heading">Do you agree with the superhero rankings?</h4>
+        <form method="post" class="poll-buttons d-flex flex-column align-items-center @(Model.HasVoted ? "voted" : "")">
+            <button type="submit" name="pollResponse" value="yes" class="btn btn-poll-yes m-2">
+                Yes, I agree!
+            </button>
+            <button type="submit" name="pollResponse" value="no" class="btn btn-poll-no m-2">
+                No, I disagree!
+            </button>
+        </form>
+
+        <div class="poll-bar-container">
+            <h5 class="poll-bar-title">Poll Results:</h5>
+            <div class="poll-bar poll-bar-yes" style="width: @Model.YesPercentage%">
+                <span class="poll-bar-text">AGREE (@Model.YesPercentage%)</span>
+            </div>
+            <div class="poll-bar poll-bar-no" style="width: @Model.NoPercentage%">
+                <span class="poll-bar-text">DISAGREE (@Model.NoPercentage%)</span>
+            </div>
+        </div>
+    </div>
 </div>
