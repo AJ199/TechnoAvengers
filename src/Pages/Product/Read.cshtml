@@ -160,6 +160,68 @@
     </div>
 </div>
 
+<script>
+    /// <summary>
+    /// Handles interactions for star ratings, comment submission, and comment votes
+    /// </summary>
+    document.addEventListener("DOMContentLoaded", () => {
+
+        /// <summary>
+        /// Handles star ratings
+        /// </summary>
+        document.querySelectorAll(".star-rating-form").forEach(form => {
+
+            // Superhero ID from hidden input field
+            const productId = form.querySelector('input[name="id"]').value;
+
+            // Loop through each rating button
+            form.querySelectorAll("button").forEach(button => {
+
+                // Add click event listener to each rating button
+                button.addEventListener("click", (e) => {
+
+                    // Prevent default form submission
+                    e.preventDefault();
+
+                    // Selected rating value
+                    const rating = parseInt(button.dataset.rating);
+
+                    // Anti-forgery token from hidden input
+                    const token = form.querySelector('input[name="__RequestVerificationToken"]').value;
+
+                    // Form object
+                    const formData = new URLSearchParams();
+
+                    // Append form fields to request
+                    formData.append("__RequestVerificationToken", token);
+                    formData.append("rating", rating);
+                    formData.append("id", productId);
+
+                    // Send rating to server
+                    fetch(`/Product/Read/${productId}?handler=AddRating`, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/x-www-form-urlencoded"
+                        },
+                        body: formData
+                    })
+                    .then(response => {
+                        if (!response.ok) throw new Error("Network error");
+                        return response.json();
+                    })
+
+                    // Update the displayed rating stats
+                    .then(data => updateRatingDisplay(form, data.voteCount, data.average))
+
+                    // Log errors
+                    .catch(error => console.error("Rating error:", error));
+                });
+            });
+        });
+    });
+</script>
+
+
 <style>
     .comment-box {
         border: 1px solid #ccc;
@@ -200,7 +262,7 @@
 
     .comment-form {
         display: flex;
-        flex-direction: row; /* ensure horizontal layout */
+        flex-direction: row; 
         align-items: center;
         gap: 0rem;
     }
@@ -323,7 +385,7 @@
         }
 
             .comment-form-box button[type="submit"]:hover {
-                background-color: #b31217; /* darker red for hover */
+                background-color: #b31217; 
             }
 
     .star-rating-display {
@@ -355,8 +417,8 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        vertical-align: middle; /* ✅ Aligns with neighbors */
-        transform-origin: center center; /* ✅ Prevents misalignment from scale */
+        vertical-align: middle; 
+        transform-origin: center center; 
     }
 
 
