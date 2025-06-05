@@ -5,7 +5,7 @@ using NUnit.Framework;
 using System.Net.Mail;
 using System.Threading.Tasks;
 
-namespace UnitTests.Pages.Services
+namespace UnitTests.Services
 {
     /// <summary>
     /// Unit tests for EmailService
