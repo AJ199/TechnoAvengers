@@ -132,6 +132,46 @@ namespace UnitTests.Services
         }
         #endregion
 
+        #region AddComment
+        /// <summary>
+        /// Verifies that AddComment adds a valid comment to the existing list
+        /// </summary>
+        [Test]
+        public void AddComment_Valid_Comment_Appends_To_File()
+        {
+            // Arrange
+            var data = new CommentModel { SuperheroId = testSuperheroId, Username = "NewUser", Message = "New message" };
+
+            // Act
+            commentService.AddComment(data);
+            var result = commentService.GetComments(testSuperheroId);
+
+            // Assert
+            Assert.AreEqual(2, result.Count);
+            Assert.AreEqual(true, result.Any(c => c.Username == "NewUser"));
+        }
+
+        /// <summary>
+        /// Verifies that AddComment can append to a file that initially contains null
+        /// </summary>
+        [Test]
+        public void AddComment_Valid_Null_Deserialization_Appends_To_New_List()
+        {
+            // Arrange
+            File.WriteAllText(GetTestFilePath(), "null");
+            var comment = new CommentModel { SuperheroId = testSuperheroId, Username = "NullCase", Message = "Recovered" };
+
+            // Act
+            commentService.AddComment(comment);
+            var result = commentService.GetComments(testSuperheroId);
+
+            // Assert
+            Assert.AreEqual(1, result.Count);
+            Assert.AreEqual("NullCase", result[0].Username);
+        }
+
+        #endregion
+
         #region HelperMethods
         /// <summary>
         /// Returns the test file path for the comments JSON file
