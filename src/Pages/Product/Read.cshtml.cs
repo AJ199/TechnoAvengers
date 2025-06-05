@@ -87,6 +87,59 @@ namespace ContosoCrafts.WebSite.Pages.Product
         }
 
         /// <summary>
+        /// Submits a new comment
+        /// </summary>
+        /// <param name="username">Name of the user</param>
+        /// <param name="message">Message to submit</param>
+        /// <param name="superheroId">ID of superhero the comment is for</param>
+        /// <returns></returns>
+        public async Task<IActionResult> OnPostAddComment([FromForm] string username, [FromForm] string message, [FromForm] string superheroId)
+        {
+            // Comment object from form values
+            var comment = new CommentModel
+            {
+                Username = username,
+                Message = message,
+                SuperheroId = superheroId
+            };
+
+            // Validation context for the comment model
+            var validationContext = new ValidationContext(comment);
+
+            // List of validation results
+            var validationResults = new List<ValidationResult>();
+
+            // Performs validation on the comment
+            var isValid = Validator.TryValidateObject(comment, validationContext, validationResults, validateAllProperties: true);
+
+            if (isValid == false)
+            {
+                return new JsonResult(new
+                {
+                    success = false,
+                    errors = validationResults.Select(r => r.ErrorMessage)
+                });
+            }
+
+            CommentService.AddComment(comment);
+
+            // Retrieve updated list of comments
+            var updatedComments = CommentService.GetComments(superheroId);
+
+            return new JsonResult(new
+            {
+                success = true,
+                comments = updatedComments.Select(c => new
+                {
+                    c.Username,
+                    c.Message,
+                    c.Likes,
+                    c.Id
+                })
+            });
+        }
+
+        /// <summary>
         /// Calculates VoteCount, VoteLabel and CurrentRating average
         /// </summary>
         public void CalculateRating()
