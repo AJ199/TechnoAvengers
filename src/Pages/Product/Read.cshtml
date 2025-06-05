@@ -92,14 +92,44 @@
             <div class="hero-read-details">
                 <div class="hero-read-stats">
                     <p class="hero-read-text stats-title">Power Statistics</p>
-                    <ul class="hero-read-list">
-                        <li class="hero-read-list-item">Intelligence: @Model.Product.Intelligence</li>
-                        <li class="hero-read-list-item">Strength: @Model.Product.Strength</li>
-                        <li class="hero-read-list-item">Speed: @Model.Product.Speed</li>
-                        <li class="hero-read-list-item">Durability: @Model.Product.Durability</li>
-                        <li class="hero-read-list-item">Power: @Model.Product.Power</li>
-                        <li class="hero-read-list-item">Combat: @Model.Product.Combat</li>
-                    </ul>
+                        <ul class="hero-read-list">
+                            <li>
+                                <span class="hero-read-text">Intelligence</span>
+                                <div class="stats-bar read-stats-bar" data-value="@Model.Product.Intelligence">
+                                    <div class="stats-bar-fill intelligence" style="--value: @Model.Product.Intelligence%;"></div>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="hero-read-text">Strength</span>
+                                <div class="stats-bar read-stats-bar" data-value="@Model.Product.Strength">
+                                    <div class="stats-bar-fill strength" style="--value: @Model.Product.Strength%;"></div>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="hero-read-text">Speed</span>
+                                <div class="stats-bar read-stats-bar" data-value="@Model.Product.Speed">
+                                    <div class="stats-bar-fill speed" style="--value: @Model.Product.Speed%;"></div>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="hero-read-text">Durability</span>
+                                <div class="stats-bar read-stats-bar" data-value="@Model.Product.Durability">
+                                    <div class="stats-bar-fill durability" style="--value: @Model.Product.Durability%;"></div>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="hero-read-text">Power</span>
+                                <div class="stats-bar read-stats-bar" data-value="@Model.Product.Power">
+                                    <div class="stats-bar-fill power" style="--value: @Model.Product.Power%;"></div>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="hero-read-text">Combat</span>
+                                <div class="stats-bar read-stats-bar" data-value="@Model.Product.Combat">
+                                    <div class="stats-bar-fill combat" style="--value: @Model.Product.Combat%;"></div>
+                                </div>
+                            </li>
+                        </ul>
                 </div>
 
                 <p class="hero-read-text">Real name: <strong>@Model.Product.Fullname</strong></p>
