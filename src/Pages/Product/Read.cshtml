@@ -55,6 +55,38 @@
                         <button type="submit">Post</button>
                     </form>
                 </div>
+
+
+                <div id="commentsContainer">
+                    @foreach (var comment in Model.Comments)
+                    {
+                        <div class="comment-box">
+                            <div class="comment-header">
+                                <strong class="comment-username">@comment.Username</strong>
+                            </div>
+                            <div class="comment-body">
+                                <p class="comment-message">@comment.Message</p>
+                            </div>
+                            <div class="comment-actions" data-comment-id="@comment.Id">
+                                <div class="vote-pill comment-form">
+                                    <button type="button" class="vote-button upvote" aria-label="Upvote">
+                                        <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                            <path d="M12 2 L5 9 H9 V22 H15 V9 H19 Z" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linejoin="round" />
+                                        </svg>
+                                    </button>
+
+                                    <span class="vote-count">@comment.Likes</span>
+
+                                    <button type="button" class="vote-button downvote" aria-label="Downvote">
+                                        <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                            <path d="M12 22 L5 15 H9 V2 H15 V15 H19 Z" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linejoin="round" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
             <!-- Right: Superhero stats and details -->
             <div class="hero-read-details">
                 <div class="hero-read-stats">
