@@ -15,20 +15,23 @@ namespace ContosoCrafts.WebSite.Pages.Product
         // Injected JSON file product service for accessing superhero data
         private readonly JsonFileProductService ProductService;
 
+        // Injected poll service for reading/writing persistent vote data
+        private readonly JsonFilePollService PollService;
+
         /// <summary>
         /// List of superheroes displayed on the Rank page, sorted by their score
         /// </summary>
         public IEnumerable<ProductModel> Superheroes { get; private set; } = Enumerable.Empty<ProductModel>();
 
         /// <summary>
-        /// Static counter for "Yes" poll responses across all sessions
+        /// Total number of "Yes" poll responses loaded from poll.json
         /// </summary>
-        public static int YesVotes { get; private set; } = 0;
+        public int YesVotes { get; private set; }
 
         /// <summary>
-        /// Static counter for "No" poll responses across all sessions
+        /// Total number of "No" poll responses loaded from poll.json
         /// </summary>
-        public static int NoVotes { get; private set; } = 0;
+        public int NoVotes { get; private set; }
 
         /// <summary>
         /// Calculates the percentage of "Yes" votes out of total votes
@@ -68,10 +71,11 @@ namespace ContosoCrafts.WebSite.Pages.Product
         [BindProperty]
         public string? PollResponse { get; set; }
 
-        // Constructor injecting the product service
-        public RankModel(JsonFileProductService productService)
+        // Constructor injecting the product and poll services
+        public RankModel(JsonFileProductService productService, JsonFilePollService pollService)
         {
             ProductService = productService;
+            PollService = pollService;
         }
 
         /// <summary>
@@ -80,6 +84,7 @@ namespace ContosoCrafts.WebSite.Pages.Product
         public void OnGet()
         {
             Superheroes = ProductService.GetProducts().OrderByDescending(p => p.Score);
+            LoadPoll();
         }
 
         /// <summary>
@@ -91,16 +96,31 @@ namespace ContosoCrafts.WebSite.Pages.Product
         {
             Superheroes = ProductService.GetProducts().OrderByDescending(p => p.Score);
 
-            if (PollResponse == "yes")
-            {
-                YesVotes++;
-            }
-            else if (PollResponse == "no")
-            {
-                NoVotes++;
-            }
+            // Load existing poll results
+            var poll = PollService.GetPollResult();
+
+            // Update based on user input
+            if (PollResponse == "yes") poll.YesVotes++;
+            else if (PollResponse == "no") poll.NoVotes++;
+
+            // Save updated results to JSON file
+            PollService.SavePollResult(poll);
+
+            // Update local properties for rendering
+            YesVotes = poll.YesVotes;
+            NoVotes = poll.NoVotes;
 
             return Page();
+        }
+
+        /// <summary>
+        /// Loads existing poll results from JSON file into local properties
+        /// </summary>
+        private void LoadPoll()
+        {
+            var poll = PollService.GetPollResult();
+            YesVotes = poll.YesVotes;
+            NoVotes = poll.NoVotes;
         }
     }
 }
