@@ -120,11 +120,14 @@ namespace UnitTests.Pages.Product
         [Test]
         public void YesPercentage_Should_Return_Correct_Percentage_Valid()
         {
+            // Arrange
             typeof(RankModel).GetProperty("YesVotes").SetValue(pageModel, 3);
             typeof(RankModel).GetProperty("NoVotes").SetValue(pageModel, 1);
 
+            // Act
             var result = pageModel.YesPercentage;
 
+            // Assert
             Assert.AreEqual(75, result);
         }
 
@@ -134,11 +137,14 @@ namespace UnitTests.Pages.Product
         [Test]
         public void NoPercentage_Should_Return_Correct_Percentage_Invalid()
         {
+            // Arrange
             typeof(RankModel).GetProperty("YesVotes").SetValue(pageModel, 1);
             typeof(RankModel).GetProperty("NoVotes").SetValue(pageModel, 3);
 
+            // Act
             var result = pageModel.NoPercentage;
 
+            // Assert
             Assert.AreEqual(75, result);
         }
 
@@ -148,9 +154,11 @@ namespace UnitTests.Pages.Product
         [Test]
         public void HasVoted_Should_Be_True_When_Votes_Exist_Valid()
         {
+            // Arrange
             typeof(RankModel).GetProperty("YesVotes").SetValue(pageModel, 1);
             typeof(RankModel).GetProperty("NoVotes").SetValue(pageModel, 1);
 
+            // Assert
             Assert.IsTrue(pageModel.HasVoted);
         }
 
@@ -160,9 +168,11 @@ namespace UnitTests.Pages.Product
         [Test]
         public void HasVoted_Should_Be_False_When_No_Votes_Invalid()
         {
+            // Arrange
             typeof(RankModel).GetProperty("YesVotes").SetValue(pageModel, 0);
             typeof(RankModel).GetProperty("NoVotes").SetValue(pageModel, 0);
 
+            // Assert
             Assert.IsFalse(pageModel.HasVoted);
         }
 
@@ -172,9 +182,13 @@ namespace UnitTests.Pages.Product
         [Test]
         public void CalculatePercentage_When_Total_Zero_Should_Return_Zero_Invalid()
         {
+            // Arrange
             var method = typeof(RankModel).GetMethod("CalculatePercentage", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+
+            // Act
             var result = method.Invoke(pageModel, new object[] { 0, 0 });
 
+            // Assert
             Assert.AreEqual(0, result);
         }
 
