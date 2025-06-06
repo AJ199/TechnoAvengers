@@ -39,6 +39,7 @@ namespace ContosoCrafts.WebSite
             services.Configure<EmailSettingsModel>(Configuration.GetSection("EmailSettings"));
             services.AddTransient<EmailService>();
             services.AddTransient<JsonFileCommentService>();
+            services.AddTransient<JsonFilePollService>();
         }
 
         /// <summary>
