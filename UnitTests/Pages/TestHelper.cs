@@ -75,6 +75,9 @@ namespace UnitTests
 
         // Default IObjectModelValidator implementation for real validation
         public static IObjectModelValidator ObjectModelValidator;
+
+        public static JsonFilePollService PollService;
+
         /// <summary>
         /// Provides setup and configuration for web-related services during unit tests
         /// </summary>
@@ -122,6 +125,9 @@ namespace UnitTests
             ProductService = new JsonFileProductService(MockWebHostEnvironment.Object);
 
             CommentService = new JsonFileCommentService(MockWebHostEnvironment.Object);
+
+            PollService = new JsonFilePollService(MockWebHostEnvironment.Object);
+
         }
 
         /// <summary>
