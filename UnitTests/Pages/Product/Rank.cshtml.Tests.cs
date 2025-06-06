@@ -1,6 +1,8 @@
 ﻿using NUnit.Framework;
 using ContosoCrafts.WebSite.Pages.Product;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+using ContosoCrafts.WebSite.Services;
+using Microsoft.AspNetCore.Hosting;
+using Moq;
 using System.Linq;
 
 namespace UnitTests.Pages.Product
@@ -16,12 +18,21 @@ namespace UnitTests.Pages.Product
         public static RankModel pageModel;
 
         /// <summary>
-        /// Initialize the test environment
+        /// Initialize the test environment with required services
         /// </summary>
         [SetUp]
         public void TestInitialize()
         {
-            pageModel = new RankModel(TestHelper.ProductService);
+            // Mock hosting environment to use "wwwroot" as WebRootPath
+            var mockEnvironment = new Mock<IWebHostEnvironment>();
+            mockEnvironment.Setup(m => m.WebRootPath).Returns("wwwroot");
+
+            // Set up required services
+            var productService = TestHelper.ProductService;
+            var pollService = new JsonFilePollService(mockEnvironment.Object);
+
+            // Instantiate the page model with both dependencies
+            pageModel = new RankModel(productService, pollService);
         }
 
         #endregion TestSetup
