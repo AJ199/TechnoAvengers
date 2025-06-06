@@ -118,7 +118,7 @@ namespace UnitTests.Pages.Product
         /// Verifies that DisplayStat highlights the hero when their stat is higher.
         /// </summary>
         [Test]
-        public void DisplayStat_HigherStat_ReturnsHighlightedHtml()
+        public void DisplayStat_Valid_HigherStat_ReturnsHighlightedHtml()
         {
             // Arrange
 
@@ -134,7 +134,7 @@ namespace UnitTests.Pages.Product
         /// Verifies that DisplayStat shows ⚔️ icon when stats are equal.
         /// </summary>
         [Test]
-        public void DisplayStat_EqualStat_ReturnsEqualHtml()
+        public void DisplayStat_Valid_EqualStat_ReturnsEqualHtml()
         {
             // Arrange
 
@@ -150,7 +150,7 @@ namespace UnitTests.Pages.Product
         /// Verifies that DisplayStat shows plain stat row when the value is lower.
         /// </summary>
         [Test]
-        public void DisplayStat_LowerStat_ReturnsPlainHtml()
+        public void DisplayStat_Valid_LowerStat_ReturnsPlainHtml()
         {
             // Arrange
 

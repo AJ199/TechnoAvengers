@@ -63,7 +63,7 @@ namespace UnitTests.Pages
         /// Ensures that the FAQModel instance is not null after initialization.
         /// </summary>
         [Test]
-        public void FAQModel_Should_Not_Be_Null()
+        public void FAQModel_Should_Not_Be_Null_Valid()
         {
             // Assert: Check that the page model is not null
             Assert.IsNotNull(pageModel);

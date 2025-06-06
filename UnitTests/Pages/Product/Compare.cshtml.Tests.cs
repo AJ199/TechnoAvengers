@@ -36,7 +36,7 @@ namespace UnitTests.Pages.Product
         /// Verifies that OnGet populates product list and hero dropdown options
         /// </summary>
         [Test]
-        public void OnGet_Should_Populate_Products_And_HeroOptions()
+        public void OnGet_Should_Populate_Products_And_Hero_Options_Valid()
         {
             //Arrange
 
@@ -76,7 +76,7 @@ namespace UnitTests.Pages.Product
         /// Verifies OnPost returns current page when the same hero is selected twice
         /// </summary>
         [Test]
-        public void OnPost_Same_Hero_Should_Return_Page()
+        public void OnPost_Valid_Same_Hero_Should_Return_Page()
         {
             // Arrange
             var data = TestHelper.ProductService.GetProducts().First();
@@ -94,7 +94,7 @@ namespace UnitTests.Pages.Product
         /// Verifies OnPost returns current page when Hero1 is missing
         /// </summary>
         [Test]
-        public void OnPost_Missing_Hero1_Should_Return_Page()
+        public void OnPost_Invalid_Missing_Hero1_Should_Return_Page()
         {
             // Arrange
             var data = TestHelper.ProductService.GetProducts().First();
@@ -112,7 +112,7 @@ namespace UnitTests.Pages.Product
         /// Verifies OnPost returns current page when Hero2 is missing
         /// </summary>
         [Test]
-        public void OnPost_Missing_Hero2_Should_Return_Page()
+        public void OnPost_Invalid_Missing_Hero2_Should_Return_Page()
         {
             // Arrange
             var data = TestHelper.ProductService.GetProducts().First();

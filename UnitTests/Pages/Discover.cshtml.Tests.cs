@@ -64,7 +64,7 @@ namespace UnitTests.Pages
         /// Verifies that the DiscoverModel instance is not null after setup.
         /// </summary>
         [Test]
-        public void DiscoverModel_Should_Not_Be_Null()
+        public void DiscoverModel_Should_Not_Be_Null_Valid()
         {
             // Assert: Confirm the page model instance is initialized
             Assert.IsNotNull(pageModel);

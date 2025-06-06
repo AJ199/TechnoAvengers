@@ -83,7 +83,7 @@ namespace UnitTests.Pages
         /// Validates that form is initialized when TempData contains a non-boolean value
         /// </summary>
         [Test]
-        public void OnGet_TempData_Success_Not_Boolean_Sets_Form_Only()
+        public void OnGet_TempData_Success_Not_Boolean_Sets_Form_Only_Valid()
         {
             // Arrange
             pageModel.TempData = TestHelper.TempData;

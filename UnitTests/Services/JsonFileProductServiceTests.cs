@@ -35,7 +35,7 @@ namespace UnitTests.Services
         /// Valid product ID with no prior ratings should create a new ratings array with one entry
         /// </summary>
         [Test]
-        public void Add_Rating_Valid_ProductId_No_Prior_Ratings_Should_Initialize_Ratings()
+        public void Add_Rating_Valid_Product_Id_No_Prior_Ratings_Should_Initialize_Ratings()
         {
             // Arrange
             var data = _productService.GetProducts().FirstOrDefault(p => p.Ratings == null);

@@ -61,10 +61,9 @@ namespace UnitTests.Services
         /// If poll.json file is missing, GetPollResult should return default PollResultModel
         /// </summary>
         [Test]
-        public void GetPollResult_FileNotExists_ShouldReturnDefaultModel()
+        public void GetPollResult_File_Not_Exists_Should_Return_Default_Model_Invalid()
         {
-            // Arrange: Ensure the file does not exist
-            if (File.Exists(_jsonFilePath)) File.Delete(_jsonFilePath);
+            // Arrange
 
             // Act: Call the method
             var result = _pollService.GetPollResult();
@@ -79,7 +78,7 @@ namespace UnitTests.Services
         /// If poll.json has valid data, GetPollResult should deserialize it correctly
         /// </summary>
         [Test]
-        public void GetPollResult_ValidFile_ShouldReturnDeserializedModel()
+        public void GetPollResult_Valid_File_Should_Return_Deserialized_Model()
         {
             // Arrange: Write a valid poll result to the file
             var expected = new PollResultModel { YesVotes = 2, NoVotes = 1 };
@@ -98,7 +97,7 @@ namespace UnitTests.Services
         /// If poll.json contains "null", GetPollResult should return default PollResultModel
         /// </summary>
         [Test]
-        public void GetPollResult_DeserializationReturnsNull_ShouldReturnDefaultModel()
+        public void GetPollResult_Deserialization_Returns_Null_Should_Return_Default_Model_Invalid()
         {
             // Arrange: Write "null" to simulate corrupt file
             File.WriteAllText(_jsonFilePath, "null");
@@ -120,7 +119,7 @@ namespace UnitTests.Services
         /// SavePollResult should write the poll result to poll.json as formatted JSON
         /// </summary>
         [Test]
-        public void SavePollResult_ShouldWriteCorrectJsonToFile()
+        public void SavePollResult_Should_Write_Correct_Json_To_File_Valid()
         {
             // Arrange: Create poll data to save
             var poll = new PollResultModel { YesVotes = 7, NoVotes = 3 };
@@ -144,7 +143,7 @@ namespace UnitTests.Services
         /// UpdatePoll with "yes" should increment YesVotes by 1
         /// </summary>
         [Test]
-        public void UpdatePoll_YesVote_ShouldIncrementYesVotes()
+        public void UpdatePoll_Yes_Vote_Should_Increment_Yes_Votes_Valid()
         {
             // Arrange: Initialize poll file with sample data
             var poll = new PollResultModel { YesVotes = 1, NoVotes = 1 };
@@ -162,7 +161,7 @@ namespace UnitTests.Services
         /// UpdatePoll with "no" should increment NoVotes by 1
         /// </summary>
         [Test]
-        public void UpdatePoll_NoVote_ShouldIncrementNoVotes()
+        public void UpdatePoll_No_Vote_Should_Increment_No_Votes_Invalid()
         {
             // Arrange: Write initial poll data
             var poll = new PollResultModel { YesVotes = 5, NoVotes = 0 };
@@ -180,7 +179,7 @@ namespace UnitTests.Services
         /// UpdatePoll with an invalid string should not change vote counts
         /// </summary>
         [Test]
-        public void UpdatePoll_InvalidVote_ShouldNotChangeVotes()
+        public void UpdatePoll_Invalid_Vote_Should_Not_Change_Votes()
         {
             // Arrange: Setup poll data
             var poll = new PollResultModel { YesVotes = 4, NoVotes = 2 };

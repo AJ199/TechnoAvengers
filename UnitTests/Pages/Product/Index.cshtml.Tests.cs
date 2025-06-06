@@ -35,7 +35,7 @@ namespace UnitTests.Pages.Product
         /// Ensures OnGet loads products successfully when no sorting parameters are provided.
         /// </summary>
         [Test]
-        public void OnGet_Should_Load_Products_When_No_Sort()
+        public void OnGet_Valid_Should_Load_Products_When_No_Sort()
         {
             // Act
             pageModel.OnGet();
@@ -49,7 +49,7 @@ namespace UnitTests.Pages.Product
         /// Ensures OnGet sorts products by Title in ascending order when requested.
         /// </summary>
         [Test]
-        public void OnGet_Sort_By_Title_Ascending_Should_Order_Correctly()
+        public void OnGet_Valid_Sort_By_Title_Ascending_Should_Order_Correctly()
         {
             // Arrange
             pageModel.SortField = "Title";
@@ -68,7 +68,7 @@ namespace UnitTests.Pages.Product
         /// Ensures OnGet sorts products by Title in descending order when requested.
         /// </summary>
         [Test]
-        public void OnGet_Sort_By_Title_Descending_Should_Order_Correctly()
+        public void OnGet_Valid_Sort_By_Title_Descending_Should_Order_Correctly()
         {
             // Arrange
             pageModel.SortField = "Title";
@@ -104,7 +104,7 @@ namespace UnitTests.Pages.Product
         /// Ensures OnGet applies default ascending sorting when SortOrder is null.
         /// </summary>
         [Test]
-        public void OnGet_Null_SortOrder_Should_Default_To_Ascending()
+        public void OnGet_Valid_Null_SortOrder_Should_Default_To_Ascending()
         {
             // Arrange
             pageModel.SortField = "Title";
