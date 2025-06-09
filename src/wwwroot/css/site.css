@@ -1214,6 +1214,63 @@ form { /* Filter Form */
     margin-left: auto;
     padding-right: 1rem; /* <--- Critical for pushing to the right */
 }
+
+.btn-index-primary,
+.btn-index-secondary,
+.btn-index-terciary {
+    font-family: 'Bangers', cursive;
+    font-size: 1.2rem; /* Slightly smaller text */
+    color: #fff;
+    padding: 6px 12px; /* Reduced padding for smaller buttons */
+    text-decoration: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    margin-top: 10px;
+}
+
+/* Read background, white letters, white hover */
+.btn-index-primary {
+    background-color: #ED1D24;
+    border-color: #ED1D24;
+}
+
+    .btn-index-primary:hover {
+        color: #fff;
+        background-color: #e9a8a6;
+        border-color: #e9a8a6;
+        transform: scale(1.05);
+        transition: transform 0.2s ease-in-out;
+    }
+
+/* Gray background, white letters, white hover*/
+.btn-index-secondary {
+    background-color: #666; /* Gray background color */
+    border: 2px solid #fff;
+    height: 47px;
+}
+
+.btn-index-secondary:hover {
+    color: #fff;
+    background-color: #999; /* Lighter gray on hover */
+    border: 2px solid #fff;
+    transform: scale(1.05);
+    transition: transform 0.2s ease-in-out;
+}
+
+/* Black backdround, white letter, red hover*/
+.btn-index-terciary {
+    background-color: #000;
+    border: 2px solid #fff;
+    height: 47px;
+}
+
+    .btn-index-terciary:hover {
+        color: #fff;
+        background-color: #ED1D24; /* Red hover */
+        border: 2px solid #fff;
+        transform: scale(1.05);
+        transition: transform 0.2s ease-in-out;
+    }
 /*End of homepage sort*/
 
 /* 
