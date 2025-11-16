@@ -15,9 +15,7 @@ The app emphasizes clean architecture, custom UI styling, and high-quality testi
 - Dynamic Knowledge Quiz with scoring  
 - Hero vs. Hero Battle Simulation  
 - Dark Mode toggle  
-- Print/Download PDF of Rankings  
-- Bootstrap 4 + custom CSS theme  
-- NUnit unit tests with goal of 100% code coverage
+- Download PDF of Rankings  
 
 ---
 
@@ -25,35 +23,19 @@ The app emphasizes clean architecture, custom UI styling, and high-quality testi
 
 ### **Frontend**
 - ASP.NET Core Razor Pages  
-- Bootstrap 4  
-- Custom CSS Theme (navbar, cards, dark mode)  
-- JavaScript for sorting, quizzes, and popups  
-- Google Fonts (Bangers)
+- Bootstrap 4
+- HTML
+- CSS
+- JavaScript
 
 ### **Backend**
-- ASP.NET Core (Razor Pages)  
+- ASP.NET Core  
 - C#  
 - Razor Page Model architecture  
-- Service Layer (e.g., ProductService / HeroService)  
+- Service Layer 
 - Built-in Dependency Injection (DI)
 
-### **Data**
-- JSON file data source for superheroes  
-  - Attributes: intelligence, strength, speed, durability, power, combat  
-  - Roles, descriptions, ratings  
 
 ### **Testing**
 - NUnit  
-- Moq for mocking services  
-- 100% coverage goal for:
-  - Index  
-  - Rank  
-  - BattleModel  
-  - Discover quiz  
-  - FAQ and other pages  
-
-### **Tools**
-- .NET SDK  
-- Visual Studio 2022  
-- Git + GitHub  
-- Windows development environment  
+- Moq for mocking services   
